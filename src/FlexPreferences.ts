@@ -12,32 +12,67 @@ export default class FlexPreferences extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new Spacer(),
+                new VStack(
+                    new Spacer(),
+                    new HStack(
+                        new TextView('Preferences').font('xxl').bold(),
+                        new Spacer()
+                    ).stretchWidth()
+                )
+                    .padding()
+                    .stretchWidth()
+                    .height(100)
+                    .background(HColor('gray6')),
 
-                new TextView('Preferences').font('xxl').bold(),
+                new VStack(
+                    new HStack(
+                        new TextView('Color Theme')
+                            .font('md')
+                            .bold()
+                            .foreground(HColor('gray4'))
+                            .margin({ bottom: 10 }),
+                        new Spacer()
+                    ).stretchWidth(),
 
-                new Spacer(),
+                    new HStack(
+                        ...(
+                            [
+                                'blue',
+                                'brown',
+                                'cyan',
+                                'green',
+                                'indigo',
+                                'mint',
+                                'orange',
+                                'pink',
+                                'purple',
+                                'red',
+                                'teal',
+                                'yellow',
+                            ] as HumanColorName[]
+                        ).map(color => ColorThemeButton(color)),
+                        new Spacer()
+                    ).stretchWidth()
+                )
+                    .stretchWidth()
+                    .padding(),
 
-                new TextView('Color Theme').font('md').bold().foreground(HColor('gray4')).margin({ bottom: 10 }),
+                new VStack(
+                    new HStack(
+                        new TextView('Color Theme')
+                            .font('md')
+                            .bold()
+                            .foreground(HColor('gray4'))
+                            .margin({ bottom: 10 }),
+                        new Spacer()
+                    ),
 
-                new HStack(
-                    ...(
-                        [
-                            'blue',
-                            'brown',
-                            'cyan',
-                            'green',
-                            'indigo',
-                            'mint',
-                            'orange',
-                            'pink',
-                            'purple',
-                            'red',
-                            'teal',
-                            'yellow',
-                        ] as HumanColorName[]
-                    ).map(color => ColorThemeButton(color))
-                ).stretchWidth(),
+                    new HStack()
+                )
+                    .stretchWidth()
+                    .padding(),
+
+                new HStack(new HStack()),
 
                 new Spacer()
             ).stretch()
@@ -46,8 +81,12 @@ export default class FlexPreferences extends HIFullScreenView {
 }
 
 function ColorThemeButton(color: HumanColorName): ClickButton {
-    return new ClickButton(new IonIcon('ellipse').font('xxl').foreground(HColor(color))).whenClicked(() => {
-        BrowserPreferences.setColorTheme(color);
-        window.location.reload();
-    });
+    return new ClickButton(
+        new IonIcon('ellipse').font('xxl').foreground(HColor(color))
+    )
+        .padding(0)
+        .whenClicked(() => {
+            BrowserPreferences.setColorTheme(color);
+            window.location.reload();
+        });
 }
