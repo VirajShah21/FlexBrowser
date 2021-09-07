@@ -7,6 +7,7 @@ import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from './BrowserPreferences';
 
 export default class FlexPreferences extends HIFullScreenView {
@@ -15,6 +16,16 @@ export default class FlexPreferences extends HIFullScreenView {
             new VStack(
                 new VStack(
                     new Spacer(),
+                    new HStack(
+                        new ClickButton(new TextView('Back'))
+                            .padding(0)
+                            .whenClicked(() => {
+                                ViewController.getController(
+                                    'AppController'
+                                )!.navigateTo('hub');
+                            }),
+                        new Spacer()
+                    ).stretchWidth(),
                     new HStack(
                         new TextView('Preferences').font('xxl').bold(),
                         new Spacer()
