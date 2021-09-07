@@ -25,7 +25,10 @@ export default class FlexPreferences extends HIFullScreenView {
                                 )!.navigateTo('hub');
                             }),
                         new Spacer()
-                    ).stretchWidth(),
+                    )
+                        .stretchWidth()
+                        .margin({ top: 20 }),
+
                     new HStack(
                         new TextView('Preferences').font('xxl').bold(),
                         new Spacer()
@@ -139,9 +142,27 @@ function HighlightColorButton(color: HumanColorName): ClickButton {
     return new ClickButton(
         new IonIcon('ellipse').font('xxl').foreground(HColor(color))
     )
+        .id(`highlight-${color}`)
+        .addClass('highlight-radio')
         .padding(0)
-        .whenClicked(() => {
+        .whenClicked(ev => {
             BrowserPreferences.setColorTheme(color);
+            ev.view
+                .root()
+                .getViewsByClass('highlight-radio')
+                .forEach(view =>
+                    view.borderBottom({
+                        size: 0,
+                    })
+                );
+            ev.view
+                .root()
+                .getViewById(`highlight-${color}`)
+                ?.borderBottom({
+                    size: 3,
+                    style: 'solid',
+                    color: HColor('foreground'),
+                });
             window.location.reload();
         });
 }
