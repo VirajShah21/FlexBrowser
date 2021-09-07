@@ -19,12 +19,21 @@ export default class FlexPreferences extends HIFullScreenView {
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .padding(0)
-                            .whenClicked(() => {
+                            .foreground(
+                                HColor(BrowserPreferences.getColorTheme())
+                            )
+                            .whenClicked(() =>
                                 ViewController.getController(
                                     'AppController'
-                                )!.navigateTo('hub');
-                            }),
-                        new Spacer()
+                                )!.navigateTo('hub')
+                            ),
+                        new Spacer(),
+                        new ClickButton(new TextView('Reload'))
+                            .padding(0)
+                            .foreground(
+                                HColor(BrowserPreferences.getColorTheme())
+                            )
+                            .whenClicked(() => window.location.reload())
                     )
                         .stretchWidth()
                         .margin({ top: 20 }),
@@ -163,6 +172,5 @@ function HighlightColorButton(color: HumanColorName): ClickButton {
                     style: 'solid',
                     color: HColor('foreground'),
                 });
-            window.location.reload();
         });
 }
