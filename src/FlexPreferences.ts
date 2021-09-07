@@ -34,7 +34,8 @@ export default class FlexPreferences extends HIFullScreenView {
                     .padding()
                     .stretchWidth()
                     .height(100)
-                    .background(HColor('gray6')),
+                    .background(HColor('gray6'))
+                    .foreground(HColor('foreground')),
 
                 new VStack(
                     new HStack(
@@ -131,7 +132,10 @@ export default class FlexPreferences extends HIFullScreenView {
                 new HStack(new HStack()),
 
                 new Spacer()
-            ).stretch()
+            )
+                .stretch()
+                .background(HColor('background'))
+                .foreground(HColor('foreground'))
         );
     }
 }
