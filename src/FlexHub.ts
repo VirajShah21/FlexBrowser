@@ -8,23 +8,13 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from './BrowserPreferences';
+import HubTitlebar from './HubTitlebar';
 
 export default class FlexHub extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new VStack(
-                    new Spacer(),
-                    new HStack(
-                        new TextView('Flex Hub').font('xxl').bold(),
-                        new Spacer()
-                    ).stretchWidth()
-                )
-                    .padding()
-                    .stretchWidth()
-                    .height(100)
-                    .background(HColor('gray6'))
-                    .foreground(HColor('foreground')),
+                new HubTitlebar('Flex Hub'),
 
                 new Spacer(),
 
