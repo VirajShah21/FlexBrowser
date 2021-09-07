@@ -1,4 +1,5 @@
 import { HColor } from '@Hi/Colors';
+import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
@@ -32,8 +33,17 @@ export default class FlexWindowViewer extends HIFullScreenView {
         const container = this.getViewById(
             'window-buttons-container'
         ) as ScrollView;
-        flexarch.getWindowList();
-        container.removeAllChildren().addChildren();
+        const windowList = flexarch.getWindowList();
+        container
+            .removeAllChildren()
+            .addChildren(
+                ...windowList.map(win =>
+                    new ClickButton(new TextView(win.title))
+                        .stretchWidth()
+                        .padding()
+                        .background(HColor('gray5'))
+                )
+            );
     }
 }
 
