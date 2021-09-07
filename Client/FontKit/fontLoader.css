@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'SF Pro';
+    src: url('./fonts/SF-Pro.ttf');
+}
+
+@font-face {
+    font-family: 'SF Pro';
+    src: url('./fonts/SF-Pro-Display-Bold.otf');
+    font-weight: bold;
+}
+
+* {
+    font-family: 'SF Pro';
+}

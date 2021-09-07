@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "amd",
+        "lib": ["esnext", "dom"],
+        "rootDir": "./ts/",
+        "outFile": "./build/hi.js",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "moduleResolution": "Node",
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "target": "ES2020"
+    },
+    "include": ["ts/**/*.ts"]
+}

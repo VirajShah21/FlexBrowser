@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ESLint Results</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style type="text/css">
+    body {
+      margin: 0;
+    }
+  
+    .eslint-report {
+      font-family: "Helvetica Neue", sans-serif;
+      font-size: 14px;
+      padding: 20px 40px;
+    }
+  
+    .eslint-report h1 {
+      border-bottom: 1px solid #ddd;
+      line-height: 1;
+      padding-bottom: 12px;
+    }
+  
+    .eslint-report h2 {
+      padding-bottom: 9px;
+      line-height: 1;
+      margin-top: 24px;
+      margin-bottom: 9px;
+    }
+  
+    .eslint-report h3 {
+      line-height: 1;
+      margin-top: 0;
+    }
+  
+    .eslint-report a {
+      text-decoration: none;
+    }
+  
+    .eslint-report table {
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+  
+    .toggle-all-link {
+      font-size: 14px;
+    }
+  
+    .report-table {
+      font-size: 14px;
+      min-width: 800px;
+      border: 1px solid #e6e6e6;
+      margin: 10px;
+    }
+  
+    .report-table thead {
+      background-color: #eee;
+    }
+  
+    .report-table th {
+      text-align: left;
+      vertical-align: middle;
+    }
+  
+    .report-table th,
+    .report-table td {
+      padding: 4px 9px;
+      border: 1px solid #ccc;
+    }
+  
+    .report-table td {
+      line-height: 1.5;
+      vertical-align: top;
+    }
+  
+    .report-table .error-col {
+      width: 41px;
+    }
+  
+    .report-table .warning-col {
+      width: 63px;
+    }
+  
+    .report-table .toggle-link {
+      display: block;
+    }
+  
+    .report-table .danger td {
+      background-color: rgba(242, 222, 222, 0.8);
+    }
+  
+    .report-table .danger:hover td {
+      background-color: rgba(242, 222, 222, 1);
+    }
+  
+    .report-table .warning td {
+      background-color: rgba(252, 248, 227, 0.8);
+    }
+  
+    .report-table .warning:hover td {
+      background-color: rgba(252, 248, 227, 1);
+    }
+  
+    .report-table .success td {
+      background-color: rgba(223, 240, 216, 0.8);
+    }
+  
+    .report-table .success:hover td {
+      background-color: rgba(223, 240, 216, 1);
+    }
+  
+    .table-wrapper {
+      display: flex;
+      justify-content: flex-start;
+      width: 600px;
+      align-items: flex-end;
+    }
+  
+    .table-wrapper.occurrences {
+      align-items: flex-start;
+    }
+  
+    .table-wrapper.occurrences .table-column {
+      height: 180px;
+      overflow-y: auto;
+    }
+  
+    .table-column {
+      flex: 1;
+      margin: 10px;
+    }
+  
+    .summary-table {
+      width: 100%;
+    }
+  
+    .summary-table a {
+      display: block;
+    }
+  
+    .summary-table td {
+      padding: 4px 0;
+    }
+  
+    .summary-table td:last-child {
+      text-align: right;
+    }
+  
+    .summary-table tfoot td {
+      border-top: 2px solid #666;
+      font-weight: bold;
+    }
+  
+    .details-row.hidden {
+      display: none;
+    }
+  
+    .details-table {
+      font-size: 12px;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+  
+    .details-table td {
+      border: 0;
+      padding: 1px 6px;
+    }
+  
+    .details-table td:first-child {
+      padding-left: 0;
+    }
+  
+    .details-table .location-col {
+      width: 25px;
+    }
+  
+    .details-table .rule-col {
+      white-space: nowrap;
+      width: 100px;
+    }
+  
+    .details-table .rule-col a {
+      display: block;
+    }
+  
+    .details-table .rule-col a:hover {
+      text-decoration: underline;
+    }
+  
+    .details-table .severity-col {
+      width: 45px;
+    }
+  
+    .details-table .msg-danger .severity-col {
+      color: #900;
+    }
+  
+    .details-table .msg-warning .severity-col {
+      color: #f90;
+    }
+  </style>
+
+    <script>
+      // yolo
+      function toggleAllDetails(node) {
+        var rows = document.querySelectorAll("tr.details-row");
+    
+        if (node.innerHTML === "(expand all)") {
+          node.innerHTML = "(collapse all)";
+    
+          for (var x = 0; x < rows.length; x++) {
+            var row = rows[x];
+            row.className = "details-row";
+          }
+        } else {
+          node.innerHTML = "(expand all)";
+    
+          for (var x = 0; x < rows.length; x++) {
+            var row = rows[x];
+            row.className = "details-row hidden";
+          }
+        }
+      }
+    
+      function toggleDetails(node) {
+        var parentRow = node.parentNode.parentNode;
+        var detailsRow = parentRow.nextSibling;
+    
+        if (detailsRow.className === "details-row hidden") {
+          detailsRow.className = "details-row";
+        } else {
+          detailsRow.className = "details-row hidden";
+        }
+      }
+    </script>
+</head>
+<body>
+  <div class="eslint-report">
+    <h1>ESLint Results</h1>
+
+      <h2>Summary</h2>
+      
+      <div class="table-wrapper">
+        <div class="table-column">
+          <table class="summary-table">
+              <tbody>
+                <tr>
+                  <td>Errors</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Warnings</td>
+                  <td>2</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total alerts</td>
+                  <td>2</td>
+                </tr>
+              </tfoot>
+          </table>
+        </div>
+        <div class="table-column">
+          <table class="summary-table">
+              <tbody>
+                <tr>
+                  <td>Files with errors</td>
+                  <td>0</td>
+                </tr>
+                <tr>
+                  <td>Files with only warnings</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>Clean files</td>
+                  <td>59</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total files linted</td>
+                  <td>60</td>
+                </tr>
+              </tfoot>
+          </table>
+        </div>
+      </div>
+
+        <h2>Most-Common Errors and Warnings</h2>
+        
+        <div class="table-wrapper occurrences">
+          <div class="table-column">
+            <h3>Errors</h3>
+        
+              <p>No errors were found!</p>
+          </div>
+          <div class="table-column">
+            <h3>Warnings</h3>
+        
+              <table class="summary-table">
+                <tbody>
+                    <tr class="occurrence row-0">
+                        <td><a href="http://eslint.org/docs/rules/@typescript-eslint/no-unused-vars">@typescript-eslint/no-unused-vars</a></td>
+                      <td>2</td>
+                    </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+
+      <h2>File Breakdown
+          <a id="toggle" href="javascript:;" onclick="toggleAllDetails(this)" class="toggle-all-link">(expand all)</a></h2>
+      
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th class="error-col">Errors</th>
+            <th class="warning-col">Warnings</th>
+          </tr>
+        </thead>
+        <tbody><tr class="warning"><td>            <a class="toggle-link" href="javascript:;" onclick="toggleDetails(this)">/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/DevKit.ts</a></td>
+              <td>0</td>
+              <td>2</td></tr><tr class="details-row hidden">
+                <td colspan="3">
+                  <table class="details-table">
+                    <tbody><tr class="msg-warning"><td class="location-col">
+                              4:8
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">&#x27;Checkbox&#x27; is defined but never used.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/@typescript-eslint/no-unused-vars">@typescript-eslint/no-unused-vars</a></td>
+      </tr><tr class="msg-warning"><td class="location-col">
+                              8:8
+                          </td>
+                          <td class="severity-col">Warning</td>
+                          <td class="message-col">&#x27;Overlay&#x27; is defined but never used.</td>
+                            <td class="rule-col"><a href="http://eslint.org/docs/rules/@typescript-eslint/no-unused-vars">@typescript-eslint/no-unused-vars</a></td>
+      </tr></tbody>
+                  </table>
+                </td>
+              </tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Colors.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/AgreementOverlay.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/AlertOverlay.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/BlockCode.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/Canvas.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/CanvasContext.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/Checkbox.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/ClickButton.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/Container.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/DetailsSummaryView.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/DetailsView.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/Group.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/HIFullScreenView.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/HStack.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/Hyperlink.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/ImageView.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/InlineCode.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/InputField.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/IonIcon.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/LineBreak.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/Overlay.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/PasswordField.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/PromptOverlay.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/RadioButton.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/RadioGroup.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/ScrollView.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/Spacer.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/Sprite.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/SpriteGeometryFunction.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/Stack.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/TextBox.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/TextField.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/TextView.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/VStack.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Components/ZStack.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Types/sizing.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Types/states.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/Types/styles.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/View.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/ViewConnectors.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Client/ts/ViewController.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/GuidesApp.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/MessageViewer.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/Pages/BasicComponents.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/Pages/Components/DisplayText.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/Pages/Components/FileTreeItem.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/Pages/Components/HTMLContent.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/Pages/Components/MajorIcon.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/Pages/Components/TypeDefinitionDocumentation.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/Pages/GettingStarted.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/Pages/GraphicsComponents.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/Pages/SizingTypes.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/SearchField.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/SettingsOverlay.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/Sidebar.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/Titlebar.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/Guides/guides.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/HumanServer/HumanDatabase.ts</td>
+              <td>0</td>
+              <td>0</td></tr><tr class="success"><td>/Users/viraj/Documents/Code/HiGithub/HumanServer/index.ts</td>
+              <td>0</td>
+              <td>0</td></tr></tbody>
+      </table>
+
+  </div>
+</body>
+</html>

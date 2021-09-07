@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "lib": ["esnext", "dom"],
+        "rootDir": ".",
+        "outDir": "./Guides/js",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "target": "ES2020",
+        "allowJs": true,
+        "resolveJsonModule": true,
+        "baseUrl": ".",
+        "paths": {
+            "@Hi/*": ["./Client/ts/*"]
+        },
+        "strictNullChecks": true
+        // "noUncheckedIndexedAccess": true
+    },
+    "include": ["./**/*.ts"],
+    "exclude": ["./node_modules"]
+}
