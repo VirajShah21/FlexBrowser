@@ -7,15 +7,13 @@ import { ScrollView } from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import HubTitlebar from './HubTitlebar';
 
 export default class FlexWindowViewer extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new TextView('Windows')
-                    .font('xxl')
-                    .bold()
-                    .margin({ top: 25, bottom: 25 }),
+                new HubTitlebar('Windows'),
                 new ScrollView(
                     new VStack()
                         .stretchWidth()
