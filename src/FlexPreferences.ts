@@ -30,7 +30,6 @@ export default class FlexPreferences extends HIFullScreenView {
                         new TextView('Highlight Color')
                             .font('md')
                             .bold()
-                            .foreground(HColor('gray4'))
                             .margin({ bottom: 10 }),
                         new Spacer()
                     ).stretchWidth(),
@@ -63,7 +62,6 @@ export default class FlexPreferences extends HIFullScreenView {
                         new TextView('Theme')
                             .font('md')
                             .bold()
-                            .foreground(HColor('gray4'))
                             .margin({ bottom: 10 }),
                         new Spacer()
                     ).stretchWidth(),
@@ -83,6 +81,8 @@ export default class FlexPreferences extends HIFullScreenView {
                                 })
                                 .rounded(),
                             new TextView('Light Mode')
+                                .margin({ top: 5 })
+                                .font('sm')
                         ).rounded(),
 
                         new Spacer(),
@@ -101,6 +101,8 @@ export default class FlexPreferences extends HIFullScreenView {
                                 })
                                 .rounded(),
                             new TextView('Dark Mode')
+                                .margin({ top: 5 })
+                                .font('sm')
                         ).rounded(),
 
                         new Spacer()
