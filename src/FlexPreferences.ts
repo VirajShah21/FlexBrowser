@@ -1,4 +1,4 @@
-import { HColor, HumanColorName } from '@Hi/Colors';
+import { changeTheme, HColor, HumanColorName } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
@@ -7,6 +7,7 @@ import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from './BrowserPreferences';
 
 export default class FlexPreferences extends HIFullScreenView {
@@ -16,6 +17,16 @@ export default class FlexPreferences extends HIFullScreenView {
                 new VStack(
                     new Spacer(),
                     new HStack(
+                        new ClickButton(new TextView('Back'))
+                            .padding(0)
+                            .whenClicked(() => {
+                                ViewController.getController(
+                                    'AppController'
+                                )!.navigateTo('hub');
+                            }),
+                        new Spacer()
+                    ).stretchWidth(),
+                    new HStack(
                         new TextView('Preferences').font('xxl').bold(),
                         new Spacer()
                     ).stretchWidth()
@@ -23,7 +34,8 @@ export default class FlexPreferences extends HIFullScreenView {
                     .padding()
                     .stretchWidth()
                     .height(100)
-                    .background(HColor('gray6')),
+                    .background(HColor('gray6'))
+                    .foreground(HColor('foreground')),
 
                 new VStack(
                     new HStack(
@@ -79,7 +91,10 @@ export default class FlexPreferences extends HIFullScreenView {
                                     style: 'solid',
                                     color: HColor('gray3'),
                                 })
-                                .rounded(),
+                                .rounded()
+                                .whenClicked(() => {
+                                    changeTheme('light');
+                                }),
                             new TextView('Light Mode')
                                 .margin({ top: 5 })
                                 .font('sm')
@@ -99,7 +114,10 @@ export default class FlexPreferences extends HIFullScreenView {
                                     style: 'solid',
                                     color: HColor('gray3'),
                                 })
-                                .rounded(),
+                                .rounded()
+                                .whenClicked(() => {
+                                    changeTheme('dark');
+                                }),
                             new TextView('Dark Mode')
                                 .margin({ top: 5 })
                                 .font('sm')
@@ -114,7 +132,10 @@ export default class FlexPreferences extends HIFullScreenView {
                 new HStack(new HStack()),
 
                 new Spacer()
-            ).stretch()
+            )
+                .stretch()
+                .background(HColor('background'))
+                .foreground(HColor('foreground'))
         );
     }
 }

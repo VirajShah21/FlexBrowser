@@ -23,7 +23,8 @@ export default class FlexHub extends HIFullScreenView {
                     .padding()
                     .stretchWidth()
                     .height(100)
-                    .background(HColor('gray6')),
+                    .background(HColor('gray6'))
+                    .foreground(HColor('foreground')),
 
                 new Spacer(),
 
@@ -60,7 +61,10 @@ export default class FlexHub extends HIFullScreenView {
                 ).stretchWidth(),
 
                 new Spacer()
-            ).stretch()
+            )
+                .stretch()
+                .background(HColor('background'))
+                .foreground(HColor('foreground'))
         );
 
         this.body.style.setProperty('-webkit-app-region', 'drag');
