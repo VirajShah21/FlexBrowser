@@ -43,12 +43,6 @@ export default class FlexHub extends HIFullScreenView {
 
                     HubButton(new IonIcon('bookmarks'), 'Bookmarks'),
 
-                    new Spacer()
-                ).stretchWidth(),
-
-                new Spacer(),
-
-                new HStack(
                     new Spacer(),
 
                     HubButton(new IonIcon('time'), 'History'),
@@ -64,8 +58,6 @@ export default class FlexHub extends HIFullScreenView {
 
                     new Spacer()
                 ).stretchWidth(),
-
-                new Spacer(),
 
                 new Spacer()
             ).stretch()
