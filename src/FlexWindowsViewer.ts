@@ -28,7 +28,7 @@ export default class FlexWindowViewer extends HIFullScreenView {
         );
     }
 
-    handle() {
+    override handle() {
         const container = this.getViewById(
             'window-buttons-container'
         ) as ScrollView;
