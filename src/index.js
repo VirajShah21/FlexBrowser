@@ -23,11 +23,21 @@ function createWindow() {
     win.loadFile('index.html');
 
     win.setBrowserView(new BrowserView());
-    win.getBrowserView().setBounds({ x: 0, y: 70, width: win.getSize()[0], height: win.getSize()[1] - 70 });
+    win.getBrowserView().setBounds({
+        x: 0,
+        y: 70,
+        width: win.getSize()[0],
+        height: win.getSize()[1] - 70,
+    });
     win.getBrowserView().webContents.loadURL('https://google.com');
 
     win.addListener('resize', () => {
-        win.getBrowserView().setBounds({ x: 0, y: 70, width: win.getSize()[0], height: win.getSize()[1] - 70 });
+        win.getBrowserView().setBounds({
+            x: 0,
+            y: 70,
+            width: win.getSize()[0],
+            height: win.getSize()[1] - 70,
+        });
     });
 
     ipcMain.on('changeUrl', (_, to) => {
@@ -37,7 +47,14 @@ function createWindow() {
     ipcMain.on('newWindow', createWindow);
 
     ipcMain.on('getWindowList', event => {
-        event.reply('fillWindowList', flexBrowserInstances);
+        event.reply(
+            'fillWindowList',
+            flexBrowserInstances.map(instance => {
+                return {
+                    title: instance.getBrowserView().webContents.getTitle(),
+                };
+            })
+        );
     });
 }
 
