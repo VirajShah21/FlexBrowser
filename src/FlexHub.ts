@@ -1,3 +1,4 @@
+import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
@@ -12,12 +13,17 @@ export default class FlexHub extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new Spacer(),
-
-                new TextView('Flex Hub')
-                    .font('xxl')
-                    .bold()
-                    .margin({ bottom: 25 }),
+                new VStack(
+                    new Spacer(),
+                    new HStack(
+                        new TextView('Flex Hub').font('xxl').bold(),
+                        new Spacer()
+                    ).stretchWidth()
+                )
+                    .padding()
+                    .stretchWidth()
+                    .height(100)
+                    .background(HColor('gray6')),
 
                 new Spacer(),
 
