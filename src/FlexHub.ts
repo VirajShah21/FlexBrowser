@@ -14,17 +14,24 @@ export default class FlexHub extends HIFullScreenView {
             new VStack(
                 new Spacer(),
 
-                new TextView('Flex Hub').font('xxl').bold().margin({ bottom: 25 }),
+                new TextView('Flex Hub')
+                    .font('xxl')
+                    .bold()
+                    .margin({ bottom: 25 }),
 
                 new Spacer(),
 
                 new HStack(
                     new Spacer(),
 
-                    HubButton(new IonIcon('albums'), 'Windows').whenClicked(() => {
-                        ViewController.navigateTo('windows');
-                        ViewController.getController('AppController')?.signal('refresh-windows');
-                    }),
+                    HubButton(new IonIcon('albums'), 'Windows').whenClicked(
+                        () => {
+                            ViewController.navigateTo('windows');
+                            ViewController.getController(
+                                'AppController'
+                            )?.signal('refresh-windows');
+                        }
+                    ),
 
                     new Spacer(),
 
@@ -42,7 +49,10 @@ export default class FlexHub extends HIFullScreenView {
 
                     new Spacer(),
 
-                    HubButton(new IonIcon('cog-outline'), 'Preferences').whenClicked(() =>
+                    HubButton(
+                        new IonIcon('cog-outline'),
+                        'Preferences'
+                    ).whenClicked(() =>
                         ViewController.navigateTo('preferences')
                     ),
 
@@ -60,7 +70,9 @@ export default class FlexHub extends HIFullScreenView {
 }
 
 function HubButton(icon: IonIcon, title: string): ClickButton {
-    return new ClickButton(new VStack(icon.font(50), new Spacer(), new TextView(title)).stretch())
+    return new ClickButton(
+        new VStack(icon.font(50), new Spacer(), new TextView(title)).stretch()
+    )
         .padding()
         .foreground(BrowserPreferences.getPrimaryColor())
         .width(100)

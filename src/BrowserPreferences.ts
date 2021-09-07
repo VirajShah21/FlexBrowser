@@ -17,6 +17,8 @@ export default class BrowserPreferences {
     }
 
     public static initialize(): void {
-        BrowserPreferences.colorTheme = (localStorage.getItem('flex://color-theme') || 'blue') as HumanColorName;
+        BrowserPreferences.colorTheme = (localStorage.getItem(
+            'flex://color-theme'
+        ) || 'blue') as HumanColorName;
     }
 }

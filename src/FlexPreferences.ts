@@ -18,7 +18,11 @@ export default class FlexPreferences extends HIFullScreenView {
 
                 new Spacer(),
 
-                new TextView('Color Theme').font('md').bold().foreground(HColor('gray4')).margin({ bottom: 10 }),
+                new TextView('Color Theme')
+                    .font('md')
+                    .bold()
+                    .foreground(HColor('gray4'))
+                    .margin({ bottom: 10 }),
 
                 new HStack(
                     ...(
@@ -46,7 +50,9 @@ export default class FlexPreferences extends HIFullScreenView {
 }
 
 function ColorThemeButton(color: HumanColorName): ClickButton {
-    return new ClickButton(new IonIcon('ellipse').font('xxl').foreground(HColor(color))).whenClicked(() => {
+    return new ClickButton(
+        new IonIcon('ellipse').font('xxl').foreground(HColor(color))
+    ).whenClicked(() => {
         BrowserPreferences.setColorTheme(color);
         window.location.reload();
     });

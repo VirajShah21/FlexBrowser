@@ -24,10 +24,12 @@ export default class FlexBrowserWindow extends HIFullScreenView {
             new VStack(
                 new HStack(
                     new HStack(
-                        TaskbarButton(new IonIcon('chevron-back-circle-outline')).whenClicked(() =>
-                            this.previousPage()
-                        ),
-                        TaskbarButton(new IonIcon('chevron-forward-circle-outline')).whenClicked(() => this.nextPage()),
+                        TaskbarButton(
+                            new IonIcon('chevron-back-circle-outline')
+                        ).whenClicked(() => this.previousPage()),
+                        TaskbarButton(
+                            new IonIcon('chevron-forward-circle-outline')
+                        ).whenClicked(() => this.nextPage()),
                         new Spacer()
                     )
                         .width('25%')
@@ -39,40 +41,59 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                         .id('url')
                         .whenChanged(ev => {
                             const browserWindow = ev.view.root(
-                                view => (view as FlexBrowserWindow).isBrowserWindow
+                                view =>
+                                    (view as FlexBrowserWindow).isBrowserWindow
                             ) as FlexBrowserWindow;
-                            const icon = browserWindow.getViewById('url-refresh-button') as IonIcon;
+                            const icon = browserWindow.getViewById(
+                                'url-refresh-button'
+                            ) as IonIcon;
 
-                            (icon.body as HTMLInputElement).name = 'arrow-forward-outline'; // ! Workaround to use .name
+                            (icon.body as HTMLInputElement).name =
+                                'arrow-forward-outline'; // ! Workaround to use .name
                         })
                         .background(HColor('gray6'))
                         .noOutline()
-                        .whenFocused(ev => ev.view.background(HColor('background')).textStart())
-                        .whenUnfocused(ev => ev.view.background(HColor('gray6')).textCenter())
+                        .whenFocused(ev =>
+                            ev.view.background(HColor('background')).textStart()
+                        )
+                        .whenUnfocused(ev =>
+                            ev.view.background(HColor('gray6')).textCenter()
+                        )
                         .whenKeyPressed(ev => {
                             if (ev.key == 'Enter') {
                                 const browserWindow = ev.view.root(
-                                    view => (view as FlexBrowserWindow).isBrowserWindow
+                                    view =>
+                                        (view as FlexBrowserWindow)
+                                            .isBrowserWindow
                                 ) as FlexBrowserWindow;
-                                const searchbar = this.getViewById('url') as InputField;
+                                const searchbar = this.getViewById(
+                                    'url'
+                                ) as InputField;
                                 browserWindow.goTo(searchbar.model.value);
                             }
                         }),
 
                     new HStack(
-                        TaskbarButton(new IonIcon('refresh-circle-outline').id('url-refresh-button')).whenClicked(
-                            ev => {
-                                const browserWindow = ev.view.root(
-                                    view => (view as FlexBrowserWindow).isBrowserWindow
-                                ) as FlexBrowserWindow;
-                                const url = (browserWindow.getViewById('url') as InputField).model.value;
+                        TaskbarButton(
+                            new IonIcon('refresh-circle-outline').id(
+                                'url-refresh-button'
+                            )
+                        ).whenClicked(ev => {
+                            const browserWindow = ev.view.root(
+                                view =>
+                                    (view as FlexBrowserWindow).isBrowserWindow
+                            ) as FlexBrowserWindow;
+                            const url = (
+                                browserWindow.getViewById('url') as InputField
+                            ).model.value;
 
-                                browserWindow.goTo(url);
-                            }
-                        ),
+                            browserWindow.goTo(url);
+                        }),
                         new Spacer(),
 
-                        TaskbarButton(new IonIcon('add-circle-outline')).whenClicked(() => {
+                        TaskbarButton(
+                            new IonIcon('add-circle-outline')
+                        ).whenClicked(() => {
                             flexarch.newWindow();
                         })
                     )
@@ -129,9 +150,14 @@ export default class FlexBrowserWindow extends HIFullScreenView {
     public previousPage(): void {
         console.log(this);
         this.historyPointer--;
-        if (this.historyPointer >= 0 && this.historyPointer < this.history.length) {
+        if (
+            this.historyPointer >= 0 &&
+            this.historyPointer < this.history.length
+        ) {
             this.goTo(this.history[this.historyPointer], false);
-            console.log(`Navigating back to ${this.history[this.historyPointer]}`);
+            console.log(
+                `Navigating back to ${this.history[this.historyPointer]}`
+            );
         } else {
             this.historyPointer++;
             console.log('Could not navigate back anymore');
@@ -140,9 +166,15 @@ export default class FlexBrowserWindow extends HIFullScreenView {
 
     public nextPage(): void {
         this.historyPointer++;
-        if (this.historyPointer >= 0 && this.historyPointer < this.history.length) {
+        if (
+            this.historyPointer >= 0 &&
+            this.historyPointer < this.history.length
+        ) {
             this.goTo(this.history[this.historyPointer]);
-            console.log(`Navigating forward to ${this.history[this.historyPointer]}`, false);
+            console.log(
+                `Navigating forward to ${this.history[this.historyPointer]}`,
+                false
+            );
         } else {
             this.historyPointer--;
             console.log('Could not navigate more forward');
@@ -151,7 +183,9 @@ export default class FlexBrowserWindow extends HIFullScreenView {
 }
 
 function TaskbarButton(icon: IonIcon) {
-    return new ClickButton(icon.foreground(BrowserPreferences.getPrimaryColor()))
+    return new ClickButton(
+        icon.foreground(BrowserPreferences.getPrimaryColor())
+    )
         .rounded()
         .font('xl')
         .padding(3)

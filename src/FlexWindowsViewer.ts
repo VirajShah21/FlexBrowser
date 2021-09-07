@@ -11,8 +11,16 @@ export default class FlexWindowViewer extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new TextView('Windows').font('xxl').bold().margin({ top: 25, bottom: 25 }),
-                new ScrollView(new VStack().stretchWidth().padding().id('window-buttons-container'))
+                new TextView('Windows')
+                    .font('xxl')
+                    .bold()
+                    .margin({ top: 25, bottom: 25 }),
+                new ScrollView(
+                    new VStack()
+                        .stretchWidth()
+                        .padding()
+                        .id('window-buttons-container')
+                )
                     .stretchWidth()
                     .padding(),
                 new Spacer()
@@ -21,7 +29,9 @@ export default class FlexWindowViewer extends HIFullScreenView {
     }
 
     handle() {
-        const container = this.getViewById('window-buttons-container') as ScrollView;
+        const container = this.getViewById(
+            'window-buttons-container'
+        ) as ScrollView;
         flexarch.getWindowList();
         container.removeAllChildren().addChildren();
     }
