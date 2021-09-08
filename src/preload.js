@@ -10,6 +10,7 @@ function newWindow() {
 
 function getWindowList() {
     ipcRenderer.send('getWindowList');
+    return windowList;
 }
 
 function fillWindowList(list) {

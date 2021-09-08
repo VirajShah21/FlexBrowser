@@ -19,13 +19,25 @@ export default class FlexPreferences extends HIFullScreenView {
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .padding(0)
-                            .whenClicked(() => {
+                            .foreground(
+                                HColor(BrowserPreferences.getColorTheme())
+                            )
+                            .whenClicked(() =>
                                 ViewController.getController(
                                     'AppController'
-                                )!.navigateTo('hub');
-                            }),
-                        new Spacer()
-                    ).stretchWidth(),
+                                )!.navigateTo('hub')
+                            ),
+                        new Spacer(),
+                        new ClickButton(new TextView('Reload'))
+                            .padding(0)
+                            .foreground(
+                                HColor(BrowserPreferences.getColorTheme())
+                            )
+                            .whenClicked(() => window.location.reload())
+                    )
+                        .stretchWidth()
+                        .margin({ top: 20 }),
+
                     new HStack(
                         new TextView('Preferences').font('xxl').bold(),
                         new Spacer()
@@ -37,99 +49,9 @@ export default class FlexPreferences extends HIFullScreenView {
                     .background(HColor('gray6'))
                     .foreground(HColor('foreground')),
 
-                new VStack(
-                    new HStack(
-                        new TextView('Highlight Color')
-                            .font('md')
-                            .bold()
-                            .margin({ bottom: 10 }),
-                        new Spacer()
-                    ).stretchWidth(),
+                HighlightColorPreferences(),
 
-                    new HStack(
-                        ...(
-                            [
-                                'blue',
-                                'brown',
-                                'cyan',
-                                'green',
-                                'indigo',
-                                'mint',
-                                'orange',
-                                'pink',
-                                'purple',
-                                'red',
-                                'teal',
-                                'yellow',
-                            ] as HumanColorName[]
-                        ).map(color => ColorThemeButton(color)),
-                        new Spacer()
-                    ).stretchWidth()
-                )
-                    .stretchWidth()
-                    .padding(),
-
-                new VStack(
-                    new HStack(
-                        new TextView('Theme')
-                            .font('md')
-                            .bold()
-                            .margin({ bottom: 10 }),
-                        new Spacer()
-                    ).stretchWidth(),
-
-                    new HStack(
-                        new VStack(
-                            new ClickButton(
-                                new ImageView(
-                                    'assets/LightThemeThumb.png'
-                                ).rounded()
-                            )
-                                .padding(0)
-                                .border({
-                                    size: 1,
-                                    style: 'solid',
-                                    color: HColor('gray3'),
-                                })
-                                .rounded()
-                                .whenClicked(() => {
-                                    changeTheme('light');
-                                }),
-                            new TextView('Light Mode')
-                                .margin({ top: 5 })
-                                .font('sm')
-                        ).rounded(),
-
-                        new Spacer(),
-
-                        new VStack(
-                            new ClickButton(
-                                new ImageView(
-                                    'assets/DarkThemeThumb.png'
-                                ).rounded()
-                            )
-                                .padding(0)
-                                .border({
-                                    size: 1,
-                                    style: 'solid',
-                                    color: HColor('gray3'),
-                                })
-                                .rounded()
-                                .whenClicked(() => {
-                                    changeTheme('dark');
-                                }),
-                            new TextView('Dark Mode')
-                                .margin({ top: 5 })
-                                .font('sm')
-                        ).rounded(),
-
-                        new Spacer()
-                    ).stretchWidth()
-                )
-                    .stretchWidth()
-                    .padding(),
-
-                new HStack(new HStack()),
+                ThemePreferences(),
 
                 new Spacer()
             )
@@ -140,13 +62,115 @@ export default class FlexPreferences extends HIFullScreenView {
     }
 }
 
-function ColorThemeButton(color: HumanColorName): ClickButton {
+function HighlightColorPreferences(): VStack {
+    return new VStack(
+        new HStack(
+            new TextView('Highlight Color')
+                .font('md')
+                .bold()
+                .margin({ bottom: 10 }),
+            new Spacer()
+        ).stretchWidth(),
+
+        new HStack(
+            ...(
+                [
+                    'blue',
+                    'brown',
+                    'cyan',
+                    'green',
+                    'indigo',
+                    'mint',
+                    'orange',
+                    'pink',
+                    'purple',
+                    'red',
+                    'teal',
+                    'yellow',
+                ] as HumanColorName[]
+            ).map(color => HighlightColorButton(color)),
+            new Spacer()
+        ).stretchWidth()
+    )
+        .stretchWidth()
+        .padding();
+}
+
+function ThemePreferences(): VStack {
+    return new VStack(
+        new HStack(
+            new TextView('Theme').font('md').bold().margin({ bottom: 10 }),
+            new Spacer()
+        ).stretchWidth(),
+
+        new HStack(
+            new VStack(
+                new ClickButton(
+                    new ImageView('assets/LightThemeThumb.png').rounded()
+                )
+                    .padding(0)
+                    .border({
+                        size: 1,
+                        style: 'solid',
+                        color: HColor('gray3'),
+                    })
+                    .rounded()
+                    .whenClicked(() => {
+                        changeTheme('light');
+                    }),
+                new TextView('Light Mode').margin({ top: 5 }).font('sm')
+            ).rounded(),
+
+            new Spacer(),
+
+            new VStack(
+                new ClickButton(
+                    new ImageView('assets/DarkThemeThumb.png').rounded()
+                )
+                    .padding(0)
+                    .border({
+                        size: 1,
+                        style: 'solid',
+                        color: HColor('gray3'),
+                    })
+                    .rounded()
+                    .whenClicked(() => {
+                        changeTheme('dark');
+                    }),
+                new TextView('Dark Mode').margin({ top: 5 }).font('sm')
+            ).rounded(),
+
+            new Spacer()
+        ).stretchWidth()
+    )
+        .stretchWidth()
+        .padding();
+}
+
+function HighlightColorButton(color: HumanColorName): ClickButton {
     return new ClickButton(
         new IonIcon('ellipse').font('xxl').foreground(HColor(color))
     )
+        .id(`highlight-${color}`)
+        .addClass('highlight-radio')
         .padding(0)
-        .whenClicked(() => {
+        .whenClicked(ev => {
             BrowserPreferences.setColorTheme(color);
-            window.location.reload();
+            ev.view
+                .root()
+                .getViewsByClass('highlight-radio')
+                .forEach(view =>
+                    view.borderBottom({
+                        size: 0,
+                    })
+                );
+            ev.view
+                .root()
+                .getViewById(`highlight-${color}`)
+                ?.borderBottom({
+                    size: 3,
+                    style: 'solid',
+                    color: HColor('foreground'),
+                });
         });
 }
