@@ -107,9 +107,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                     .id('titlebar'),
 
                 new Spacer() // Pushes navbar to top and makes space for Electron.BrowserView
-            )
-                .stretch()
-                .background(HColor('gray6').alpha(0.8))
+            ).stretch()
         );
 
         const titlebar = this.getViewById('titlebar') as View;
