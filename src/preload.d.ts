@@ -3,4 +3,7 @@ declare namespace flexarch {
     function newWindow(): void;
     function getWindowList(): { title: string }[];
     function fillWindowList(list: { title: string }[]): void;
+    let windowList: {
+        title: string;
+    }[];
 }

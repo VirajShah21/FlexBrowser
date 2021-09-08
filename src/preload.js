@@ -9,21 +9,11 @@ function newWindow() {
 }
 
 function getWindowList() {
-    ipcRenderer.send('getWindowList');
-    return windowList;
+    return ipcRenderer.sendSync('getWindowList');
 }
-
-function fillWindowList(list) {
-    windowList.splice(0, windowList.length);
-    list.forEach(item => windowList.push(item));
-}
-
-const windowList = [];
 
 contextBridge.exposeInMainWorld('flexarch', {
     changeUrl,
     newWindow,
     getWindowList,
-    fillWindowList,
-    windowList,
 });

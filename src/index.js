@@ -47,14 +47,10 @@ function createWindow() {
     ipcMain.on('newWindow', createWindow);
 
     ipcMain.on('getWindowList', event => {
-        event.reply(
-            'fillWindowList',
-            flexBrowserInstances.map(instance => {
-                return {
-                    title: instance.getBrowserView().webContents.getTitle(),
-                };
-            })
-        );
+        let obj = flexBrowserInstances.map(instance => ({
+            title: instance.getBrowserView().webContents.getTitle(),
+        }));
+        event.returnValue = obj;
     });
 }
 
