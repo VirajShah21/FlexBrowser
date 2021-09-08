@@ -1,4 +1,7 @@
-import URLMeta from './URLMeta';
+declare interface URLMeta {
+    title: string;
+    url: string;
+}
 
 declare namespace flexarch {
     function changeUrl(to: string): void;

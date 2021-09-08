@@ -36,6 +36,8 @@ export default class FlexPreferences extends HIFullScreenView {
 
                 ThemePreferences(),
 
+                BrowserFramePreferences(),
+
                 new Spacer()
             )
                 .stretch()
@@ -43,6 +45,19 @@ export default class FlexPreferences extends HIFullScreenView {
                 .foreground(HColor('foreground'))
         );
     }
+}
+
+function BrowserFramePreferences(): VStack {
+    return new VStack(
+        new HStack(
+            new TextView('Browser Frame')
+                .font('md')
+                .bold()
+                .margin({ bottom: 10 }),
+            new Spacer(),
+            new ClickButton(new TextView('Edit')).padding(0)
+        ).stretchWidth()
+    ).stretchWidth();
 }
 
 function HighlightColorPreferences(): VStack {
