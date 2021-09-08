@@ -51,13 +51,12 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                             (icon.body as HTMLInputElement).name =
                                 'arrow-forward-outline'; // ! Workaround to use .name
                         })
-                        .background(HColor('gray6'))
                         .noOutline()
                         .whenFocused(ev =>
                             ev.view.background(HColor('background')).textStart()
                         )
                         .whenUnfocused(ev =>
-                            ev.view.background(HColor('gray6')).textCenter()
+                            ev.view.background('none').textCenter()
                         )
                         .whenKeyPressed(ev => {
                             if (ev.key == 'Enter') {
@@ -107,7 +106,9 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                     .id('titlebar'),
 
                 new Spacer() // Pushes navbar to top and makes space for Electron.BrowserView
-            ).stretch()
+            )
+                .stretch()
+                .background(HColor('background').alpha(0.5))
         );
 
         const titlebar = this.getViewById('titlebar') as View;
