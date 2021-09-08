@@ -1,4 +1,5 @@
 import { HColor } from '@Hi/Colors';
+import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
@@ -6,15 +7,13 @@ import { ScrollView } from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import HubTitlebar from './HubTitlebar';
 
 export default class FlexWindowViewer extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new TextView('Windows')
-                    .font('xxl')
-                    .bold()
-                    .margin({ top: 25, bottom: 25 }),
+                new HubTitlebar('Windows'),
                 new ScrollView(
                     new VStack()
                         .stretchWidth()
@@ -32,8 +31,17 @@ export default class FlexWindowViewer extends HIFullScreenView {
         const container = this.getViewById(
             'window-buttons-container'
         ) as ScrollView;
-        flexarch.getWindowList();
-        container.removeAllChildren().addChildren();
+        const windowList = flexarch.getWindowList();
+        container
+            .removeAllChildren()
+            .addChildren(
+                ...windowList.map(win =>
+                    new ClickButton(new TextView(win.title))
+                        .stretchWidth()
+                        .padding()
+                        .background(HColor('gray5'))
+                )
+            );
     }
 }
 

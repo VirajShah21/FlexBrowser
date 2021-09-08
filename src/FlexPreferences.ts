@@ -9,45 +9,28 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from './BrowserPreferences';
+import HubTitlebar from './HubTitlebar';
 
 export default class FlexPreferences extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new VStack(
+                new HubTitlebar(
+                    'Preferences',
+                    new ClickButton(new TextView('Back'))
+                        .padding(0)
+                        .foreground(HColor(BrowserPreferences.getColorTheme()))
+                        .whenClicked(() =>
+                            ViewController.getController(
+                                'AppController'
+                            )!.navigateTo('hub')
+                        ),
                     new Spacer(),
-                    new HStack(
-                        new ClickButton(new TextView('Back'))
-                            .padding(0)
-                            .foreground(
-                                HColor(BrowserPreferences.getColorTheme())
-                            )
-                            .whenClicked(() =>
-                                ViewController.getController(
-                                    'AppController'
-                                )!.navigateTo('hub')
-                            ),
-                        new Spacer(),
-                        new ClickButton(new TextView('Reload'))
-                            .padding(0)
-                            .foreground(
-                                HColor(BrowserPreferences.getColorTheme())
-                            )
-                            .whenClicked(() => window.location.reload())
-                    )
-                        .stretchWidth()
-                        .margin({ top: 20 }),
-
-                    new HStack(
-                        new TextView('Preferences').font('xxl').bold(),
-                        new Spacer()
-                    ).stretchWidth()
-                )
-                    .padding()
-                    .stretchWidth()
-                    .height(100)
-                    .background(HColor('gray6'))
-                    .foreground(HColor('foreground')),
+                    new ClickButton(new TextView('Reload'))
+                        .padding(0)
+                        .foreground(HColor(BrowserPreferences.getColorTheme()))
+                        .whenClicked(() => window.location.reload())
+                ),
 
                 HighlightColorPreferences(),
 
