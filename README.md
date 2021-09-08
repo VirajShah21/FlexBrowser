@@ -20,3 +20,6 @@ One day I installed Microsoft Edge. That's the same thing as Chrome, but with a 
     -   **Features Display** – Should give a quick walkthrough of all features.
 -   **Vibrancy to Window Frame**
 -   **Sleekify titlebar**
+-   **Taskbar customization**
+    -   **Partitioning Taskbar** – Create regions, set alignment, and min/max/default sizes
+    -   **Picking Items** – Choose browser frame components and insert them into different partitions
