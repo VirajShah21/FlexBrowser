@@ -50,6 +50,7 @@ function createWindow() {
     ipcMain.on('getWindowList', event => {
         let obj = flexBrowserInstances.map(instance => ({
             title: instance.getBrowserView().webContents.getTitle(),
+            url: instance.getBrowserView().webContents.getUrl(),
         }));
         event.returnValue = obj;
     });

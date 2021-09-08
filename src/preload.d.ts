@@ -1,9 +1,8 @@
+import URLMeta from './URLMeta';
+
 declare namespace flexarch {
     function changeUrl(to: string): void;
     function newWindow(): void;
-    function getWindowList(): { title: string }[];
-    function fillWindowList(list: { title: string }[]): void;
-    let windowList: {
-        title: string;
-    }[];
+    function getWindowList(): URLMeta[];
+    function fillWindowList(list: URLMeta[]): void;
 }
