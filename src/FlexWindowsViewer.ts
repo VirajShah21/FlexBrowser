@@ -30,7 +30,7 @@ export default class FlexWindowViewer extends HIFullScreenView {
     override handle() {
         const container = this.getViewById(
             'window-buttons-container'
-        ) as ScrollView;
+        ) as VStack;
         const windowList = flexarch.getWindowList();
         container
             .removeAllChildren()
