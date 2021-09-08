@@ -8,7 +8,9 @@ import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
+import BrowserHistoryManager from './BrowserHistoryManager';
 import BrowserPreferences from './BrowserPreferences';
+import { flexarch } from './preload';
 
 export default class FlexBrowserWindow extends HIFullScreenView {
     private static readonly PROTOCOLS = ['http', 'https'];
