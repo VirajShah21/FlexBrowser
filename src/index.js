@@ -16,6 +16,7 @@ function createWindow() {
         },
         titleBarStyle: 'customButtonsOnHover',
         transparent: true,
+        vibrancy: 'titlebar',
     });
 
     flexBrowserInstances.push(win);
