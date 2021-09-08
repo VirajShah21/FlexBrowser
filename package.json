@@ -4,7 +4,8 @@
     "description": "A beautiful cross platform web browser.",
     "main": "index.js",
     "scripts": {
-        "start": "electron src"
+        "start": "electron src",
+        "test": "electron src --enable-logging"
     },
     "author": "",
     "license": "ISC",
