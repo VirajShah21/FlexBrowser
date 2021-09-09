@@ -17,14 +17,15 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                     .setLeft(0)
                     .zIndex(100),
 
-                new BrowserFrameCanvas(),
-
                 new ScrollView(
                     new VStack(
                         new TextView('Partition Details')
                             .weight(FontWeight.UltraLight)
-                            .font('md')
-                    ).padding({ top: 100 })
+                            .font('md'),
+                        new BrowserFrameCanvas().stretchWidth()
+                    )
+                        .padding({ top: 100 })
+                        .stretchWidth()
                 )
             )
         );
