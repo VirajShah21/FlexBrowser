@@ -10,6 +10,7 @@ import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 import BrowserFrameCanvas from './BrowserFrameCanvas';
 import HubTitlebar from './HubTitlebar';
+import PartitionComponentOrganizer from './PartitionComponentOrganizer';
 import PartitionerComponent from './PartitionerComponent';
 
 export default class BrowserFrameComposer extends HIFullScreenView {
@@ -44,7 +45,9 @@ export default class BrowserFrameComposer extends HIFullScreenView {
 
                         new TextView('Partition Details'),
 
-                        new PartitionerComponent()
+                        new PartitionerComponent(),
+
+                        new PartitionComponentOrganizer()
                     )
                         .padding({ top: 100 })
                         .stretchWidth()
