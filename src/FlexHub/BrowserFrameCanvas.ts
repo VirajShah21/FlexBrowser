@@ -8,9 +8,11 @@ import TextField from '@Hi/Components/TextField';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
-import BrowserFrameModel, { BrowserFrameComponent } from './BrowserFrameModel';
-import BrowserPreferences from './BrowserPreferences';
-import FlexBrowserWindow from './FlexBrowserWindow';
+import BrowserFrameModel, {
+    BrowserFrameComponent,
+} from 'src/BrowserFrameModel';
+import BrowserPreferences from 'src/BrowserPreferences';
+import FlexBrowserWindow from 'src/FlexBrowserWindow';
 
 export const defaultModel: BrowserFrameModel = {
     partitions: [

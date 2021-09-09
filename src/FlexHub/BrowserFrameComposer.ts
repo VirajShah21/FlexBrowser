@@ -1,5 +1,7 @@
 import { HColor } from '@Hi/Colors';
+import Group from '@Hi/Components/Group';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
+import HStack from '@Hi/Components/HStack';
 import { ScrollView } from '@Hi/Components/ScrollView';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
@@ -22,12 +24,16 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                         new TextView('Partition Details')
                             .weight(FontWeight.UltraLight)
                             .font('md'),
-                        new BrowserFrameCanvas().stretchWidth()
+                        new HStack(new BrowserFrameCanvas().stretchWidth())
+                            .padding()
+                            .stretchWidth()
                     )
                         .padding({ top: 100 })
                         .stretchWidth()
                 )
-            )
+                    .stretchWidth()
+                    .stretchHeight()
+            ).stretchWidth()
         );
     }
 }

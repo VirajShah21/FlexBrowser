@@ -1,10 +1,10 @@
 import { ViewController } from '@Hi/ViewController';
-import BrowserFrameComposer from './BrowserFrameComposer';
 import BrowserPreferences from './BrowserPreferences';
 import FlexBrowserWindow from './FlexBrowserWindow';
+import BrowserFrameComposer from './FlexHub/BrowserFrameComposer';
 import FlexHub from './FlexHub/FlexHub';
-import FlexPreferences from './FlexPreferences';
-import FlexWindowsViewer from './FlexWindowsViewer';
+import FlexPreferences from './FlexHub/FlexPreferences';
+import FlexWindowsViewer from './FlexHub/FlexWindowsViewer';
 
 BrowserPreferences.initialize();
 
