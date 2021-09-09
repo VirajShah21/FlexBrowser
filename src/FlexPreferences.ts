@@ -56,7 +56,13 @@ function BrowserFramePreferences(): VStack {
                 .bold()
                 .margin({ bottom: 10 }),
             new Spacer(),
-            new ClickButton(new TextView('Edit')).padding(0)
+            new ClickButton(new TextView('Edit'))
+                .padding(0)
+                .whenClicked(() =>
+                    ViewController.getController('AppController')?.navigateTo(
+                        'frameComposer'
+                    )
+                )
         ).stretchWidth(),
 
         BrowserFramePreview()
