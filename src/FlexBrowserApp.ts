@@ -2,7 +2,7 @@ import { ViewController } from '@Hi/ViewController';
 import BrowserFrameComposer from './BrowserFrameComposer';
 import BrowserPreferences from './BrowserPreferences';
 import FlexBrowserWindow from './FlexBrowserWindow';
-import FlexHub from './FlexHub';
+import FlexHub from './FlexHub/FlexHub';
 import FlexPreferences from './FlexPreferences';
 import FlexWindowsViewer from './FlexWindowsViewer';
 
