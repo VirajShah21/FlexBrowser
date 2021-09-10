@@ -2,6 +2,36 @@
 
 One day I installed Microsoft Edge. That's the same thing as Chrome, but with a different frame. So I decided to make my own browser... with a different frame.
 
+## Contributing
+
+**Step 1: Installing Dependencies**
+
+```
+npm install
+```
+
+**Step 2: Testing**
+
+```
+npm run start
+```
+
+**Step 3: Building**
+
+```
+npm run make
+```
+
+(Not working yet)
+
+---
+
+If something isn't working, then try using the following command before `npm run make`:
+
+```
+sudo npm install -g electron --unsafe-perm=true --allow-root
+```
+
 ## Dev Tasks
 
 ### Improvements
