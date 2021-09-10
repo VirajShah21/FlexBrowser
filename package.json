@@ -19,6 +19,7 @@
         "@typescript-eslint/parser": "^4.28.3",
         "babel-plugin-transform-async-to-generator": "^6.24.1",
         "babel-preset-react": "^6.24.1",
+        "electron-builder": "^22.11.7",
         "prettier": "^2.3.2",
         "ts-loader": "^9.2.5",
         "ts-node": "^10.1.0",
@@ -31,42 +32,5 @@
     "dependencies": {
         "eslint": "^7.30.0",
         "eslint-html-reporter": "^0.7.4"
-    },
-    "config": {
-        "forge": {
-            "make_targets": {
-                "win32": [
-                    "squirrel"
-                ],
-                "darwin": [
-                    "zip"
-                ],
-                "linux": [
-                    "deb",
-                    "rpm"
-                ]
-            },
-            "electronPackagerConfig": {
-                "packageManager": "npm",
-                "dir": "./src/",
-                "ignore": [
-                    ".ts",
-                    ".html"
-                ]
-            },
-            "electronWinstallerConfig": {
-                "name": "flex_browser"
-            },
-            "electronInstallerDebian": {},
-            "electronInstallerRedhat": {},
-            "github_repository": {
-                "owner": "",
-                "name": ""
-            },
-            "windowsStoreConfig": {
-                "packageName": "",
-                "name": "Flex Browser"
-            }
-        }
     }
 }
