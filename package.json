@@ -4,10 +4,8 @@
     "description": "A beautiful cross platform web browser.",
     "main": "src/index.js",
     "scripts": {
-        "start": "electron-forge start",
         "test": "electron src --enable-logging",
-        "package": "electron-forge package",
-        "make": "electron-forge make"
+        "build": "electron-builder"
     },
     "author": "",
     "license": "ISC",
@@ -32,5 +30,32 @@
     "dependencies": {
         "eslint": "^7.30.0",
         "eslint-html-reporter": "^0.7.4"
+    },
+    "build": {
+        "appId": "org.virajshah.flexbrowser",
+        "dmg": {
+            "contents": [
+                {
+                    "x": 110,
+                    "y": 150
+                },
+                {
+                    "x": 240,
+                    "y": 150,
+                    "type": "link",
+                    "path": "/Applications"
+                }
+            ]
+        },
+        "linux": {
+            "target": [
+                "AppImage",
+                "deb"
+            ]
+        },
+        "win": {
+            "target": "squirrel",
+            "icon": "build/icon.ico"
+        }
     }
 }

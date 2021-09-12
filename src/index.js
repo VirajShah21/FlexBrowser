@@ -20,7 +20,7 @@ function createWindow() {
 
     flexBrowserInstances.push(win);
 
-    win.loadFile('src/index.html');
+    win.loadFile('index.html');
 
     win.setBrowserView(new BrowserView());
     win.getBrowserView().setBounds({
@@ -67,7 +67,7 @@ function createHubWindow() {
         titleBarStyle: 'hidden',
     });
 
-    win.loadFile('src/hub.html');
+    win.loadFile('hub.html');
 }
 
 app.whenReady().then(() => {
