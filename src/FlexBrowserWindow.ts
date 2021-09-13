@@ -10,7 +10,6 @@ import BrowserBackTaskbarButton from './components/BrowserBackTaskbarButton';
 import BrowserForwardTaskbarButton from './components/BrowserForwardTaskbarButton';
 import NewWindowTaskbarButton from './components/NewWindowTaskbarButton';
 import RefreshTaskbarButton from './components/RefreshTaskbarButton';
-import TaskbarButton from './components/TaskbarButton';
 import URLBar from './components/URLBar';
 
 export default class FlexBrowserWindow extends HIFullScreenView {
@@ -70,12 +69,10 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         let goodProtocol = false;
         if (url.includes('://')) {
             const givenProtocol = url.substring(0, url.indexOf('://'));
-            if (FlexBrowserWindow.PROTOCOLS.indexOf(givenProtocol) >= 0) {
+            if (FlexBrowserWindow.PROTOCOLS.indexOf(givenProtocol) >= 0)
                 goodProtocol = true;
-            }
         }
         if (!goodProtocol) url = `https://${url}`;
-
         return url;
     }
 
@@ -97,20 +94,13 @@ export default class FlexBrowserWindow extends HIFullScreenView {
     }
 
     public previousPage(): void {
-        console.log(this);
         this.historyPointer--;
         if (
             this.historyPointer >= 0 &&
             this.historyPointer < this.history.length
-        ) {
+        )
             this.goTo(this.history[this.historyPointer], false);
-            console.log(
-                `Navigating back to ${this.history[this.historyPointer]}`
-            );
-        } else {
-            this.historyPointer++;
-            console.log('Could not navigate back anymore');
-        }
+        else this.historyPointer++;
     }
 
     public nextPage(): void {
@@ -118,15 +108,8 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         if (
             this.historyPointer >= 0 &&
             this.historyPointer < this.history.length
-        ) {
+        )
             this.goTo(this.history[this.historyPointer]);
-            console.log(
-                `Navigating forward to ${this.history[this.historyPointer]}`,
-                false
-            );
-        } else {
-            this.historyPointer--;
-            console.log('Could not navigate more forward');
-        }
+        else this.historyPointer--;
     }
 }
