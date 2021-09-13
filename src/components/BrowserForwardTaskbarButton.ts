@@ -1,8 +1,8 @@
-import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
 import FlexBrowserWindow from 'src/FlexBrowserWindow';
+import TaskbarButton from './TaskbarButton';
 
-export default class BrowserForwardTaskbarButton extends ClickButton {
+export default class BrowserForwardTaskbarButton extends TaskbarButton {
     constructor() {
         super(new IonIcon('chevron-forward-circle-outline'));
         this.whenClicked(ev =>

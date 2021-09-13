@@ -1,9 +1,9 @@
-import ClickButton from '@Hi/Components/ClickButton';
 import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
+import TaskbarButton from 'out/flex-browser-darwin-x64/flex-browser.app/Contents/Resources/app/src/components/TaskbarButton';
 import FlexBrowserWindow from 'src/FlexBrowserWindow';
 
-export default class RefreshTaskbarButton extends ClickButton {
+export default class RefreshTaskbarButton extends TaskbarButton {
     constructor() {
         super(new IonIcon('refresh-circle-outline').id('url-refresh-button'));
         this.whenClicked(ev => {
