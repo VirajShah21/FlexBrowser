@@ -1,4 +1,4 @@
-import { changeTheme, HColor, HumanColorName, whichTheme } from '@Hi/Colors';
+import { changeTheme, HColor, HumanColorName } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';

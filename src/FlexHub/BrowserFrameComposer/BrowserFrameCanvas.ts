@@ -6,11 +6,9 @@ import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
 import TextView from '@Hi/Components/TextView';
-import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
 import BrowserFrameModel, {
     BrowserFrameComponent,
-    BrowserFramePartition,
 } from 'src/BrowserFrameModel';
 import BrowserFrameRenderer from 'src/BrowserFrameRenderer';
 import BrowserPreferences from 'src/BrowserPreferences';

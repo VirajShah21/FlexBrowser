@@ -12,7 +12,7 @@ export default class PartitionerComponent extends VStack {
 
     constructor() {
         super(
-            new ClickButton(new TextView('Add Partition')).whenClicked(ev => {
+            new ClickButton(new TextView('Add Partition')).whenClicked(() => {
                 this.partitions.push({ components: [], padding: 0 });
 
                 (
