@@ -10,7 +10,7 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from '../BrowserPreferences';
-import HubTitlebar from './HubTitlebar';
+import HubTitlebar from './components/HubTitlebar';
 
 export default class FlexPreferences extends HIFullScreenView {
     constructor() {

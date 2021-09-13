@@ -9,9 +9,9 @@ import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 import BrowserFrameCanvas from './BrowserFrameCanvas';
-import HubTitlebar from './HubTitlebar';
+import HubTitlebar from '../components/HubTitlebar';
 import PartitionComponentOrganizer from './PartitionComponentOrganizer';
-import PartitionerComponent from './PartitionerComponent';
+import PartitionerComponent from '../PartitionerComponent';
 
 export default class BrowserFrameComposer extends HIFullScreenView {
     constructor() {

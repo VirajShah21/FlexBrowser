@@ -8,7 +8,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
-import HubTitlebar from './HubTitlebar';
+import HubTitlebar from './components/HubTitlebar';
 
 export default class FlexWindowViewer extends HIFullScreenView {
     constructor() {
