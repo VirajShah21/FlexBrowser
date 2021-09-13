@@ -32,6 +32,8 @@ If something isn't working, then try using the following command before `npm run
 sudo npm install -g electron --unsafe-perm=true --allow-root
 ```
 
+(Using `yarn` instead of `npm` may help)
+
 ## Dev Tasks
 
 ### Improvements
