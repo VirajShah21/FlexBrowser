@@ -1,4 +1,4 @@
-import { changeTheme, HColor, HumanColorName, whichTheme } from '@Hi/Colors';
+import { changeTheme, HColor, HumanColorName } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
@@ -10,7 +10,7 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from '../BrowserPreferences';
-import HubTitlebar from './HubTitlebar';
+import HubTitlebar from './components/HubTitlebar';
 
 export default class FlexPreferences extends HIFullScreenView {
     constructor() {

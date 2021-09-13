@@ -1,15 +1,14 @@
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
-import Group from '@Hi/Components/Group';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
 import { ScrollView } from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
-import TextView, { FontWeight } from '@Hi/Components/TextView';
+import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
+import HubTitlebar from '../components/HubTitlebar';
 import BrowserFrameCanvas from './BrowserFrameCanvas';
-import HubTitlebar from './HubTitlebar';
 import PartitionComponentOrganizer from './PartitionComponentOrganizer';
 import PartitionerComponent from './PartitionerComponent';
 
@@ -47,7 +46,9 @@ export default class BrowserFrameComposer extends HIFullScreenView {
 
                         new PartitionerComponent(),
 
-                        new PartitionComponentOrganizer()
+                        new PartitionComponentOrganizer({ partitions: [] }).id(
+                            'partition-component-organizer'
+                        )
                     )
                         .padding({ top: 100 })
                         .stretchWidth()

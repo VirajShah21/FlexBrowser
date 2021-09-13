@@ -10,29 +10,23 @@ One day I installed Microsoft Edge. That's the same thing as Chrome, but with a 
 npm install
 ```
 
-**Step 2: Testing**
+**Step 2: Compiling TypeScript**
+
+The project is compiled using TypeScript-parser with webpack.
 
 ```
-npm run start
+webpack
 ```
 
-**Step 3: Building**
+**Step 3: Packaging and Making**
 
 ```
 npm run make
 ```
 
-(Not working yet)
+**Step 4: Run Application**
 
----
-
-If something isn't working, then try using the following command before `npm run make`:
-
-```
-sudo npm install -g electron --unsafe-perm=true --allow-root
-```
-
-(Using `yarn` instead of `npm` may help)
+Navigate to `out/flex-browser-darwin-x64` and click on `flex-browser.app`
 
 ## Dev Tasks
 
@@ -50,8 +44,8 @@ sudo npm install -g electron --unsafe-perm=true --allow-root
     -   **Bookmarks Page** – The ability to view bookmarks
 -   **First Start Initialization**
     -   **Features Display** – Should give a quick walkthrough of all features.
--   **Vibrancy to Window Frame**
--   **Sleekify titlebar**
+-   **Vibrancy to Window Frame** DONE
+-   **Sleekify titlebar** DONE
 -   **Taskbar customization**
     -   **Partitioning Taskbar** – Create regions, set alignment, and min/max/default sizes
     -   **Picking Items** – Choose browser frame components and insert them into different partitions

@@ -6,11 +6,11 @@ import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
 import TextView from '@Hi/Components/TextView';
-import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
 import BrowserFrameModel, {
     BrowserFrameComponent,
-} from 'src/BrowserFrameModel';
+} from 'src/Models/BrowserFrameModel';
+import BrowserFrameRenderer from 'src/BrowserFrameRenderer';
 import BrowserPreferences from 'src/BrowserPreferences';
 import FlexBrowserWindow from 'src/FlexBrowserWindow';
 
@@ -64,45 +64,9 @@ export const defaultModel: BrowserFrameModel = {
     ],
 };
 
-export default class BrowserFrameCanvas extends VStack {
-    private model: BrowserFrameModel;
-
+export default class BrowserFrameCanvas extends BrowserFrameRenderer {
     constructor(model: BrowserFrameModel = defaultModel) {
-        super(
-            new HStack(
-                new IonIcon('ellipse').foreground(HColor('red')),
-                new IonIcon('ellipse').foreground(HColor('orange')),
-                new IonIcon('ellipse').foreground(HColor('green')),
-                new Spacer()
-            ).stretchWidth(),
-            new HStack(
-                new HStack(
-                    new IonIcon('chevron-back-circle-outline').font('xl'),
-                    new IonIcon('chevron-forward-circle-outline').font('xl'),
-                    new Spacer()
-                )
-                    .width('20%')
-                    .padding(5),
-
-                new Spacer(),
-
-                new HStack(new TextField('Search or Go to URL').stretchWidth())
-                    .width('60%')
-                    .padding(5),
-
-                new Spacer(),
-
-                new HStack(
-                    new IonIcon('refresh-circle-outline').font('xl'),
-                    new Spacer(),
-                    new IonIcon('add-circle-outline').font('xl')
-                )
-                    .width('20%')
-                    .padding(5)
-            )
-                .stretchWidth()
-                .id('frame-contents')
-        );
+        super(model);
 
         this.setBrowserFrameModel(model);
 
@@ -110,31 +74,21 @@ export default class BrowserFrameCanvas extends VStack {
             .foreground(BrowserPreferences.getPrimaryColor())
             .stretchWidth()
             .padding(5)
-            .rounded()
-            .rounded({ bottom: { left: 0, right: 0 } });
+            .rounded(5);
     }
 
-    public setBrowserFrameModel(model: BrowserFrameModel): void {
-        this.model = model;
-        this.updateBrowserFrame();
-    }
-
-    private updateBrowserFrame(): void {
-        const frameContents = this.getViewById('frame-contents')!;
-
-        frameContents
-            .removeAllChildren()
-            .addChildren(
-                ...this.model.partitions.map(partition =>
-                    new HStack(
-                        ...partition.components.map(component =>
-                            makeComponent(component)
-                        )
+    protected override updateBrowserFrame(): void {
+        this.removeAllChildren().addChildren(
+            ...this.model.partitions.map(partition =>
+                new HStack(
+                    ...partition.components.map(component =>
+                        makeComponent(component)
                     )
-                        .padding(partition.padding)
-                        .width(partition.size || 'auto')
                 )
-            );
+                    .padding(partition.padding)
+                    .width(partition.size || 'auto')
+            )
+        );
     }
 }
 

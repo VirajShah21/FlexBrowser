@@ -7,5 +7,5 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 'off',
         'max-classes-per-file': ['error', 1],
     },
-    ignorePatterns: ['*.js', 'Guides/Hi/**/*', 'Client/build/**/*'],
+    ignorePatterns: ['*.js', 'Client/**/*', 'out/**/*'],
 };

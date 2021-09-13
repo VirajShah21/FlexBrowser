@@ -1,4 +1,4 @@
-import URLMeta from './URLMeta';
+import URLMeta from './Models/URLMeta';
 
 export default class BrowserHistoryManager {
     public static getBrowserHistory(): URLMeta[] {

@@ -8,7 +8,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
-import HubTitlebar from './HubTitlebar';
+import HubTitlebar from './components/HubTitlebar';
 
 export default class FlexWindowViewer extends HIFullScreenView {
     constructor() {
@@ -38,7 +38,7 @@ export default class FlexWindowViewer extends HIFullScreenView {
         );
     }
 
-    override handle() {
+    override handle(): void {
         const container = this.getViewById(
             'window-buttons-container'
         ) as VStack;
@@ -64,16 +64,4 @@ export default class FlexWindowViewer extends HIFullScreenView {
                 )
             );
     }
-}
-
-function WindowButton(title: string, favicon: string): HStack {
-    return new HStack(
-        new IonIcon('ellipse').padding(),
-        new TextView(title).padding().foreground(HColor('gray')),
-        new Spacer()
-    )
-        .stretchWidth()
-        .background(HColor('gray6'))
-        .padding()
-        .rounded();
 }
