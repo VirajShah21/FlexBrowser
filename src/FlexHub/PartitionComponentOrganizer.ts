@@ -20,7 +20,9 @@ export default class PartitionComponentOrganizer extends HStack {
                             .padding()
                             .background(HColor('background').alpha(0.5))
                     ).stretch()
-                ).background(HColor('background').alpha(0.5));
+                )
+                    .background(HColor('gray5'))
+                    .foreground(HColor('foreground'));
             })
         );
 
