@@ -6,6 +6,10 @@ import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
+import BrowserBackTaskbarButton from './components/BrowserBackTaskbarButton';
+import BrowserForwardTaskbarButton from './components/BrowserForwardTaskbarButton';
+import NewWindowTaskbarButton from './components/NewWindowTaskbarButton';
+import RefreshTaskbarButton from './components/RefreshTaskbarButton';
 import TaskbarButton from './components/TaskbarButton';
 import URLBar from './components/URLBar';
 
@@ -23,12 +27,8 @@ export default class FlexBrowserWindow extends HIFullScreenView {
             new VStack(
                 new HStack(
                     new HStack(
-                        TaskbarButton(
-                            new IonIcon('chevron-back-circle-outline')
-                        ).whenClicked(() => this.previousPage()),
-                        TaskbarButton(
-                            new IonIcon('chevron-forward-circle-outline')
-                        ).whenClicked(() => this.nextPage()),
+                        new BrowserBackTaskbarButton(),
+                        new BrowserForwardTaskbarButton(),
                         new Spacer()
                     )
                         .width('25%')
@@ -41,28 +41,10 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                     }),
 
                     new HStack(
-                        TaskbarButton(
-                            new IonIcon('refresh-circle-outline').id(
-                                'url-refresh-button'
-                            )
-                        ).whenClicked(ev => {
-                            const browserWindow = ev.view.root(
-                                view =>
-                                    (view as FlexBrowserWindow).isBrowserWindow
-                            ) as FlexBrowserWindow;
-                            const url = (
-                                browserWindow.getViewById('url') as InputField
-                            ).model.value;
-
-                            browserWindow.goTo(url);
-                        }),
+                        new RefreshTaskbarButton(),
                         new Spacer(),
 
-                        TaskbarButton(
-                            new IonIcon('add-circle-outline')
-                        ).whenClicked(() => {
-                            flexarch.newWindow();
-                        })
+                        new NewWindowTaskbarButton()
                     )
                         .width('25%')
                         .padding({ left: 10, right: 10 })
