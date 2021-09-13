@@ -1,5 +1,7 @@
 import HStack from '@Hi/Components/HStack';
-import BrowserFrameModel, { BrowserFramePartition } from './BrowserFrameModel';
+import BrowserFrameModel, {
+    BrowserFramePartition,
+} from './Models/BrowserFrameModel';
 
 export default abstract class BrowserFrameRenderer extends HStack {
     protected model: BrowserFrameModel;

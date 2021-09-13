@@ -9,7 +9,7 @@ import TextView from '@Hi/Components/TextView';
 import View from '@Hi/View';
 import BrowserFrameModel, {
     BrowserFrameComponent,
-} from 'src/BrowserFrameModel';
+} from 'src/Models/BrowserFrameModel';
 import BrowserFrameRenderer from 'src/BrowserFrameRenderer';
 import BrowserPreferences from 'src/BrowserPreferences';
 import FlexBrowserWindow from 'src/FlexBrowserWindow';

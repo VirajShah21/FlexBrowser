@@ -6,7 +6,7 @@ import Overlay from '@Hi/Components/Overlay';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import BrowserFrameModel from 'src/BrowserFrameModel';
+import BrowserFrameModel from 'src/Models/BrowserFrameModel';
 import BrowserFrameRenderer from 'src/BrowserFrameRenderer';
 import BrowserPreferences from 'src/BrowserPreferences';
 

@@ -3,7 +3,7 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { StateObject } from '@Hi/Types/states';
 import { ViewController } from '@Hi/ViewController';
-import { BrowserFramePartition } from 'src/BrowserFrameModel';
+import { BrowserFramePartition } from 'src/Models/BrowserFrameModel';
 import PartitionComponentOrganizer from './PartitionComponentOrganizer';
 import PartitionEditor from './PartitionEditor';
 
