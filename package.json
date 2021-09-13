@@ -8,7 +8,8 @@
         "start": "electron-forge start",
         "package": "electron-forge package",
         "make": "electron-forge make",
-        "publish": "electron-forge publish"
+        "publish": "electron-forge publish",
+        "quickpack": "webpack; cp -r src/js out/flex-browser-darwin-x64/flex-browser.app/Contents/Resources/app/src"
     },
     "author": "",
     "license": "ISC",
@@ -20,7 +21,11 @@
         "@typescript-eslint/parser": "^4.28.3",
         "babel-plugin-transform-async-to-generator": "^6.24.1",
         "babel-preset-react": "^6.24.1",
+        "electron": "^14.0.0",
         "electron-builder": "^22.11.7",
+        "electron-squirrel-startup": "^1.0.0",
+        "eslint": "^7.30.0",
+        "eslint-html-reporter": "^0.7.4",
         "prettier": "^2.3.2",
         "ts-loader": "^9.2.5",
         "ts-node": "^10.1.0",
@@ -29,10 +34,7 @@
         "typescript": "^4.3.5",
         "typescript-eslint": "0.0.1-alpha.0",
         "webpack": "^5.49.0",
-        "electron": "^14.0.0",
-        "electron-squirrel-startup": "^1.0.0",
-        "eslint": "^7.30.0",
-        "eslint-html-reporter": "^0.7.4"
+        "webpack-cli": "^4.8.0"
     },
     "dependencies": {
         "@electron-forge/cli": "^6.0.0-beta.61",
@@ -44,29 +46,29 @@
     },
     "config": {
         "forge": {
-          "packagerConfig": {},
-          "makers": [
-            {
-              "name": "@electron-forge/maker-squirrel",
-              "config": {
-                "name": "my_app"
-              }
-            },
-            {
-              "name": "@electron-forge/maker-zip",
-              "platforms": [
-                "darwin"
-              ]
-            },
-            {
-              "name": "@electron-forge/maker-deb",
-              "config": {}
-            },
-            {
-              "name": "@electron-forge/maker-rpm",
-              "config": {}
-            }
-          ]
+            "packagerConfig": {},
+            "makers": [
+                {
+                    "name": "@electron-forge/maker-squirrel",
+                    "config": {
+                        "name": "my_app"
+                    }
+                },
+                {
+                    "name": "@electron-forge/maker-zip",
+                    "platforms": [
+                        "darwin"
+                    ]
+                },
+                {
+                    "name": "@electron-forge/maker-deb",
+                    "config": {}
+                },
+                {
+                    "name": "@electron-forge/maker-rpm",
+                    "config": {}
+                }
+            ]
         }
-      }
+    }
 }
