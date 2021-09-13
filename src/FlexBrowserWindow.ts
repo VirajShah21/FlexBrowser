@@ -4,10 +4,10 @@ import HStack from '@Hi/Components/HStack';
 import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
-import TextField from '@Hi/Components/TextField';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
 import TaskbarButton from './components/TaskbarButton';
+import URLBar from './components/URLBar';
 
 export default class FlexBrowserWindow extends HIFullScreenView {
     private static readonly PROTOCOLS = ['http', 'https'];
@@ -34,47 +34,11 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                         .width('25%')
                         .padding({ left: 10, right: 10 }),
 
-                    new HStack(
-                        new TextField('flex://home')
-                            .stretchWidth()
-                            .textCenter()
-                            .id('url')
-                            .whenChanged(ev => {
-                                const browserWindow = ev.view.root(
-                                    view =>
-                                        (view as FlexBrowserWindow)
-                                            .isBrowserWindow
-                                ) as FlexBrowserWindow;
-                                const icon = browserWindow.getViewById(
-                                    'url-refresh-button'
-                                ) as IonIcon;
-
-                                (icon.body as HTMLInputElement).name =
-                                    'arrow-forward-outline'; // ! Workaround to use .name
-                            })
-                            .noOutline()
-                            .whenFocused(ev =>
-                                ev.view
-                                    .background(HColor('background'))
-                                    .textStart()
-                            )
-                            .whenUnfocused(ev =>
-                                ev.view.background('none').textCenter()
-                            )
-                            .whenKeyPressed(ev => {
-                                if (ev.key == 'Enter') {
-                                    const browserWindow = ev.view.root(
-                                        view =>
-                                            (view as FlexBrowserWindow)
-                                                .isBrowserWindow
-                                    ) as FlexBrowserWindow;
-                                    const searchbar = this.getViewById(
-                                        'url'
-                                    ) as InputField;
-                                    browserWindow.goTo(searchbar.model.value);
-                                }
-                            })
-                    ).width({ min: 200, default: '50%', max: 600 }),
+                    new HStack(new URLBar()).width({
+                        min: 200,
+                        default: '50%',
+                        max: 600,
+                    }),
 
                     new HStack(
                         TaskbarButton(
