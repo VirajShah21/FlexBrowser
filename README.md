@@ -10,6 +10,14 @@ One day I installed Microsoft Edge. That's the same thing as Chrome, but with a 
 npm install
 ```
 
+**Step 2: Compiling TypeScript**
+
+The project is compiled using TypeScript-parser with webpack.
+
+```
+webpack
+```
+
 **Step 3: Packaging and Making**
 
 ```
