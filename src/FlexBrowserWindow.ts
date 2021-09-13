@@ -1,5 +1,4 @@
 import { HColor } from '@Hi/Colors';
-import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
 import InputField from '@Hi/Components/InputField';
@@ -8,7 +7,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
-import BrowserPreferences from './BrowserPreferences';
+import TaskbarButton from './components/TaskbarButton';
 
 export default class FlexBrowserWindow extends HIFullScreenView {
     private static readonly PROTOCOLS = ['http', 'https'];
@@ -184,15 +183,4 @@ export default class FlexBrowserWindow extends HIFullScreenView {
             console.log('Could not navigate more forward');
         }
     }
-}
-
-function TaskbarButton(icon: IonIcon) {
-    return new ClickButton(
-        icon.foreground(BrowserPreferences.getPrimaryColor())
-    )
-        .rounded()
-        .font('xl')
-        .padding(3)
-        .whenMouseOver(ev => ev.view.background(HColor('gray3')))
-        .whenMouseOut(ev => ev.view.background('none'));
 }
