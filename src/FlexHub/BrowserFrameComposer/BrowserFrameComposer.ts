@@ -11,7 +11,7 @@ import { ViewController } from '@Hi/ViewController';
 import BrowserFrameCanvas from './BrowserFrameCanvas';
 import HubTitlebar from '../components/HubTitlebar';
 import PartitionComponentOrganizer from './PartitionComponentOrganizer';
-import PartitionerComponent from '../PartitionerComponent';
+import PartitionerComponent from './PartitionerComponent';
 
 export default class BrowserFrameComposer extends HIFullScreenView {
     constructor() {
@@ -47,7 +47,9 @@ export default class BrowserFrameComposer extends HIFullScreenView {
 
                         new PartitionerComponent(),
 
-                        new PartitionComponentOrganizer()
+                        new PartitionComponentOrganizer({ partitions: [] }).id(
+                            'partition-component-organizer'
+                        )
                     )
                         .padding({ top: 100 })
                         .stretchWidth()
