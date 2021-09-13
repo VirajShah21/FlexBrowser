@@ -3,7 +3,7 @@
         "module": "es6",
         "lib": ["esnext", "dom"],
         "rootDir": ".",
-        "outDir": "./Guides/js",
+        "outDir": "./src/js",
         "sourceMap": true,
         "noImplicitAny": true,
         "moduleResolution": "node",

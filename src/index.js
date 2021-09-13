@@ -12,10 +12,10 @@ function createWindow() {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: false, // is default value after Electron v5
             contextIsolation: true, // protect against prototype pollution
-            enableRemoteModule: false, // turn off remote
         },
         titleBarStyle: 'customButtonsOnHover',
         transparent: true,
+        vibrancy: 'light',
     });
 
     flexBrowserInstances.push(win);
@@ -49,6 +49,7 @@ function createWindow() {
     ipcMain.on('getWindowList', event => {
         let obj = flexBrowserInstances.map(instance => ({
             title: instance.getBrowserView().webContents.getTitle(),
+            url: instance.getBrowserView().webContents.getURL(),
         }));
         event.returnValue = obj;
     });
@@ -62,7 +63,6 @@ function createHubWindow() {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: false,
             contextIsolation: true,
-            enableRemoteModule: false,
         },
         titleBarStyle: 'hidden',
     });

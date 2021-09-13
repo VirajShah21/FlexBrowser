@@ -1,9 +1,10 @@
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from './BrowserPreferences';
 import FlexBrowserWindow from './FlexBrowserWindow';
-import FlexHub from './FlexHub';
-import FlexPreferences from './FlexPreferences';
-import FlexWindowsViewer from './FlexWindowsViewer';
+import BrowserFrameComposer from './FlexHub/BrowserFrameComposer';
+import FlexHub from './FlexHub/FlexHub';
+import FlexPreferences from './FlexHub/FlexPreferences';
+import FlexWindowsViewer from './FlexHub/FlexWindowsViewer';
 
 BrowserPreferences.initialize();
 
@@ -15,6 +16,7 @@ new ViewController({
     hub: new FlexHub(),
     preferences: new FlexPreferences(),
     windows: new FlexWindowsViewer(),
+    frameComposer: new BrowserFrameComposer(),
 })
     .bind()
     .navigateTo(flexWindow || 'browser')

@@ -7,13 +7,24 @@ import { ScrollView } from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import { ViewController } from '@Hi/ViewController';
 import HubTitlebar from './HubTitlebar';
 
 export default class FlexWindowViewer extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new HubTitlebar('Windows'),
+                new HubTitlebar(
+                    'Windows',
+                    new HStack(
+                        new ClickButton(new TextView('Back'))
+                            .padding(0)
+                            .whenClicked(() =>
+                                ViewController.navigateTo('hub')
+                            ),
+                        new Spacer()
+                    ).stretchWidth()
+                ),
                 new ScrollView(
                     new VStack()
                         .stretchWidth()
@@ -36,10 +47,20 @@ export default class FlexWindowViewer extends HIFullScreenView {
             .removeAllChildren()
             .addChildren(
                 ...windowList.map(win =>
-                    new ClickButton(new TextView(win.title))
+                    new ClickButton(
+                        new HStack(
+                            new IonIcon('globe-outline')
+                                .font('lg')
+                                .margin({ right: 10 }),
+                            new TextView(win.title),
+                            new Spacer()
+                        ).stretchWidth()
+                    )
                         .stretchWidth()
                         .padding()
                         .background(HColor('gray5'))
+                        .margin({ bottom: 10 })
+                        .rounded()
                 )
             );
     }

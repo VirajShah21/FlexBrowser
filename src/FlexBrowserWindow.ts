@@ -8,6 +8,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
+import BrowserHistoryManager from './BrowserHistoryManager';
 import BrowserPreferences from './BrowserPreferences';
 
 export default class FlexBrowserWindow extends HIFullScreenView {
@@ -35,43 +36,47 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                         .width('25%')
                         .padding({ left: 10, right: 10 }),
 
-                    new TextField('flex://home')
-                        .width({ min: 200, default: '50%', max: 600 })
-                        .textCenter()
-                        .id('url')
-                        .whenChanged(ev => {
-                            const browserWindow = ev.view.root(
-                                view =>
-                                    (view as FlexBrowserWindow).isBrowserWindow
-                            ) as FlexBrowserWindow;
-                            const icon = browserWindow.getViewById(
-                                'url-refresh-button'
-                            ) as IonIcon;
-
-                            (icon.body as HTMLInputElement).name =
-                                'arrow-forward-outline'; // ! Workaround to use .name
-                        })
-                        .background(HColor('gray6'))
-                        .noOutline()
-                        .whenFocused(ev =>
-                            ev.view.background(HColor('background')).textStart()
-                        )
-                        .whenUnfocused(ev =>
-                            ev.view.background(HColor('gray6')).textCenter()
-                        )
-                        .whenKeyPressed(ev => {
-                            if (ev.key == 'Enter') {
+                    new HStack(
+                        new TextField('flex://home')
+                            .stretchWidth()
+                            .textCenter()
+                            .id('url')
+                            .whenChanged(ev => {
                                 const browserWindow = ev.view.root(
                                     view =>
                                         (view as FlexBrowserWindow)
                                             .isBrowserWindow
                                 ) as FlexBrowserWindow;
-                                const searchbar = this.getViewById(
-                                    'url'
-                                ) as InputField;
-                                browserWindow.goTo(searchbar.model.value);
-                            }
-                        }),
+                                const icon = browserWindow.getViewById(
+                                    'url-refresh-button'
+                                ) as IonIcon;
+
+                                (icon.body as HTMLInputElement).name =
+                                    'arrow-forward-outline'; // ! Workaround to use .name
+                            })
+                            .noOutline()
+                            .whenFocused(ev =>
+                                ev.view
+                                    .background(HColor('background'))
+                                    .textStart()
+                            )
+                            .whenUnfocused(ev =>
+                                ev.view.background('none').textCenter()
+                            )
+                            .whenKeyPressed(ev => {
+                                if (ev.key == 'Enter') {
+                                    const browserWindow = ev.view.root(
+                                        view =>
+                                            (view as FlexBrowserWindow)
+                                                .isBrowserWindow
+                                    ) as FlexBrowserWindow;
+                                    const searchbar = this.getViewById(
+                                        'url'
+                                    ) as InputField;
+                                    browserWindow.goTo(searchbar.model.value);
+                                }
+                            })
+                    ).width({ min: 200, default: '50%', max: 600 }),
 
                     new HStack(
                         TaskbarButton(
@@ -109,7 +114,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                 new Spacer() // Pushes navbar to top and makes space for Electron.BrowserView
             )
                 .stretch()
-                .background(HColor('gray6').alpha(0.8))
+                .background(HColor('background').alpha(0.5))
         );
 
         const titlebar = this.getViewById('titlebar') as View;

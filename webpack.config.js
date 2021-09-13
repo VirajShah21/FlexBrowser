@@ -5,6 +5,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
     entry: './src/FlexBrowserApp.ts',
+    target: 'electron-renderer',
     module: {
         rules: [
             {
