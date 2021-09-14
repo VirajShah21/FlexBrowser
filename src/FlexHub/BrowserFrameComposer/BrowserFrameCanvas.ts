@@ -7,6 +7,10 @@ import TextView from '@Hi/Components/TextView';
 import View from '@Hi/View';
 import BrowserFrameRenderer from 'src/BrowserFrameRenderer';
 import BrowserPreferences from 'src/BrowserPreferences';
+import BrowserBackTaskbarButton from 'src/components/BrowserBackTaskbarButton';
+import BrowserForwardTaskbarButton from 'src/components/BrowserForwardTaskbarButton';
+import NewWindowTaskbarButton from 'src/components/NewWindowTaskbarButton';
+import RefreshTaskbarButton from 'src/components/RefreshTaskbarButton';
 import URLBar from 'src/components/URLBar';
 import BrowserFrameModel, {
     BrowserFrameComponent,
@@ -93,23 +97,15 @@ export default class BrowserFrameCanvas extends BrowserFrameRenderer {
 function makeComponent(model: BrowserFrameComponent): View {
     switch (model.name) {
         case 'page-back':
-            return new ClickButton(
-                new IonIcon(model.icon || 'chevron-back-circle-outline')
-            );
+            return new BrowserBackTaskbarButton();
         case 'page-forward':
-            return new ClickButton(
-                new IonIcon(model.icon || 'chevron-forward-circle-outline')
-            );
+            return new BrowserForwardTaskbarButton();
         case 'urlbar':
             return new URLBar();
         case 'go-refresh':
-            return new ClickButton(
-                new IonIcon(model.icon || 'refresh-circle-outline')
-            );
+            return new RefreshTaskbarButton();
         case 'new-window':
-            return new ClickButton(
-                new IonIcon(model.icon || 'add-circle-outline')
-            );
+            return new NewWindowTaskbarButton();
         case 'spacer':
             return new Spacer();
         default:
