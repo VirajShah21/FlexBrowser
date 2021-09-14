@@ -9,7 +9,6 @@
         "package": "electron-forge package",
         "make": "electron-forge make",
         "publish": "electron-forge publish",
-        "lighten": "rm -r out/flex-browser-darwin-x64/flex-browser.app/Contents/Resources/app; cp -r app out/flex-browser-darwin-x64/flex-browser.app/Contents/Resources/",
         "quickpack": "webpack; cp -r app/js out/flex-browser-darwin-x64/flex-browser.app/Contents/Resources/app/src"
     },
     "author": "",
