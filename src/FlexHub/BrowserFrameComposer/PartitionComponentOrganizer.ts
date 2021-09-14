@@ -52,40 +52,42 @@ function WidgetSelectorButton(label: string, icon: IonIcon): ClickButton {
 }
 
 function AddWidgetButton(): ClickButton {
-    return new ClickButton(new IonIcon('hammer')).whenClicked(() => {
-        new Overlay(
-            new VStack(
-                new Spacer(),
+    return new ClickButton(new IonIcon('hammer'))
+        .foreground(BrowserPreferences.getPrimaryColor())
+        .whenClicked(() => {
+            new Overlay(
+                new VStack(
+                    new Spacer(),
 
-                new HStack(
-                    WidgetSelectorButton(
-                        'Back Page',
-                        new IonIcon('chevron-back-circle-outline')
+                    new HStack(
+                        WidgetSelectorButton(
+                            'Back Page',
+                            new IonIcon('chevron-back-circle-outline')
+                        ),
+                        WidgetSelectorButton(
+                            'Forward Page',
+                            new IonIcon('chevron-forward-circle-outline')
+                        ),
+                        WidgetSelectorButton(
+                            'New Window',
+                            new IonIcon('add-circle-outline')
+                        )
                     ),
-                    WidgetSelectorButton(
-                        'Forward Page',
-                        new IonIcon('chevron-forward-circle-outline')
-                    ),
-                    WidgetSelectorButton(
-                        'New Window',
-                        new IonIcon('add-circle-outline')
-                    )
-                ),
 
-                new Spacer(),
+                    new Spacer(),
 
-                new ClickButton(new TextView('Cancel'))
-                    .background(HColor('red'))
-                    .foreground(HColor('background'))
-                    .rounded(7.5)
-                    .whenClicked(ev => {
-                        ev.view.root().destroy();
-                    }),
+                    new ClickButton(new TextView('Cancel'))
+                        .background(HColor('red'))
+                        .foreground(HColor('background'))
+                        .rounded(7.5)
+                        .whenClicked(ev => {
+                            ev.view.root().destroy();
+                        }),
 
-                new Spacer()
-            ).stretch()
-        )
-            .background(HColor('gray5'))
-            .foreground(HColor('foreground'));
-    });
+                    new Spacer()
+                ).stretch()
+            )
+                .background(HColor('gray5'))
+                .foreground(HColor('foreground'));
+        });
 }

@@ -20,6 +20,7 @@ export default class BrowserFramePreferences extends VStack {
                 new Spacer(),
                 new ClickButton(new TextView('Edit'))
                     .padding(0)
+                    .foreground(BrowserPreferences.getPrimaryColor())
                     .whenClicked(() =>
                         ViewController.getController(
                             'AppController'

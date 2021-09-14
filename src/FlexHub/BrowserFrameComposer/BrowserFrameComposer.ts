@@ -7,6 +7,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
+import BrowserPreferences from 'src/BrowserPreferences';
 import HubTitlebar from '../components/HubTitlebar';
 import BrowserFrameCanvas from './BrowserFrameCanvas';
 import PartitionComponentOrganizer from './PartitionComponentOrganizer';
@@ -21,6 +22,7 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .padding(0)
+                            .foreground(BrowserPreferences.getPrimaryColor())
                             .whenClicked(() =>
                                 ViewController.getController(
                                     'AppController'
