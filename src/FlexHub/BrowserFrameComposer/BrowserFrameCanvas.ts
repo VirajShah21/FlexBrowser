@@ -1,19 +1,16 @@
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
-import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
-import TextField from '@Hi/Components/TextField';
 import TextView from '@Hi/Components/TextView';
 import View from '@Hi/View';
+import BrowserFrameRenderer from 'src/BrowserFrameRenderer';
+import BrowserPreferences from 'src/BrowserPreferences';
+import URLBar from 'src/components/URLBar';
 import BrowserFrameModel, {
     BrowserFrameComponent,
 } from 'src/Models/BrowserFrameModel';
-import BrowserFrameRenderer from 'src/BrowserFrameRenderer';
-import BrowserPreferences from 'src/BrowserPreferences';
-import FlexBrowserWindow from 'src/FlexBrowserWindow';
-import URLBar from 'src/components/URLBar';
 
 export const defaultModel: BrowserFrameModel = {
     partitions: [
