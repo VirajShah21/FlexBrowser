@@ -135,7 +135,4 @@ dist
 
 .tern-port
 
-src/js/bundle.js
-src/js/bundle.js.map
-
 out/
