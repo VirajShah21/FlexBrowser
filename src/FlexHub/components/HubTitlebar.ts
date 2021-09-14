@@ -19,7 +19,8 @@ export default class HubTitlebar extends VStack {
         this.padding()
             .stretchWidth()
             .height(100)
-            .background(HColor('gray6'))
+            .background(HColor('background').alpha(0.5))
             .foreground(HColor('foreground'));
+        this.body.style.setProperty('-webkit-app-region', 'drag');
     }
 }
