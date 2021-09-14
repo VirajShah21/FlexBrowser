@@ -12,6 +12,13 @@ import NewWindowTaskbarButton from './components/NewWindowTaskbarButton';
 import RefreshTaskbarButton from './components/RefreshTaskbarButton';
 import URLBar from './components/URLBar';
 
+/**
+ * The window browser frame for Flex Browser
+ *
+ * @export
+ * @class FlexBrowserWindow
+ * @extends {HIFullScreenView}
+ */
 export default class FlexBrowserWindow extends HIFullScreenView {
     private static readonly PROTOCOLS = ['http', 'https'];
 
@@ -64,6 +71,16 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         titlebar.body.style.setProperty('-webkit-app-region', 'drag');
     }
 
+    /**
+     * Converts a given URL into a standardized URL format.
+     *
+     * @private
+     * @static
+     * @param {string} url The URL to standardize.
+     * @returns {string} The standardized URL.
+     *
+     * @memberOf FlexBrowserWindow
+     */
     private static goodUrl(url: string): string {
         url = url.trim();
         let goodProtocol = false;
@@ -76,6 +93,14 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         return url;
     }
 
+    /**
+     * Navigates the page to a specified URL.
+     *
+     * @param {string} url The URL to navigate to.
+     * @param {boolean} [addToHistory=true] Whether the URL should be added to the local history.
+     *
+     * @memberOf FlexBrowserWindow
+     */
     public goTo(url: string, addToHistory = true): void {
         url = FlexBrowserWindow.goodUrl(url);
 
@@ -93,6 +118,11 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         urlbar.model.value = url;
     }
 
+    /**
+     * Navigates to the previous page
+     *
+     * @memberOf FlexBrowserWindow
+     */
     public previousPage(): void {
         this.historyPointer--;
         if (
@@ -103,6 +133,11 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         else this.historyPointer++;
     }
 
+    /**
+     * Navigates to the next page
+     *
+     * @memberOf FlexBrowserWindow
+     */
     public nextPage(): void {
         this.historyPointer++;
         if (
