@@ -10,6 +10,8 @@ export default class URLBar extends TextField {
 
         this.stretchWidth()
             .textCenter()
+            .background('none')
+            .foreground(HColor('gray'))
             .id('url')
             .whenChanged(ev => {
                 const browserWindow = ev.view.root(

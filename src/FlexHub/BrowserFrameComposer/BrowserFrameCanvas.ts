@@ -13,6 +13,7 @@ import BrowserFrameModel, {
 import BrowserFrameRenderer from 'src/BrowserFrameRenderer';
 import BrowserPreferences from 'src/BrowserPreferences';
 import FlexBrowserWindow from 'src/FlexBrowserWindow';
+import URLBar from 'src/components/URLBar';
 
 export const defaultModel: BrowserFrameModel = {
     partitions: [
@@ -103,35 +104,7 @@ function makeComponent(model: BrowserFrameComponent): View {
                 new IonIcon(model.icon || 'chevron-forward-circle-outline')
             );
         case 'urlbar':
-            return new TextField('flex://home')
-                .stretchWidth()
-                .textCenter()
-                .id('url')
-                .whenChanged(ev => {
-                    const browserWindow = ev.view.root(
-                        view => (view as FlexBrowserWindow).isBrowserWindow
-                    ) as FlexBrowserWindow;
-                    const icon = browserWindow.getViewById(
-                        'url-refresh-button'
-                    ) as IonIcon;
-
-                    (icon.body as HTMLInputElement).name =
-                        'arrow-forward-outline'; // ! Workaround to use .name
-                })
-                .noOutline()
-                .whenFocused(ev =>
-                    ev.view.background(HColor('background')).textStart()
-                )
-                .whenUnfocused(ev => ev.view.background('none').textCenter())
-                .whenKeyPressed(ev => {
-                    if (ev.key == 'Enter') {
-                        const browserWindow = ev.view.root(
-                            view => (view as FlexBrowserWindow).isBrowserWindow
-                        ) as FlexBrowserWindow;
-                        const searchbar = this.getViewById('url') as InputField;
-                        browserWindow.goTo(searchbar.model.value);
-                    }
-                });
+            return new URLBar();
         case 'go-refresh':
             return new ClickButton(
                 new IonIcon(model.icon || 'refresh-circle-outline')
