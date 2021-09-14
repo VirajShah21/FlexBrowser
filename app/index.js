@@ -21,7 +21,7 @@ function createWindow() {
 
     flexBrowserInstances.push(win);
 
-    win.loadFile('app/index.html');
+    win.loadFile('index.html');
 
     win.setBrowserView(new BrowserView());
     win.getBrowserView().setBounds({
@@ -82,7 +82,7 @@ function createHubWindow() {
         vibrancy: 'light',
     });
 
-    win.loadFile('app/hub.html');
+    win.loadFile('hub.html');
 }
 
 async function readBookmarksFile() {
