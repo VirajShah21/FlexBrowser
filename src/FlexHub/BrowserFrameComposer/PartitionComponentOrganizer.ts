@@ -9,6 +9,7 @@ import VStack from '@Hi/Components/VStack';
 import BrowserFrameModel from 'src/Models/BrowserFrameModel';
 import BrowserFrameRenderer from 'src/BrowserFrameRenderer';
 import BrowserPreferences from 'src/BrowserPreferences';
+import WidgetSelectorButton from './components/WidgetSelectorButton';
 
 export default class PartitionComponentOrganizer extends BrowserFrameRenderer {
     constructor(model: BrowserFrameModel) {
@@ -34,23 +35,6 @@ export default class PartitionComponentOrganizer extends BrowserFrameRenderer {
     }
 }
 
-function WidgetSelectorButton(label: string, icon: IonIcon): ClickButton {
-    return new ClickButton(
-        new VStack(
-            icon.font('xxl').foreground(BrowserPreferences.getPrimaryColor()),
-            new TextView(label)
-                .font('xs')
-                .foreground(HColor('gray'))
-                .margin({ top: 5 })
-        )
-    )
-        .rounded()
-        .padding()
-        .width(100)
-        .background(HColor('background'))
-        .margin({ right: 10, bottom: 10 });
-}
-
 function AddWidgetButton(): ClickButton {
     return new ClickButton(new IonIcon('hammer'))
         .foreground(BrowserPreferences.getPrimaryColor())
@@ -60,15 +44,15 @@ function AddWidgetButton(): ClickButton {
                     new Spacer(),
 
                     new HStack(
-                        WidgetSelectorButton(
+                        new WidgetSelectorButton(
                             'Back Page',
                             new IonIcon('chevron-back-circle-outline')
                         ),
-                        WidgetSelectorButton(
+                        new WidgetSelectorButton(
                             'Forward Page',
                             new IonIcon('chevron-forward-circle-outline')
                         ),
-                        WidgetSelectorButton(
+                        new WidgetSelectorButton(
                             'New Window',
                             new IonIcon('add-circle-outline')
                         )
