@@ -32,6 +32,9 @@ export default class InputField extends View {
         this.body.addEventListener('input', () => {
             this.model.value = this.body.value;
         });
+        this.background(HColor('background'))
+            .foreground(HColor('foreground'))
+            .noOutline();
     }
 
     whenFocused(callback: (event: HumanEvent) => void): this {

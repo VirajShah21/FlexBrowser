@@ -65,6 +65,8 @@ function createHubWindow() {
             contextIsolation: true,
         },
         titleBarStyle: 'hidden',
+        transparent: true,
+        vibrancy: 'light',
     });
 
     win.loadFile('src/hub.html');

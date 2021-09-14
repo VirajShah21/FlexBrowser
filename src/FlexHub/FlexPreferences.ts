@@ -41,7 +41,7 @@ export default class FlexPreferences extends HIFullScreenView {
                 new Spacer()
             )
                 .stretch()
-                .background(HColor('background'))
+                .background(HColor('background').alpha(0.75))
                 .foreground(HColor('foreground'))
         );
     }

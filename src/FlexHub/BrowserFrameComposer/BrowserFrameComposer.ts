@@ -57,5 +57,9 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                     .stretchHeight()
             ).stretchWidth()
         );
+
+        this.background(HColor('background').alpha(0.75)).foreground(
+            HColor('foreground')
+        );
     }
 }
