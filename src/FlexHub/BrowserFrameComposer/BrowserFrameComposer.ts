@@ -28,13 +28,7 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                             ),
                         new Spacer()
                     ).stretchWidth()
-                )
-                    .background(HColor('gray6'))
-                    .fixed()
-                    .setTop(0)
-                    .setLeft(0)
-                    .zIndex(100),
-
+                ),
                 new ScrollView(
                     new VStack(
                         new HStack(new BrowserFrameCanvas().stretchWidth())
