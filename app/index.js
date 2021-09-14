@@ -20,7 +20,7 @@ function createWindow() {
 
     flexBrowserInstances.push(win);
 
-    win.loadFile('src/index.html');
+    win.loadFile('app/index.html');
 
     win.setBrowserView(new BrowserView());
     win.getBrowserView().setBounds({
@@ -69,7 +69,7 @@ function createHubWindow() {
         vibrancy: 'light',
     });
 
-    win.loadFile('src/hub.html');
+    win.loadFile('app/hub.html');
 }
 
 app.whenReady().then(() => {
