@@ -43,12 +43,10 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                         new PartitionComponentOrganizer({ partitions: [] }).id(
                             'partition-component-organizer'
                         )
-                    )
-                        .padding({ top: 100 })
-                        .stretchWidth()
+                    ).stretchWidth()
                 )
                     .stretchWidth()
-                    .height({ min: '100%' })
+                    .height('calc(100% - 100px)')
             )
                 .stretchWidth()
                 .stretchHeight()
