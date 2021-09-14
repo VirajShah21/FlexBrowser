@@ -2,7 +2,7 @@
     "name": "flex-browser",
     "version": "0.0.1",
     "description": "A beautiful cross platform web browser.",
-    "main": "src/index.js",
+    "main": "app/index.js",
     "scripts": {
         "test": "electron src --enable-logging",
         "start": "electron-forge start",

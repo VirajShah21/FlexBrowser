@@ -7,6 +7,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
+import BrowserPreferences from 'src/BrowserPreferences';
 import HubTitlebar from '../components/HubTitlebar';
 import BrowserFrameCanvas from './BrowserFrameCanvas';
 import PartitionComponentOrganizer from './PartitionComponentOrganizer';
@@ -21,6 +22,7 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .padding(0)
+                            .foreground(BrowserPreferences.getPrimaryColor())
                             .whenClicked(() =>
                                 ViewController.getController(
                                     'AppController'
@@ -28,13 +30,7 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                             ),
                         new Spacer()
                     ).stretchWidth()
-                )
-                    .background(HColor('gray6'))
-                    .fixed()
-                    .setTop(0)
-                    .setLeft(0)
-                    .zIndex(100),
-
+                ),
                 new ScrollView(
                     new VStack(
                         new HStack(new BrowserFrameCanvas().stretchWidth())
@@ -49,12 +45,10 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                         new PartitionComponentOrganizer({ partitions: [] }).id(
                             'partition-component-organizer'
                         )
-                    )
-                        .padding({ top: 100 })
-                        .stretchWidth()
+                    ).stretchWidth()
                 )
                     .stretchWidth()
-                    .height({ min: '100%' })
+                    .height('calc(100% - 100px)')
             )
                 .stretchWidth()
                 .stretchHeight()
