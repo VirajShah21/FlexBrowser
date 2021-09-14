@@ -4,6 +4,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import BrowserPreferences from 'src/BrowserPreferences';
 
 export default class PartionEditor extends HStack {
     constructor(index: number) {
@@ -59,7 +60,7 @@ export default class PartionEditor extends HStack {
                 .margin({ left: 25 })
         );
 
-        this.background(HColor('blue'))
+        this.background(BrowserPreferences.getPrimaryColor().alpha(0.5))
             .padding()
             .foreground(HColor('background'))
             .stretchWidth()
