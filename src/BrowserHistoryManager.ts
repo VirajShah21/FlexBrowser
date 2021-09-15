@@ -1,5 +1,12 @@
 import URLMeta from './Models/URLMeta';
 
+/**
+ *
+ *
+ * @deprecated
+ * @export
+ * @class BrowserHistoryManager
+ */
 export default class BrowserHistoryManager {
     public static getBrowserHistory(): URLMeta[] {
         const data = localStorage.getItem('flex://history');

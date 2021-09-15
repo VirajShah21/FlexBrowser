@@ -12,6 +12,7 @@ import {
 } from './Types/sizing';
 import { StateObject, StateProxy } from './Types/states';
 import { HIFont, HIBorderProperties } from './Types/styles';
+import { getTransitionDefintion } from './Transitions/Transition';
 
 interface ModelData {
     viewName: string;
@@ -73,7 +74,8 @@ export default abstract class View {
         const results = [];
         if (this.$children) {
             for (const child of this.$children) {
-                if (child.getClassList().indexOf(className) >= 0) results.push(child);
+                if (child.getClassList().indexOf(className) >= 0)
+                    results.push(child);
                 child.getViewsByClass(className).forEach(view => {
                     results.push(view);
                 });
@@ -139,7 +141,8 @@ export default abstract class View {
      */
     destroy(): void {
         // Remove from parent
-        if (this.parent && this.parent.$children) this.parent.$children.splice(this.parent.children.indexOf(this), 1);
+        if (this.parent && this.parent.$children)
+            this.parent.$children.splice(this.parent.children.indexOf(this), 1);
         this.body.remove();
 
         // Clear all instance variables
@@ -197,8 +200,12 @@ export default abstract class View {
      * @memberOf View
      */
     blur(radius = 25): this {
-        (this.body.style as unknown as Record<string, string>).backdropFilter = `blur(${sizing(radius)})`;
-        (this.body.style as unknown as Record<string, string>).webkitBackdropFilter = `blur(${sizing(radius)})`;
+        (
+            this.body.style as unknown as Record<string, string>
+        ).backdropFilter = `blur(${sizing(radius)})`;
+        (
+            this.body.style as unknown as Record<string, string>
+        ).webkitBackdropFilter = `blur(${sizing(radius)})`;
         return this;
     }
 
@@ -266,11 +273,16 @@ export default abstract class View {
      * @memberOf View
      */
     font(fontClass: string | number | HIFont | HISizingName): this {
-        if (typeof fontClass == 'string' && Object.prototype.hasOwnProperty.call(SizingValues.FONT, fontClass)) {
-            this.body.style.fontSize = SizingValues.FONT[fontClass as HISizingName];
+        if (
+            typeof fontClass == 'string' &&
+            Object.prototype.hasOwnProperty.call(SizingValues.FONT, fontClass)
+        ) {
+            this.body.style.fontSize =
+                SizingValues.FONT[fontClass as HISizingName];
         } else if (typeof fontClass == 'string') {
             this.body.style.font = fontClass;
-        } else if (typeof fontClass == 'number') this.body.style.fontSize = sizing(fontClass);
+        } else if (typeof fontClass == 'number')
+            this.body.style.fontSize = sizing(fontClass);
         else if (typeof fontClass == 'object') {
             if (Object.prototype.hasOwnProperty.call(fontClass, 'family'))
                 this.body.style.fontFamily = fontClass.family!;
@@ -279,7 +291,8 @@ export default abstract class View {
                 ['number', 'string'].indexOf(typeof fontClass.size) >= 0
             )
                 this.body.style.fontSize = sizing(fontClass.size!);
-            if (Object.prototype.hasOwnProperty.call(fontClass, 'color')) this.foreground(fontClass.color!);
+            if (Object.prototype.hasOwnProperty.call(fontClass, 'color'))
+                this.foreground(fontClass.color!);
         }
         return this;
     }
@@ -315,7 +328,8 @@ export default abstract class View {
 
     removeClass(classname: string): this {
         const classes = this.getClassList() as string[];
-        if (classes.indexOf(classname) >= 0) classes.splice(classes.indexOf(classname), 1);
+        if (classes.indexOf(classname) >= 0)
+            classes.splice(classes.indexOf(classname), 1);
         this.body.className = classes.join(' ');
         return this;
     }
@@ -367,7 +381,9 @@ export default abstract class View {
     }
 
     glow(color: RGBAModel, size: HISizingValue = 10): this {
-        this.body.style.filter = `drop-shadow(0 0 ${sizing(size)} ${color.toString()})`;
+        this.body.style.filter = `drop-shadow(0 0 ${sizing(
+            size
+        )} ${color.toString()})`;
         return this;
     }
 
@@ -446,40 +462,50 @@ export default abstract class View {
     }
 
     border(options: HIBorderProperties): this {
-        if (options.size != undefined) this.body.style.borderWidth = sizing(options.size);
-        if (options.color) this.body.style.borderColor = options.color.toString();
+        if (options.size != undefined)
+            this.body.style.borderWidth = sizing(options.size);
+        if (options.color)
+            this.body.style.borderColor = options.color.toString();
         if (options.style) this.body.style.borderStyle = options.style;
 
         return this;
     }
 
     borderTop(options: HIBorderProperties): this {
-        if (options.size != undefined) this.body.style.borderTopWidth = sizing(options.size);
-        if (options.color) this.body.style.borderTopColor = options.color.toString();
+        if (options.size != undefined)
+            this.body.style.borderTopWidth = sizing(options.size);
+        if (options.color)
+            this.body.style.borderTopColor = options.color.toString();
         if (options.style) this.body.style.borderTopStyle = options.style;
 
         return this;
     }
 
     borderRight(options: HIBorderProperties): this {
-        if (options.size != undefined) this.body.style.borderRightWidth = sizing(options.size);
-        if (options.color) this.body.style.borderRightColor = options.color.toString();
+        if (options.size != undefined)
+            this.body.style.borderRightWidth = sizing(options.size);
+        if (options.color)
+            this.body.style.borderRightColor = options.color.toString();
         if (options.style) this.body.style.borderRightStyle = options.style;
 
         return this;
     }
 
     borderBottom(options: HIBorderProperties): this {
-        if (options.size != undefined) this.body.style.borderBottomWidth = sizing(options.size);
-        if (options.color) this.body.style.borderBottomColor = options.color.toString();
+        if (options.size != undefined)
+            this.body.style.borderBottomWidth = sizing(options.size);
+        if (options.color)
+            this.body.style.borderBottomColor = options.color.toString();
         if (options.style) this.body.style.borderBottomStyle = options.style;
 
         return this;
     }
 
     borderLeft(options: HIBorderProperties): this {
-        if (options.size != undefined) this.body.style.borderLeftWidth = sizing(options.size);
-        if (options.color) this.body.style.borderLeftColor = options.color.toString();
+        if (options.size != undefined)
+            this.body.style.borderLeftWidth = sizing(options.size);
+        if (options.color)
+            this.body.style.borderLeftColor = options.color.toString();
         if (options.style) this.body.style.borderLeftStyle = options.style;
 
         return this;
@@ -489,9 +515,12 @@ export default abstract class View {
         if (amount != undefined) {
             const mapping = edgeSizing(amount);
             if (mapping.top) this.body.style.paddingTop = sizing(mapping.top);
-            if (mapping.right) this.body.style.paddingRight = sizing(mapping.right);
-            if (mapping.bottom) this.body.style.paddingBottom = sizing(mapping.bottom);
-            if (mapping.left) this.body.style.paddingLeft = sizing(mapping.left);
+            if (mapping.right)
+                this.body.style.paddingRight = sizing(mapping.right);
+            if (mapping.bottom)
+                this.body.style.paddingBottom = sizing(mapping.bottom);
+            if (mapping.left)
+                this.body.style.paddingLeft = sizing(mapping.left);
         } else this.body.style.padding = '10px';
         return this;
     }
@@ -499,27 +528,42 @@ export default abstract class View {
     margin(amount?: HIEdgeSizingValue): this {
         if (amount != undefined) {
             const mapping = edgeSizing(amount);
-            if (mapping.top != undefined) this.body.style.marginTop = sizing(mapping.top);
-            if (mapping.right != undefined) this.body.style.marginRight = sizing(mapping.right);
-            if (mapping.bottom != undefined) this.body.style.marginBottom = sizing(mapping.bottom);
-            if (mapping.left != undefined) this.body.style.marginLeft = sizing(mapping.left);
+            if (mapping.top != undefined)
+                this.body.style.marginTop = sizing(mapping.top);
+            if (mapping.right != undefined)
+                this.body.style.marginRight = sizing(mapping.right);
+            if (mapping.bottom != undefined)
+                this.body.style.marginBottom = sizing(mapping.bottom);
+            if (mapping.left != undefined)
+                this.body.style.marginLeft = sizing(mapping.left);
         } else this.body.style.margin = '10px';
         return this;
     }
 
     rounded(amount?: HICornerSizingValue): this {
         if (amount != undefined) {
-            if (typeof amount === 'string' || typeof amount === 'number') this.body.style.borderRadius = sizing(amount);
+            if (typeof amount === 'string' || typeof amount === 'number')
+                this.body.style.borderRadius = sizing(amount);
             else {
                 if (amount.top) {
-                    if (amount.top.left != undefined) this.body.style.borderTopLeftRadius = sizing(amount.top.left);
-                    if (amount.top.right != undefined) this.body.style.borderTopRightRadius = sizing(amount.top.right);
+                    if (amount.top.left != undefined)
+                        this.body.style.borderTopLeftRadius = sizing(
+                            amount.top.left
+                        );
+                    if (amount.top.right != undefined)
+                        this.body.style.borderTopRightRadius = sizing(
+                            amount.top.right
+                        );
                 }
                 if (amount.bottom) {
                     if (amount.bottom.left != undefined)
-                        this.body.style.borderBottomLeftRadius = sizing(amount.bottom.left);
+                        this.body.style.borderBottomLeftRadius = sizing(
+                            amount.bottom.left
+                        );
                     if (amount.bottom.right != undefined)
-                        this.body.style.borderBottomRightRadius = sizing(amount.bottom.right);
+                        this.body.style.borderBottomRightRadius = sizing(
+                            amount.bottom.right
+                        );
                 }
             }
         } else this.body.style.borderRadius = '10px';
@@ -528,11 +572,15 @@ export default abstract class View {
     }
 
     width(frameWidth: HISizeBounds): this {
-        if (typeof frameWidth == 'string' || typeof frameWidth == 'number') this.body.style.width = sizing(frameWidth);
+        if (typeof frameWidth == 'string' || typeof frameWidth == 'number')
+            this.body.style.width = sizing(frameWidth);
         else {
-            if (frameWidth.min) this.body.style.minWidth = sizing(frameWidth.min);
-            if (frameWidth.max) this.body.style.maxWidth = sizing(frameWidth.max);
-            if (frameWidth.default) this.body.style.width = sizing(frameWidth.default);
+            if (frameWidth.min)
+                this.body.style.minWidth = sizing(frameWidth.min);
+            if (frameWidth.max)
+                this.body.style.maxWidth = sizing(frameWidth.max);
+            if (frameWidth.default)
+                this.body.style.width = sizing(frameWidth.default);
         }
 
         return this;
@@ -542,9 +590,12 @@ export default abstract class View {
         if (typeof frameHeight == 'string' || typeof frameHeight == 'number')
             this.body.style.height = sizing(frameHeight);
         else {
-            if (frameHeight.min) this.body.style.minHeight = sizing(frameHeight.min);
-            if (frameHeight.max) this.body.style.maxHeight = sizing(frameHeight.max);
-            if (frameHeight.default) this.body.style.height = sizing(frameHeight.default);
+            if (frameHeight.min)
+                this.body.style.minHeight = sizing(frameHeight.min);
+            if (frameHeight.max)
+                this.body.style.maxHeight = sizing(frameHeight.max);
+            if (frameHeight.default)
+                this.body.style.height = sizing(frameHeight.default);
         }
 
         return this;
@@ -557,7 +608,9 @@ export default abstract class View {
         return this;
     }
 
-    position(value: 'static' | 'relative' | 'fixed' | 'absolute' | 'sticky'): this {
+    position(
+        value: 'static' | 'relative' | 'fixed' | 'absolute' | 'sticky'
+    ): this {
         this.body.style.position = value;
         return this;
     }
@@ -621,15 +674,35 @@ export default abstract class View {
         return this;
     }
 
-    signal(data: string): void {
-        this.handle(data);
-        this.$children.forEach(child => child.signal(data));
+    signal(data: string, ...args: unknown[]): void {
+        this.handle(data, ...args);
+        this.$children.forEach(child => child.signal(data, ...args));
     }
 
-    handle(data: string): void {
+    handle(data: string, ...args: unknown[]): void {
         if (data == '') {
             console.warn('Caught an empty signal');
             console.trace();
         }
+    }
+
+    public async transition(transitionName: string): Promise<void> {
+        return new Promise<void>(resolve => {
+            const definition = getTransitionDefintion(transitionName);
+            this.body.style.animationName = transitionName;
+            this.body.style.animationIterationCount =
+                definition.iterations + '';
+            this.body.style.animationDuration = definition.duration + 's';
+            if (definition.delay)
+                this.body.style.animationDelay = definition.delay + 's';
+            if (definition.after)
+                this.body.style.animationFillMode = definition.after;
+            if (definition.direction)
+                this.body.style.animationDirection = definition.direction;
+            setTimeout(
+                () => resolve(),
+                (definition.delay || 0) + definition.duration
+            );
+        });
     }
 }

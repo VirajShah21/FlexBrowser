@@ -9,7 +9,7 @@
         "package": "electron-forge package",
         "make": "electron-forge make",
         "publish": "electron-forge publish",
-        "quickpack": "webpack; cp -r src/js out/flex-browser-darwin-x64/flex-browser.app/Contents/Resources/app/src"
+        "quickpack": "webpack; cp -r app/js out/flex-browser-darwin-x64/flex-browser.app/Contents/Resources/app/app"
     },
     "author": "",
     "license": "ISC",

@@ -1,6 +1,7 @@
 const { app, BrowserWindow, BrowserView, ipcMain } = require('electron');
 const fs = require('fs');
 const path = require('path');
+const HOMEDIR = require('os').homedir();
 
 const flexBrowserInstances = [];
 
@@ -53,6 +54,18 @@ function createWindow() {
         }));
         event.returnValue = obj;
     });
+
+    ipcMain.on('addBookmark', () => {
+        readBookmarksFile()
+            .then(bookmarks => console.log(bookmarks))
+            .catch(reason => console.warn(reason));
+    });
+
+    ipcMain.on('getBookmarks', event => {
+        readBookmarksFile()
+            .then(bookmarks => (event.returnValue = bookmarks))
+            .catch(reason => console.warn(reason));
+    });
 }
 
 function createHubWindow() {
@@ -70,6 +83,22 @@ function createHubWindow() {
     });
 
     win.loadFile('app/hub.html');
+}
+
+async function readBookmarksFile() {
+    return new Promise((resolve, reject) => {
+        const filepath = path.join(HOMEDIR, '.flex-bookmarks.json');
+        fs.readFile(filepath, 'utf-8', (err, data) => {
+            if (err) fs.writeFile(filepath, '{}', () => resolve({}));
+            else {
+                try {
+                    resolve(JSON.parse(data));
+                } catch (e) {
+                    reject('File (~/.flex-bookmarks.json) is invalid JSON.');
+                }
+            }
+        });
+    });
 }
 
 app.whenReady().then(() => {

@@ -136,3 +136,4 @@ dist
 .tern-port
 
 out/
+app/js/
