@@ -52,8 +52,8 @@ export default class AddWidgetButton extends ClickButton {
                         new Spacer(),
 
                         new ClickButton(new TextView('Cancel'))
-                            .background(HColor('red'))
-                            .foreground(HColor('background'))
+                            .foreground(HColor('red'))
+                            .background(HColor('gray5'))
                             .rounded(7.5)
                             .whenClicked(ev => {
                                 ev.view.root().destroy();
@@ -62,7 +62,7 @@ export default class AddWidgetButton extends ClickButton {
                         new Spacer()
                     ).stretch()
                 )
-                    .background(HColor('gray5'))
+                    .background(HColor('gray6'))
                     .foreground(HColor('foreground'));
             }
         );
