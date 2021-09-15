@@ -136,4 +136,6 @@ dist
 .tern-port
 
 out/
-app/js/
+
+app/js/bundle.js
+app/js/bundle.js.map
