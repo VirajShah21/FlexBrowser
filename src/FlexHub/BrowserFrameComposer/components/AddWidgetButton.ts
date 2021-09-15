@@ -30,19 +30,22 @@ export default class AddWidgetButton extends ClickButton {
                                 'Back Page',
                                 new IonIcon('chevron-back-circle-outline'),
                                 partition,
-                                index
+                                index,
+                                'page-back'
                             ),
                             new WidgetSelectorButton(
                                 'Forward Page',
                                 new IonIcon('chevron-forward-circle-outline'),
                                 partition,
-                                index
+                                index,
+                                'page-forward'
                             ),
                             new WidgetSelectorButton(
                                 'New Window',
                                 new IonIcon('add-circle-outline'),
                                 partition,
-                                index
+                                index,
+                                'new-window'
                             )
                         ),
 

@@ -6,18 +6,20 @@ import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from 'src/BrowserPreferences';
+import { BrowserFrameComponent } from 'src/Models/BrowserFrameModel';
 import PartitionComponentOrganizer from '../PartitionComponentOrganizer';
 
 export default class WidgetSelectorButton extends ClickButton {
     constructor(
         label: string,
-        icon: IonIcon,
+        componentPlaceholder: View,
         partition: number,
-        index: number
+        index: number,
+        componentName: string
     ) {
         super(
             new VStack(
-                icon
+                componentPlaceholder
                     .font('xxl')
                     .foreground(BrowserPreferences.getPrimaryColor()),
                 new TextView(label)
@@ -39,7 +41,7 @@ export default class WidgetSelectorButton extends ClickButton {
                 ) as PartitionComponentOrganizer;
                 console.log(renderer);
                 renderer.addToPartition(partition, index, {
-                    name: 'page-back',
+                    name: componentName,
                 });
                 ev.view.root().destroy();
             });
