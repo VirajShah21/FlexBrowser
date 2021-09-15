@@ -1,5 +1,6 @@
 import HStack from '@Hi/Components/HStack';
 import BrowserFrameModel, {
+    BrowserFrameComponent,
     BrowserFramePartition,
 } from './Models/BrowserFrameModel';
 
@@ -39,6 +40,19 @@ export default abstract class BrowserFrameRenderer extends HStack {
      */
     public setBrowserFrameModel(model: BrowserFrameModel): void {
         this.model = model;
+        this.updateBrowserFrame();
+    }
+
+    public addToPartition(
+        partition: number,
+        index: number,
+        component: BrowserFrameComponent
+    ): void {
+        if (index >= this.model.partitions[partition].components.length) {
+            this.model.partitions[partition].components.push(component);
+        } else {
+            alert('Cannot add to partition! Can only append!');
+        }
         this.updateBrowserFrame();
     }
 

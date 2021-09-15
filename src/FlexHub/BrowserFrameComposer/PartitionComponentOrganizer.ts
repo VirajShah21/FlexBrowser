@@ -15,10 +15,10 @@ export default class PartitionComponentOrganizer extends BrowserFrameRenderer {
 
     protected override updateBrowserFrame(): void {
         this.removeAllChildren().addChildren(
-            ...this.model.partitions.map(partition =>
+            ...this.model.partitions.map((partition, partitionIndex) =>
                 new HStack(
                     ...(partition.components.length == 0
-                        ? [new AddWidgetButton()]
+                        ? [new AddWidgetButton(partitionIndex, 0)]
                         : partition.components.map(component =>
                               new IonIcon(component.icon || '').foreground(
                                   BrowserPreferences.getPrimaryColor()
