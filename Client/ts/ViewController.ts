@@ -25,17 +25,20 @@ export class ViewController {
      * Navigates to a screen with a specified name.
      *
      * @param {string} [name='main'] The name of the screen to navigate to. "main" is implicitly passed to this parameter if not specified.
+     * @param {string} [transition='none'] The transition.
      * @returns {this}
      *
      * @memberOf ViewController
      */
-    navigateTo(name = 'main'): this {
+    navigateTo(name = 'main', transition = 'none'): this {
         if (typeof name != 'string')
             throw new Error(
                 `ViewController.navigateTo: Parameter name (1) should be of type string, instead got ${typeof name}`
             );
         if (!Object.prototype.hasOwnProperty.call(this.screens, name))
-            throw new Error(`ViewController.navigateTo: ViewController does not have a screen named ${name}`);
+            throw new Error(
+                `ViewController.navigateTo: ViewController does not have a screen named ${name}`
+            );
         this.binding.innerHTML = '';
         this.binding.appendChild(this.screens[name].body);
         this.visibleScreen = name;
@@ -59,7 +62,9 @@ export class ViewController {
         if (!(screen instanceof View))
             throw new Error(
                 `ViewController.addNavigator: Parameter screen (2) should be of type View, instead got ${typeof screen}.\nValue: ${
-                    typeof screen == 'object' ? JSON.stringify(screen, null, 4) : screen
+                    typeof screen == 'object'
+                        ? JSON.stringify(screen, null, 4)
+                        : screen
                 }`
             );
         this.screens[name] = screen;
@@ -89,7 +94,11 @@ export class ViewController {
      */
     whenResized(handler: (ev: HumanEvent) => void): this {
         window.addEventListener('resize', ev =>
-            handler({ type: 'Resize', view: this.screens[this.visibleScreen], browserEvent: ev })
+            handler({
+                type: 'Resize',
+                view: this.screens[this.visibleScreen],
+                browserEvent: ev,
+            })
         );
         return this;
     }
@@ -116,7 +125,9 @@ export class ViewController {
      *
      * @memberOf ViewController
      */
-    public static getController(controllerName: string): ViewController | undefined {
+    public static getController(
+        controllerName: string
+    ): ViewController | undefined {
         return ViewControllerData.controllerMap[controllerName];
     }
 
@@ -136,16 +147,25 @@ export class ViewController {
      *
      * @static
      * @param {string} [name='main'] The screen name to navigate to.
+     * @param {string} [transition='none'] The
      * @returns {(ViewController | null)} The requested ViewController. If no controller is found, then null is returned.
      *
      * @memberOf ViewController
      */
-    static navigateTo(name = 'main'): ViewController | null {
-        const controller = ViewControllerData.controllers.find(currentController => {
-            return Object.prototype.hasOwnProperty.call(currentController.screens, name);
-        });
+    static navigateTo(
+        name = 'main',
+        transition = 'none'
+    ): ViewController | null {
+        const controller = ViewControllerData.controllers.find(
+            currentController => {
+                return Object.prototype.hasOwnProperty.call(
+                    currentController.screens,
+                    name
+                );
+            }
+        );
         if (controller) {
-            controller.navigateTo(name);
+            controller.navigateTo(name, transition);
             controller.visibleScreen = name;
             return controller;
         } else {
@@ -165,7 +185,8 @@ export class ViewController {
     static allScreens(): Record<string, View> {
         const screens: Record<string, View> = {};
         ViewControllerData.controllers.forEach(controller => {
-            for (const screen in controller.screens) screens[screen] = controller.screens[screen];
+            for (const screen in controller.screens)
+                screens[screen] = controller.screens[screen];
         });
         return screens;
     }
