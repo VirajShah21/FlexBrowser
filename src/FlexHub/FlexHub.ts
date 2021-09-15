@@ -6,6 +6,7 @@ import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import { defineTransition } from '@Hi/Transitions/Transition';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from '../BrowserPreferences';
 import HubTitlebar from './components/HubTitlebar';
@@ -56,6 +57,22 @@ export default class FlexHub extends HIFullScreenView {
                 .background(HColor('background').alpha(0.75))
                 .foreground(HColor('foreground'))
         );
+
+        const fadeIn = defineTransition({
+            from: {
+                opacity: 0,
+            },
+            '50%': {
+                opacity: 0.9,
+            },
+            to: {
+                opacity: 1,
+            },
+            iterations: 1,
+            duration: 3,
+            delay: 0,
+        });
+        this.transition(fadeIn);
 
         this.body.style.setProperty('-webkit-app-region', 'drag');
     }
