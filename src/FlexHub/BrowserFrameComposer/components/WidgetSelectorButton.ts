@@ -41,6 +41,7 @@ export default class WidgetSelectorButton extends ClickButton {
                 renderer.addToPartition(partition, index, {
                     name: 'page-back',
                 });
+                ev.view.root().destroy();
             });
     }
 }
