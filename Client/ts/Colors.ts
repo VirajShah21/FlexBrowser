@@ -154,6 +154,13 @@ export class RGBAModel {
     }
 }
 
+/**
+ * Converts a color name to a usable `RGBAModel` object.
+ *
+ * @export
+ * @param {HumanColorName} color The name of the color.
+ * @returns {RGBAModel} The `RGBAModel` for the specified color name.
+ */
 export function HColor(color: HumanColorName): RGBAModel {
     if (colorTheme === 'light') {
         return RGBAModel.copy(HumanColorSwatch.light[color]);
@@ -162,10 +169,35 @@ export function HColor(color: HumanColorName): RGBAModel {
     }
 }
 
+/**
+ * Quickly generates an `RGBAModel` if the red, green, and blue values are
+ * already known.
+ *
+ * @export
+ * @param {number} r The amount of red (0-255).
+ * @param {number} g The amount of green (0-255).
+ * @param {number} b The amount of blue (0-255).
+ * @returns {RGBAModel} The RGBAModel composed of the provided rgb values.
+ *
+ * @see rgba
+ */
 export function rgb(r: number, g: number, b: number): RGBAModel {
     return new RGBAModel(r, g, b);
 }
 
+/**
+ * Quickly generates an `RGBAModel` if the red, green, blue, and alpha
+ * values are already known.
+ *
+ * @export
+ * @param {number} r The amount of red (0-255).
+ * @param {number} g The amount of green (0-255).
+ * @param {number} b The amount of blue (0-255).
+ * @param {number} a The amoun of alpha (0-1).
+ * @returns {RGBAModel} The RGBAModel composed of the provided rgb values.
+ *
+ * @see rgb
+ */
 export function rgba(r: number, g: number, b: number, a: number): RGBAModel {
     return new RGBAModel(r, g, b, a);
 }
@@ -223,6 +255,12 @@ let colorTheme: 'light' | 'dark' = (() => {
     return 'light';
 })();
 
+/**
+ * Changes and saves the color theme to `localStorage`.
+ *
+ * @export
+ * @param {('light' | 'dark')} theme The theme mode to change to.
+ */
 export function changeTheme(theme: 'light' | 'dark'): void {
     colorTheme = theme;
     ViewControllerData.controllers.forEach(controller =>
@@ -231,16 +269,27 @@ export function changeTheme(theme: 'light' | 'dark'): void {
     localStorage.setItem('hi://theme', colorTheme);
 }
 
+/**
+ *
+ *
+ * @export
+ * @returns {('light' | 'dark')} The theme mode.
+ */
 export function whichTheme(): 'light' | 'dark' {
     return colorTheme;
 }
 
 /**
+ * Gets the average rgb values from an image element.
+ *
+ * _Note_: This function only works with raw html elements. If using with
+ * a view, then use `(myImage.body as HTMLImageElement)` to access the
+ * `HTMLImageElement`.
  * From: https://stackoverflow.com/questions/2541481/get-average-color-of-image-via-javascript
  *
  * @export
- * @param {any} imgEl
- * @returns
+ * @param {HTMLImageElement} imgEl The image element to analyze.
+ * @returns {RGBAModel} The average image color.
  */
 export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
     const blockSize = 5, // only visit every 5 pixels
