@@ -443,23 +443,6 @@ export default abstract class View {
         return this;
     }
 
-    // * Text Alignment
-
-    textStart(): this {
-        this.body.style.textAlign = 'left';
-        return this;
-    }
-
-    textCenter(): this {
-        this.body.style.textAlign = 'center';
-        return this;
-    }
-
-    textEnd(): this {
-        this.body.style.textAlign = 'right';
-        return this;
-    }
-
     // * Frame Modifiers
 
     stretchWidth(): this {
