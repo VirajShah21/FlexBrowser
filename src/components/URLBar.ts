@@ -25,9 +25,13 @@ export default class URLBar extends TextField {
             })
             .noOutline()
             .whenFocused(ev =>
-                ev.view.background(HColor('background')).textStart()
+                (
+                    ev.view.background(HColor('background')) as TextField
+                ).textStart()
             )
-            .whenUnfocused(ev => ev.view.background('none').textCenter())
+            .whenUnfocused(ev =>
+                (ev.view.background('none') as TextField).textCenter()
+            )
             .whenKeyPressed(ev => {
                 if (ev.key == 'Enter') {
                     const browserWindow = ev.view.root(
