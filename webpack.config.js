@@ -24,11 +24,6 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'app/js'),
     },
-    // comment out compress to make development easier
-    compress: {
-        warnings: false,
-        drop_console: true,
-    },
-    mode: 'production', // set to development when developing
+    mode: 'production', // set to development when debugging
     devtool: 'source-map',
 };
