@@ -1,7 +1,5 @@
 import { HColor } from '@Hi/Colors';
-import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
-import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import View from '@Hi/View';
