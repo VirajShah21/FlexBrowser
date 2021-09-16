@@ -1,12 +1,10 @@
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
-import IonIcon from '@Hi/Components/IonIcon';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from 'src/BrowserPreferences';
-import { BrowserFrameComponent } from 'src/Models/BrowserFrameModel';
 import PartitionComponentOrganizer from '../PartitionComponentOrganizer';
 
 export default class WidgetSelectorButton extends ClickButton {
