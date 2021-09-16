@@ -206,6 +206,14 @@ export default abstract class View extends BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Remove a classname from the classlist.
+     *
+     * @param {string} classname The classname to remove.
+     * @returns {this}
+     *
+     * @memberOf View
+     */
     removeClass(classname: string): this {
         const classes = this.getClassList() as string[];
         if (classes.indexOf(classname) >= 0)
@@ -214,11 +222,25 @@ export default abstract class View extends BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Removes all children from this View.
+     *
+     * @returns {this}
+     *
+     * @memberOf View
+     */
     removeAllChildren(): this {
         this.$children.splice(0, this.children.length);
         return this.buildChildren();
     }
 
+    /**
+     * Rebuilds all children and renders them to the parent View.
+     *
+     * @returns {this}
+     *
+     * @memberOf View
+     */
     buildChildren(): this {
         this.body.innerHTML = '';
         this.$children.forEach(child => {
@@ -230,6 +252,18 @@ export default abstract class View extends BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Obtains the root element. If a parameter is provided, this will return
+     * the first parent which satisfies the condition. If no parameter is
+     * provided then the top-most parent is obtained.
+     *
+     * @param {(view: View) => boolean} [stopAtView] The conditional for the
+     * View to stop at.
+     * @returns {View} The View which either satisfies the provided conditional
+     * function or the top-most parent.
+     *
+     * @memberOf View
+     */
     root(stopAtView?: (view: View) => boolean): View {
         let root: View = this.parent as View;
 
@@ -245,11 +279,27 @@ export default abstract class View extends BaseBodyStyler {
         return root;
     }
 
+    /**
+     * Adds a title attribute to this View.
+     *
+     * @param {string} text The title to set.
+     * @returns {this}
+     *
+     * @memberOf View
+     */
     title(text: string): this {
         this.body.title = text;
         return this;
     }
 
+    /**
+     * Assigns an ID to the View.
+     *
+     * @param {string} idName The id.
+     * @returns {this}
+     *
+     * @memberOf View
+     */
     id(idName: string): this {
         this.identifier = idName;
         return this;
@@ -257,6 +307,16 @@ export default abstract class View extends BaseBodyStyler {
 
     // * Mouse Hover Event Modifiers
 
+    /**
+     * Adds a handler to the MouseOver event. A MouseOver event is triggered
+     * when the mouse pointer appears above the View.
+     *
+     * @param {(ev: HumanEvent) => void} callback The function to be called
+     * once the user's mouse enters the area of the View.
+     * @returns {this}
+     *
+     * @memberOf View
+     */
     whenMouseOver(callback: (ev: HumanEvent) => void): this {
         this.body.addEventListener('mouseover', browserEvent =>
             callback({
@@ -268,6 +328,16 @@ export default abstract class View extends BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Adds a handler to the MouseOut event. A MouseOut event is triggered
+     * when the mouse pointer leaves the area above the View.
+     *
+     * @param {(ev: HumanEvent) => void} callback The function to be called
+     * once the user's mouse leaves the area of the View.
+     * @returns {this}
+     *
+     * @memberOf View
+     */
     whenMouseOut(callback: (ev: HumanEvent) => void): this {
         this.body.addEventListener('mouseout', browserEvent =>
             callback({
@@ -279,11 +349,29 @@ export default abstract class View extends BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Sends a signal starting at this View, cascading cascading to all
+     * children.
+     *
+     * @param {string} data The signal which is being sent.
+     * @param {...unknown[]} args Any argument which should be passed to handle.
+     *
+     * @memberOf View
+     */
     signal(data: string, ...args: unknown[]): void {
         this.handle(data, ...args);
         this.$children.forEach(child => child.signal(data, ...args));
     }
 
+    /**
+     * Handles a signal event. This method should be overriden in child
+     * classes.
+     *
+     * @param {string} data The signal data which was recieved by `signal(...)`.
+     * @param {...unknown[]} args The arguments which was recieved by `signal(...)`.
+     *
+     * @memberOf View
+     */
     handle(data: string, ...args: unknown[]): void {
         if (data == '') {
             console.warn('Caught an empty signal');
@@ -291,6 +379,16 @@ export default abstract class View extends BaseBodyStyler {
         }
     }
 
+    /**
+     * Starts a transition on this View. A transition is defined by calling
+     * `defineTransition` from `Transitions/Transition`. The result of
+     * `defineTransition(...)` is the transition name.
+     *
+     * @param {string} transitionName The name of the defined transition.
+     * @returns {Promise<void>}
+     *
+     * @memberOf View
+     */
     public async transition(transitionName: string): Promise<void> {
         return new Promise<void>(resolve => {
             const definition = getTransitionDefintion(transitionName);
