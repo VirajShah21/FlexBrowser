@@ -149,16 +149,40 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Allows the View to be positioned relative to its original position by
+     * using `setTop(#)`, `setLeft(#)`, `setBottom(#)`, and `setTop(#)
+     *
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     relative(): this {
         this.body.style.position = 'relative';
         return this;
     }
 
+    /**
+     * Grows the View to take up all available space in a `Stack`.
+     *
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     grow(): this {
         this.body.style.flexGrow = '1';
         return this;
     }
 
+    /**
+     * Adds a glow (drop shadow) to the View.
+     *
+     * @param {RGBAModel} color The glow color.
+     * @param {HISizingValue} [size=10] The spread of the glow.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     glow(color: RGBAModel, size: HISizingValue = 10): this {
         this.body.style.filter = `drop-shadow(0 0 ${sizing(
             size
@@ -166,11 +190,35 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Sets the z-index (position along z-axis) of the View. When used in
+     * conjuction with `position`, the View will either appear in front of or
+     * behind other Views.
+     *
+     * @param {number} index The position along the z-axis to position the
+     * View.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     zIndex(index: number): this {
         this.body.style.zIndex = `${index}`;
         return this;
     }
 
+    /**
+     * Toggles the resize marker on a View. The direction can be specified
+     * by indicated which axis the resize should allow. Resizability can
+     * be enabled horizontally (`'h'`), vertically (`'v'`), horizontally
+     * **and** vertically (`'both'`), or can be completely removed by using
+     * `none`.
+     *
+     * @param {('h' | 'v' | 'both' | 'none')} [axis] The axis to enable
+     * resizability.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     public resizable(axis?: 'h' | 'v' | 'both' | 'none'): this {
         if (!axis) this.body.style.resize = 'both';
         else
