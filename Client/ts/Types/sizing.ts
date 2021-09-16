@@ -55,11 +55,37 @@ export const SizingValues = {
     },
 };
 
+/**
+ * Standardizes an `HISizingValue` to a CSS-valid measurement.
+ * If a nubmer is provided, then default units are `px`.
+ *
+ * @export
+ * @param {HISizingValue} size The size to standardize.
+ * @returns {string} The CS-valid measurement for the sizing value.
+ */
 export function sizing(size: HISizingValue): string {
     if (typeof size == 'number') return `${size}px`;
     return size;
 }
 
+/**
+ * Standardizes an `HIEdgeSizingValue` to a map of CSS-valid measurements
+ * for top, bottom, left, and right. If a map of `HISizingValues` are provided
+ * and is missing values for `top`, `right`, `bottom`, or `left`, then that
+ * property will be left out from the returned map. If a regular
+ * `HISizingValue` is provided, then the returned map will just return an
+ * object containing the standardized CSS-valid measurement for each `top`,
+ * `right`, `bottom`, and `left`.
+ *
+ * @export
+ * @param {HIEdgeSizingValue} size The edge sizing instructions.
+ * @returns {{
+ *     top?: HISizingValue;
+ *     right?: HISizingValue;
+ *     bottom?: HISizingValue;
+ *     left?: HISizingValue;
+ * }} A map with CSS-valid measurements for top, right, bottom, and left.
+ */
 export function edgeSizing(size: HIEdgeSizingValue): {
     top?: HISizingValue;
     right?: HISizingValue;
