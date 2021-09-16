@@ -235,26 +235,6 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
-    // * Alignment
-
-    alignEnd(): this {
-        this.body.style.alignItems = 'flex-end';
-        this.body.style.justifyContent = 'flex-end';
-        return this;
-    }
-
-    alignMiddle(): this {
-        this.body.style.alignItems = 'center';
-        this.body.style.justifyContent = 'center';
-        return this;
-    }
-
-    alignStart(): this {
-        this.body.style.alignItems = 'flex-start';
-        this.body.style.justifyContent = 'flex-start';
-        return this;
-    }
-
     // * Frame Modifiers
 
     stretchWidth(): this {
