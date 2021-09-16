@@ -22,6 +22,12 @@ export type HumanColorName =
     | 'foreground'
     | 'background';
 
+/**
+ * A wrapper class for standard red-green-blue colors.
+ *
+ * @export
+ * @class RGBAModel
+ */
 export class RGBAModel {
     public static readonly WHITE = new RGBAModel(255, 255, 255);
     public static readonly BLACK = new RGBAModel(0, 0, 0);
@@ -31,6 +37,16 @@ export class RGBAModel {
     public b: number;
     public a: number;
 
+    /**
+     * Creates an instance of RGBAModel.
+     * @param {number} r The amount of red (0 to 255).
+     * @param {number} g The amount of green (0 to 255).
+     * @param {number} b The amount of blue (0 to 255).
+     * @param {number} [a=1] The amount of alpha (0 to 1). This is also
+     * referred to as opacity.
+     *
+     * @memberOf RGBAModel
+     */
     constructor(r: number, g: number, b: number, a = 1) {
         if (r < 0) r = 0;
         else if (r > 255) r = 255;
@@ -47,6 +63,14 @@ export class RGBAModel {
         this.a = a;
     }
 
+    /**
+     * Change the red value of this color.
+     *
+     * @param {number} r New red value.
+     * @returns {this}
+     *
+     * @memberOf RGBAModel
+     */
     red(r: number): this {
         if (r < 0) r = 0;
         else if (r > 255) r = 255;
@@ -54,6 +78,14 @@ export class RGBAModel {
         return this;
     }
 
+    /**
+     * Change the green value of this color.
+     *
+     * @param {number} r New green value.
+     * @returns {this}
+     *
+     * @memberOf RGBAModel
+     */
     green(g: number): this {
         if (g < 0) g = 0;
         else if (g > 255) g = 255;
@@ -61,6 +93,14 @@ export class RGBAModel {
         return this;
     }
 
+    /**
+     * Change the blue value of this color.
+     *
+     * @param {number} r New blue value.
+     * @returns {this}
+     *
+     * @memberOf RGBAModel
+     */
     blue(b: number): this {
         if (b < 0) b = 0;
         else if (b > 255) b = 255;
@@ -68,16 +108,47 @@ export class RGBAModel {
         return this;
     }
 
+    /**
+     * Change the alpha value of this color. This can be used to change
+     * the opacity of a background color or foreground color.
+     *
+     * @param {number} a The new alpha value (0 - 1).
+     * @returns {this}
+     *
+     * @memberOf RGBAModel
+     */
     alpha(a: number): this {
         this.a = a;
         return this;
     }
 
+    /**
+     * Converts this `RGBAModel` to a CSS-valid rgb or rgba definition.
+     *
+     * - rgb format: 'rgb($r, $g, $b)`
+     * - rgba format: 'rgba($r, $g, $b, $a)`
+     *
+     * @returns {string} If this color's alpha value is `1` (completely
+     * opaque), then only an `rgb` string is returned, otherwise an
+     * `rgba` string is returned.
+     *
+     * @memberOf RGBAModel
+     */
     toString(): string {
-        if (this.a != 1) return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
+        if (this.a != 1)
+            return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
         return `rgb(${this.r}, ${this.g}, ${this.b})`;
     }
 
+    /**
+     * Generates a copy of an `RGBAModel`.
+     *
+     * @static
+     * @param {RGBAModel} rgba The color to copy.
+     * @returns {RGBAModel} A brand new `RGBAModel` object.
+     *
+     * @memberOf RGBAModel
+     */
     static copy(rgba: RGBAModel): RGBAModel {
         return new RGBAModel(rgba.r, rgba.g, rgba.b, rgba.a);
     }
@@ -154,7 +225,9 @@ let colorTheme: 'light' | 'dark' = (() => {
 
 export function changeTheme(theme: 'light' | 'dark'): void {
     colorTheme = theme;
-    ViewControllerData.controllers.forEach(controller => controller.signal('color'));
+    ViewControllerData.controllers.forEach(controller =>
+        controller.signal('color')
+    );
     localStorage.setItem('hi://theme', colorTheme);
 }
 
@@ -182,8 +255,10 @@ export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
         return rgb;
     }
 
-    const height = (canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height);
-    const width = (canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width);
+    const height = (canvas.height =
+        imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height);
+    const width = (canvas.width =
+        imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width);
 
     context.drawImage(imgEl, 0, 0);
 
