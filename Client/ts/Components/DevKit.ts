@@ -20,10 +20,16 @@ export class Preview extends VStack {
         },
         property => {
             if (property == 'width' || property == 'height')
-                (this.getViewById(`component-${property}`) as TextContent).model.text =
-                    (property == 'width' ? this.dimensions.width : this.dimensions.height) + '';
+                (
+                    this.getViewById(`component-${property}`) as TextContent
+                ).model.text =
+                    (property == 'width'
+                        ? this.dimensions.width
+                        : this.dimensions.height) + '';
             else if (property == 'padding')
-                (this.getViewById('component-padding') as TextContent).model.text = this.dimensions.padding || '•';
+                (
+                    this.getViewById('component-padding') as TextContent
+                ).model.text = this.dimensions.padding || '•';
         }
     );
 
@@ -38,14 +44,19 @@ export class Preview extends VStack {
         property => {
             switch (property) {
                 case 'name':
-                    (this.getViewById('component-name') as TextContent).model.text = this.componentInfo.name || '•';
+                    (
+                        this.getViewById('component-name') as TextContent
+                    ).model.text = this.componentInfo.name || '•';
                     break;
                 case 'id':
-                    (this.getViewById('component-id') as TextContent).model.text = this.componentInfo.id || '•';
+                    (
+                        this.getViewById('component-id') as TextContent
+                    ).model.text = this.componentInfo.id || '•';
                     break;
                 case 'description':
-                    (this.getViewById('component-description') as TextContent).model.text =
-                        this.componentInfo.description || '•';
+                    (
+                        this.getViewById('component-description') as TextContent
+                    ).model.text = this.componentInfo.description || '•';
                     break;
             }
         }
@@ -58,7 +69,9 @@ export class Preview extends VStack {
         property => {
             if (property == 'contrastToggle')
                 this.getViewById('toggle-contrast-button')?.foreground(
-                    HColor(this.viewerSettings.contrastToggle ? 'green' : 'gray')
+                    HColor(
+                        this.viewerSettings.contrastToggle ? 'green' : 'gray'
+                    )
                 );
         }
     );
@@ -66,11 +79,18 @@ export class Preview extends VStack {
     constructor(content: View) {
         super(
             new HStack(
-                Preview.OptionButton('toggle-contrast-button', 'contrast-outline').whenClicked(() => {
-                    this.viewerSettings.contrastToggle = !this.viewerSettings.contrastToggle;
+                Preview.OptionButton(
+                    'toggle-contrast-button',
+                    'contrast-outline'
+                ).whenClicked(() => {
+                    this.viewerSettings.contrastToggle =
+                        !this.viewerSettings.contrastToggle;
                 })
             )
-                .rounded({ top: { left: 10, right: 10 }, bottom: { left: 0, right: 0 } })
+                .rounded({
+                    top: { left: 10, right: 10 },
+                    bottom: { left: 0, right: 0 },
+                })
                 .background(HColor('gray5'))
                 .addClass('preview-options'),
 
@@ -90,7 +110,9 @@ export class Preview extends VStack {
                     new Spacer(),
                     new VStack(
                         new TextContent('•').id('component-padding').font('lg'),
-                        new TextContent('Padding').font('sm').foreground(HColor('gray'))
+                        new TextContent('Padding')
+                            .font('sm')
+                            .foreground(HColor('gray'))
                     )
                         .padding()
                         .id('component-padding-wrapper'),
@@ -99,14 +121,20 @@ export class Preview extends VStack {
                 new HStack(
                     new VStack(
                         new TextContent('•').id('component-name').font('lg'),
-                        new TextContent('Component').font('sm').foreground(HColor('gray'))
+                        new TextContent('Component')
+                            .font('sm')
+                            .foreground(HColor('gray'))
                     ).padding(),
                     new VStack(
                         new TextContent('•').id('component-id').font('lg'),
-                        new TextContent('ID').font('sm').foreground(HColor('gray'))
+                        new TextContent('ID')
+                            .font('sm')
+                            .foreground(HColor('gray'))
                     ).padding()
                 ),
-                new TextContent('Description').font('sm').foreground(HColor('gray')),
+                new TextContent('Description')
+                    .font('sm')
+                    .foreground(HColor('gray')),
                 new TextContent('•').id('component-description')
             ).padding()
         );
@@ -116,8 +144,12 @@ export class Preview extends VStack {
 
     override handle(data: string): void {
         if (data == 'color') {
-            this.getViewsByClass('preview-canvas').forEach(canvas => canvas.border({ color: HColor('gray5') }));
-            this.getViewsByClass('preview-options').forEach(wrapper => wrapper.background(HColor('gray5')));
+            this.getViewsByClass('preview-canvas').forEach(canvas =>
+                canvas.border({ color: HColor('gray5') })
+            );
+            this.getViewsByClass('preview-options').forEach(wrapper =>
+                wrapper.background(HColor('gray5'))
+            );
         }
     }
 
@@ -137,17 +169,24 @@ export class Preview extends VStack {
                 computedStyles.paddingLeft,
             ];
 
-            if (paddings[0] == paddings[1] && paddings[1] == paddings[2] && paddings[2] == paddings[3])
+            if (
+                paddings[0] == paddings[1] &&
+                paddings[1] == paddings[2] &&
+                paddings[2] == paddings[3]
+            )
                 exampleViewer.dimensions.padding = paddings[0];
             else if (paddings[0] == paddings[2] && paddings[1] == paddings[3])
                 exampleViewer.dimensions.padding = `${paddings[0]} ${paddings[1]}`;
-            else exampleViewer.dimensions.padding = `${paddings[0]} ${paddings[1]} ${paddings[2]} ${paddings[3]}`;
+            else
+                exampleViewer.dimensions.padding = `${paddings[0]} ${paddings[1]} ${paddings[2]} ${paddings[3]}`;
 
-            if (exampleViewer.viewerSettings.contrastToggle) view.body.style.filter = 'brightness(50%)';
+            if (exampleViewer.viewerSettings.contrastToggle)
+                view.body.style.filter = 'brightness(50%)';
 
             ev.browserEvent.stopPropagation();
         }).whenMouseOut(() => {
-            if (exampleViewer.viewerSettings.contrastToggle) view.body.style.filter = 'brightness(100%)';
+            if (exampleViewer.viewerSettings.contrastToggle)
+                view.body.style.filter = 'brightness(100%)';
         });
 
         view.forChild(child => {
@@ -158,12 +197,16 @@ export class Preview extends VStack {
     static dimensionSub(axis: 'width' | 'height'): VStack {
         return new VStack(
             new TextContent('•').id(`component-${axis}`).font('lg'),
-            new TextContent(axis == 'width' ? 'Width' : 'Height').font('sm').foreground(HColor('gray'))
+            new TextContent(axis == 'width' ? 'Width' : 'Height')
+                .font('sm')
+                .foreground(HColor('gray'))
         );
     }
 
     static OptionButton(id: string, icon: string): ClickButton {
-        return new ClickButton(new IonIcon(icon).font('lg').foreground(HColor('gray')).id(id))
+        return new ClickButton(
+            new IonIcon(icon).font('lg').foreground(HColor('gray')).id(id)
+        )
             .padding({
                 top: 0,
                 bottom: 0,

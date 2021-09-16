@@ -17,7 +17,11 @@ export function StateObject<T extends Record<string, unknown> | unknown[]>(
         get(target: T, property: string, receiver: unknown): unknown {
             return Reflect.get(target, property, receiver);
         },
-        defineProperty(target: T, property: string, descriptor: PropertyDescriptor) {
+        defineProperty(
+            target: T,
+            property: string,
+            descriptor: PropertyDescriptor
+        ) {
             const result = Reflect.defineProperty(target, property, descriptor);
             onChange(property);
             return result;

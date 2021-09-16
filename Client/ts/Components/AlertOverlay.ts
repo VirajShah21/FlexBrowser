@@ -9,7 +9,10 @@ export default class AlertOverlay extends Overlay {
     constructor(message: string) {
         super(
             new VStack(
-                new TextContent(message).padding().font('small').lineHeight('200%'),
+                new TextContent(message)
+                    .padding()
+                    .font('small')
+                    .lineHeight('200%'),
                 new HStack(
                     new ClickButton(new TextContent('Cancel'))
                         .background(HColor('background').alpha(0.5))
@@ -27,16 +30,30 @@ export default class AlertOverlay extends Overlay {
             ).stretch()
         );
         this.body.style.display = 'flex';
-        this.width('100vw').height('100vh').position('fixed').zIndex(100).setTop(0).setLeft(0).blur();
+        this.width('100vw')
+            .height('100vh')
+            .position('fixed')
+            .zIndex(100)
+            .setTop(0)
+            .setLeft(0)
+            .blur();
     }
 
     whenConfirmed(callback: () => void): this {
-        (this.getViewsByClass('hi-alert-overlay-confirm-button')[0] as ClickButton).whenClicked(callback);
+        (
+            this.getViewsByClass(
+                'hi-alert-overlay-confirm-button'
+            )[0] as ClickButton
+        ).whenClicked(callback);
         return this;
     }
 
     whenCancelled(callback: () => void): this {
-        (this.getViewsByClass('hi-alert-overlay-cancel-button')[0] as ClickButton).whenClicked(callback);
+        (
+            this.getViewsByClass(
+                'hi-alert-overlay-cancel-button'
+            )[0] as ClickButton
+        ).whenClicked(callback);
         return this;
     }
 }

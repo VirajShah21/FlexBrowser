@@ -67,9 +67,19 @@ export function edgeSizing(size: HIEdgeSizingValue): {
     left?: HISizingValue;
 } {
     if (typeof size == 'string' || typeof size == 'number')
-        return { top: sizing(size), right: sizing(size), bottom: sizing(size), left: sizing(size) };
+        return {
+            top: sizing(size),
+            right: sizing(size),
+            bottom: sizing(size),
+            left: sizing(size),
+        };
     else {
-        const obj: { top?: HISizingValue; right?: HISizingValue; bottom?: HISizingValue; left?: HISizingValue } = {};
+        const obj: {
+            top?: HISizingValue;
+            right?: HISizingValue;
+            bottom?: HISizingValue;
+            left?: HISizingValue;
+        } = {};
 
         if (size.top) obj.top = sizing(size.top);
         if (size.right) obj.right = sizing(size.right);

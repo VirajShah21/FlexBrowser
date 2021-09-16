@@ -31,12 +31,20 @@ export default class AgreementOverlay extends Overlay {
     }
 
     whenConfirmed(callback: () => void): this {
-        (this.getViewsByClass('hi-agreement-overlay-confirm-button')[0] as ClickButton).whenClicked(callback);
+        (
+            this.getViewsByClass(
+                'hi-agreement-overlay-confirm-button'
+            )[0] as ClickButton
+        ).whenClicked(callback);
         return this;
     }
 
     whenCancelled(callback: () => void): this {
-        (this.getViewsByClass('hi-agreement-overlay-cancel-button')[0] as ClickButton).whenClicked(callback);
+        (
+            this.getViewsByClass(
+                'hi-agreement-overlay-cancel-button'
+            )[0] as ClickButton
+        ).whenClicked(callback);
         return this;
     }
 }
