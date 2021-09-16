@@ -30,27 +30,30 @@ export default class AddWidgetButton extends ClickButton {
                                 'Back Page',
                                 new IonIcon('chevron-back-circle-outline'),
                                 partition,
-                                index
+                                index,
+                                'page-back'
                             ),
                             new WidgetSelectorButton(
                                 'Forward Page',
                                 new IonIcon('chevron-forward-circle-outline'),
                                 partition,
-                                index
+                                index,
+                                'page-forward'
                             ),
                             new WidgetSelectorButton(
                                 'New Window',
                                 new IonIcon('add-circle-outline'),
                                 partition,
-                                index
+                                index,
+                                'new-window'
                             )
                         ),
 
                         new Spacer(),
 
                         new ClickButton(new TextView('Cancel'))
-                            .background(HColor('red'))
-                            .foreground(HColor('background'))
+                            .foreground(HColor('red'))
+                            .background(HColor('gray5'))
                             .rounded(7.5)
                             .whenClicked(ev => {
                                 ev.view.root().destroy();
@@ -59,7 +62,7 @@ export default class AddWidgetButton extends ClickButton {
                         new Spacer()
                     ).stretch()
                 )
-                    .background(HColor('gray5'))
+                    .background(HColor('gray6'))
                     .foreground(HColor('foreground'));
             }
         );

@@ -137,5 +137,4 @@ dist
 
 out/
 
-app/js/bundle.js
-app/js/bundle.js.map
+app/js/
