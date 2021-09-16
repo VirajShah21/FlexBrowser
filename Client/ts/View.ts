@@ -311,11 +311,26 @@ export default abstract class View {
         return this;
     }
 
+    /**
+     * Applies a function for each child of a parent view.
+     *
+     * @param {(child: View) => void} iteratee The function to run, passing the child view as a parameter.
+     * @returns {this}
+     *
+     * @memberOf View
+     */
     forChild(iteratee: (child: View) => void): this {
         for (const child of this.$children) iteratee(child);
         return this;
     }
 
+    /**
+     * Defines a View as an inline component.
+     *
+     * @returns {this}
+     *
+     * @memberOf View
+     */
     inline(): this {
         this.body.style.display = 'inline-flex';
         return this;
