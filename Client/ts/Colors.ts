@@ -22,6 +22,12 @@ export type HumanColorName =
     | 'foreground'
     | 'background';
 
+/**
+ * A wrapper class for standard red-green-blue colors.
+ *
+ * @export
+ * @class RGBAModel
+ */
 export class RGBAModel {
     public static readonly WHITE = new RGBAModel(255, 255, 255);
     public static readonly BLACK = new RGBAModel(0, 0, 0);
@@ -31,6 +37,16 @@ export class RGBAModel {
     public b: number;
     public a: number;
 
+    /**
+     * Creates an instance of RGBAModel.
+     * @param {number} r The amount of red (0 to 255).
+     * @param {number} g The amount of green (0 to 255).
+     * @param {number} b The amount of blue (0 to 255).
+     * @param {number} [a=1] The amount of alpha (0 to 1). This is also
+     * referred to as opacity.
+     *
+     * @memberOf RGBAModel
+     */
     constructor(r: number, g: number, b: number, a = 1) {
         if (r < 0) r = 0;
         else if (r > 255) r = 255;
@@ -47,6 +63,14 @@ export class RGBAModel {
         this.a = a;
     }
 
+    /**
+     * Change the red value of this color.
+     *
+     * @param {number} r New red value.
+     * @returns {this}
+     *
+     * @memberOf RGBAModel
+     */
     red(r: number): this {
         if (r < 0) r = 0;
         else if (r > 255) r = 255;
@@ -54,6 +78,14 @@ export class RGBAModel {
         return this;
     }
 
+    /**
+     * Change the green value of this color.
+     *
+     * @param {number} r New green value.
+     * @returns {this}
+     *
+     * @memberOf RGBAModel
+     */
     green(g: number): this {
         if (g < 0) g = 0;
         else if (g > 255) g = 255;
@@ -61,6 +93,14 @@ export class RGBAModel {
         return this;
     }
 
+    /**
+     * Change the blue value of this color.
+     *
+     * @param {number} r New blue value.
+     * @returns {this}
+     *
+     * @memberOf RGBAModel
+     */
     blue(b: number): this {
         if (b < 0) b = 0;
         else if (b > 255) b = 255;
@@ -68,21 +108,59 @@ export class RGBAModel {
         return this;
     }
 
+    /**
+     * Change the alpha value of this color. This can be used to change
+     * the opacity of a background color or foreground color.
+     *
+     * @param {number} a The new alpha value (0 - 1).
+     * @returns {this}
+     *
+     * @memberOf RGBAModel
+     */
     alpha(a: number): this {
         this.a = a;
         return this;
     }
 
+    /**
+     * Converts this `RGBAModel` to a CSS-valid rgb or rgba definition.
+     *
+     * - rgb format: 'rgb($r, $g, $b)`
+     * - rgba format: 'rgba($r, $g, $b, $a)`
+     *
+     * @returns {string} If this color's alpha value is `1` (completely
+     * opaque), then only an `rgb` string is returned, otherwise an
+     * `rgba` string is returned.
+     *
+     * @memberOf RGBAModel
+     */
     toString(): string {
-        if (this.a != 1) return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
+        if (this.a != 1)
+            return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
         return `rgb(${this.r}, ${this.g}, ${this.b})`;
     }
 
+    /**
+     * Generates a copy of an `RGBAModel`.
+     *
+     * @static
+     * @param {RGBAModel} rgba The color to copy.
+     * @returns {RGBAModel} A brand new `RGBAModel` object.
+     *
+     * @memberOf RGBAModel
+     */
     static copy(rgba: RGBAModel): RGBAModel {
         return new RGBAModel(rgba.r, rgba.g, rgba.b, rgba.a);
     }
 }
 
+/**
+ * Converts a color name to a usable `RGBAModel` object.
+ *
+ * @export
+ * @param {HumanColorName} color The name of the color.
+ * @returns {RGBAModel} The `RGBAModel` for the specified color name.
+ */
 export function HColor(color: HumanColorName): RGBAModel {
     if (colorTheme === 'light') {
         return RGBAModel.copy(HumanColorSwatch.light[color]);
@@ -91,10 +169,35 @@ export function HColor(color: HumanColorName): RGBAModel {
     }
 }
 
+/**
+ * Quickly generates an `RGBAModel` if the red, green, and blue values are
+ * already known.
+ *
+ * @export
+ * @param {number} r The amount of red (0-255).
+ * @param {number} g The amount of green (0-255).
+ * @param {number} b The amount of blue (0-255).
+ * @returns {RGBAModel} The RGBAModel composed of the provided rgb values.
+ *
+ * @see rgba
+ */
 export function rgb(r: number, g: number, b: number): RGBAModel {
     return new RGBAModel(r, g, b);
 }
 
+/**
+ * Quickly generates an `RGBAModel` if the red, green, blue, and alpha
+ * values are already known.
+ *
+ * @export
+ * @param {number} r The amount of red (0-255).
+ * @param {number} g The amount of green (0-255).
+ * @param {number} b The amount of blue (0-255).
+ * @param {number} a The amoun of alpha (0-1).
+ * @returns {RGBAModel} The RGBAModel composed of the provided rgb values.
+ *
+ * @see rgb
+ */
 export function rgba(r: number, g: number, b: number, a: number): RGBAModel {
     return new RGBAModel(r, g, b, a);
 }
@@ -152,22 +255,41 @@ let colorTheme: 'light' | 'dark' = (() => {
     return 'light';
 })();
 
+/**
+ * Changes and saves the color theme to `localStorage`.
+ *
+ * @export
+ * @param {('light' | 'dark')} theme The theme mode to change to.
+ */
 export function changeTheme(theme: 'light' | 'dark'): void {
     colorTheme = theme;
-    ViewControllerData.controllers.forEach(controller => controller.signal('color'));
+    ViewControllerData.controllers.forEach(controller =>
+        controller.signal('color')
+    );
     localStorage.setItem('hi://theme', colorTheme);
 }
 
+/**
+ *
+ *
+ * @export
+ * @returns {('light' | 'dark')} The theme mode.
+ */
 export function whichTheme(): 'light' | 'dark' {
     return colorTheme;
 }
 
 /**
+ * Gets the average rgb values from an image element.
+ *
+ * _Note_: This function only works with raw html elements. If using with
+ * a view, then use `(myImage.body as HTMLImageElement)` to access the
+ * `HTMLImageElement`.
  * From: https://stackoverflow.com/questions/2541481/get-average-color-of-image-via-javascript
  *
  * @export
- * @param {any} imgEl
- * @returns
+ * @param {HTMLImageElement} imgEl The image element to analyze.
+ * @returns {RGBAModel} The average image color.
  */
 export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
     const blockSize = 5, // only visit every 5 pixels
@@ -182,8 +304,10 @@ export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
         return rgb;
     }
 
-    const height = (canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height);
-    const width = (canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width);
+    const height = (canvas.height =
+        imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height);
+    const width = (canvas.width =
+        imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width);
 
     context.drawImage(imgEl, 0, 0);
 

@@ -4,7 +4,10 @@ import { HumanEvent } from '@Hi/ViewController';
 
 export default class Checkbox extends View {
     public readonly state = StateObject({ checked: false }, () => {
-        this.body.setAttribute('name', this.state.checked ? 'checkbox' : 'square-outline');
+        this.body.setAttribute(
+            'name',
+            this.state.checked ? 'checkbox' : 'square-outline'
+        );
     });
 
     constructor() {

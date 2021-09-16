@@ -237,20 +237,53 @@ export default abstract class BaseBodyStyler {
 
     // * Frame Modifiers
 
+    /**
+     * @deprecated
+     *
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     stretchWidth(): this {
         this.body.style.width = '100%';
         return this;
     }
 
+    /**
+     * @deprecated
+     *
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     stretchHeight(): this {
         this.body.style.height = '100%';
         return this;
     }
 
+    /**
+     * Stretches the width and height of the View to match the width and
+     * height of its parent.
+     *
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     stretch(): this {
         return this.stretchWidth().stretchHeight();
     }
 
+    /**
+     * Adds a border on all four sides of the View's frame.
+     * To target specific edges, use [[borderTop]], [[borderRight]],
+     * [[borderBottom]], and/or [[borderLeft]].
+     *
+     * @param {HIBorderProperties} options The changes to apply to all four
+     * edges of the View's frame.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     border(options: HIBorderProperties): this {
         if (options.size != undefined)
             this.body.style.borderWidth = sizing(options.size);
@@ -261,6 +294,15 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Adds a border to only the top of the View's frame.
+     *
+     * @param {HIBorderProperties} options The changes to apply to the top
+     * edge of the View's frame.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     borderTop(options: HIBorderProperties): this {
         if (options.size != undefined)
             this.body.style.borderTopWidth = sizing(options.size);
@@ -271,6 +313,15 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Adds a border to only the right of the View's frame.
+     *
+     * @param {HIBorderProperties} options The changes to apply to the right
+     * edge of the View's frame.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     borderRight(options: HIBorderProperties): this {
         if (options.size != undefined)
             this.body.style.borderRightWidth = sizing(options.size);
@@ -281,6 +332,15 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Adds a border to only the bottom of the View's frame.
+     *
+     * @param {HIBorderProperties} options The changes to apply to the bottom
+     * edge of the View's frame.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     borderBottom(options: HIBorderProperties): this {
         if (options.size != undefined)
             this.body.style.borderBottomWidth = sizing(options.size);
@@ -291,6 +351,15 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Adds a border to only the bottom of the View's frame.
+     *
+     * @param {HIBorderProperties} options The changes to apply to the bottom
+     * edge of the View's frame.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     borderLeft(options: HIBorderProperties): this {
         if (options.size != undefined)
             this.body.style.borderLeftWidth = sizing(options.size);
@@ -301,6 +370,17 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Adds spacing between a View and the content/children of the View.
+     *
+     * @param {HIEdgeSizingValue} [amount] The amount of padding to apply.
+     * This value should be an `HIEdgeSizingValue`, which means it can specify
+     * either a `number` (in pixels), a `string` with a valid CSS sizing value
+     * or an object containing specific edges and their valid sizing values.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     padding(amount?: HIEdgeSizingValue): this {
         if (amount != undefined) {
             const mapping = edgeSizing(amount);
@@ -315,6 +395,18 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Adds spacing between a View and other surrounding Views.
+     *
+     * @param {HIEdgeSizingValue} [amount] The distance to push away other
+     * Views. This value should be an `HIEdgeSizingValue`, which means it can
+     * specify either a `number` (in pixels), a `string` with a valid CSS
+     * sizing value or an object containing specific edges and their valid
+     * sizing values.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     margin(amount?: HIEdgeSizingValue): this {
         if (amount != undefined) {
             const mapping = edgeSizing(amount);
@@ -330,6 +422,19 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Makes the corners of a View rounded by a specified amount. If no
+     * value is provided than the default roundness of `10px` is used.
+     *
+     * @param {HICornerSizingValue} [amount] The radius to curve
+     * the edges by. This value should be an `HIEdgeSizingValue`, which means
+     * it can specify either a `number` (in pixels), a `string` with a valid
+     * CSS sizing value or an object containing specific edges and their valid
+     * sizing values.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     rounded(amount?: HICornerSizingValue): this {
         if (amount != undefined) {
             if (typeof amount === 'string' || typeof amount === 'number')
@@ -361,6 +466,16 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Adjusts the width of the View's frame.
+     *
+     * @param {HISizeBounds} frameWidth The width of the frame. To define
+     * a minimum and maximum width, then you can pass an object containing
+     * the minimum and maximum height.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     width(frameWidth: HISizeBounds): this {
         if (typeof frameWidth == 'string' || typeof frameWidth == 'number')
             this.body.style.width = sizing(frameWidth);
@@ -376,6 +491,16 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Adjusts the height of the View's frame.
+     *
+     * @param {HISizeBounds} frameHeight The height of the frame. To define
+     * a minimum and maximum height, then you can pass an object containing
+     * the minimum and maximum height.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     height(frameHeight: HISizeBounds): this {
         if (typeof frameHeight == 'string' || typeof frameHeight == 'number')
             this.body.style.height = sizing(frameHeight);
@@ -393,11 +518,42 @@ export default abstract class BaseBodyStyler {
 
     // * Position Modifiers
 
+    /**
+     * @deprecated
+     *
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     absolute(): this {
         this.body.style.position = 'absolute';
         return this;
     }
 
+    /**
+     * Assigns the positioning of the View. By default all Views are
+     * positioned statically unless it is overriden. The possible
+     * positioning values are as listed:
+     *
+     * - `'static'` – Default positioning. The View will not be affected by
+     * [[setTop]], [[setRight]], [[setBottom]], or [[setLeft]].
+     * - `'relative'` – The View will be positioned relative to its static
+     * position.
+     * - `'fixed'` – The View will be fixed in place relative to the viewport.
+     * Scrolling will not affect the position of the View.
+     * - `'absolute'` – The View will be positioned relative to its closest
+     * non-statically positioned ancestor. If no ancestor is non-statically
+     * positioned, then it will behave like a statically-positioned View.
+     * - `'sticky'` – The View will alternate between `relative` and `fixed`
+     * depending on the user's scroll offset. Make sure to use `setTop` to
+     * define its position.
+     *
+     * @param {('static' | 'relative' | 'fixed' | 'absolute' | 'sticky')} value
+     * The positioning value to position the View by.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     position(
         value: 'static' | 'relative' | 'fixed' | 'absolute' | 'sticky'
     ): this {
@@ -405,36 +561,99 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
+    /**
+     * Changes the View's display method to block. The View will stretch its
+     * width and its height will grow based on its children. Children can
+     * still be aligned using flex containers by adding a `Stack` as a child.
+     *
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     block(): this {
         this.body.style.display = 'block';
         return this;
     }
 
+    /**
+     * Changes the View's display method to flex. The View will grow based
+     * on its needs.
+     *
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     flex(): this {
         this.body.style.display = 'flex';
         return this;
     }
 
+    /**
+     * Sets the bottom offset of the View based on its positioning.
+     *
+     * @param {HISizingValue} offset The bottom offset
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     * @see position
+     */
     setBottom(offset: HISizingValue): this {
         this.body.style.bottom = sizing(offset);
         return this;
     }
 
+    /**
+     * Sets the top offset of the View based on its positioning.
+     *
+     * @param {HISizingValue} offset The top offset
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     * @see position
+     */
     setTop(offset: HISizingValue): this {
         this.body.style.top = sizing(offset);
         return this;
     }
 
+    /**
+     * Sets the left offset of the View based on its positioning.
+     *
+     * @param {HISizingValue} offset The left offset
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     * @see position
+     */
     setLeft(offset: HISizingValue): this {
         this.body.style.left = sizing(offset);
         return this;
     }
 
+    /**
+     * Sets the right offset of the View based on its positioning.
+     *
+     * @param {HISizingValue} offset The right offset
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     * @see position
+     */
     setRight(offset: HISizingValue): this {
         this.body.style.right = sizing(offset);
         return this;
     }
 
+    /**
+     * Defines the opacity of the View. A value of `0` is transparent, while
+     * `1 is completely opaque. Any value in between is translucent following
+     * the spectrum.
+     *
+     * @param {number} o The opacity to assign to the View.
+     * @returns {this}
+     *
+     * @memberOf BaseBodyStyler
+     */
     opacity(o: number): this {
         this.body.style.opacity = `${o}`;
         return this;

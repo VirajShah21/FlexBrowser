@@ -4,7 +4,10 @@ import { HumanEvent } from '@Hi/ViewController';
 
 export default class RadioButton extends View {
     public readonly state = StateObject({ selected: false }, () => {
-        this.body.setAttribute('name', this.state.selected ? 'radio-button-on' : 'radio-button-off');
+        this.body.setAttribute(
+            'name',
+            this.state.selected ? 'radio-button-on' : 'radio-button-off'
+        );
     });
 
     constructor() {
