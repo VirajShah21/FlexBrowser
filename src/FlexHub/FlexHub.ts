@@ -80,11 +80,12 @@ export default class FlexHub extends HIFullScreenView {
 
 function HubButton(icon: IonIcon, title: string): ClickButton {
     return new ClickButton(
-        new VStack(icon.font(50), new Spacer(), new TextView(title)).stretch()
+        new VStack(icon.font(50), new Spacer(), new TextView(title))
+            .stretch()
+            .alignMiddle()
     )
         .padding()
         .foreground(BrowserPreferences.getPrimaryColor())
         .width(100)
-        .height(100)
-        .alignMiddle();
+        .height(100);
 }

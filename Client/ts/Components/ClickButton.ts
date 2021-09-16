@@ -14,7 +14,6 @@ export default class ClickButton extends View {
         this.body.style.borderRadius = SizingValues.BORDER_RADIUS.xxs;
         this.body.style.padding = `${SizingValues.PADDING.xxs} ${SizingValues.PADDING.sm} ${SizingValues.PADDING.xxs} ${SizingValues.PADDING.sm}`;
         this.body.style.display = 'flex';
-        this.alignMiddle();
     }
 
     whenClicked(callback: (ev: HumanEvent) => void): this {
