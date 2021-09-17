@@ -20,6 +20,9 @@ module.exports = {
         'no-constructor-return': 1,
         '@typescript-eslint/indent': ['warn', 4],
         'operator-linebreak': 'off',
+        'implicit-arrow-linebreak': 'off',
+        'function-paren-newline': 'off',
+        'arrow-parens': 'off',
     },
     parserOptions: {
         project: './tsconfig.json',
