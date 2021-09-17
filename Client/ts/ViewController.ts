@@ -40,7 +40,13 @@ export class ViewController {
                 `ViewController.navigateTo: ViewController does not have a screen named ${name}`
             );
         this.binding.innerHTML = '';
-        this.binding.appendChild(this.screens[name].body);
+        const screen = this.screens[name];
+        if (screen) this.binding.appendChild(screen.body);
+        else
+            this.binding.append(
+                `Error: No such screen "${name}" on this ViewController"`
+            );
+
         this.visibleScreen = name;
         return this;
     }
@@ -96,7 +102,7 @@ export class ViewController {
         window.addEventListener('resize', ev =>
             handler({
                 type: 'Resize',
-                view: this.screens[this.visibleScreen],
+                view: this.screens[this.visibleScreen] as View,
                 browserEvent: ev,
             })
         );
@@ -139,7 +145,8 @@ export class ViewController {
      * @memberOf ViewController
      */
     signal(data: string): void {
-        for (const screen in this.screens) this.screens[screen].signal(data);
+        for (const screen in this.screens)
+            (this.screens[screen] as View).signal(data);
     }
 
     /**
@@ -185,8 +192,9 @@ export class ViewController {
     static allScreens(): Record<string, View> {
         const screens: Record<string, View> = {};
         ViewControllerData.controllers.forEach(controller => {
-            for (const screen in controller.screens)
-                screens[screen] = controller.screens[screen];
+            for (const screen in controller.screens) {
+                screens[screen] = controller.screens[screen] as View;
+            }
         });
         return screens;
     }

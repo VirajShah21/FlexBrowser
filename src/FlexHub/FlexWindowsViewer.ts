@@ -78,7 +78,7 @@ export default class FlexWindowViewer extends HIFullScreenView {
                                 if (ev.view.description == 'bookmark') {
                                     flexarch.addBookmark(win);
                                     (
-                                        ev.view.children[0]
+                                        (ev.view.children[0] as IonIcon)
                                             .body as HTMLInputElement
                                     ).name = 'bookmark';
                                     ev.view.describe('unbookmark');
@@ -87,8 +87,9 @@ export default class FlexWindowViewer extends HIFullScreenView {
                                 ) {
                                     // TODO: Enable removeBookmark()
                                     // flexarch.removeBookmark(win);
+
                                     (
-                                        ev.view.children[0]
+                                        (ev.view.children[0] as IonIcon)
                                             .body as HTMLInputElement
                                     ).name = 'bookmark-outline';
                                     ev.view.describe('bookmark');

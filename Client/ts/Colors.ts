@@ -162,11 +162,9 @@ export class RGBAModel {
  * @returns {RGBAModel} The `RGBAModel` for the specified color name.
  */
 export function HColor(color: HumanColorName): RGBAModel {
-    if (colorTheme === 'light') {
-        return RGBAModel.copy(HumanColorSwatch.light[color]);
-    } else {
-        return RGBAModel.copy(HumanColorSwatch.dark[color]);
-    }
+    if (colorTheme === 'light')
+        return RGBAModel.copy(HumanColorSwatch.light![color]!);
+    else return RGBAModel.copy(HumanColorSwatch.dark![color]!);
 }
 
 /**
@@ -322,9 +320,9 @@ export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
 
     while ((i += blockSize * 4) < length) {
         ++count;
-        rgb.r += data.data[i];
-        rgb.g += data.data[i + 1];
-        rgb.b += data.data[i + 2];
+        rgb.r += data.data[i]!;
+        rgb.g += data.data[i + 1]!;
+        rgb.b += data.data[i + 2]!;
     }
 
     // ~~ used to floor values

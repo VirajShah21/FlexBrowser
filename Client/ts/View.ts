@@ -1,19 +1,7 @@
-import { RGBAModel } from './Colors';
-import { HumanEvent } from './ViewController';
-import {
-    HIEdgeSizingValue,
-    HICornerSizingValue,
-    HISizeBounds,
-    HISizingValue,
-    SizingValues,
-    HISizingName,
-    sizing,
-    edgeSizing,
-} from './Types/sizing';
-import { StateObject, StateProxy } from './Types/states';
-import { HIFont, HIBorderProperties } from './Types/styles';
-import { getTransitionDefintion } from './Transitions/Transition';
 import BaseBodyStyler from './BaseBodyStyler';
+import { getTransitionDefintion } from './Transitions/Transition';
+import { StateObject, StateProxy } from './Types/states';
+import { HumanEvent } from './ViewController';
 
 interface ModelData {
     viewName: string;
@@ -392,20 +380,27 @@ export default abstract class View extends BaseBodyStyler {
     public async transition(transitionName: string): Promise<void> {
         return new Promise<void>(resolve => {
             const definition = getTransitionDefintion(transitionName);
-            this.body.style.animationName = transitionName;
-            this.body.style.animationIterationCount =
-                definition.iterations + '';
-            this.body.style.animationDuration = definition.duration + 's';
-            if (definition.delay)
-                this.body.style.animationDelay = definition.delay + 's';
-            if (definition.after)
-                this.body.style.animationFillMode = definition.after;
-            if (definition.direction)
-                this.body.style.animationDirection = definition.direction;
-            setTimeout(
-                () => resolve(),
-                (definition.delay || 0) + definition.duration
-            );
+
+            if (definition) {
+                this.body.style.animationName = transitionName;
+                this.body.style.animationIterationCount =
+                    definition.iterations + '';
+                this.body.style.animationDuration = definition.duration + 's';
+                if (definition.delay)
+                    this.body.style.animationDelay = definition.delay + 's';
+                if (definition.after)
+                    this.body.style.animationFillMode = definition.after;
+                if (definition.direction)
+                    this.body.style.animationDirection = definition.direction;
+                setTimeout(
+                    () => resolve(),
+                    (definition.delay || 0) + definition.duration
+                );
+            } else {
+                throw new Error(
+                    'Could not find transition with name: ' + transitionName
+                );
+            }
         });
     }
 }
