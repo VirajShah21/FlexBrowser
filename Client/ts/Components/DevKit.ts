@@ -174,7 +174,7 @@ export class Preview extends VStack {
                 paddings[1] == paddings[2] &&
                 paddings[2] == paddings[3]
             )
-                exampleViewer.dimensions.padding = paddings[0];
+                exampleViewer.dimensions.padding = paddings[0] as string;
             else if (paddings[0] == paddings[2] && paddings[1] == paddings[3])
                 exampleViewer.dimensions.padding = `${paddings[0]} ${paddings[1]}`;
             else

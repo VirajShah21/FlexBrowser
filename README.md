@@ -49,3 +49,15 @@ Navigate to `out/flex-browser-darwin-x64` and click on `flex-browser.app`
 -   **Taskbar customization**
     -   **Partitioning Taskbar** – Create regions, set alignment, and min/max/default sizes
     -   **Picking Items** – Choose browser frame components and insert them into different partitions
+
+### Error Codes
+
+| Code  | Description                    |
+| ----- | ------------------------------ |
+| VCNNF | View Controller Name not Found |
+| VNF   | View Not Found                 |
+| SNF   | Screen not found               |
+
+#### Fixes
+
+-   VCNNF – Check the name of a call for `ViewController.getController(...)`. It may not be the correct name.

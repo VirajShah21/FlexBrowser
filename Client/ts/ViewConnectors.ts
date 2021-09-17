@@ -33,7 +33,7 @@ export class FormConnector {
         const body: Record<string, string> = {};
 
         for (const key in this.inputViews)
-            body[key] = this.inputViews[key].model.value;
+            body[key] = this.inputViews[key]!.model.value;
 
         fetch(this.action, {
             method: 'POST',

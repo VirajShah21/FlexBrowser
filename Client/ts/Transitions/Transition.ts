@@ -42,8 +42,8 @@ export function defineTransition(transition: Transition): string {
     return name;
 }
 
-export function getTransitionDefintion(name: string): Transition {
-    return definedTransitions[name];
+export function getTransitionDefintion(name: string): Transition | null {
+    return definedTransitions[name] || null;
 }
 
 function generateKeyframeCSS(transition: Transition): string {

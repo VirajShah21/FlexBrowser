@@ -129,7 +129,10 @@ export default class FlexBrowserWindow extends HIFullScreenView {
             this.historyPointer >= 0 &&
             this.historyPointer < this.history.length
         )
-            this.goTo(this.history[this.historyPointer], false);
+            this.goTo(
+                this.history[this.historyPointer] || 'flex://error',
+                false
+            );
         else this.historyPointer++;
     }
 
@@ -144,7 +147,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
             this.historyPointer >= 0 &&
             this.historyPointer < this.history.length
         )
-            this.goTo(this.history[this.historyPointer]);
+            this.goTo(this.history[this.historyPointer] || 'flex://error');
         else this.historyPointer--;
     }
 }

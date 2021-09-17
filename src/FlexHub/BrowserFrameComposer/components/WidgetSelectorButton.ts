@@ -1,5 +1,6 @@
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
+import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
@@ -32,12 +33,16 @@ export default class WidgetSelectorButton extends ClickButton {
             .background(HColor('background'))
             .margin({ right: 10, bottom: 10 })
             .whenClicked(ev => {
-                const renderer = ViewController.getController(
-                    'AppController'
-                )!.screens.frameComposer.getViewById(
+                const renderer = (
+                    (
+                        ViewController.getController(
+                            'AppController'
+                        ) as ViewController
+                    ).screens.frameComposer as HIFullScreenView
+                ).getViewById(
                     'partition-component-organizer'
                 ) as PartitionComponentOrganizer;
-                console.log(renderer);
+
                 renderer.addToPartition(partition, index, {
                     name: componentName,
                 });

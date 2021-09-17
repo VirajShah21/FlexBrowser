@@ -1,4 +1,5 @@
 import ClickButton from '@Hi/Components/ClickButton';
+import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { StateObject } from '@Hi/Types/states';
@@ -19,9 +20,13 @@ export default class PartitionerComponent extends VStack {
                     this.partitions.push({ components: [], padding: 0 });
 
                     (
-                        ViewController.getController(
-                            'AppController'
-                        )?.screens.frameComposer.getViewById(
+                        (
+                            (
+                                ViewController.getController(
+                                    'AppController'
+                                ) as ViewController
+                            ).screens.frameComposer as HIFullScreenView
+                        ).getViewById(
                             'partition-component-organizer'
                         ) as PartitionComponentOrganizer
                     ).addPartition({ components: [], padding: 0 });
