@@ -63,7 +63,7 @@ export default class PartionEditor extends HStack {
         this.background(BrowserPreferences.getPrimaryColor().alpha(0.5))
             .padding()
             .foreground(HColor('background'))
-            .stretchWidth()
+            .width('100%')
             .font('md')
             .margin({ bottom: 10 })
             .rounded()

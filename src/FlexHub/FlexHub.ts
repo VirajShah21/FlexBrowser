@@ -61,7 +61,7 @@ export default class FlexHub extends HIFullScreenView {
                     ),
 
                     new Spacer(),
-                ).stretchWidth(),
+                ).width('100%'),
 
                 new Spacer(),
             )

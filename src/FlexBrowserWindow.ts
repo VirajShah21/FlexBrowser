@@ -28,8 +28,6 @@ export default class FlexBrowserWindow extends HIFullScreenView {
 
     private historyPointer = 0;
 
-    private _ = console.log('FlexBrowserWindow');
-
     constructor() {
         super(
             new VStack(
@@ -58,7 +56,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                         .padding({ left: 10, right: 10 }),
                 )
                     .blur()
-                    .stretchWidth()
+                    .width('100%')
                     .padding()
                     .padding({ top: 20, bottom: 20 })
                     .id('titlebar'),

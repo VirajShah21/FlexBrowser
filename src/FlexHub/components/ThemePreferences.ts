@@ -12,7 +12,7 @@ export default class ThemePreferences extends VStack {
             new HStack(
                 new TextView('Theme').font('md').bold().margin({ bottom: 10 }),
                 new Spacer(),
-            ).stretchWidth(),
+            ).width('100%'),
 
             new HStack(
                 new VStack(
@@ -52,8 +52,8 @@ export default class ThemePreferences extends VStack {
                 ).rounded(),
 
                 new Spacer(),
-            ).stretchWidth(),
+            ).width('100%'),
         );
-        this.stretchWidth().padding();
+        this.width('100%').padding();
     }
 }

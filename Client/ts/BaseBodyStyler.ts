@@ -185,7 +185,7 @@ export default abstract class BaseBodyStyler {
      */
     glow(color: RGBAModel, size: HISizingValue = 10): this {
         this.body.style.filter = `drop-shadow(0 0 ${sizing(
-            size
+            size,
         )} ${color.toString()})`;
         return this;
     }
@@ -238,30 +238,6 @@ export default abstract class BaseBodyStyler {
     // * Frame Modifiers
 
     /**
-     * @deprecated
-     *
-     * @returns {this}
-     *
-     * @memberOf BaseBodyStyler
-     */
-    stretchWidth(): this {
-        this.body.style.width = '100%';
-        return this;
-    }
-
-    /**
-     * @deprecated
-     *
-     * @returns {this}
-     *
-     * @memberOf BaseBodyStyler
-     */
-    stretchHeight(): this {
-        this.body.style.height = '100%';
-        return this;
-    }
-
-    /**
      * Stretches the width and height of the View to match the width and
      * height of its parent.
      *
@@ -270,7 +246,7 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     stretch(): this {
-        return this.stretchWidth().stretchHeight();
+        return this.width('100%').height('100%');
     }
 
     /**
@@ -443,21 +419,21 @@ export default abstract class BaseBodyStyler {
                 if (amount.top) {
                     if (amount.top.left != undefined)
                         this.body.style.borderTopLeftRadius = sizing(
-                            amount.top.left
+                            amount.top.left,
                         );
                     if (amount.top.right != undefined)
                         this.body.style.borderTopRightRadius = sizing(
-                            amount.top.right
+                            amount.top.right,
                         );
                 }
                 if (amount.bottom) {
                     if (amount.bottom.left != undefined)
                         this.body.style.borderBottomLeftRadius = sizing(
-                            amount.bottom.left
+                            amount.bottom.left,
                         );
                     if (amount.bottom.right != undefined)
                         this.body.style.borderBottomRightRadius = sizing(
-                            amount.bottom.right
+                            amount.bottom.right,
                         );
                 }
             }
@@ -555,7 +531,7 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     position(
-        value: 'static' | 'relative' | 'fixed' | 'absolute' | 'sticky'
+        value: 'static' | 'relative' | 'fixed' | 'absolute' | 'sticky',
     ): this {
         this.body.style.position = value;
         return this;
