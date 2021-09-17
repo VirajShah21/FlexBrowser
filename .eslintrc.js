@@ -7,7 +7,6 @@ module.exports = {
         '@typescript-eslint/no-non-null-assertion': 'off',
         'max-classes-per-file': ['error', 1],
         'no-await-in-loop': ['error'],
-        'no-extra-parens': ['error'],
         'no-loss-of-precision': ['error'],
         'no-promise-executor-return': ['error'],
         'no-unsafe-optional-chaining': ['error'],
