@@ -11,6 +11,13 @@ import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from '../BrowserPreferences';
 import HubTitlebar from './components/HubTitlebar';
 
+/**
+ * Specification for icon-label pairs in a button for the Hub's main page.
+ *
+ * @param {IonIcon} icon The button's icon.
+ * @param {string} title The button's label.
+ * @returns {ClickButton} The resultant hub button.
+ */
 function HubButton(icon: IonIcon, title: string): ClickButton {
     return new ClickButton(
         new VStack(icon.font(50), new Spacer(), new TextView(title))
@@ -23,7 +30,19 @@ function HubButton(icon: IonIcon, title: string): ClickButton {
         .height(100);
 }
 
+/**
+ * The main screen for the Hub window.
+ *
+ * @export
+ * @class FlexHub
+ * @extends {HIFullScreenView}
+ */
 export default class FlexHub extends HIFullScreenView {
+    /**
+     * Creates an instance of FlexHub.
+     *
+     * @memberOf FlexHub
+     */
     constructor() {
         super(
             new VStack(

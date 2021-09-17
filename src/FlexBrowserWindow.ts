@@ -28,6 +28,11 @@ export default class FlexBrowserWindow extends HIFullScreenView {
 
     private historyPointer = 0;
 
+    /**
+     * Creates an instance of FlexBrowserWindow.
+     *
+     * @memberOf FlexBrowserWindow
+     */
     constructor() {
         super(
             new VStack(
