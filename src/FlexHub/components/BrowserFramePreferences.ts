@@ -16,7 +16,7 @@ function BrowserFramePreview(): VStack {
             new IonIcon('ellipse').foreground(HColor('orange')),
             new IonIcon('ellipse').foreground(HColor('green')),
             new Spacer(),
-        ).stretchWidth(),
+        ).width('100%'),
         new HStack(
             new HStack(
                 new IonIcon('chevron-back-circle-outline').font('xl'),
@@ -26,7 +26,7 @@ function BrowserFramePreview(): VStack {
                 .width('20%')
                 .padding(5),
             new Spacer(),
-            new HStack(new TextField('Search or Go to URL').stretchWidth())
+            new HStack(new TextField('Search or Go to URL').width('100%'))
                 .width('60%')
                 .padding(5),
             new Spacer(),
@@ -37,11 +37,11 @@ function BrowserFramePreview(): VStack {
             )
                 .width('20%')
                 .padding(5),
-        ).stretchWidth(),
+        ).width('100%'),
     )
         .background(HColor('gray5'))
         .foreground(BrowserPreferences.getPrimaryColor())
-        .stretchWidth()
+        .width('100%')
         .padding(5)
         .rounded()
         .rounded({ bottom: { left: 0, right: 0 } });
@@ -64,11 +64,11 @@ export default class BrowserFramePreferences extends VStack {
                             'AppController',
                         )?.navigateTo('frameComposer'),
                     ),
-            ).stretchWidth(),
+            ).width('100%'),
 
             BrowserFramePreview(),
         );
 
-        this.stretchWidth().padding();
+        this.width('100%').padding();
     }
 }

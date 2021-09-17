@@ -8,7 +8,7 @@ export default class URLBar extends TextField {
     constructor() {
         super('flex://home');
 
-        this.stretchWidth()
+        this.width('100%')
             .textCenter()
             .background('none')
             .foreground(HColor('gray'))

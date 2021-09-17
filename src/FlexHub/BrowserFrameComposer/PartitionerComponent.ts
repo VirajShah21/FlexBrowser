@@ -32,10 +32,10 @@ export default class PartitionerComponent extends VStack {
                     ).addPartition({ components: [], padding: 0 });
                 }),
 
-            new VStack().id('partitions').stretchWidth(),
+            new VStack().id('partitions').width('100%'),
         );
 
-        this.describe('Partioner').padding().stretchWidth();
+        this.describe('Partioner').padding().width('100%');
 
         this.partitions = StateObject([], p => {
             const i = parseInt(p!, 10);

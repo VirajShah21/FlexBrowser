@@ -246,7 +246,7 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     stretch(): this {
-        return this.stretchWidth().stretchHeight();
+        return this.width('100%').height('100%');
     }
 
     /**

@@ -29,13 +29,13 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                                 )?.navigateTo('preferences'),
                             ),
                         new Spacer(),
-                    ).stretchWidth(),
+                    ).width('100%'),
                 ),
                 new ScrollView(
                     new VStack(
-                        new HStack(new BrowserFrameCanvas().stretchWidth())
+                        new HStack(new BrowserFrameCanvas().width('100%'))
                             .padding()
-                            .stretchWidth()
+                            .width('100%')
                             .margin({ top: 50 }),
 
                         new TextView('Partition Details'),
@@ -45,13 +45,13 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                         new PartitionComponentOrganizer({ partitions: [] }).id(
                             'partition-component-organizer',
                         ),
-                    ).stretchWidth(),
+                    ).width('100%'),
                 )
-                    .stretchWidth()
+                    .width('100%')
                     .height('calc(100% - 100px)'),
             )
-                .stretchWidth()
-                .stretchHeight()
+                .width('100%')
+                .height('100%')
                 .background(HColor('background').alpha(0.75))
                 .foreground(HColor('foreground')),
         );

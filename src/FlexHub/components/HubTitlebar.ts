@@ -9,15 +9,15 @@ export default class HubTitlebar extends VStack {
     constructor(title: string, ...children: View[]) {
         super(
             new Spacer(),
-            new HStack(...children).stretchWidth().margin({ top: 20 }),
+            new HStack(...children).width('100%').margin({ top: 20 }),
 
             new HStack(
                 new TextView(title).font('xxl').bold(),
                 new Spacer(),
-            ).stretchWidth(),
+            ).width('100%'),
         );
         this.padding()
-            .stretchWidth()
+            .width('100%')
             .height(100)
             .background(HColor('background').alpha(0.25))
             .foreground(HColor('foreground'));

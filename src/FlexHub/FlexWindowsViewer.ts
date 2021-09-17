@@ -35,15 +35,15 @@ export default class FlexWindowViewer extends HIFullScreenView {
                                 ViewController.navigateTo('hub'),
                             ),
                         new Spacer(),
-                    ).stretchWidth(),
+                    ).width('100%'),
                 ),
                 new ScrollView(
                     new VStack()
-                        .stretchWidth()
+                        .width('100%')
                         .padding()
                         .id('window-buttons-container'),
                 )
-                    .stretchWidth()
+                    .width('100%')
                     .padding(),
                 new Spacer(),
             ).stretch(),
