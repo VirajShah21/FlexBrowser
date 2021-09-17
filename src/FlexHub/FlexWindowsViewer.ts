@@ -10,7 +10,19 @@ import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 import HubTitlebar from './components/HubTitlebar';
 
+/**
+ * The Window (list) Viewer in the Hub.
+ *
+ * @export
+ * @class FlexWindowViewer
+ * @extends {HIFullScreenView}
+ */
 export default class FlexWindowViewer extends HIFullScreenView {
+    /**
+     * Creates an instance of FlexWindowViewer without any windows listed.
+     *
+     * @memberOf FlexWindowViewer
+     */
     constructor() {
         super(
             new VStack(
@@ -38,6 +50,13 @@ export default class FlexWindowViewer extends HIFullScreenView {
         );
     }
 
+    /**
+     * Whenever any signal is sent to this screen it will refresh the
+     * list of windows.
+     *
+     *
+     * @memberOf FlexWindowViewer
+     */
     override handle(): void {
         const container = this.getViewById(
             'window-buttons-container'
