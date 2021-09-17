@@ -25,7 +25,9 @@ export default class FlexBrowserWindow extends HIFullScreenView {
     public readonly isBrowserWindow = true;
 
     private history: string[] = [];
+
     private historyPointer = 0;
+
     private _ = console.log('FlexBrowserWindow');
 
     constructor() {
@@ -35,7 +37,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                     new HStack(
                         new BrowserBackTaskbarButton(),
                         new BrowserForwardTaskbarButton(),
-                        new Spacer()
+                        new Spacer(),
                     )
                         .width('25%')
                         .padding({ left: 10, right: 10 }),
@@ -50,10 +52,10 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                         new RefreshTaskbarButton(),
                         new Spacer(),
 
-                        new NewWindowTaskbarButton()
+                        new NewWindowTaskbarButton(),
                     )
                         .width('25%')
-                        .padding({ left: 10, right: 10 })
+                        .padding({ left: 10, right: 10 }),
                 )
                     .blur()
                     .stretchWidth()
@@ -61,10 +63,10 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                     .padding({ top: 20, bottom: 20 })
                     .id('titlebar'),
 
-                new Spacer() // Pushes navbar to top and makes space for Electron.BrowserView
+                new Spacer(), // Pushes navbar to top and makes space for Electron.BrowserView
             )
                 .stretch()
-                .background(HColor('background').alpha(0.5))
+                .background(HColor('background').alpha(0.5)),
         );
 
         const titlebar = this.getViewById('titlebar') as View;
@@ -76,21 +78,22 @@ export default class FlexBrowserWindow extends HIFullScreenView {
      *
      * @private
      * @static
-     * @param {string} url The URL to standardize.
+     * @param {string} newUrl The URL to standardize.
      * @returns {string} The standardized URL.
      *
      * @memberOf FlexBrowserWindow
      */
     private static goodUrl(url: string): string {
-        url = url.trim();
+        let newUrl = url.trim();
         let goodProtocol = false;
-        if (url.includes('://')) {
-            const givenProtocol = url.substring(0, url.indexOf('://'));
-            if (FlexBrowserWindow.PROTOCOLS.indexOf(givenProtocol) >= 0)
+        if (newUrl.includes('://')) {
+            const givenProtocol = newUrl.substring(0, newUrl.indexOf('://'));
+            if (FlexBrowserWindow.PROTOCOLS.indexOf(givenProtocol) >= 0) {
                 goodProtocol = true;
+            }
         }
-        if (!goodProtocol) url = `https://${url}`;
-        return url;
+        if (!goodProtocol) newUrl = `https://${newUrl}`;
+        return newUrl;
     }
 
     /**
@@ -102,20 +105,20 @@ export default class FlexBrowserWindow extends HIFullScreenView {
      * @memberOf FlexBrowserWindow
      */
     public goTo(url: string, addToHistory = true): void {
-        url = FlexBrowserWindow.goodUrl(url);
+        const newUrl = FlexBrowserWindow.goodUrl(url);
 
         const icon = this.getViewById('url-refresh-button') as IonIcon;
         const urlbar = this.getViewById('url') as InputField;
 
-        flexarch.changeUrl(url);
+        flexarch.changeUrl(newUrl);
         (icon.body as HTMLInputElement).name = 'refresh-circle-outline'; // ! Workaround to use .name
 
         if (addToHistory) {
-            this.history.push(url);
+            this.history.push(newUrl);
             this.historyPointer = this.history.length - 1;
         }
 
-        urlbar.model.value = url;
+        urlbar.model.value = newUrl;
     }
 
     /**
@@ -124,16 +127,16 @@ export default class FlexBrowserWindow extends HIFullScreenView {
      * @memberOf FlexBrowserWindow
      */
     public previousPage(): void {
-        this.historyPointer--;
+        this.historyPointer -= 1;
         if (
             this.historyPointer >= 0 &&
             this.historyPointer < this.history.length
-        )
+        ) {
             this.goTo(
                 this.history[this.historyPointer] || 'flex://error',
-                false
+                false,
             );
-        else this.historyPointer++;
+        } else this.historyPointer += 1;
     }
 
     /**
@@ -142,12 +145,12 @@ export default class FlexBrowserWindow extends HIFullScreenView {
      * @memberOf FlexBrowserWindow
      */
     public nextPage(): void {
-        this.historyPointer++;
+        this.historyPointer += 1;
         if (
             this.historyPointer >= 0 &&
             this.historyPointer < this.history.length
-        )
+        ) {
             this.goTo(this.history[this.historyPointer] || 'flex://error');
-        else this.historyPointer--;
+        } else this.historyPointer -= 1;
     }
 }

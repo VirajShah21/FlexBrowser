@@ -9,7 +9,6 @@ import FlexWindowsViewer from './FlexHub/FlexWindowsViewer';
 BrowserPreferences.initialize();
 
 const flexWindow = document.body.dataset.window;
-console.log(flexWindow);
 
 new ViewController({
     browser: new FlexBrowserWindow(),
@@ -20,4 +19,4 @@ new ViewController({
 })
     .bind()
     .navigateTo(flexWindow || 'browser')
-    .mapTo(`AppController`);
+    .mapTo('AppController');
