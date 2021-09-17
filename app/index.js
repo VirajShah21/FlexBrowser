@@ -55,10 +55,15 @@ function createWindow() {
         event.returnValue = obj;
     });
 
-    ipcMain.on('addBookmark', () => {
-        readBookmarksFile()
-            .then(bookmarks => console.log(bookmarks))
-            .catch(reason => console.warn(reason));
+    ipcMain.on('addBookmark', (event, meta) => {
+        event.returnValue = new Promise((resolve, reject) => {
+            readBookmarksFile()
+                .then(bookmarks => {
+                    bookmarks.push(meta);
+                    writeBookmarksFile(bookmarks).then(() => resolve());
+                })
+                .catch(reason => reject(reason));
+        });
     });
 
     ipcMain.on('getBookmarks', event => {
@@ -97,6 +102,16 @@ async function readBookmarksFile() {
                     reject('File (~/.flex-bookmarks.json) is invalid JSON.');
                 }
             }
+        });
+    });
+}
+
+async function writeBookmarksFile(bookmarks) {
+    return new Promise((resolve, reject) => {
+        const filepath = path.join(HOMEDIR, '.flex-bookmarks.json');
+        fs.writeFile(filepath, JSON.stringify(bookmarks), err => {
+            if (err) reject(err);
+            else resolve();
         });
     });
 }
