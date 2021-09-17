@@ -25,11 +25,11 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                             .foreground(BrowserPreferences.getPrimaryColor())
                             .whenClicked(() =>
                                 ViewController.getController(
-                                    'AppController'
-                                )?.navigateTo('preferences')
+                                    'AppController',
+                                )?.navigateTo('preferences'),
                             ),
-                        new Spacer()
-                    ).stretchWidth()
+                        new Spacer(),
+                    ).stretchWidth(),
                 ),
                 new ScrollView(
                     new VStack(
@@ -43,17 +43,17 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                         new PartitionerComponent(),
 
                         new PartitionComponentOrganizer({ partitions: [] }).id(
-                            'partition-component-organizer'
-                        )
-                    ).stretchWidth()
+                            'partition-component-organizer',
+                        ),
+                    ).stretchWidth(),
                 )
                     .stretchWidth()
-                    .height('calc(100% - 100px)')
+                    .height('calc(100% - 100px)'),
             )
                 .stretchWidth()
                 .stretchHeight()
                 .background(HColor('background').alpha(0.75))
-                .foreground(HColor('foreground'))
+                .foreground(HColor('foreground')),
         );
     }
 }

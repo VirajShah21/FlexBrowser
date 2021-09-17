@@ -11,6 +11,7 @@ import WidgetSelectorButton from './WidgetSelectorButton';
 
 export default class AddWidgetButton extends ClickButton {
     private partition: number;
+
     private index: number;
 
     constructor(partition: number, index: number) {
@@ -31,22 +32,22 @@ export default class AddWidgetButton extends ClickButton {
                                 new IonIcon('chevron-back-circle-outline'),
                                 partition,
                                 index,
-                                'page-back'
+                                'page-back',
                             ),
                             new WidgetSelectorButton(
                                 'Forward Page',
                                 new IonIcon('chevron-forward-circle-outline'),
                                 partition,
                                 index,
-                                'page-forward'
+                                'page-forward',
                             ),
                             new WidgetSelectorButton(
                                 'New Window',
                                 new IonIcon('add-circle-outline'),
                                 partition,
                                 index,
-                                'new-window'
-                            )
+                                'new-window',
+                            ),
                         ),
 
                         new Spacer(),
@@ -59,12 +60,12 @@ export default class AddWidgetButton extends ClickButton {
                                 ev.view.root().destroy();
                             }),
 
-                        new Spacer()
-                    ).stretch()
+                        new Spacer(),
+                    ).stretch(),
                 )
                     .background(HColor('gray6'))
                     .foreground(HColor('foreground'));
-            }
+            },
         );
     }
 }

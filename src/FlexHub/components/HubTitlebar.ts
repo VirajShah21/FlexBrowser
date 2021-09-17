@@ -13,8 +13,8 @@ export default class HubTitlebar extends VStack {
 
             new HStack(
                 new TextView(title).font('xxl').bold(),
-                new Spacer()
-            ).stretchWidth()
+                new Spacer(),
+            ).stretchWidth(),
         );
         this.padding()
             .stretchWidth()

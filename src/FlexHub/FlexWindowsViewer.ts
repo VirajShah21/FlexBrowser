@@ -32,21 +32,21 @@ export default class FlexWindowViewer extends HIFullScreenView {
                         new ClickButton(new TextView('Back'))
                             .padding(0)
                             .whenClicked(() =>
-                                ViewController.navigateTo('hub')
+                                ViewController.navigateTo('hub'),
                             ),
-                        new Spacer()
-                    ).stretchWidth()
+                        new Spacer(),
+                    ).stretchWidth(),
                 ),
                 new ScrollView(
                     new VStack()
                         .stretchWidth()
                         .padding()
-                        .id('window-buttons-container')
+                        .id('window-buttons-container'),
                 )
                     .stretchWidth()
                     .padding(),
-                new Spacer()
-            ).stretch()
+                new Spacer(),
+            ).stretch(),
         );
     }
 
@@ -59,7 +59,7 @@ export default class FlexWindowViewer extends HIFullScreenView {
      */
     override handle(): void {
         const container = this.getViewById(
-            'window-buttons-container'
+            'window-buttons-container',
         ) as VStack;
         const windowList = flexarch.getWindowList();
         container.removeAllChildren().addChildren(
@@ -74,35 +74,31 @@ export default class FlexWindowViewer extends HIFullScreenView {
                         new ClickButton(new IonIcon('bookmark-outline'))
                             .describe('bookmark')
                             .whenClicked(ev => {
-                                console.log('in here', ev.view.description);
-                                if (ev.view.description == 'bookmark') {
+                                const bookmarkIcon = (
+                                    ev.view.children[0] as IonIcon
+                                ).body as HTMLInputElement;
+
+                                if (ev.view.description === 'bookmark') {
                                     flexarch.addBookmark(win);
-                                    (
-                                        (ev.view.children[0] as IonIcon)
-                                            .body as HTMLInputElement
-                                    ).name = 'bookmark';
+                                    bookmarkIcon.name = 'bookmark';
                                     ev.view.describe('unbookmark');
                                 } else if (
-                                    ev.view.description == 'unbookmark'
+                                    ev.view.description === 'unbookmark'
                                 ) {
                                     // TODO: Enable removeBookmark()
                                     // flexarch.removeBookmark(win);
-
-                                    (
-                                        (ev.view.children[0] as IonIcon)
-                                            .body as HTMLInputElement
-                                    ).name = 'bookmark-outline';
+                                    bookmarkIcon.name = 'bookmark-outline';
                                     ev.view.describe('bookmark');
                                 }
-                            })
-                    ).width('100%')
+                            }),
+                    ).width('100%'),
                 )
                     .width('100%')
                     .padding()
                     .background(HColor('gray5'))
                     .margin({ bottom: 10 })
-                    .rounded()
-            )
+                    .rounded(),
+            ),
         );
     }
 }

@@ -6,7 +6,7 @@ export default class BrowserForwardTaskbarButton extends TaskbarButton {
     constructor() {
         super(new IonIcon('chevron-forward-circle-outline'));
         this.whenClicked(ev =>
-            (ev.view.root() as FlexBrowserWindow).nextPage()
+            (ev.view.root() as FlexBrowserWindow).nextPage(),
         );
     }
 }

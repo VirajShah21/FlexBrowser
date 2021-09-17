@@ -22,14 +22,14 @@ export default class FlexPreferences extends HIFullScreenView {
                         .foreground(HColor(BrowserPreferences.getColorTheme()))
                         .whenClicked(() =>
                             ViewController.getController(
-                                'AppController'
-                            )!.navigateTo('hub')
+                                'AppController',
+                            )!.navigateTo('hub'),
                         ),
                     new Spacer(),
                     new ClickButton(new TextView('Reload'))
                         .padding(0)
                         .foreground(HColor(BrowserPreferences.getColorTheme()))
-                        .whenClicked(() => window.location.reload())
+                        .whenClicked(() => window.location.reload()),
                 ),
 
                 new HighlightColorPreferences(),
@@ -38,11 +38,11 @@ export default class FlexPreferences extends HIFullScreenView {
 
                 new BrowserFramePreferences(),
 
-                new Spacer()
+                new Spacer(),
             )
                 .stretch()
                 .background(HColor('background').alpha(0.75))
-                .foreground(HColor('foreground'))
+                .foreground(HColor('foreground')),
         );
     }
 }

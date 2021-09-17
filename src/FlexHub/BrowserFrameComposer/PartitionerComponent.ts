@@ -23,25 +23,25 @@ export default class PartitionerComponent extends VStack {
                         (
                             (
                                 ViewController.getController(
-                                    'AppController'
+                                    'AppController',
                                 ) as ViewController
                             ).screens.frameComposer as HIFullScreenView
                         ).getViewById(
-                            'partition-component-organizer'
+                            'partition-component-organizer',
                         ) as PartitionComponentOrganizer
                     ).addPartition({ components: [], padding: 0 });
                 }),
 
-            new VStack().id('partitions').stretchWidth()
+            new VStack().id('partitions').stretchWidth(),
         );
 
         this.describe('Partioner').padding().stretchWidth();
 
         this.partitions = StateObject([], p => {
-            const i = parseInt(p!);
-            if (i == this.partitions.length - 1) {
+            const i = parseInt(p!, 10);
+            if (i === this.partitions.length - 1) {
                 this.getViewById('partitions')?.addChildren(
-                    new PartitionEditor(i + 1)
+                    new PartitionEditor(i + 1),
                 );
             }
         });

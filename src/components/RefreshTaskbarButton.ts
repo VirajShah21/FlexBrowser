@@ -8,7 +8,7 @@ export default class RefreshTaskbarButton extends TaskbarButton {
         super(new IonIcon('refresh-circle-outline').id('url-refresh-button'));
         this.whenClicked(ev => {
             const browserWindow = ev.view.root(
-                view => (view as FlexBrowserWindow).isBrowserWindow
+                view => (view as FlexBrowserWindow).isBrowserWindow,
             ) as FlexBrowserWindow;
             const url = (browserWindow.getViewById('url') as InputField).model
                 .value;

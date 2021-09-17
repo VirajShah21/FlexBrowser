@@ -14,33 +14,6 @@ import BrowserFrameModel, {
 } from 'src/Models/BrowserFrameModel';
 import AddWidgetButton from './components/AddWidgetButton';
 
-export default class PartitionComponentOrganizer extends BrowserFrameRenderer {
-    constructor(model: BrowserFrameModel) {
-        super(model);
-
-        this.background(HColor('gray5')).rounded().padding();
-    }
-
-    protected override updateBrowserFrame(): void {
-        this.removeAllChildren().addChildren(
-            ...this.model.partitions.map((partition, partitionIndex) =>
-                new HStack(
-                    ...partition.components.flatMap(
-                        (component, componentIndex) => [
-                            new AddWidgetButton(partitionIndex, componentIndex),
-                            makeComponent(component),
-                        ]
-                    ),
-                    new AddWidgetButton(
-                        partitionIndex,
-                        partition.components.length
-                    )
-                ).width(partition.size || 'auto')
-            )
-        );
-    }
-}
-
 function makeComponent(model: BrowserFrameComponent): View {
     switch (model.name) {
         case 'page-back':
@@ -57,5 +30,32 @@ function makeComponent(model: BrowserFrameComponent): View {
             return new Spacer().font('md');
         default:
             return new TextView(`NoComponent[${model.name}]`).font('md');
+    }
+}
+
+export default class PartitionComponentOrganizer extends BrowserFrameRenderer {
+    constructor(model: BrowserFrameModel) {
+        super(model);
+
+        this.background(HColor('gray5')).rounded().padding();
+    }
+
+    protected override updateBrowserFrame(): void {
+        this.removeAllChildren().addChildren(
+            ...this.model.partitions.map((partition, partitionIndex) =>
+                new HStack(
+                    ...partition.components.flatMap(
+                        (component, componentIndex) => [
+                            new AddWidgetButton(partitionIndex, componentIndex),
+                            makeComponent(component),
+                        ],
+                    ),
+                    new AddWidgetButton(
+                        partitionIndex,
+                        partition.components.length,
+                    ),
+                ).width(partition.size || 'auto'),
+            ),
+        );
     }
 }
