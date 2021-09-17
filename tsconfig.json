@@ -16,8 +16,8 @@
         "paths": {
             "@Hi/*": ["./Client/ts/*"]
         },
-        "strictNullChecks": true
-        // "noUncheckedIndexedAccess": true
+        "strictNullChecks": true,
+        "noUncheckedIndexedAccess": true
     },
     "include": ["./**/*.ts"],
     "exclude": ["./node_modules", "./out"]
