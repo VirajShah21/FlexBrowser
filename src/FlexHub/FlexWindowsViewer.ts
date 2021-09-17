@@ -73,9 +73,9 @@ export default class FlexWindowViewer extends HIFullScreenView {
                                 .margin({ right: 10 }),
                             new TextView(win.title),
                             new Spacer()
-                        ).stretchWidth()
+                        ).width('100%')
                     )
-                        .stretchWidth()
+                        .width('100%')
                         .padding()
                         .background(HColor('gray5'))
                         .margin({ bottom: 10 })
