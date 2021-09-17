@@ -62,25 +62,46 @@ export default class FlexWindowViewer extends HIFullScreenView {
             'window-buttons-container'
         ) as VStack;
         const windowList = flexarch.getWindowList();
-        container
-            .removeAllChildren()
-            .addChildren(
-                ...windowList.map(win =>
-                    new ClickButton(
-                        new HStack(
-                            new IonIcon('globe-outline')
-                                .font('lg')
-                                .margin({ right: 10 }),
-                            new TextView(win.title),
-                            new Spacer()
-                        ).width('100%')
-                    )
-                        .width('100%')
-                        .padding()
-                        .background(HColor('gray5'))
-                        .margin({ bottom: 10 })
-                        .rounded()
+        container.removeAllChildren().addChildren(
+            ...windowList.map(win =>
+                new ClickButton(
+                    new HStack(
+                        new IonIcon('globe-outline')
+                            .font('lg')
+                            .margin({ right: 10 }),
+                        new TextView(win.title),
+                        new Spacer(),
+                        new ClickButton(new IonIcon('bookmark-outline'))
+                            .describe('bookmark')
+                            .whenClicked(ev => {
+                                console.log('in here', ev.view.description);
+                                if (ev.view.description == 'bookmark') {
+                                    flexarch.addBookmark(win);
+                                    (
+                                        ev.view.children[0]
+                                            .body as HTMLInputElement
+                                    ).name = 'bookmark';
+                                    ev.view.describe('unbookmark');
+                                } else if (
+                                    ev.view.description == 'unbookmark'
+                                ) {
+                                    // TODO: Enable removeBookmark()
+                                    // flexarch.removeBookmark(win);
+                                    (
+                                        ev.view.children[0]
+                                            .body as HTMLInputElement
+                                    ).name = 'bookmark-outline';
+                                    ev.view.describe('bookmark');
+                                }
+                            })
+                    ).width('100%')
                 )
-            );
+                    .width('100%')
+                    .padding()
+                    .background(HColor('gray5'))
+                    .margin({ bottom: 10 })
+                    .rounded()
+            )
+        );
     }
 }
