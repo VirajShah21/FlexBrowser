@@ -13,7 +13,7 @@ export default class HighlightColorPreferences extends VStack {
                     .font('md')
                     .bold()
                     .margin({ bottom: 10 }),
-                new Spacer()
+                new Spacer(),
             ).stretchWidth(),
 
             new HStack(
@@ -33,8 +33,8 @@ export default class HighlightColorPreferences extends VStack {
                         'yellow',
                     ] as HumanColorName[]
                 ).map(color => new HighlightColorButton(color)),
-                new Spacer()
-            ).stretchWidth()
+                new Spacer(),
+            ).stretchWidth(),
         );
         this.stretchWidth().padding();
     }

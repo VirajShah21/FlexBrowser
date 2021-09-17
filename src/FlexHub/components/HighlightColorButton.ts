@@ -17,7 +17,7 @@ export default class HighlightColorButton extends ClickButton {
                     .forEach(view =>
                         view.borderBottom({
                             size: 0,
-                        })
+                        }),
                     );
                 ev.view
                     .root()

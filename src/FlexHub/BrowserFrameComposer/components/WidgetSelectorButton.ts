@@ -14,7 +14,7 @@ export default class WidgetSelectorButton extends ClickButton {
         componentPlaceholder: View,
         partition: number,
         index: number,
-        componentName: string
+        componentName: string,
     ) {
         super(
             new VStack(
@@ -24,8 +24,8 @@ export default class WidgetSelectorButton extends ClickButton {
                 new TextView(label)
                     .font('xs')
                     .foreground(HColor('gray'))
-                    .margin({ top: 5 })
-            )
+                    .margin({ top: 5 }),
+            ),
         );
         this.rounded()
             .padding()
@@ -36,11 +36,11 @@ export default class WidgetSelectorButton extends ClickButton {
                 const renderer = (
                     (
                         ViewController.getController(
-                            'AppController'
+                            'AppController',
                         ) as ViewController
                     ).screens.frameComposer as HIFullScreenView
                 ).getViewById(
-                    'partition-component-organizer'
+                    'partition-component-organizer',
                 ) as PartitionComponentOrganizer;
 
                 renderer.addToPartition(partition, index, {

@@ -11,13 +11,13 @@ export default class ThemePreferences extends VStack {
         super(
             new HStack(
                 new TextView('Theme').font('md').bold().margin({ bottom: 10 }),
-                new Spacer()
+                new Spacer(),
             ).stretchWidth(),
 
             new HStack(
                 new VStack(
                     new ClickButton(
-                        new ImageView('assets/LightThemeThumb.png').rounded()
+                        new ImageView('assets/LightThemeThumb.png').rounded(),
                     )
                         .padding(0)
                         .border({
@@ -29,14 +29,14 @@ export default class ThemePreferences extends VStack {
                         .whenClicked(() => {
                             changeTheme('light');
                         }),
-                    new TextView('Light Mode').margin({ top: 5 }).font('sm')
+                    new TextView('Light Mode').margin({ top: 5 }).font('sm'),
                 ).rounded(),
 
                 new Spacer(),
 
                 new VStack(
                     new ClickButton(
-                        new ImageView('assets/DarkThemeThumb.png').rounded()
+                        new ImageView('assets/DarkThemeThumb.png').rounded(),
                     )
                         .padding(0)
                         .border({
@@ -48,11 +48,11 @@ export default class ThemePreferences extends VStack {
                         .whenClicked(() => {
                             changeTheme('dark');
                         }),
-                    new TextView('Dark Mode').margin({ top: 5 }).font('sm')
+                    new TextView('Dark Mode').margin({ top: 5 }).font('sm'),
                 ).rounded(),
 
-                new Spacer()
-            ).stretchWidth()
+                new Spacer(),
+            ).stretchWidth(),
         );
         this.stretchWidth().padding();
     }

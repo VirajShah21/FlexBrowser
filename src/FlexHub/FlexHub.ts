@@ -11,6 +11,18 @@ import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from '../BrowserPreferences';
 import HubTitlebar from './components/HubTitlebar';
 
+function HubButton(icon: IonIcon, title: string): ClickButton {
+    return new ClickButton(
+        new VStack(icon.font(50), new Spacer(), new TextView(title))
+            .stretch()
+            .alignMiddle(),
+    )
+        .padding()
+        .foreground(BrowserPreferences.getPrimaryColor())
+        .width(100)
+        .height(100);
+}
+
 export default class FlexHub extends HIFullScreenView {
     constructor() {
         super(
@@ -26,9 +38,9 @@ export default class FlexHub extends HIFullScreenView {
                         () => {
                             ViewController.navigateTo('windows');
                             ViewController.getController(
-                                'AppController'
+                                'AppController',
                             )?.signal('refresh-windows');
-                        }
+                        },
                     ),
 
                     new Spacer(),
@@ -43,19 +55,19 @@ export default class FlexHub extends HIFullScreenView {
 
                     HubButton(
                         new IonIcon('cog-outline'),
-                        'Preferences'
+                        'Preferences',
                     ).whenClicked(() =>
-                        ViewController.navigateTo('preferences')
+                        ViewController.navigateTo('preferences'),
                     ),
 
-                    new Spacer()
+                    new Spacer(),
                 ).stretchWidth(),
 
-                new Spacer()
+                new Spacer(),
             )
                 .stretch()
                 .background(HColor('background').alpha(0.75))
-                .foreground(HColor('foreground'))
+                .foreground(HColor('foreground')),
         );
 
         const fadeIn = defineTransition({
@@ -76,16 +88,4 @@ export default class FlexHub extends HIFullScreenView {
 
         this.body.style.setProperty('-webkit-app-region', 'drag');
     }
-}
-
-function HubButton(icon: IonIcon, title: string): ClickButton {
-    return new ClickButton(
-        new VStack(icon.font(50), new Spacer(), new TextView(title))
-            .stretch()
-            .alignMiddle()
-    )
-        .padding()
-        .foreground(BrowserPreferences.getPrimaryColor())
-        .width(100)
-        .height(100);
 }

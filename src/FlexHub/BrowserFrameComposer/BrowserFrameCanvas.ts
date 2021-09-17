@@ -14,6 +14,25 @@ import BrowserFrameModel, {
     BrowserFrameComponent,
 } from 'src/Models/BrowserFrameModel';
 
+function makeComponent(model: BrowserFrameComponent): View {
+    switch (model.name) {
+        case 'page-back':
+            return new BrowserBackTaskbarButton();
+        case 'page-forward':
+            return new BrowserForwardTaskbarButton();
+        case 'urlbar':
+            return new URLBar();
+        case 'go-refresh':
+            return new RefreshTaskbarButton();
+        case 'new-window':
+            return new NewWindowTaskbarButton();
+        case 'spacer':
+            return new Spacer();
+        default:
+            return new TextView(`NoComponent[${model.name}]`);
+    }
+}
+
 export const defaultModel: BrowserFrameModel = {
     partitions: [
         {
@@ -82,31 +101,12 @@ export default class BrowserFrameCanvas extends BrowserFrameRenderer {
             ...this.model.partitions.map(partition =>
                 new HStack(
                     ...partition.components.map(component =>
-                        makeComponent(component)
-                    )
+                        makeComponent(component),
+                    ),
                 )
                     .padding(partition.padding)
-                    .width(partition.size || 'auto')
-            )
+                    .width(partition.size || 'auto'),
+            ),
         );
-    }
-}
-
-function makeComponent(model: BrowserFrameComponent): View {
-    switch (model.name) {
-        case 'page-back':
-            return new BrowserBackTaskbarButton();
-        case 'page-forward':
-            return new BrowserForwardTaskbarButton();
-        case 'urlbar':
-            return new URLBar();
-        case 'go-refresh':
-            return new RefreshTaskbarButton();
-        case 'new-window':
-            return new NewWindowTaskbarButton();
-        case 'spacer':
-            return new Spacer();
-        default:
-            return new TextView(`NoComponent[${model.name}]`);
     }
 }

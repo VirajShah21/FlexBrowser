@@ -6,7 +6,7 @@ export default class BrowserBackTaskbarButton extends TaskbarButton {
     constructor() {
         super(new IonIcon('chevron-back-circle-outline'));
         this.whenClicked(ev =>
-            (ev.view.root() as FlexBrowserWindow).previousPage()
+            (ev.view.root() as FlexBrowserWindow).previousPage(),
         );
     }
 }

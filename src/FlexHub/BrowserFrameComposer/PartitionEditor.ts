@@ -11,7 +11,7 @@ export default class PartionEditor extends HStack {
         super(
             new VStack(
                 new TextView(`${index}`).font('lg').bold(),
-                new Spacer()
+                new Spacer(),
             ).height('100%'),
 
             new Spacer(),
@@ -28,13 +28,13 @@ export default class PartionEditor extends HStack {
                 new HStack(
                     new VStack(
                         new TextField('-px').padding(2).width(40).textEnd(),
-                        new TextView('Min').padding(5)
+                        new TextView('Min').padding(5),
                     ).margin({ right: 5 }),
                     new VStack(
                         new TextField('-px').padding(2).width(40).textEnd(),
-                        new TextView('Max').padding(5)
-                    )
-                )
+                        new TextView('Max').padding(5),
+                    ),
+                ),
             ),
 
             new VStack(
@@ -47,9 +47,9 @@ export default class PartionEditor extends HStack {
                         .font('sm')
                         .padding()
                         .margin(),
-                    new TextField('0px').padding(2).width(40).textEnd()
+                    new TextField('0px').padding(2).width(40).textEnd(),
                 ),
-                new TextField('0px').padding(2).width(40).textEnd()
+                new TextField('0px').padding(2).width(40).textEnd(),
             )
                 .border({
                     size: 2,
@@ -57,7 +57,7 @@ export default class PartionEditor extends HStack {
                     color: HColor('background'),
                 })
                 .padding()
-                .margin({ left: 25 })
+                .margin({ left: 25 }),
         );
 
         this.background(BrowserPreferences.getPrimaryColor().alpha(0.5))
