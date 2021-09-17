@@ -9,7 +9,6 @@ module.exports = {
         'no-await-in-loop': ['error'],
         'no-loss-of-precision': ['error'],
         'no-promise-executor-return': ['error'],
-        'no-unsafe-optional-chaining': ['error'],
         'array-callback-return': ['error'],
         complexity: [1, 15],
         'guard-for-in': 1,
