@@ -18,6 +18,8 @@ module.exports = {
         complexity: [1, 15],
         'guard-for-in': 1,
         'no-constructor-return': 1,
+        '@typescript-eslint/indent': ['warn', 4],
+        'operator-linebreak': 'off',
     },
     parserOptions: {
         project: './tsconfig.json',
