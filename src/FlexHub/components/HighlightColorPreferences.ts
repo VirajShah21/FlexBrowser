@@ -5,7 +5,20 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import HighlightColorButton from './HighlightColorButton';
 
+/**
+ * The component containing all of the subviews for selecting a new highlight
+ * color.
+ *
+ * @export
+ * @class HighlightColorPreferences
+ * @extends {VStack}
+ */
 export default class HighlightColorPreferences extends VStack {
+    /**
+     * Creates an instance of HighlightColorPreferences.
+     *
+     * @memberOf HighlightColorPreferences
+     */
     constructor() {
         super(
             new HStack(

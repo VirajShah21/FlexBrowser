@@ -6,6 +6,14 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 
+/**
+ * Allows the user to select either a dark theme or light theme. This will
+ * be rendered as a part of the main preferences page in the hub window.
+ *
+ * @export
+ * @class ThemePreferences
+ * @extends {VStack}
+ */
 export default class ThemePreferences extends VStack {
     constructor() {
         super(
