@@ -56,20 +56,18 @@ function createWindow() {
     });
 
     ipcMain.on('addBookmark', (event, meta) => {
-        event.returnValue = new Promise((resolve, reject) => {
-            readBookmarksFile()
-                .then(bookmarks => {
-                    bookmarks.push(meta);
-                    writeBookmarksFile(bookmarks).then(() => resolve());
-                })
-                .catch(reason => reject(reason));
-        });
+        readBookmarksFile()
+            .then(bookmarks => {
+                bookmarks.push(meta);
+                writeBookmarksFile(bookmarks).then(() => event.reply(true));
+            })
+            .catch(reason => event.reply(false));
     });
 
     ipcMain.on('getBookmarks', event => {
         readBookmarksFile()
-            .then(bookmarks => (event.returnValue = bookmarks))
-            .catch(reason => console.warn(reason));
+            .then(bookmarks => event.reply(bookmarks))
+            .catch(reason => event.reply(reason));
     });
 }
 

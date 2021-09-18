@@ -13,11 +13,11 @@ function getWindowList() {
 }
 
 function getBookmarks() {
-    return ipcRenderer.sendSync('getBookmarks');
+    return ipcRenderer.send('getBookmarks');
 }
 
 function addBookmark(urlMeta) {
-    ipcRenderer.send('addBookmark', urlMeta);
+    return ipcRenderer.send('addBookmark', urlMeta);
 }
 
 contextBridge.exposeInMainWorld('flexarch', {
