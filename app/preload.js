@@ -17,7 +17,7 @@ function getBookmarks() {
 }
 
 function addBookmark() {
-    return ipcRenderer.sendSync('addBookmark');
+    ipcRenderer.send('addBookmark');
 }
 
 contextBridge.exposeInMainWorld('flexarch', {

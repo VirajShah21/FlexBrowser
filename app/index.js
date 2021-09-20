@@ -86,9 +86,16 @@ function createHubWindow() {
 }
 
 function readBookmarksFile() {
-    return JSON.parse(
-        fs.readFileSync(path.join(HOMEDIR, '.flex-bookmarks.json'), 'utf-8'),
-    );
+    try {
+        return JSON.parse(
+            fs.readFileSync(
+                path.join(HOMEDIR, '.flex-bookmarks.json'),
+                'utf-8',
+            ),
+        );
+    } catch (e) {
+        return [];
+    }
 }
 
 function writeBookmarksFile(bookmarks) {
