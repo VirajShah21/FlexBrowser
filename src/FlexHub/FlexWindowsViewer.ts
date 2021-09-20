@@ -77,16 +77,9 @@ export default class FlexWindowViewer extends HIFullScreenView {
                                 const bookmarkIcon = (
                                     ev.view.children[0] as IonIcon
                                 ).body as HTMLInputElement;
-
+                                console.log(ev.view.description, win);
                                 if (ev.view.description === 'bookmark') {
-                                    console.log('Adding bookmark');
-                                    const addSuccess =
-                                        flexarch.addBookmark(win);
-                                    console.log(addSuccess);
-
-                                    console.log(
-                                        'Flex arch should be adding bookmark right now',
-                                    );
+                                    flexarch.addBookmark(win);
                                     bookmarkIcon.name = 'bookmark';
                                     ev.view.describe('unbookmark');
                                 } else if (

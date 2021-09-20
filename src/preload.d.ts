@@ -8,5 +8,5 @@ declare namespace flexarch {
     function newWindow(): void;
     function getWindowList(): URLMeta[];
     function getBookmarks(): URLMeta[];
-    function addBookmark(meta: URLMeta): boolean;
+    function addBookmark(bookmark: URLMeta): void;
 }
