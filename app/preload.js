@@ -16,8 +16,8 @@ function getBookmarks() {
     return ipcRenderer.sendSync('getBookmarks');
 }
 
-function addBookmark() {
-    ipcRenderer.send('addBookmark');
+function addBookmark(meta) {
+    ipcRenderer.send('addBookmark', meta);
 }
 
 contextBridge.exposeInMainWorld('flexarch', {
