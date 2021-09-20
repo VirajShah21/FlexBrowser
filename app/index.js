@@ -55,19 +55,16 @@ function createWindow() {
         event.returnValue = obj;
     });
 
-    ipcMain.on('addBookmark', (event, meta) => {
-        readBookmarksFile()
-            .then(bookmarks => {
-                bookmarks.push(meta);
-                writeBookmarksFile(bookmarks).then(() => event.reply(true));
-            })
-            .catch(reason => event.reply(false));
+    ipcMain.on('getBookmarks', event => {
+        event.returnValue = readBookmarksFile();
     });
 
-    ipcMain.on('getBookmarks', event => {
-        readBookmarksFile()
-            .then(bookmarks => event.reply(bookmarks))
-            .catch(reason => event.reply(reason));
+    ipcMain.on('addBookmark', (event, meta) => {
+        let bookmarks = readBookmarksFile();
+        if (!bookmarks.filter(curr => curr.url == meta.url)) {
+            bookmarks.push(meta);
+            writeBookmarksFile(bookmarks);
+        }
     });
 }
 
@@ -88,30 +85,17 @@ function createHubWindow() {
     win.loadFile('app/hub.html');
 }
 
-async function readBookmarksFile() {
-    return new Promise((resolve, reject) => {
-        const filepath = path.join(HOMEDIR, '.flex-bookmarks.json');
-        fs.readFile(filepath, 'utf-8', (err, data) => {
-            if (err) fs.writeFile(filepath, '{}', () => resolve({}));
-            else {
-                try {
-                    resolve(JSON.parse(data));
-                } catch (e) {
-                    reject('File (~/.flex-bookmarks.json) is invalid JSON.');
-                }
-            }
-        });
-    });
+function readBookmarksFile() {
+    return JSON.parse(
+        fs.readFileSync(path.join(HOMEDIR, '.flex-bookmarks.json'), 'utf-8'),
+    );
 }
 
-async function writeBookmarksFile(bookmarks) {
-    return new Promise((resolve, reject) => {
-        const filepath = path.join(HOMEDIR, '.flex-bookmarks.json');
-        fs.writeFile(filepath, JSON.stringify(bookmarks), err => {
-            if (err) reject(err);
-            else resolve();
-        });
-    });
+function writeBookmarksFile(bookmarks) {
+    fs.writeFileSync(
+        path.join(HOMEDIR, '.flex-bookmarks.json'),
+        JSON.stringify(bookmarks),
+    );
 }
 
 app.whenReady().then(() => {
