@@ -37,8 +37,7 @@ export default class URLBar extends TextField {
                     const browserWindow = ev.view.root(
                         view => (view as FlexBrowserWindow).isBrowserWindow,
                     ) as FlexBrowserWindow;
-                    const searchbar = this.getViewById('url') as InputField;
-                    browserWindow.goTo(searchbar.model.value);
+                    browserWindow.goTo((ev.view as InputField).model.value);
                 }
             });
     }
