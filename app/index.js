@@ -85,7 +85,7 @@ function createHubWindow() {
     win.loadFile('app/hub.html');
 }
 
-function readBookmarksFile() {
+const readBookmarksFile = (exports.readBookmarksFile = () => {
     try {
         return JSON.parse(
             fs.readFileSync(
@@ -96,16 +96,18 @@ function readBookmarksFile() {
     } catch (e) {
         return [];
     }
-}
+});
 
-function writeBookmarksFile(bookmarks) {
+const writeBookmarksFile = (exports.writeBookmarksFile = bookmarks => {
     fs.writeFileSync(
         path.join(HOMEDIR, '.flex-bookmarks.json'),
         JSON.stringify(bookmarks),
     );
-}
-
-app.whenReady().then(() => {
-    createWindow();
-    createHubWindow();
 });
+
+if (app) {
+    app.whenReady().then(() => {
+        createWindow();
+        createHubWindow();
+    });
+}
