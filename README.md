@@ -28,6 +28,18 @@ npm run make
 
 Navigate to `out/flex-browser-darwin-x64` and click on `flex-browser.app`
 
+### Testing
+
+To run all tests, run `npm test`. All tests can be found in `tests/`.
+
+### Documentation / Lint Report Generation
+
+Documentation and lint report generation is done using the same script.
+
+```
+source docs.sh
+```
+
 ## Dev Tasks
 
 ### Improvements
