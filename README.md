@@ -4,7 +4,34 @@
 
 One day I installed Microsoft Edge. That's the same thing as Chrome, but with a different frame. So I decided to make my own browser... with a different frame.
 
-## Contributing
+## ✍️ Contributing
+
+### ⚠️ Contributing Rules
+
+-   New features should branch out from `origin/dev`.
+-   All sub-branches for a feature must be merged with their original branch.
+-   After merging with feature branch, pull requests should be made to `origin/quality`.
+    -   All tests must pass.
+    -   There must be **NO** eslint (ts) or tsc errors or warnings.
+    -   All code, strings, documentation, and comments must include appropriate grammer and correct spelling.
+    -   Built files should not be included in the commit (may be added to gitignore).
+    -   All code must be appropriately documented with reasonable length and detail.
+    -   Code must be automatically formatted using `.prettierrc`. No other formatting will be accepted.
+    -   Code should be written in the simplest form with the following priority:
+        -   Readability (30%)
+        -   Speed (25%)
+        -   Shortest print width (25%)
+        -   Fewest number of lines (10%)
+        -   Least nesting (conditionals/loops/etc) (10%)
+    -   All imports must be used.
+    -   Unrelated code should not be touched.
+-   All code will be scrutinized with a thorough screening and testing process prior to approving the pull request to `origin/dev`.
+
+### ℹ Style Guide Notes
+
+Style warnings will be provided by eslint (`.eslintrc.js`), TypeScript (`tsconfig.json`), and Prettier (`.prettierrc`).
+
+### 📦 Building
 
 **Step 1: Installing Dependencies**
 
@@ -30,11 +57,11 @@ npm run make
 
 Navigate to `out/flex-browser-darwin-x64` and click on `flex-browser.app`
 
-### Testing
+### 🧪 Testing
 
 To run all tests, run `npm test`. All tests can be found in `tests/`.
 
-### Documentation / Lint Report Generation
+### 📑 Documentation / Lint Report Generation
 
 Documentation and lint report generation is done using the same script.
 
@@ -42,13 +69,13 @@ Documentation and lint report generation is done using the same script.
 source docs.sh
 ```
 
-## Dev Tasks
+## 👨‍💻 Dev Tasks 👩‍💻
 
-### Improvements
+### 🛠 Improvements
 
 > Nothing here right now
 
-### New Features
+### 🆕 New Features
 
 -   **Bookmarks**
     -   **Bookmark Button** – The ability to add new bookmarks
