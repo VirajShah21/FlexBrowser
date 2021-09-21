@@ -24,7 +24,7 @@ describe('Main Process: Bookmarks', () => {
     it('Should attempt to read non-existent bookmarks', () => {
         expect(readBookmarksFile()).to.eql(
             [],
-            'Should have produced an empty array.',
+            'Should have produced an empty array',
         );
     });
 
@@ -40,7 +40,8 @@ describe('Main Process: Bookmarks', () => {
             },
         ];
         writeBookmarksFile(bookmarks);
-        expect(readBookmarksFile()).to.eql(bookmarks);
+        const saved = fs.readFileSync(BMFile, 'utf8');
+        expect(saved).to.equal(JSON.stringify(bookmarks));
     });
 
     restoreBackupOfBookmarks();
