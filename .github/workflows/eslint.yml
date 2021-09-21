@@ -1,9 +1,9 @@
 steps:
-  - uses: actions/checkout@v2
-  - uses: actions/setup-node@v2
-    with:
-      node-version: '14'
-      cache: 'npm'
-  - run: npm install
-  - run: npx eslint . -f node_modules/eslint-html-reporter/reporter.js -o lintreport.html
-  - run: npm test
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+          node-version: '14'
+          cache: 'npm'
+    - run: npm install
+    - run: npx eslint . -f node_modules/eslint-html-reporter/reporter.js -o lintreport.html
+    - run: npm test
