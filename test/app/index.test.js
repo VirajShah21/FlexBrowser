@@ -1,8 +1,8 @@
-const { describe } = require('mocha');
+const { describe, beforeEach } = require('mocha');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { readBookmarksFile, writeBookmarksFile } = require('../app');
+const { readBookmarksFile, writeBookmarksFile } = require('../../app');
 const expect = require('chai').expect;
 
 const HOMEDIR = os.homedir();
@@ -19,7 +19,7 @@ function restoreBackupOfBookmarks() {
 }
 
 describe('Main Process: Bookmarks', () => {
-    storeBackupOfBookmarks();
+    beforeEach(() => storeBackupOfBookmarks());
 
     it('Should attempt to read non-existent bookmarks', () => {
         expect(readBookmarksFile()).to.eql(
@@ -44,5 +44,5 @@ describe('Main Process: Bookmarks', () => {
         expect(saved).to.equal(JSON.stringify(bookmarks));
     });
 
-    restoreBackupOfBookmarks();
+    afterEach(() => restoreBackupOfBookmarks());
 });
