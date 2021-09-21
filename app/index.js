@@ -5,6 +5,10 @@ const HOMEDIR = require('os').homedir();
 
 const flexBrowserInstances = [];
 
+/**
+ * Creates a new instance of a web browser window.
+ *
+ */
 function createWindow() {
     const win = new BrowserWindow({
         width: 800,
@@ -68,6 +72,10 @@ function createWindow() {
     });
 }
 
+/**
+ * Creates an instance of a hub window.
+ *
+ */
 function createHubWindow() {
     const win = new BrowserWindow({
         width: 500,
@@ -85,6 +93,12 @@ function createHubWindow() {
     win.loadFile('app/hub.html');
 }
 
+/**
+ * Reads the bookmarks file
+ *
+ * @returns The URLMeta[] of bookmarks from the bookmarks file.
+ *
+ */
 const readBookmarksFile = (exports.readBookmarksFile = () => {
     try {
         return JSON.parse(
@@ -98,6 +112,10 @@ const readBookmarksFile = (exports.readBookmarksFile = () => {
     }
 });
 
+/**
+ * Write to the bookmarks file.
+ *
+ */
 const writeBookmarksFile = (exports.writeBookmarksFile = bookmarks => {
     fs.writeFileSync(
         path.join(HOMEDIR, '.flex-bookmarks.json'),
