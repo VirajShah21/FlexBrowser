@@ -4,7 +4,7 @@
     "description": "A beautiful cross platform web browser.",
     "main": "app/index.js",
     "scripts": {
-        "test": "mocha --reporter spec",
+        "test": "mocha --reporter spec --recursive",
         "start": "electron-forge start",
         "package": "electron-forge package",
         "make": "electron-forge make",
