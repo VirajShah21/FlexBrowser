@@ -64,7 +64,12 @@ export default class FlexHub extends HIFullScreenView {
 
                     new Spacer(),
 
-                    HubButton(new IonIcon('bookmarks'), 'Bookmarks'),
+                    HubButton(
+                        new IonIcon('bookmarks'),
+                        'Bookmarks',
+                    ).whenClicked(() => {
+                        ViewController.navigateTo('bookmarks');
+                    }),
 
                     new Spacer(),
 
