@@ -9,6 +9,11 @@ import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from 'src/BrowserPreferences';
 
+/**
+ * Generates a preview of a browser frame
+ *
+ * @returns {VStack}
+ */
 function BrowserFramePreview(): VStack {
     return new VStack(
         new HStack(
@@ -47,7 +52,20 @@ function BrowserFramePreview(): VStack {
         .rounded({ bottom: { left: 0, right: 0 } });
 }
 
+/**
+ * A component part of the main preferences screen.
+ * This should show a sample browser frame.
+ *
+ * @export
+ * @class BrowserFramePreferences
+ * @extends {VStack}
+ */
 export default class BrowserFramePreferences extends VStack {
+    /**
+     * Creates an instance of BrowserFramePreferences.
+     *
+     * @memberOf BrowserFramePreferences
+     */
     constructor() {
         super(
             new HStack(

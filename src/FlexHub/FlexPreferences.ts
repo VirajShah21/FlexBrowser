@@ -11,7 +11,19 @@ import HighlightColorPreferences from './components/HighlightColorPreferences';
 import HubTitlebar from './components/HubTitlebar';
 import ThemePreferences from './components/ThemePreferences';
 
+/**
+ * The main preferences pane in the hub.
+ *
+ * @export
+ * @class FlexPreferences
+ * @extends {HIFullScreenView}
+ */
 export default class FlexPreferences extends HIFullScreenView {
+    /**
+     * Creates an instance of FlexPreferences.
+     *
+     * @memberOf FlexPreferences
+     */
     constructor() {
         super(
             new VStack(

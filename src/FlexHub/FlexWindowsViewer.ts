@@ -32,7 +32,9 @@ export default class FlexWindowViewer extends HIFullScreenView {
                         new ClickButton(new TextView('Back'))
                             .padding(0)
                             .whenClicked(() =>
-                                ViewController.navigateTo('hub'),
+                                ViewController.getController(
+                                    'AppController',
+                                )?.navigateTo('hub'),
                             ),
                         new Spacer(),
                     ).width('100%'),
@@ -48,6 +50,8 @@ export default class FlexWindowViewer extends HIFullScreenView {
                 new Spacer(),
             ).stretch(),
         );
+
+        this.background(HColor('background')).foreground(HColor('foreground'));
     }
 
     /**
@@ -74,10 +78,11 @@ export default class FlexWindowViewer extends HIFullScreenView {
                         new ClickButton(new IonIcon('bookmark-outline'))
                             .describe('bookmark')
                             .whenClicked(ev => {
+                                console.log('BUTTON CLICKED');
                                 const bookmarkIcon = (
                                     ev.view.children[0] as IonIcon
                                 ).body as HTMLInputElement;
-
+                                console.log(ev.view.description, win);
                                 if (ev.view.description === 'bookmark') {
                                     flexarch.addBookmark(win);
                                     bookmarkIcon.name = 'bookmark';

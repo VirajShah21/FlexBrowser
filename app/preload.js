@@ -16,14 +16,15 @@ function getBookmarks() {
     return ipcRenderer.sendSync('getBookmarks');
 }
 
-function addBookmark(urlMeta) {
-    ipcRenderer.send('addBookmark', urlMeta);
+function addBookmark(meta) {
+    ipcRenderer.send('addBookmark', meta);
 }
 
 contextBridge.exposeInMainWorld('flexarch', {
     changeUrl,
     newWindow,
     getWindowList,
+    Bookmarks: [],
     getBookmarks,
     addBookmark,
 });

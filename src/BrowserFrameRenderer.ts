@@ -13,6 +13,13 @@ import BrowserFrameModel, {
 export default abstract class BrowserFrameRenderer extends HStack {
     protected model: BrowserFrameModel;
 
+    /**
+     * Creates an instance of BrowserFrameRenderer.
+     * @param {BrowserFrameModel} model The model to use when rendering the
+     * browser frame.
+     *
+     * @memberOf BrowserFrameRenderer
+     */
     constructor(model: BrowserFrameModel) {
         super();
         this.model = model;
@@ -43,6 +50,16 @@ export default abstract class BrowserFrameRenderer extends HStack {
         this.updateBrowserFrame();
     }
 
+    /**
+     * Adds a component to a specified partition of the BrowserFrame.
+     *
+     * @param {number} partition The partition number (zero-indexed).
+     * @param {number} index The position in the partition to insert the
+     * component.
+     * @param {BrowserFrameComponent} component The component to insert
+     *
+     * @memberOf BrowserFrameRenderer
+     */
     public addToPartition(
         partition: number,
         index: number,
