@@ -30,9 +30,13 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
 
                 ...flexarch
                     .getBookmarks()
-                    .map(
-                        bookmark =>
-                            new ClickButton(new TextView(bookmark.title)),
+                    .map(bookmark =>
+                        new ClickButton(new TextView(bookmark.title))
+                            .width('calc(100% - 20px)')
+                            .padding()
+                            .rounded()
+                            .background(HColor('background').alpha(0.1))
+                            .margin({ bottom: 10 }),
                     ),
 
                 new Spacer(),
