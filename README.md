@@ -75,7 +75,9 @@ source docs.sh
 
 ### 🛠 Improvements
 
-> Nothing here right now
+-   Fix `FontWeight` not working on `TextView` (Branch: `himvc`).
+-   Add build-in and build-out animations to everything.
+    -   Add animation preferences in hub
 
 ### 🆕 New Features
 
