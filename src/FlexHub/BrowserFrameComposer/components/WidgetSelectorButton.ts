@@ -5,8 +5,8 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
 import { ViewController } from '@Hi/ViewController';
+import BrowserFrameRenderer from 'src/BrowserFrameRenderer';
 import BrowserPreferences from 'src/BrowserPreferences';
-import PartitionComponentOrganizer from '../PartitionComponentOrganizer';
 
 export default class WidgetSelectorButton extends ClickButton {
     constructor(
@@ -41,7 +41,7 @@ export default class WidgetSelectorButton extends ClickButton {
                     ).screens.frameComposer as HIFullScreenView
                 ).getViewById(
                     'partition-component-organizer',
-                ) as PartitionComponentOrganizer;
+                ) as BrowserFrameRenderer;
 
                 renderer.addToPartition(partition, index, {
                     name: componentName,

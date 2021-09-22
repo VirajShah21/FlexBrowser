@@ -68,7 +68,9 @@ export default abstract class BrowserFrameRenderer extends HStack {
         const partitionObject = this.model.partitions[partition];
         if (partitionObject && index >= partitionObject.components.length) {
             partitionObject.components.push(component);
-        } else alert('Cannot add to partition! Can only append!');
+        } else {
+            throw new Error('Cannot add to partition! Can only append!');
+        }
 
         this.updateBrowserFrame();
     }

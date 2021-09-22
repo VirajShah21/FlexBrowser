@@ -16,9 +16,7 @@ jobs:
                   node-version: '14.x'
             - name: Install Packages
               run: npm install
-            - name: Install eslint
-              run: npm install -g eslint
             - name: Lint Files
-              run: npx eslint . -f node_modules/eslint-html-reporter/reporter.js -o lintreport.html
+              run: npx eslint .
             - name: Mocha Tests
               run: npm test
