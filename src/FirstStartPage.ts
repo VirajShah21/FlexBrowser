@@ -13,16 +13,19 @@ function MainIntro() {
     return new VStack(
         new TextView('This is your entire browser window')
             .font('xxl')
-            .weight(FontWeight.Light),
+            .weight(FontWeight.UltraLight),
         new HStack(
             new IonIcon('chevron-back-circle-outline'),
             new IonIcon('chevron-forward-circle-outline'),
-
+            new Spacer(),
             new TextField(),
-
+            new Spacer(),
             new IonIcon('refresh-circle-outline'),
+            new Spacer(),
             new IonIcon('add-circle-outline'),
-        ),
+        )
+            .width('calc(100% - 20px)')
+            .padding(),
     );
 }
 
