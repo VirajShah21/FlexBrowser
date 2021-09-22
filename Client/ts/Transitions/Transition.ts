@@ -1,4 +1,5 @@
 import { RGBAModel } from '@Hi/Colors';
+import { HISizingValue, sizing } from '@Hi/Types/sizing';
 
 type TransitionStyleKey = 'background' | 'foreground' | 'opacity';
 type TransitionFrameKey = 'from' | 'to' | '10%' | '25%' | '50%' | '75%' | '90%';
@@ -22,6 +23,8 @@ export interface TransitionStyle {
     background?: RGBAModel;
     foreground?: RGBAModel;
     opacity?: number;
+    height?: HISizingValue;
+    width?: HISizingValue;
 }
 
 const definedTransitions: Record<string, Transition> = {};
@@ -51,11 +54,11 @@ function generateKeyframeCSS(transition: Transition): string {
     for (let key in transition)
         if (
             ['iterations', 'duration', 'delay', 'direction', 'after'].indexOf(
-                key
+                key,
             ) < 0
         )
             out += `${key} { ${generateCSSProperties(
-                transition[key as TransitionFrameKey] as TransitionStyle
+                transition[key as TransitionFrameKey] as TransitionStyle,
             )} }`;
     return out;
 }
@@ -65,7 +68,7 @@ function generateCSSProperties(properties: TransitionStyle): string {
     for (let property in properties)
         out += `${generateCSSProperty(
             property,
-            properties[property as TransitionStyleKey]
+            properties[property as TransitionStyleKey],
         )};`;
     return out;
 }
@@ -78,6 +81,10 @@ function generateCSSProperty(property: string, value: unknown): string {
             return `color: ${(value as RGBAModel).toString()}`;
         case 'opacity':
             return `opacity: ${value}`;
+        case 'height':
+            return `height: ${sizing(value as HISizingValue)}`;
+        case 'width':
+            return `width: ${sizing(value as HISizingValue)}`;
         default:
             return '';
     }
