@@ -89,3 +89,7 @@ source docs.sh
 -   **Taskbar customization**
     -   **Partitioning Taskbar** – Create regions, set alignment, and min/max/default sizes
     -   **Picking Items** – Choose browser frame components and insert them into different partitions
+-   **Web Apps**
+    -   **URL Packager** – Take the current URL and add it as a web app.
+    -   **App Drawer** – Launcher for the web apps.
+    -   **Frameless Windows** – Add archs for opening frameless webapps.
