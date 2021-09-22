@@ -11,6 +11,27 @@ import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from '../BrowserPreferences';
 import HubTitlebar from './components/HubTitlebar';
 
+const hubButtonBuildIn = defineTransition({
+    from: {
+        opacity: 0,
+    },
+    to: {
+        opacity: 1,
+    },
+    iterations: 1,
+    duration: 5,
+    after: 'forwards',
+});
+
+const hubButtonBuildOut = defineTransition({
+    to: {
+        opacity: 0,
+    },
+    iterations: 1,
+    duration: 2,
+    after: 'forwards',
+});
+
 /**
  * Specification for icon-label pairs in a button for the Hub's main page.
  *
@@ -19,7 +40,7 @@ import HubTitlebar from './components/HubTitlebar';
  * @returns {ClickButton} The resultant hub button.
  */
 function HubButton(icon: IonIcon, title: string): ClickButton {
-    return new ClickButton(
+    const btn = new ClickButton(
         new VStack(icon.font(50), new Spacer(), new TextView(title))
             .stretch()
             .alignMiddle(),
@@ -28,6 +49,16 @@ function HubButton(icon: IonIcon, title: string): ClickButton {
         .foreground(BrowserPreferences.getPrimaryColor())
         .width(100)
         .height(100);
+
+    btn.handle = (data: string) => {
+        if (data === 'hi:buildin') {
+            btn.transition(hubButtonBuildIn);
+        } else if (data === 'hi:buildout') {
+            btn.transition(hubButtonBuildOut);
+        }
+    };
+
+    return btn;
 }
 
 /**
@@ -55,7 +86,7 @@ export default class FlexHub extends HIFullScreenView {
 
                     HubButton(new IonIcon('albums'), 'Windows').whenClicked(
                         () => {
-                            ViewController.navigateTo('windows');
+                            ViewController.navigateTo('windows', 1000);
                             ViewController.getController(
                                 'AppController',
                             )?.signal('refresh-windows');
@@ -68,7 +99,7 @@ export default class FlexHub extends HIFullScreenView {
                         new IonIcon('bookmarks'),
                         'Bookmarks',
                     ).whenClicked(() => {
-                        ViewController.navigateTo('bookmarks');
+                        ViewController.navigateTo('bookmarks', 1000);
                     }),
 
                     new Spacer(),
@@ -81,7 +112,7 @@ export default class FlexHub extends HIFullScreenView {
                         new IonIcon('cog-outline'),
                         'Preferences',
                     ).whenClicked(() =>
-                        ViewController.navigateTo('preferences'),
+                        ViewController.navigateTo('preferences', 1000),
                     ),
 
                     new Spacer(),
@@ -93,22 +124,6 @@ export default class FlexHub extends HIFullScreenView {
                 .background(HColor('background').alpha(0.75))
                 .foreground(HColor('foreground')),
         );
-
-        const fadeIn = defineTransition({
-            from: {
-                opacity: 0,
-            },
-            '50%': {
-                opacity: 0.9,
-            },
-            to: {
-                opacity: 1,
-            },
-            iterations: 1,
-            duration: 3,
-            delay: 0,
-        });
-        this.transition(fadeIn);
 
         this.body.style.setProperty('-webkit-app-region', 'drag');
     }

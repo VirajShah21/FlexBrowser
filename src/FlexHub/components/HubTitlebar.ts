@@ -3,7 +3,35 @@ import HStack from '@Hi/Components/HStack';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import { defineTransition } from '@Hi/Transitions/Transition';
 import View from '@Hi/View';
+
+const hubTitlebarBuildIn = defineTransition({
+    from: {
+        height: 0,
+        opacity: 0,
+    },
+    '50%': {
+        opacity: 0.1,
+    },
+    to: {
+        height: 100,
+        opacity: 1,
+    },
+    iterations: 1,
+    duration: 0.5,
+    after: 'forwards',
+});
+
+const hubTitlebarBuildOut = defineTransition({
+    to: {
+        height: 0,
+        opacity: 0,
+    },
+    iterations: 1,
+    duration: 0.5,
+    after: 'forwards',
+});
 
 /**
  * The titlebar which appears in all hub menus.
@@ -39,6 +67,15 @@ export default class HubTitlebar extends VStack {
             .background(HColor('background').alpha(0.25))
             .foreground(HColor('foreground'));
 
+        this.body.style.overflow = 'hidden';
         this.body.style.setProperty('-webkit-app-region', 'drag');
+    }
+
+    public override handle(data: string): void {
+        if (data === 'hi:buildin') {
+            this.transition(hubTitlebarBuildIn);
+        } else if (data === 'hi:buildout') {
+            this.transition(hubTitlebarBuildOut);
+        }
     }
 }
