@@ -79,14 +79,13 @@ export default class FlexBrowserWindow extends HIFullScreenView {
     /**
      * Converts a given URL into a standardized URL format.
      *
-     * @private
      * @static
      * @param {string} newUrl The URL to standardize.
      * @returns {string} The standardized URL.
      *
      * @memberOf FlexBrowserWindow
      */
-    private static goodUrl(url: string): string {
+    public static goodUrl(url: string): string {
         let newUrl = url.trim();
         let goodProtocol = false;
         if (newUrl.includes('://')) {
