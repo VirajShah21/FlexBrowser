@@ -24,30 +24,41 @@ export class ViewController {
     /**
      * Navigates to a screen with a specified name.
      *
-     * @param {string} [name='main'] The name of the screen to navigate to. "main" is implicitly passed to this parameter if not specified.
-     * @param {string} [transition='none'] The transition.
+     * @param {string} [name='main'] The name of the screen to navigate to.
+     * "main" is implicitly passed to this parameter if not specified.
+     * @param {string} [delay=0] The amount of time to wait before switching
+     * the View. This is especially helpful when using build out transitions.
+     * The units are in milliseconds (1000 ms = 1 s). Default value is 0.
      * @returns {this}
      *
      * @memberOf ViewController
      */
-    navigateTo(name = 'main', transition = 'none'): this {
+    navigateTo(name = 'main', delay = 0): this {
         if (typeof name != 'string')
             throw new Error(
-                `ViewController.navigateTo: Parameter name (1) should be of type string, instead got ${typeof name}`
+                `ViewController.navigateTo: Parameter name (1) should be of type string, instead got ${typeof name}`,
             );
         if (!Object.prototype.hasOwnProperty.call(this.screens, name))
             throw new Error(
-                `ViewController.navigateTo: ViewController does not have a screen named ${name}`
-            );
-        this.binding.innerHTML = '';
-        const screen = this.screens[name];
-        if (screen) this.binding.appendChild(screen.body);
-        else
-            this.binding.append(
-                `Error: No such screen "${name}" on this ViewController"`
+                `ViewController.navigateTo: ViewController does not have a screen named ${name}`,
             );
 
+        const screen = this.screens[name];
+
+        window.setTimeout(() => {
+            this.binding.innerHTML = '';
+
+            if (screen) this.binding.appendChild(screen.body);
+            else
+                this.binding.append(
+                    `Error: No such screen "${name}" on this ViewController"`,
+                );
+        }, delay);
+
+        this.screens[this.visibleScreen]?.signal('hi:buildout');
+        screen?.signal('hi:buildin');
         this.visibleScreen = name;
+
         return this;
     }
 
@@ -63,7 +74,7 @@ export class ViewController {
     addNavigator(name: string, screen: View): this {
         if (typeof name != 'string')
             throw new Error(
-                `ViewController.addNavigator: Parameter name (1) should be of type string, instead got ${typeof name}`
+                `ViewController.addNavigator: Parameter name (1) should be of type string, instead got ${typeof name}`,
             );
         if (!(screen instanceof View))
             throw new Error(
@@ -71,7 +82,7 @@ export class ViewController {
                     typeof screen == 'object'
                         ? JSON.stringify(screen, null, 4)
                         : screen
-                }`
+                }`,
             );
         this.screens[name] = screen;
         return this;
@@ -104,7 +115,7 @@ export class ViewController {
                 type: 'Resize',
                 view: this.screens[this.visibleScreen] as View,
                 browserEvent: ev,
-            })
+            }),
         );
         return this;
     }
@@ -132,7 +143,7 @@ export class ViewController {
      * @memberOf ViewController
      */
     public static getController(
-        controllerName: string
+        controllerName: string,
     ): ViewController | undefined {
         return ViewControllerData.controllerMap[controllerName];
     }
@@ -154,25 +165,24 @@ export class ViewController {
      *
      * @static
      * @param {string} [name='main'] The screen name to navigate to.
-     * @param {string} [transition='none'] The
+     * @param {string} [delay=0] The amount of time to wait before switching
+     * the View. This is especially helpful when using build out transitions.
+     * The units are in milliseconds (1000 ms = 1 s). Default value is 0.
      * @returns {(ViewController | null)} The requested ViewController. If no controller is found, then null is returned.
      *
      * @memberOf ViewController
      */
-    static navigateTo(
-        name = 'main',
-        transition = 'none'
-    ): ViewController | null {
+    static navigateTo(name = 'main', delay = 0): ViewController | null {
         const controller = ViewControllerData.controllers.find(
             currentController => {
                 return Object.prototype.hasOwnProperty.call(
                     currentController.screens,
-                    name
+                    name,
                 );
-            }
+            },
         );
         if (controller) {
-            controller.navigateTo(name, transition);
+            controller.navigateTo(name, delay);
             controller.visibleScreen = name;
             return controller;
         } else {
