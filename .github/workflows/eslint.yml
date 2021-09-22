@@ -1,9 +1,22 @@
-steps:
-  - uses: actions/checkout@v2
-  - uses: actions/setup-node@v2
-    with:
-      node-version: '14'
-      cache: 'npm'
-  - run: npm install
-  - run: npx eslint . -f node_modules/eslint-html-reporter/reporter.js -o lintreport.html
-  - run: npm test
+name: CI
+on:
+    push:
+        branches: [master, dev, quality]
+    pull_request:
+        branches: [master, dev, quality]
+
+jobs:
+    verify_files:
+        name: Verify Files
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: '14.x'
+            - name: Install Packages
+              run: npm install
+            - name: Lint Files
+              run: npx eslint .
+            - name: Mocha Tests
+              run: npm test

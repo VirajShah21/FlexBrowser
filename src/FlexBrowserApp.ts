@@ -1,5 +1,6 @@
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from './BrowserPreferences';
+import FirstStartPage from './FirstStartPage';
 import FlexBrowserWindow from './FlexBrowserWindow';
 import BrowserFrameComposer from './FlexHub/BrowserFrameComposer/BrowserFrameComposer';
 import FlexBookmarksViewer from './FlexHub/FlexBookmarksViewer';
@@ -18,6 +19,7 @@ new ViewController({
     windows: new FlexWindowsViewer(),
     frameComposer: new BrowserFrameComposer(),
     bookmarks: new FlexBookmarksViewer(),
+    firstStart: new FirstStartPage(),
 })
     .bind()
     .navigateTo(flexWindow || 'browser')
