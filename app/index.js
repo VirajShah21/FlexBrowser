@@ -93,6 +93,23 @@ function createHubWindow() {
     win.loadFile('app/hub.html');
 }
 
+function firstStart() {
+    const win = new BrowserWindow({
+        width: 800,
+        height: 500,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js'),
+            nodeIntegration: false,
+            contextIsolation: true,
+        },
+        titleBarStyle: 'hiddenInset',
+        transparent: true,
+        vibrancy: 'light',
+    });
+
+    win.loadFile('app/first-start.html');
+}
+
 /**
  * Reads the bookmarks file
  *
@@ -127,5 +144,6 @@ if (app) {
     app.whenReady().then(() => {
         createWindow();
         createHubWindow();
+        firstStart();
     });
 }
