@@ -19,7 +19,7 @@ const hubButtonBuildIn = defineTransition({
         opacity: 1,
     },
     iterations: 1,
-    duration: 5,
+    duration: 2,
     after: 'forwards',
 });
 
