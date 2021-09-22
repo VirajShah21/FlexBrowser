@@ -20,7 +20,7 @@ export default interface Transition {
 }
 
 export interface TransitionStyle {
-    background?: RGBAModel;
+    background?: RGBAModel | 'none';
     foreground?: RGBAModel;
     opacity?: number;
     height?: HISizingValue;
