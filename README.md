@@ -1,12 +1,14 @@
 # I'm Making A Browser
 
+![CodeQL](https://github.com/VirajShah21/FlexBrowser/actions/workflows/codeql-analysis.yml/badge.svg)
+
 ![Browser Layers](README/Browser.png)
 
 One day I installed Microsoft Edge. That's the same thing as Chrome, but with a different frame. So I decided to make my own browser... with a different frame.
 
 ## ✍️ Contributing
 
-### ⚠️ Contributing Rules
+### 👩‍⚖️ Contributing Rules
 
 -   New features should branch out from `origin/dev`.
 -   All sub-branches for a feature must be merged with their original branch.
