@@ -19,6 +19,6 @@ jobs:
             - name: Setup Coverage Directory Structure
               run: rm -rf coverage; mkdir coverage; mkdir coverage/src
             - name: Run JSCover
-              run: node_modules/.bin/jscover -d src coverage/src
+              run: node_modules/.bin/jscover -d src -o coverage/src
             - name: Run Mocha Tests
               run: JSCOV=1 npx mocha -R mocha-lcov-reporter --recursive > coverage/coverage.lcov
