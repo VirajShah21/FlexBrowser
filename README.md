@@ -81,15 +81,15 @@ source docs.sh
 
 ### 🆕 New Features
 
--   **Bookmarks**
+-   **Bookmarks** 🔖
     -   **Bookmark Button** – The ability to add new bookmarks
     -   **Bookmarks Page** DONE – The ability to view bookmarks
--   **First Start Initialization**
+-   **First Start Initialization** 1️⃣
     -   **Features Display** – Should give a quick walkthrough of all features.
 -   **Taskbar customization**
     -   **Partitioning Taskbar** – Create regions, set alignment, and min/max/default sizes
     -   **Picking Items** – Choose browser frame components and insert them into different partitions
--   **Web Apps**
+-   **Web Apps** 📱
     -   **URL Packager** – Take the current URL and add it as a web app.
     -   **App Drawer** – Launcher for the web apps.
     -   **Frameless Windows** – Add archs for opening frameless webapps.
