@@ -311,7 +311,7 @@ export default abstract class View extends BaseBodyStyler {
                 view: this,
                 type: 'MouseOver',
                 browserEvent,
-            })
+            }),
         );
         return this;
     }
@@ -332,7 +332,7 @@ export default abstract class View extends BaseBodyStyler {
                 view: this,
                 type: 'MouseOut',
                 browserEvent,
-            })
+            }),
         );
         return this;
     }
@@ -377,8 +377,8 @@ export default abstract class View extends BaseBodyStyler {
      *
      * @memberOf View
      */
-    public async transition(transitionName: string): Promise<void> {
-        return new Promise<void>(resolve => {
+    public async transition(transitionName: string): Promise<this> {
+        return new Promise(resolve => {
             const definition = getTransitionDefintion(transitionName);
 
             if (definition) {
@@ -393,14 +393,20 @@ export default abstract class View extends BaseBodyStyler {
                 if (definition.direction)
                     this.body.style.animationDirection = definition.direction;
                 setTimeout(
-                    () => resolve(),
-                    (definition.delay || 0) + definition.duration
+                    () => resolve(this),
+                    ((definition.delay || 0) +
+                        definition.duration * definition.iterations) *
+                        1000,
                 );
             } else {
                 throw new Error(
-                    'Could not find transition with name: ' + transitionName
+                    'Could not find transition with name: ' + transitionName,
                 );
             }
         });
+    }
+
+    public removeTransition(): void {
+        this.body.style.animationName = '';
     }
 }
