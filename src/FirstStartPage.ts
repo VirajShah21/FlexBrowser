@@ -2,30 +2,22 @@ import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
-import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
-import TextField from '@Hi/Components/TextField';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 
 function MainIntro() {
     return new VStack(
-        new TextView('This is your entire browser window')
+        new Spacer(),
+        new TextView('Welcome to your new Web Browser')
             .font('xxl')
-            .weight(FontWeight.UltraLight),
-        new HStack(
-            new IonIcon('chevron-back-circle-outline'),
-            new IonIcon('chevron-forward-circle-outline'),
-            new Spacer(),
-            new TextField(),
-            new Spacer(),
-            new IonIcon('refresh-circle-outline'),
-            new Spacer(),
-            new IonIcon('add-circle-outline'),
-        )
-            .width('calc(100% - 20px)')
-            .padding(),
+            .weight(FontWeight.UltraLight)
+            .margin({ bottom: 25 }),
+        new TextView('Click "Next" to continue with the setup').weight(
+            FontWeight.Light,
+        ),
+        new Spacer(),
     );
 }
 
@@ -35,8 +27,8 @@ export default class FirstStartPage extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new VStack().id('viewer'),
-                new Spacer(),
+                new VStack().id('viewer').grow(),
+
                 new HStack(
                     new ClickButton(new TextView('Back')),
                     new Spacer(),
