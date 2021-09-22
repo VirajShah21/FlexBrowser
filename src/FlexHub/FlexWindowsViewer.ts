@@ -78,11 +78,9 @@ export default class FlexWindowViewer extends HIFullScreenView {
                         new ClickButton(new IonIcon('bookmark-outline'))
                             .describe('bookmark')
                             .whenClicked(ev => {
-                                console.log('BUTTON CLICKED');
                                 const bookmarkIcon = (
                                     ev.view.children[0] as IonIcon
                                 ).body as HTMLInputElement;
-                                console.log(ev.view.description, win);
                                 if (ev.view.description === 'bookmark') {
                                     flexarch.addBookmark(win);
                                     bookmarkIcon.name = 'bookmark';
