@@ -20,7 +20,8 @@
         ],
         "exclude": [
             "**/*.d.ts",
-            "Client"
+            "Client",
+            "test"
         ],
         "reporter": [
             "text-lcov"
