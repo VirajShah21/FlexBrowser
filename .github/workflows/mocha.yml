@@ -16,11 +16,9 @@ jobs:
                   node-version: '14.x'
             - name: Install Packages
               run: npm install
-            - name: Print directory structure
-              run: tree
             - name: Run Mocha Tests
-              run: npm run test
+              run: npm run test; mv coverage/lcov.info coverage/coverage.lcov
             - name: Send JavaScript Coverage to Codacy
-              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Javascript -r coverage/lcov.info -t ${{ secrets.CODACY_PROJECT_TOKEN }}
+              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Javascript -r coverage/coverage.lcov -t ${{ secrets.CODACY_PROJECT_TOKEN }}
             - name: Send TypeScript Coverage to Codacy
-              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l TypeScript -r coverage/lcov.info -t ${{ secrets.CODACY_PROJECT_TOKEN }}
+              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l TypeScript -r coverage/coverage.lcov -t ${{ secrets.CODACY_PROJECT_TOKEN }}
