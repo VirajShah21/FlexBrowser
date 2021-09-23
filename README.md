@@ -88,6 +88,8 @@ source docs.sh
     -   **Bookmarks Page** DONE – The ability to view bookmarks
 -   **First Start Initialization** 1️⃣
     -   **Features Display** – Should give a quick walkthrough of all features.
+    -   **Keep track of launches** – A .flexrc.json file should be created after first launch. (Stores preferences).
+    -   **Hide other windows** – Hide browser and hub until first start page is finished.
 -   **Taskbar customization**
     -   **Partitioning Taskbar** – Create regions, set alignment, and min/max/default sizes
     -   **Picking Items** – Choose browser frame components and insert them into different partitions
