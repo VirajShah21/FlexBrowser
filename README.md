@@ -1,5 +1,7 @@
 # I'm Making A Browser
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4892327e9a114f83b295087dcf8e0374)](https://app.codacy.com/gh/VirajShah21/FlexBrowser?utm_source=github.com&utm_medium=referral&utm_content=VirajShah21/FlexBrowser&utm_campaign=Badge_Grade_Settings)
+
 ![CodeQL](https://github.com/VirajShah21/FlexBrowser/actions/workflows/codeql-analysis.yml/badge.svg)
 
 ![Browser Layers](README/Browser.png)
