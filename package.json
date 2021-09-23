@@ -4,13 +4,29 @@
     "description": "A beautiful cross platform web browser.",
     "main": "app/index.js",
     "scripts": {
-        "test": "mocha --reporter spec --recursive",
-        "codacy-test": "mocha --reporter mocha-lcov-reporter --recursive > coverage.lcov",
+        "test": "nyc --reporter=html --reporter=text-lcov mocha --timeout 10000 --exit --require babel-register --require ts-node/register ----require source-map-support/register --recursive test > coverage.lcov",
+        "coverage": "nyc report --reporter=text-lcov | coveralls",
+        "mocha": "mocha --reporter spec --recursive",
         "start": "electron-forge start",
         "package": "electron-forge package",
         "make": "electron-forge make",
         "publish": "electron-forge publish",
         "quickpack": "webpack; cp -r app/js out/flex-browser-darwin-x64/flex-browser.app/Contents/Resources/app/app"
+    },
+    "nyc": {
+        "extension": [
+            ".ts",
+            ".js"
+        ],
+        "exclude": [
+            "**/*.d.ts",
+            "Client"
+        ],
+        "reporter": [
+            "html",
+            "text-lcov"
+        ],
+        "all": true
     },
     "author": "",
     "license": "ISC",
@@ -18,12 +34,15 @@
         "@babel/preset-env": "^7.15.6",
         "@types/chai": "^4.2.22",
         "@types/express": "^4.17.13",
+        "@types/mocha": "^9.0.0",
         "@types/node": "^16.3.2",
         "@typescript-eslint/eslint-plugin": "^4.28.3",
         "@typescript-eslint/parser": "^4.28.3",
         "babel-plugin-transform-async-to-generator": "^6.24.1",
         "babel-preset-react": "^6.24.1",
+        "babel-register": "^6.26.0",
         "chai": "^4.3.4",
+        "coveralls": "^3.1.1",
         "electron": "^14.0.0",
         "electron-builder": "^22.11.7",
         "electron-squirrel-startup": "^1.0.0",
@@ -35,6 +54,7 @@
         "mocha": "^9.1.1",
         "mocha-lcov-reporter": "^1.3.0",
         "node-jscover": "^0.6.13",
+        "nyc": "^15.1.0",
         "prettier": "^2.3.2",
         "ts-loader": "^9.2.5",
         "ts-node": "^10.1.0",

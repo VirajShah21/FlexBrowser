@@ -22,3 +22,7 @@ jobs:
               run: node_modules/.bin/jscover -d src -o coverage/src
             - name: Run Mocha Tests
               run: JSCOV=1 npx mocha -R mocha-lcov-reporter --recursive > coverage/coverage.lcov
+            - name: Send JavaScript Coverage to Codacy
+              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Javascript -r coverage/coverage.lcov
+            - name: Send TypeScript Coverage to Codacy
+              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l TypeScript -r coverage/coverage.lcov
