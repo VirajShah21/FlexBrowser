@@ -14,13 +14,13 @@ jobs:
             - uses: actions/setup-node@v2
               with:
                   node-version: '14.x'
-            - name: List directory
-              run: ls
             - name: Install Packages
               run: npm install
             - name: Run Mocha Tests
-              run: npm run test; mv coverage/lcov.info coverage/coverage.lcov
+              run: npm run test
+            - name: Covert Report to LCOV
+              run: nyc report --reporter=lcov --report-dir=.nyc_output
             - name: Send JavaScript Coverage to Codacy
-              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Javascript -r coverage/coverage.lcov -t ${{ secrets.CODACY_PROJECT_TOKEN }}
+              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Javascript -r .nyc_output/lcov.info -t ${{ secrets.CODACY_PROJECT_TOKEN }}
             - name: Send TypeScript Coverage to Codacy
-              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l TypeScript -r coverage/coverage.lcov -t ${{ secrets.CODACY_PROJECT_TOKEN }}
+              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l TypeScript -r .nyc_output/lcov.info -t ${{ secrets.CODACY_PROJECT_TOKEN }}
