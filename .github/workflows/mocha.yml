@@ -16,6 +16,8 @@ jobs:
                   node-version: '14.x'
             - name: Install Packages
               run: npm install
+            - name: Print directory structure
+              run: tree
             - name: Run Mocha Tests
               run: npm run test
             - name: Send JavaScript Coverage to Codacy
