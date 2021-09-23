@@ -9,6 +9,9 @@ import { ViewController } from '@Hi/ViewController';
 import HighlightColorPreferences from './FlexHub/components/HighlightColorPreferences';
 import ThemePreferences from './FlexHub/components/ThemePreferences';
 
+/**
+ * @returns The main welcome screen
+ */
 function MainIntro() {
     return new VStack(
         new Spacer(),
@@ -23,6 +26,9 @@ function MainIntro() {
     ).stretch();
 }
 
+/**
+ * @returns The theme setup screen
+ */
 function Theming() {
     return new VStack(
         new Spacer(),
@@ -40,11 +46,23 @@ function Theming() {
     ).stretch();
 }
 
+/**
+ * The window to appear only upon first start
+ *
+ * @export
+ * @class FirstStartPage
+ * @extends {HIFullScreenView}
+ */
 export default class FirstStartPage extends HIFullScreenView {
     private readonly controller: ViewController;
 
     private pageNumber: number;
 
+    /**
+     * Creates an instance of FirstStartPage.
+     *
+     * @memberOf FirstStartPage
+     */
     constructor() {
         super(
             new VStack(
@@ -80,16 +98,35 @@ export default class FirstStartPage extends HIFullScreenView {
         this.pageNumber = 0;
     }
 
+    /**
+     * Go to the next slide.
+     *
+     *
+     * @memberOf FirstStartPage
+     */
     public previous(): void {
         if (this.pageNumber > 0) this.pageNumber -= 1;
         this.updateController();
     }
 
+    /**
+     * Go to the previous slide
+     *
+     *
+     * @memberOf FirstStartPage
+     */
     public next(): void {
         this.pageNumber += 1;
         this.updateController();
     }
 
+    /**
+     * Update the ViewController for the slideshow
+     *
+     * @private
+     *
+     * @memberOf FirstStartPage
+     */
     private updateController(): void {
         if (this.pageNumber === 0) {
             this.controller.navigateTo();
