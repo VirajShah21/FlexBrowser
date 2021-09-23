@@ -5,10 +5,52 @@
 
 @font-face {
     font-family: 'SF Pro';
+    src: url('./fonts/SF-Pro-Display-Ultralight.otf');
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: 'SF Pro';
+    src: url('./fonts/SF-Pro-Display-Light.otf');
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: 'SF Pro';
+    src: url('./fonts/SF-Pro-Display-Thin.otf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'SF Pro';
+    src: url('./fonts/SF-Pro-Display-Regular.otf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'SF Pro';
+    src: url('./fonts/SF-Pro-Display-Medium.otf');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'SF Pro';
+    src: url('./fonts/SF-Pro-Display-Semibold.otf');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'SF Pro';
     src: url('./fonts/SF-Pro-Display-Bold.otf');
-    font-weight: bold;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'SF Pro';
+    src: url('./fonts/SF-Pro-Display-Heavy.otf');
+    font-weight: 800;
 }
 
 * {
-    font-family: 'SF Pro';
+    font-family: 'SF Pro', 'Helvetica', 'sans-serif';
 }

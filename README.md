@@ -1,6 +1,7 @@
 # I'm Making A Browser
 
 ![CodeQL](https://github.com/VirajShah21/FlexBrowser/actions/workflows/codeql-analysis.yml/badge.svg)
+![Lint](https://github.com/VirajShah21/FlexBrowser/actions/workflows/eslint.yml/badge.svg)
 
 ![Browser Layers](README/Browser.png)
 
@@ -37,7 +38,7 @@ Style warnings will be provided by eslint (`.eslintrc.js`), TypeScript (`tsconfi
 
 **Step 1: Installing Dependencies**
 
-```
+```bash
 npm install
 ```
 
@@ -45,13 +46,13 @@ npm install
 
 The project is compiled using TypeScript-parser with webpack.
 
-```
+```bash
 webpack
 ```
 
 **Step 3: Packaging and Making**
 
-```
+```bash
 npm run make
 ```
 
@@ -67,7 +68,7 @@ To run all tests, run `npm test`. All tests can be found in `tests/`.
 
 Documentation and lint report generation is done using the same script.
 
-```
+```bash
 source docs.sh
 ```
 
