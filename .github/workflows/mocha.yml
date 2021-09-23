@@ -19,6 +19,6 @@ jobs:
             - name: Run Mocha Tests
               run: npm run test
             - name: Send JavaScript Coverage to Codacy
-              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Javascript -r coverage.lcov
+              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Javascript -r coverage.lcov -t ${{ secrets.CODACY_PROJECT_TOKEN }}
             - name: Send TypeScript Coverage to Codacy
-              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l TypeScript -r coverage.lcov
+              run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l TypeScript -r coverage.lcov -t ${{ secrets.CODACY_PROJECT_TOKEN }}
