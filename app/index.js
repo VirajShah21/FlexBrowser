@@ -2,6 +2,7 @@ const { app, BrowserWindow, BrowserView, ipcMain } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const HOMEDIR = require('os').homedir();
+const nodeConfig = require('../package.json');
 
 const flexBrowserInstances = [];
 
@@ -93,7 +94,7 @@ function createHubWindow() {
     win.loadFile('app/hub.html');
 }
 
-function firstStart() {
+function firstStartWindow() {
     const win = new BrowserWindow({
         width: 800,
         height: 500,
@@ -109,6 +110,41 @@ function firstStart() {
 
     win.loadFile('app/first-start.html');
 }
+
+function startup() {
+    let browserPrefs = readRC();
+
+    if (browserPrefs == null) {
+        writeRC({
+            lastSession: {
+                version: '0.0.1',
+            },
+        });
+        firstStartWindow();
+    } else if (browserPrefs.lastSession.version != nodeConfig.version) {
+        firstStartWindow();
+    } else {
+        createHubWindow();
+        createWindow();
+    }
+}
+
+/**
+ * @returns The flex runcome file in JSON format
+ */
+const readRC = (exports.readRC = () => {
+    try {
+        return JSON.parse(
+            fs.readFileSync(path.join(HOMEDIR, '.flexrc.json'), 'utf-8'),
+        );
+    } catch (e) {
+        return null;
+    }
+});
+
+const writeRC = (exports.writeRC = data => {
+    fs.writeFileSync(path.join(HOMEDIR, '.flexrc.json'), JSON.stringify(data));
+});
 
 /**
  * Reads the bookmarks file
@@ -132,6 +168,8 @@ const readBookmarksFile = (exports.readBookmarksFile = () => {
 /**
  * Write to the bookmarks file.
  *
+ * @param bookmarks The `URLMeta[]` to save to `~/.flex-bookmarks.json`.
+ *
  */
 const writeBookmarksFile = (exports.writeBookmarksFile = bookmarks => {
     fs.writeFileSync(
@@ -141,9 +179,5 @@ const writeBookmarksFile = (exports.writeBookmarksFile = bookmarks => {
 });
 
 if (app) {
-    app.whenReady().then(() => {
-        createWindow();
-        createHubWindow();
-        firstStart();
-    });
+    app.whenReady().then(() => startup());
 }
