@@ -111,8 +111,8 @@ function createHubWindow() {
         vibrancy: 'light',
     });
 
-    win.loadFile('app/hub.html');
-    info('Created Hub window');
+    info('Hub Window Created.');
+    win.loadFile('app/hub.html').then(() => info('Hub Window source loaded.'));
 }
 
 function firstStartWindow() {
@@ -130,8 +130,10 @@ function firstStartWindow() {
         vibrancy: 'light',
     });
 
-    win.loadFile('app/first-start.html');
-    info('Created first start window');
+    info('First Start Window Created.');
+    win.loadFile('app/first-start.html').then(() =>
+        info('First Start Window source loaded.'),
+    );
 }
 
 function startup() {
