@@ -203,11 +203,7 @@ const readBookmarksFile = (exports.readBookmarksFile = () => {
             ),
         );
     } catch (e) {
-        info(
-            'Error reading/parsing bookmarks file. A new bookmarks file will be created.',
-        );
-        writeBookmarksFile([]);
-        info('Created a new bookmarks file.');
+        info('Error reading/parsing bookmarks file.');
         return [];
     }
 });

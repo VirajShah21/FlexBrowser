@@ -72,10 +72,7 @@ export default class HubTitlebar extends VStack {
     }
 
     public override handle(data: string): void {
-        if (data === 'hi:buildin') {
-            this.transition(hubTitlebarBuildIn);
-        } else if (data === 'hi:buildout') {
-            this.transition(hubTitlebarBuildOut);
-        }
+        if (data === 'hi:buildin') this.transition(hubTitlebarBuildIn);
+        else if (data === 'hi:buildout') this.transition(hubTitlebarBuildOut);
     }
 }
