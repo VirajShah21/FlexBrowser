@@ -3,7 +3,8 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4892327e9a114f83b295087dcf8e0374)](https://app.codacy.com/gh/VirajShah21/FlexBrowser?utm_source=github.com&utm_medium=referral&utm_content=VirajShah21/FlexBrowser&utm_campaign=Badge_Grade_Settings)
 
 ![CodeQL](https://github.com/VirajShah21/FlexBrowser/actions/workflows/codeql-analysis.yml/badge.svg)
-![Lint](https://github.com/VirajShah21/FlexBrowser/actions/workflows/eslint.yml/badge.svg)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d3aa9ab6f4e2428994c506a1ce4ecf1e)](https://www.codacy.com/gh/VirajShah21/FlexBrowser/dashboard?utm_source=github.com&utm_medium=referral&utm_content=VirajShah21/FlexBrowser&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/d3aa9ab6f4e2428994c506a1ce4ecf1e)](https://www.codacy.com/gh/VirajShah21/FlexBrowser/dashboard?utm_source=github.com&utm_medium=referral&utm_content=VirajShah21/FlexBrowser&utm_campaign=Badge_Coverage)
 
 ![Browser Layers](README/Browser.png)
 
@@ -89,6 +90,8 @@ source docs.sh
     -   **Bookmarks Page** DONE – The ability to view bookmarks
 -   **First Start Initialization** 1️⃣
     -   **Features Display** – Should give a quick walkthrough of all features.
+    -   **Keep track of launches** – A .flexrc.json file should be created after first launch. (Stores preferences).
+    -   **Hide other windows** – Hide browser and hub until first start page is finished.
 -   **Taskbar customization**
     -   **Partitioning Taskbar** – Create regions, set alignment, and min/max/default sizes
     -   **Picking Items** – Choose browser frame components and insert them into different partitions
