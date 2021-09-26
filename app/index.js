@@ -22,6 +22,28 @@ const browserWindowOptions = {
     vibrancy: 'light',
 };
 
+ipcMain.on('newWindow', createWindow);
+
+ipcMain.on('getWindowList', event => {
+    let obj = flexBrowserInstances.map(instance => ({
+        title: instance.getBrowserView().webContents.getTitle(),
+        url: instance.getBrowserView().webContents.getURL(),
+    }));
+    event.returnValue = obj;
+});
+
+ipcMain.on('getBookmarks', event => {
+    event.returnValue = readBookmarksFile();
+});
+
+ipcMain.on('addBookmark', (event, meta) => {
+    let bookmarks = readBookmarksFile();
+    if (!bookmarks.filter(curr => curr.url == meta.url)) {
+        bookmarks.push(meta);
+        writeBookmarksFile(bookmarks);
+    }
+});
+
 /**
  * Creates a new instance of a web browser window.
  *
@@ -67,30 +89,7 @@ function createWindow() {
     ipcMain.on('changeUrl', (_, to) => {
         if (win.isFocused()) win.getBrowserView().webContents.loadURL(to);
     });
-
-    ipcMain.on('newWindow', createWindow);
-
-    ipcMain.on('getWindowList', event => {
-        let obj = flexBrowserInstances.map(instance => ({
-            title: instance.getBrowserView().webContents.getTitle(),
-            url: instance.getBrowserView().webContents.getURL(),
-        }));
-        event.returnValue = obj;
-    });
-
-    ipcMain.on('getBookmarks', event => {
-        event.returnValue = readBookmarksFile();
-    });
-
-    ipcMain.on('addBookmark', (event, meta) => {
-        let bookmarks = readBookmarksFile();
-        if (!bookmarks.filter(curr => curr.url == meta.url)) {
-            bookmarks.push(meta);
-            writeBookmarksFile(bookmarks);
-        }
-    });
-
-    info('Binded IPC Main listeners');
+    info('Binded URL Bar onchange listener');
 }
 
 /**
@@ -204,7 +203,11 @@ const readBookmarksFile = (exports.readBookmarksFile = () => {
             ),
         );
     } catch (e) {
-        info('Error reading/parsing bookmarks file.');
+        info(
+            'Error reading/parsing bookmarks file. A new bookmarks file will be created.',
+        );
+        writeBookmarksFile([]);
+        info('Created a new bookmarks file.');
         return [];
     }
 });
