@@ -4,28 +4,21 @@ const fs = require('fs');
 
 const logs = [];
 
-function error(msg) {
-    logs.push({ m: msg, l: 0 });
-}
+exports.error = msg => logs.push({ m: msg, l: 0 });
 
-function warn(msg) {
-    logs.push({ m: msg, l: 1 });
-}
+exports.warn = msg => logs.push({ m: msg, l: 1 });
 
-function info(msg) {
-    logs.push({ m: msg, l: 2 });
-}
+exports.info = msg => logs.push({ m: msg, l: 2 });
 
-function debug(msg) {
-    logs.push({ m: msg, l: 3 });
-}
+exports.debug = msg => logs.push({ m: msg, l: 3 });
 
-function init() {
+exports.initializeLogger = () => {
     setInterval(() => {
         const length = logs.length;
+        const toWrite = logs.splice(0, length);
         let out = '';
         for (let i = 0; i < length; i++) {
-            switch (logs[i]) {
+            switch (toWrite[i].l) {
                 case 0:
                     out += '[ERROR]  ';
                     break;
@@ -41,10 +34,11 @@ function init() {
                 default:
                     out += '[LOG]   ';
             }
-            out += `${new Date()}: ${logs[i].msg}\n`;
+            out += `${new Date()}: ${toWrite[i].m}\n`;
         }
-        fs.writeFileSync(path.join(path.join(os.homedir(), '.flex.logs')), out);
+        fs.appendFileSync(
+            path.join(path.join(os.homedir(), '.flex.logs')),
+            out,
+        );
     }, 1000);
-}
-
-export { error, warn, info, debug };
+};
