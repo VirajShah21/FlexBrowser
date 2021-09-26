@@ -3,39 +3,54 @@ const fs = require('fs');
 const path = require('path');
 const HOMEDIR = require('os').homedir();
 const nodeConfig = require('../package.json');
+const { error, info, warn, debug } = require('./ArchLogger');
 
 const flexBrowserInstances = [];
+
+const browserWindowOptions = {
+    width: 800,
+    height: 600,
+    webPreferences: {
+        preload: path.join(__dirname, 'preload.js'),
+        nodeIntegration: false, // is default value after Electron v5
+        contextIsolation: true, // protect against prototype pollution
+    },
+    titleBarStyle: 'customButtonsOnHover',
+    transparent: true,
+    vibrancy: 'light',
+};
 
 /**
  * Creates a new instance of a web browser window.
  *
  */
 function createWindow() {
-    const win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
-            nodeIntegration: false, // is default value after Electron v5
-            contextIsolation: true, // protect against prototype pollution
-        },
-        titleBarStyle: 'customButtonsOnHover',
-        transparent: true,
-        vibrancy: 'light',
-    });
+    info(
+        'Creating new browser instance with options: ' +
+            JSON.stringify(browserWindowOptions, null, 4),
+    );
+
+    // @ts-ignore
+    const win = new BrowserWindow(browserWindowOptions);
 
     flexBrowserInstances.push(win);
 
     win.loadFile('app/index.html');
+    info('Loaded app/index.html to browser instance');
 
     win.setBrowserView(new BrowserView());
+    info('Loaded Electron BrowserView');
+
     win.getBrowserView().setBounds({
         x: 0,
         y: 70,
         width: win.getSize()[0],
         height: win.getSize()[1] - 70,
     });
+    info('Redefined dimensions for Electron BrowserView');
+
     win.getBrowserView().webContents.loadURL('https://google.com');
+    info('Loaded Google as default homepage');
 
     win.addListener('resize', () => {
         win.getBrowserView().setBounds({
@@ -45,6 +60,7 @@ function createWindow() {
             height: win.getSize()[1] - 70,
         });
     });
+    info('Binded Listener for resizing browser window');
 
     ipcMain.on('changeUrl', (_, to) => {
         if (win.isFocused()) win.getBrowserView().webContents.loadURL(to);
@@ -71,6 +87,8 @@ function createWindow() {
             writeBookmarksFile(bookmarks);
         }
     });
+
+    info('Binded IPC Main listeners');
 }
 
 /**
@@ -92,9 +110,11 @@ function createHubWindow() {
     });
 
     win.loadFile('app/hub.html');
+    info('Created Hub window');
 }
 
 function firstStartWindow() {
+    info('Loaded ');
     const win = new BrowserWindow({
         width: 800,
         height: 500,
@@ -109,10 +129,18 @@ function firstStartWindow() {
     });
 
     win.loadFile('app/first-start.html');
+    info('Created first start window');
 }
 
 function startup() {
+    info('Entering startup');
+
     let browserPrefs = readRC();
+    info(
+        'Loaded flexrc: ' + browserPrefs
+            ? JSON.stringify(browserPrefs, null, 4)
+            : 'null',
+    );
 
     if (browserPrefs == null) {
         writeRC({
@@ -120,12 +148,17 @@ function startup() {
                 version: '0.0.1',
             },
         });
+        info('Since no flexrc file was found in ~/.flexrc, one was created.');
         firstStartWindow();
+        info('Loaded first start page.');
     } else if (browserPrefs.lastSession.version != nodeConfig.version) {
         firstStartWindow();
+        info('Running on a new browser version; loaded first start page.');
     } else {
         createHubWindow();
+        info('Loaded Hub Window.');
         createWindow();
+        info('Loaded browser window');
     }
 }
 
@@ -134,16 +167,21 @@ function startup() {
  */
 const readRC = (exports.readRC = () => {
     try {
-        return JSON.parse(
-            fs.readFileSync(path.join(HOMEDIR, '.flexrc.json'), 'utf-8'),
+        const text = fs.readFileSync(
+            path.join(HOMEDIR, '.flexrc.json'),
+            'utf-8',
         );
+        info('Read RC File.');
+        return JSON.parse(text);
     } catch (e) {
+        info('Error reading/parsing RC File.');
         return null;
     }
 });
 
 const writeRC = (exports.writeRC = data => {
     fs.writeFileSync(path.join(HOMEDIR, '.flexrc.json'), JSON.stringify(data));
+    info('Finished writing RC File');
 });
 
 /**
@@ -154,6 +192,7 @@ const writeRC = (exports.writeRC = data => {
  */
 const readBookmarksFile = (exports.readBookmarksFile = () => {
     try {
+        info('Reading bookmarks File.');
         return JSON.parse(
             fs.readFileSync(
                 path.join(HOMEDIR, '.flex-bookmarks.json'),
@@ -161,6 +200,7 @@ const readBookmarksFile = (exports.readBookmarksFile = () => {
             ),
         );
     } catch (e) {
+        info('Error reading/parsing bookmarks file.');
         return [];
     }
 });
@@ -176,6 +216,7 @@ const writeBookmarksFile = (exports.writeBookmarksFile = bookmarks => {
         path.join(HOMEDIR, '.flex-bookmarks.json'),
         JSON.stringify(bookmarks),
     );
+    info('Finished writing bookmarks file.');
 });
 
 if (app) {
