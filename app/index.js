@@ -3,7 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const HOMEDIR = require('os').homedir();
 const nodeConfig = require('../package.json');
-const { error, info, warn, debug } = require('./ArchLogger');
+const { error, info, warn, debug, initializeLogger } = require('./ArchLogger');
+
+initializeLogger();
 
 const flexBrowserInstances = [];
 
