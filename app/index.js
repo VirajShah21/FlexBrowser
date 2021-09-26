@@ -22,27 +22,31 @@ const browserWindowOptions = {
     vibrancy: 'light',
 };
 
-ipcMain.on('newWindow', createWindow);
+// During testing, ipcMain is undefined.
+// This guard should not be removed.
+if (ipcMain) {
+    ipcMain.on('newWindow', createWindow);
 
-ipcMain.on('getWindowList', event => {
-    let obj = flexBrowserInstances.map(instance => ({
-        title: instance.getBrowserView().webContents.getTitle(),
-        url: instance.getBrowserView().webContents.getURL(),
-    }));
-    event.returnValue = obj;
-});
+    ipcMain.on('getWindowList', event => {
+        let obj = flexBrowserInstances.map(instance => ({
+            title: instance.getBrowserView().webContents.getTitle(),
+            url: instance.getBrowserView().webContents.getURL(),
+        }));
+        event.returnValue = obj;
+    });
 
-ipcMain.on('getBookmarks', event => {
-    event.returnValue = readBookmarksFile();
-});
+    ipcMain.on('getBookmarks', event => {
+        event.returnValue = readBookmarksFile();
+    });
 
-ipcMain.on('addBookmark', (event, meta) => {
-    let bookmarks = readBookmarksFile();
-    if (!bookmarks.filter(curr => curr.url == meta.url)) {
-        bookmarks.push(meta);
-        writeBookmarksFile(bookmarks);
-    }
-});
+    ipcMain.on('addBookmark', (event, meta) => {
+        let bookmarks = readBookmarksFile();
+        if (!bookmarks.filter(curr => curr.url == meta.url)) {
+            bookmarks.push(meta);
+            writeBookmarksFile(bookmarks);
+        }
+    });
+}
 
 /**
  * Creates a new instance of a web browser window.
