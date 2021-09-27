@@ -63,13 +63,33 @@ export default class HTMLElementMock {
         this.id = '';
     }
 
-    public querySelectorAll(query: string) {
+    public querySelector(query: string): HTMLElementMock | null {
+        return this.querySelectorAll(query)[0] || null;
+    }
+
+    public querySelectorAll(query: string): HTMLElementMock[] {
         const queryMap = queryFilterMap(tokenizeQuery(query));
         let direct = this.children;
         direct = queryMap.tagname
             ? direct.filter(el => el.tagName === queryMap.tagname)
             : direct;
-        direct = queryMap.classnames ? direct.filter(el => el.classList.indexOf())
+        direct = queryMap.id
+            ? direct.filter(el => el.id === queryMap.id)
+            : direct;
+        if (queryMap.classnames) {
+            queryMap.classnames.forEach(className => {
+                direct = direct.filter(
+                    el => el.classList.indexOf(className) >= 0,
+                );
+            });
+        }
+        const childResults = this.children.flatMap(el =>
+            el.querySelectorAll(query),
+        );
+        const out: HTMLElementMock[] = [];
+        direct.forEach(el => out.push(el));
+        childResults.forEach(el => out.push(el));
+        return out;
     }
 
     public get className(): string {
