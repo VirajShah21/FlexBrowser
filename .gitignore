@@ -141,3 +141,5 @@ app/js/
 docs/
 lintreport.html
 .DS_Store
+test/test.bin.js
+test/test.bin.js.map
