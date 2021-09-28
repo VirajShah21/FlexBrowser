@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+        "lib": ["ES6", "DOM"],
+        "types": [
+            "node",
+            "../app/index",
+            "../app/ArchLogger",
+            "../src/preload"
+        ],
+        "paths": {
+            "@Hi/*": ["../Client/ts/*"],
+            "@UI/*": ["../src/*"]
+        }
+    }
+}

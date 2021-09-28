@@ -4,13 +4,16 @@
     "description": "A beautiful cross platform web browser.",
     "main": "app/index.js",
     "scripts": {
-        "coverage": "webpack --config test/webpack.config.js; nyc --reporter=lcov --reporter=text-lcov mocha --timeout 10000 test/test.bin.js",
-        "test": "webpack --config test/webpack.config.js; mocha --reporter spec test/test.bin.js",
+        "coverage": "nyc --reporter=lcov --reporter=text-lcov mocha --timeout 10000 test/test.bin.js",
+        "test": "mocha --reporter spec -r ts-node-test-register -r tsconfig-paths/register test/index.ts",
         "start": "electron-forge start",
         "package": "electron-forge package",
         "make": "electron-forge make",
         "publish": "electron-forge publish",
         "quickpack": "webpack; cp -r app/js out/flex-browser-darwin-x64/flex-browser.app/Contents/Resources/app/app"
+    },
+    "directories": {
+        "test": "test"
     },
     "nyc": {
         "extension": [
@@ -34,7 +37,7 @@
         "@types/chai": "^4.2.22",
         "@types/express": "^4.17.13",
         "@types/mocha": "^9.0.0",
-        "@types/node": "^16.3.2",
+        "@types/node": "^16.10.1",
         "@typescript-eslint/eslint-plugin": "^4.28.3",
         "@typescript-eslint/parser": "^4.28.3",
         "babel-plugin-transform-async-to-generator": "^6.24.1",
@@ -73,7 +76,8 @@
         "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
         "@electron-forge/maker-zip": "^6.0.0-beta.61",
         "electron": "14.0.0",
-        "eslint-config-airbnb-typescript": "^14.0.0"
+        "eslint-config-airbnb-typescript": "^14.0.0",
+        "ts-node-test-register": "^10.0.0"
     },
     "config": {
         "forge": {
