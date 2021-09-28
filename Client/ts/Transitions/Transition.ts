@@ -32,15 +32,12 @@ const definedTransitions: Record<string, Transition> = {};
 export function defineTransition(transition: Transition): string {
     const name = generateKeyframeName();
     let el = document.head.querySelector('style#himvc-keyframe-defs');
-    console.log(el);
     if (el == null) {
         el = document.createElement('style');
         el.id = 'himvc-keyframe-defs';
         document.head.append(el);
-        console.log(el);
     }
     el.innerHTML += `@keyframes ${name} { ${generateKeyframeCSS(transition)} }`;
-    console.log(el);
     definedTransitions[name] = transition;
     return name;
 }
