@@ -4,7 +4,7 @@
     "description": "A beautiful cross platform web browser.",
     "main": "app/index.js",
     "scripts": {
-        "test": "nyc --reporter=lcov --reporter=text-lcov mocha --timeout 10000 --exit --require babel-register --require ts-node/register ----require source-map-support/register --recursive test",
+        "test": "npm run mocha; nyc --reporter=lcov --reporter=text-lcov mocha --timeout 10000 test/test.bin.js",
         "mocha": "webpack --config test/webpack.config.js; mocha --reporter spec test/test.bin.js",
         "start": "electron-forge start",
         "package": "electron-forge package",
