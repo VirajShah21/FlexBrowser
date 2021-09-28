@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import DocumentMock from './mocks/Document.mock';
 import LocalStorageMock from './mocks/LocalStorage.mock';
-import FlexBrowserWindow from '../src/FlexBrowserWindow';
+import FlexBrowserWindow from '../views/FlexBrowserWindow';
 
 globalThis.document = DocumentMock as unknown as Document;
 globalThis.localStorage = LocalStorageMock as unknown as Storage;

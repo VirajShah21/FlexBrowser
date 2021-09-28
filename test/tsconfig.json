@@ -8,11 +8,11 @@
             "mocha",
             "../app/index",
             "../app/ArchLogger",
-            "../src/preload"
+            "../views/preload"
         ],
         "paths": {
             "@Hi/*": ["../Client/ts/*"],
-            "@UI/*": ["../src/*"]
+            "@UI/*": ["../views/*"]
         }
     }
 }

@@ -4,7 +4,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import BrowserPreferences from 'src/BrowserPreferences';
+import BrowserPreferences from '@UI/BrowserPreferences';
 
 export default class PartionEditor extends HStack {
     constructor(index: number) {

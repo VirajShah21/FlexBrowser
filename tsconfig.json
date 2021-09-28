@@ -14,7 +14,7 @@
         "baseUrl": ".",
         "paths": {
             "@Hi/*": ["./Client/ts/*"],
-            "@UI/*": ["./src/*"]
+            "@UI/*": ["./views/*"]
         },
         "strictNullChecks": true,
         "noUncheckedIndexedAccess": true

@@ -3,15 +3,15 @@ import HStack from '@Hi/Components/HStack';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import View from '@Hi/View';
-import BrowserFrameRenderer from 'src/BrowserFrameRenderer';
-import BrowserBackTaskbarButton from 'src/components/BrowserBackTaskbarButton';
-import BrowserForwardTaskbarButton from 'src/components/BrowserForwardTaskbarButton';
-import NewWindowTaskbarButton from 'src/components/NewWindowTaskbarButton';
-import RefreshTaskbarButton from 'src/components/RefreshTaskbarButton';
-import URLBar from 'src/components/URLBar';
+import BrowserFrameRenderer from '@UI/BrowserFrameRenderer';
+import BrowserBackTaskbarButton from '@UI/components/BrowserBackTaskbarButton';
+import BrowserForwardTaskbarButton from '@UI/components/BrowserForwardTaskbarButton';
+import NewWindowTaskbarButton from '@UI/components/NewWindowTaskbarButton';
+import RefreshTaskbarButton from '@UI/components/RefreshTaskbarButton';
+import URLBar from '@UI/components/URLBar';
 import BrowserFrameModel, {
     BrowserFrameComponent,
-} from 'src/Models/BrowserFrameModel';
+} from '@UI/Models/BrowserFrameModel';
 import AddWidgetButton from './components/AddWidgetButton';
 
 function makeComponent(model: BrowserFrameComponent): View {
