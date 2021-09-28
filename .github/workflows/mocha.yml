@@ -16,10 +16,8 @@ jobs:
                   node-version: '14.x'
             - name: Install Packages
               run: npm install
-            - name: Run Mocha Tests
-              run: npm run test
             - name: Covert Report to LCOV
-              run: npx nyc report --reporter=lcov --report-dir=.nyc_output
+              run: npm run coverage
             - name: Send JavaScript Coverage to Codacy
               run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -l Javascript -r .nyc_output/lcov.info -t ${{ secrets.CODACY_PROJECT_TOKEN }}
             - name: Send TypeScript Coverage to Codacy
