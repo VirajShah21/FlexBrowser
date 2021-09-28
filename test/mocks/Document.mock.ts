@@ -1,15 +1,21 @@
 import HTMLElementMock from './HTMLElement.mock';
 
 export default class DocumentMock {
-    public body = new HTMLElementMock('body');
+    public static body = new HTMLElementMock('body');
 
-    public querySelector(query: string): HTMLElementMock | null {
+    public static head = new HTMLElementMock('head');
+
+    public static querySelector(query: string): HTMLElementMock | null {
         return this.body.querySelector(query);
     }
 
-    public querySelectorAll(query: string): HTMLElementMock[] {
+    public static querySelectorAll(query: string): HTMLElementMock[] {
         return this.body.querySelectorAll(query);
+    }
+
+    public static createElement(tagName: string): HTMLElementMock {
+        return new HTMLElementMock(tagName);
     }
 }
 
-global.document = new DocumentMock() as unknown as Document;
+global.document = DocumentMock as unknown as Document;
