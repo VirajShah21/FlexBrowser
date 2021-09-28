@@ -18,35 +18,31 @@ function restoreBackupOfBookmarks() {
     if (fs.existsSync(BACKUP)) fs.renameSync(BACKUP, BMFile);
 }
 
-export default class MainProcessTests {
-    public static run(): void {
-        describe('Main Process: Bookmarks', () => {
-            beforeEach(() => storeBackupOfBookmarks());
+describe('Main Process: Bookmarks', () => {
+    beforeEach(() => storeBackupOfBookmarks());
 
-            it('Should attempt to read non-existent bookmarks', () => {
-                expect(readBookmarksFile()).to.eql(
-                    [],
-                    'Should have produced an empty array',
-                );
-            });
+    it('Should attempt to read non-existent bookmarks', () => {
+        expect(readBookmarksFile()).to.eql(
+            [],
+            'Should have produced an empty array',
+        );
+    });
 
-            it('Should write, then read an array of bookmarks', () => {
-                const bookmarks = [
-                    {
-                        url: 'https://google.com',
-                        title: 'Google',
-                    },
-                    {
-                        url: 'https://facebook.com',
-                        title: 'Facebook',
-                    },
-                ];
-                writeBookmarksFile(bookmarks);
-                const saved = fs.readFileSync(BMFile, 'utf8');
-                expect(saved).to.equal(JSON.stringify(bookmarks));
-            });
+    it('Should write, then read an array of bookmarks', () => {
+        const bookmarks = [
+            {
+                url: 'https://google.com',
+                title: 'Google',
+            },
+            {
+                url: 'https://facebook.com',
+                title: 'Facebook',
+            },
+        ];
+        writeBookmarksFile(bookmarks);
+        const saved = fs.readFileSync(BMFile, 'utf8');
+        expect(saved).to.equal(JSON.stringify(bookmarks));
+    });
 
-            afterEach(() => restoreBackupOfBookmarks());
-        });
-    }
-}
+    afterEach(() => restoreBackupOfBookmarks());
+});
