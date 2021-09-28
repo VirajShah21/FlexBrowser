@@ -5,6 +5,7 @@
         "lib": ["ES6", "DOM"],
         "types": [
             "node",
+            "mocha",
             "../app/index",
             "../app/ArchLogger",
             "../src/preload"
