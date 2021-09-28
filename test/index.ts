@@ -1,8 +1,8 @@
+import { exit } from 'process';
 import DocumentMock from './mocks/Document.mock'; // ! Must be the first import
 import LocalStorageMock from './mocks/LocalStorage.mock'; // ! Same here
 import MainProcessTests from './app/index.spec';
 import FlexBrowserWindowSpec from './FlexBrowserWindow.spec';
-import { exit } from 'process';
 
 global.document = DocumentMock as unknown as Document;
 global.localStorage = LocalStorageMock as unknown as Storage;
