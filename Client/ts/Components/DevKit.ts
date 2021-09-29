@@ -1,11 +1,9 @@
 import { HColor, rgba } from '@Hi/Colors';
 import { StateObject } from '@Hi/Types/states';
 import View from '@Hi/View';
-import Checkbox from './Checkbox';
 import ClickButton from './ClickButton';
 import HStack from './HStack';
 import IonIcon from './IonIcon';
-import Overlay from './Overlay';
 import Spacer from './Spacer';
 import TextContent from './TextView';
 import VStack from './VStack';
@@ -30,7 +28,7 @@ export class Preview extends VStack {
                 (
                     this.getViewById('component-padding') as TextContent
                 ).model.text = this.dimensions.padding || '•';
-        }
+        },
     );
 
     public readonly componentInfo = StateObject(
@@ -59,7 +57,7 @@ export class Preview extends VStack {
                     ).model.text = this.componentInfo.description || '•';
                     break;
             }
-        }
+        },
     );
 
     public readonly viewerSettings = StateObject(
@@ -70,10 +68,10 @@ export class Preview extends VStack {
             if (property == 'contrastToggle')
                 this.getViewById('toggle-contrast-button')?.foreground(
                     HColor(
-                        this.viewerSettings.contrastToggle ? 'green' : 'gray'
-                    )
+                        this.viewerSettings.contrastToggle ? 'green' : 'gray',
+                    ),
                 );
-        }
+        },
     );
 
     constructor(content: View) {
@@ -81,11 +79,11 @@ export class Preview extends VStack {
             new HStack(
                 Preview.OptionButton(
                     'toggle-contrast-button',
-                    'contrast-outline'
+                    'contrast-outline',
                 ).whenClicked(() => {
                     this.viewerSettings.contrastToggle =
                         !this.viewerSettings.contrastToggle;
-                })
+                }),
             )
                 .rounded({
                     top: { left: 10, right: 10 },
@@ -105,38 +103,38 @@ export class Preview extends VStack {
                     new HStack(
                         Preview.dimensionSub('width').padding(),
                         new TextContent(' by '),
-                        Preview.dimensionSub('height').padding()
+                        Preview.dimensionSub('height').padding(),
                     ).id('component-dimensions'),
                     new Spacer(),
                     new VStack(
                         new TextContent('•').id('component-padding').font('lg'),
                         new TextContent('Padding')
                             .font('sm')
-                            .foreground(HColor('gray'))
+                            .foreground(HColor('gray')),
                     )
                         .padding()
                         .id('component-padding-wrapper'),
-                    new Spacer()
+                    new Spacer(),
                 ),
                 new HStack(
                     new VStack(
                         new TextContent('•').id('component-name').font('lg'),
                         new TextContent('Component')
                             .font('sm')
-                            .foreground(HColor('gray'))
+                            .foreground(HColor('gray')),
                     ).padding(),
                     new VStack(
                         new TextContent('•').id('component-id').font('lg'),
                         new TextContent('ID')
                             .font('sm')
-                            .foreground(HColor('gray'))
-                    ).padding()
+                            .foreground(HColor('gray')),
+                    ).padding(),
                 ),
                 new TextContent('Description')
                     .font('sm')
                     .foreground(HColor('gray')),
-                new TextContent('•').id('component-description')
-            ).padding()
+                new TextContent('•').id('component-description'),
+            ).padding(),
         );
 
         Preview.enableHover(content, this);
@@ -145,10 +143,10 @@ export class Preview extends VStack {
     override handle(data: string): void {
         if (data == 'color') {
             this.getViewsByClass('preview-canvas').forEach(canvas =>
-                canvas.border({ color: HColor('gray5') })
+                canvas.border({ color: HColor('gray5') }),
             );
             this.getViewsByClass('preview-options').forEach(wrapper =>
-                wrapper.background(HColor('gray5'))
+                wrapper.background(HColor('gray5')),
             );
         }
     }
@@ -199,13 +197,13 @@ export class Preview extends VStack {
             new TextContent('•').id(`component-${axis}`).font('lg'),
             new TextContent(axis == 'width' ? 'Width' : 'Height')
                 .font('sm')
-                .foreground(HColor('gray'))
+                .foreground(HColor('gray')),
         );
     }
 
     static OptionButton(id: string, icon: string): ClickButton {
         return new ClickButton(
-            new IonIcon(icon).font('lg').foreground(HColor('gray')).id(id)
+            new IonIcon(icon).font('lg').foreground(HColor('gray')).id(id),
         )
             .padding({
                 top: 0,
