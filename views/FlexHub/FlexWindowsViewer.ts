@@ -34,7 +34,8 @@ export default class FlexWindowViewer extends HIFullScreenView {
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .padding(0)
-                            .whenClicked(navigateToHubMainPage),
+                            .whenClicked(navigateToHubMainPage)
+                            .id('back-btn'),
                         new Spacer(),
                     ).width('100%'),
                 ),
