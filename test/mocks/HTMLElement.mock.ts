@@ -1,3 +1,5 @@
+import CSSStyleDefinitionMock from './CSSStyleDefinition.mock';
+
 type AttributeName = 'id' | 'name';
 
 function tokenizeQuery(query: string): { type: string; value: string }[] {
@@ -89,11 +91,13 @@ export function assertIsHTMLElementMockCollection(
 export default class HTMLElementMock {
     public tagName: string;
 
-    public style: Record<string, string>;
-
     public classList: string[];
 
+    private style: CSSStyleDefinitionMock;
+
     private children: (HTMLElementMock | string)[];
+
+    private eventListeners: Record<string, (() => void)[]>;
 
     private attributes: {
         id: string;
@@ -102,13 +106,14 @@ export default class HTMLElementMock {
 
     public constructor(tagName: string) {
         this.tagName = tagName;
-        this.style = {};
+        this.style = new CSSStyleDefinitionMock();
         this.children = [];
         this.classList = [];
         this.attributes = {
             id: '',
             name: '',
         };
+        this.eventListeners = {};
     }
 
     public querySelector(query: string): HTMLElementMock | null {
@@ -166,6 +171,14 @@ export default class HTMLElementMock {
 
     public setAttribute(attributeName: AttributeName, value: string): void {
         this.attributes[attributeName] = value;
+    }
+
+    public addEventListener(type: string, listener: () => void): void {
+        if (Object.prototype.hasOwnProperty.call(this.eventListeners, type)) {
+            this.eventListeners[type].push(listener);
+        } else {
+            this.eventListeners[type] = [listener];
+        }
     }
 
     public get className(): string {
