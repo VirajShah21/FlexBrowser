@@ -22,7 +22,6 @@
         ],
         "exclude": [
             "**/*.d.ts",
-            "Client",
             "test"
         ],
         "reporter": [
