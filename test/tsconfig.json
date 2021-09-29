@@ -3,6 +3,7 @@
         "esModuleInterop": true,
         "moduleResolution": "node",
         "lib": ["ES6", "DOM"],
+        "target": "es6",
         "types": [
             "node",
             "mocha",
