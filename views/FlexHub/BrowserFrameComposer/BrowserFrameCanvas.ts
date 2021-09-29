@@ -5,9 +5,8 @@ import TextView from '@Hi/Components/TextView';
 import View from '@Hi/View';
 import BrowserFrameRenderer from '@UI/BrowserFrameRenderer';
 import BrowserPreferences from '@UI/BrowserPreferences';
-import BrowserBackTaskbarButton from '@UI/components/BrowserBackTaskbarButton';
-import BrowserForwardTaskbarButton from '@UI/components/BrowserForwardTaskbarButton';
 import NewWindowTaskbarButton from '@UI/components/NewWindowTaskbarButton';
+import PageNavigationTaskbarButtons from '@UI/components/PageNavigationTaskbarButtons';
 import RefreshTaskbarButton from '@UI/components/RefreshTaskbarButton';
 import URLBar from '@UI/components/URLBar';
 import BrowserFrameModel, {
@@ -16,10 +15,8 @@ import BrowserFrameModel, {
 
 function makeComponent(model: BrowserFrameComponent): View {
     switch (model.name) {
-        case 'page-back':
-            return new BrowserBackTaskbarButton();
-        case 'page-forward':
-            return new BrowserForwardTaskbarButton();
+        case 'page-nav':
+            return new PageNavigationTaskbarButtons();
         case 'urlbar':
             return new URLBar();
         case 'go-refresh':
@@ -43,10 +40,7 @@ export const defaultModel: BrowserFrameModel = {
             },
             components: [
                 {
-                    name: 'page-back',
-                },
-                {
-                    name: 'page-forward',
+                    name: 'page-nav',
                 },
                 {
                     name: 'spacer',

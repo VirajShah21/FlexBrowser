@@ -6,9 +6,8 @@ import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
-import BrowserBackTaskbarButton from './components/BrowserBackTaskbarButton';
-import BrowserForwardTaskbarButton from './components/BrowserForwardTaskbarButton';
 import NewWindowTaskbarButton from './components/NewWindowTaskbarButton';
+import PageNavigationTaskbarButtons from './components/PageNavigationTaskbarButtons';
 import RefreshTaskbarButton from './components/RefreshTaskbarButton';
 import URLBar from './components/URLBar';
 
@@ -37,11 +36,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         super(
             new VStack(
                 new HStack(
-                    new HStack(
-                        new BrowserBackTaskbarButton(),
-                        new BrowserForwardTaskbarButton(),
-                        new Spacer(),
-                    )
+                    new HStack(new PageNavigationTaskbarButtons(), new Spacer())
                         .width('25%')
                         .padding({ left: 10, right: 10 }),
 
