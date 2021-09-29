@@ -3,33 +3,29 @@ import View from '@Hi/View';
 import { HumanEvent } from '@Hi/ViewController';
 
 export default class Checkbox extends View {
-    public readonly state = StateObject({ checked: false }, () => {
-        this.body.setAttribute(
-            'name',
-            this.state.checked ? 'checkbox' : 'square-outline'
-        );
-    });
+    private checkedFlag: boolean;
+    private icons: {
+        checked: string;
+        unchecked: string;
+    };
 
-    constructor() {
+    constructor(
+        checked = false,
+        checkedIcon = 'square-outline',
+        uncheckedIcon = 'checkbox',
+    ) {
         super('ion-icon');
+        this.checkedFlag = checked;
+        this.icons = { checked: checkedIcon, unchecked: uncheckedIcon };
         this.body.setAttribute('name', 'square-outline');
         this.body.addEventListener('click', () => {
-            this.state.checked = !this.state.checked;
+            this.checked = !this.checked;
         });
     }
 
-    setChecked(value: boolean): this {
-        this.state.checked = value;
-        return this;
-    }
-
-    isChecked(): boolean {
-        return this.state.checked;
-    }
-
     toggle(): boolean {
-        this.state.checked = !this.state.checked;
-        return this.state.checked;
+        this.checked = !this.checked;
+        return this.checked;
     }
 
     whenClicked(callback: (ev: HumanEvent) => void): this {
@@ -41,5 +37,16 @@ export default class Checkbox extends View {
             });
         });
         return this;
+    }
+
+    public get checked(): boolean {
+        return this.checkedFlag;
+    }
+
+    public set checked(val: boolean) {
+        this.checkedFlag = val;
+        (this.body as HTMLInputElement).name = this.checkedFlag
+            ? 'square-outline'
+            : 'checkbox';
     }
 }
