@@ -11,11 +11,11 @@ export function toggleBookmarkButtonClicked(
 ): void {
     const bookmarkIcon = (ev.view.children[0] as IonIcon)
         .body as HTMLInputElement;
-    if (ev.view.description === 'bookmark') {
+    if (ev.view.description !== 'unbookmark') {
         flexarch.addBookmark(urlMeta);
         bookmarkIcon.name = 'bookmark';
         ev.view.describe('unbookmark');
-    } else if (ev.view.description === 'unbookmark') {
+    } else {
         // TODO: Enable removeBookmark()
         // flexarch.removeBookmark(urlMeta);
         bookmarkIcon.name = 'bookmark-outline';

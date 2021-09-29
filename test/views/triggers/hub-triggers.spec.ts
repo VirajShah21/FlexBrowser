@@ -1,5 +1,8 @@
+import ClickButton from '@Hi/Components/ClickButton';
+import IonIcon from '@Hi/Components/IonIcon';
 import { ViewController } from '@Hi/ViewController';
 import { getAppController, reloadAppController } from '@UI/FlexBrowserApp';
+import { toggleBookmarkButtonClicked } from '@UI/triggers/hub-triggers';
 import { expect } from 'chai';
 import mockBrowser from '../../mocks/Browser.mock';
 import HTMLElementMock from '../../mocks/HTMLElement.mock';
@@ -38,5 +41,33 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
         const button = windowsScreen.getViewById('back-btn');
         (button.body as unknown as HTMLElementMock).mockClick();
         expect(controller.visibleScreen).to.equal('hub');
+    });
+});
+
+describe('Hub (Trigger): Should toggle bookmarks button', () => {
+    let btn: ClickButton;
+
+    beforeEach(() => {
+        btn = new ClickButton(new IonIcon('bookmark')).whenClicked(ev =>
+            toggleBookmarkButtonClicked(ev, {
+                title: 'Google',
+                url: 'https://google.com/',
+            }),
+        );
+    });
+
+    it('Should toggle between bookmarked and unbookmarks.', () => {
+        btn.describe('bookmark');
+        (btn.body as unknown as HTMLElementMock).mockClick();
+        expect(btn.description).to.equal('unbookmark');
+        (btn.body as unknown as HTMLElementMock).mockClick();
+        expect(btn.description).to.equal('bookmark');
+    });
+
+    it('Should default to not bookmarked state so user can bookmark.', () => {
+        (btn.body as unknown as HTMLElementMock).mockClick();
+        expect(btn.description).to.equal('unbookmark');
+        (btn.body as unknown as HTMLElementMock).mockClick();
+        expect(btn.description).to.equal('bookmark');
     });
 });
