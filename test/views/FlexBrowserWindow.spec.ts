@@ -3,9 +3,6 @@ import IonIcon from '@Hi/Components/IonIcon';
 import { expect } from 'chai';
 import FlexBrowserWindow from '../../views/FlexBrowserWindow';
 import HTMLElementMock from '../mocks/HTMLElement.mock';
-import mockBrowser from '../mocks/Browser.mock';
-
-mockBrowser();
 
 describe('FlexBrowserWindow resolving URL Input', () => {
     it('Should convert "abcd.ext" to "https://abcd.ext/"', () => {
