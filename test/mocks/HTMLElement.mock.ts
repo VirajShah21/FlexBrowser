@@ -102,6 +102,7 @@ export default class HTMLElementMock {
     private attributes: {
         id: string;
         name: string;
+        value: string;
     };
 
     public constructor(tagName: string) {
@@ -112,6 +113,7 @@ export default class HTMLElementMock {
         this.attributes = {
             id: '',
             name: '',
+            value: '',
         };
         this.eventListeners = {};
     }
@@ -189,6 +191,15 @@ export default class HTMLElementMock {
         }
     }
 
+    public mockInput(character: string): void {
+        this.attributes.value += character;
+        if (
+            Object.prototype.hasOwnProperty.call(this.eventListeners, 'input')
+        ) {
+            this.eventListeners.input.forEach(listener => listener());
+        }
+    }
+
     public get className(): string {
         return this.classList.join(' ');
     }
@@ -211,5 +222,13 @@ export default class HTMLElementMock {
 
     public set name(value: string) {
         this.attributes.name = value;
+    }
+
+    public get value(): string {
+        return this.attributes.value;
+    }
+
+    public set value(newValue: string) {
+        this.attributes.value = newValue;
     }
 }
