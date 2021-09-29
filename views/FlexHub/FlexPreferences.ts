@@ -4,7 +4,7 @@ import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import { ViewController } from '@Hi/ViewController';
+import { navigateToHubMainPage } from '@UI/triggers/hub-triggers';
 import BrowserPreferences from '../BrowserPreferences';
 import BrowserFramePreferences from './components/BrowserFramePreferences';
 import HighlightColorPreferences from './components/HighlightColorPreferences';
@@ -32,11 +32,7 @@ export default class FlexPreferences extends HIFullScreenView {
                     new ClickButton(new TextView('Back'))
                         .padding(0)
                         .foreground(HColor(BrowserPreferences.getColorTheme()))
-                        .whenClicked(() =>
-                            ViewController.getController(
-                                'AppController',
-                            )!.navigateTo('hub'),
-                        ),
+                        .whenClicked(navigateToHubMainPage),
                     new Spacer(),
                     new ClickButton(new TextView('Reload'))
                         .padding(0)
