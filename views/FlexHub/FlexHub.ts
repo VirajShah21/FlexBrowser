@@ -48,7 +48,8 @@ function HubButton(icon: IonIcon, title: string): ClickButton {
         .padding()
         .foreground(BrowserPreferences.getPrimaryColor())
         .width(100)
-        .height(100);
+        .height(100)
+        .addClass('hub-menu-button');
 
     btn.handle = (data: string) => {
         if (data === 'hi:buildin') {
