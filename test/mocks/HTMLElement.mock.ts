@@ -181,6 +181,14 @@ export default class HTMLElementMock {
         }
     }
 
+    public mockClick(): void {
+        if (
+            Object.prototype.hasOwnProperty.call(this.eventListeners, 'click')
+        ) {
+            this.eventListeners.click.forEach(listener => listener());
+        }
+    }
+
     public get className(): string {
         return this.classList.join(' ');
     }
