@@ -32,7 +32,8 @@ export default class FlexPreferences extends HIFullScreenView {
                     new ClickButton(new TextView('Back'))
                         .padding(0)
                         .foreground(HColor(BrowserPreferences.getColorTheme()))
-                        .whenClicked(navigateToHubMainPage),
+                        .whenClicked(navigateToHubMainPage)
+                        .id('back-btn'),
                     new Spacer(),
                     new ClickButton(new TextView('Reload'))
                         .padding(0)

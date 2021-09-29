@@ -17,7 +17,8 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .whenClicked(navigateToHubMainPage)
-                            .padding(0),
+                            .padding(0)
+                            .id('back-btn'),
                         new Spacer(),
                     ).width('100%'),
                 ),
