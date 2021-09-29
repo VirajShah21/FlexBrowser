@@ -1,6 +1,5 @@
 import { HColor } from '@Hi/Colors';
 import { SizingValues } from '@Hi/Types/sizing';
-import { StateObject } from '@Hi/Types/states';
 import View from '@Hi/View';
 import { HumanEvent, HumanKeyPressEvent } from '@Hi/ViewController';
 

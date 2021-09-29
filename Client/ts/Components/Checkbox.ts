@@ -1,4 +1,3 @@
-import { StateObject } from '@Hi/Types/states';
 import View from '@Hi/View';
 import { HumanEvent } from '@Hi/ViewController';
 

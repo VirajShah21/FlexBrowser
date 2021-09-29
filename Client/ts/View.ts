@@ -1,6 +1,6 @@
 import BaseBodyStyler from './BaseBodyStyler';
 import { getTransitionDefintion } from './Transitions/Transition';
-import { StateObject, StateProxy } from './Types/states';
+import ViewCollection from './ViewCollection';
 import { HumanEvent } from './ViewController';
 
 interface ModelData {
@@ -38,17 +38,14 @@ export default abstract class View extends BaseBodyStyler {
     public identifier: string;
     public pstatus: PStatus = PStatus.Visible;
 
-    public readonly children: StateProxy<View[]>;
-    protected readonly $children: View[] = [];
+    public readonly children: ViewCollection;
 
     constructor(element: string, ...children: View[]) {
         super(document.createElement(element));
+        this.children = [];
         this.addClass('hi-view');
-        this.children = StateObject(this.$children, () => {
-            this.buildChildren();
-        });
         children.forEach(child => {
-            this.$children.push(child);
+            this.children.push(child);
         });
         this.buildChildren();
     }
@@ -61,8 +58,8 @@ export default abstract class View extends BaseBodyStyler {
      */
     getViewsByClass(className: string): View[] {
         const results = [];
-        if (this.$children) {
-            for (const child of this.$children) {
+        if (this.children) {
+            for (const child of this.children) {
                 if (child.getClassList().indexOf(className) >= 0)
                     results.push(child);
                 child.getViewsByClass(className).forEach(view => {
@@ -82,7 +79,7 @@ export default abstract class View extends BaseBodyStyler {
      * @memberOf View
      */
     getViewById(id: string): View | null {
-        for (const child of this.$children) {
+        for (const child of this.children) {
             if (child.identifier == id) return child;
             const childResult = child.getViewById(id);
             if (childResult) return childResult;
@@ -105,7 +102,7 @@ export default abstract class View extends BaseBodyStyler {
             }.${this.getClassList().join('.')}`,
             id: this.body.id,
             classList: this.getClassList(),
-            children: this.$children.map(child => child.getModelData()),
+            children: this.children.map(child => child.getModelData()),
         };
     }
 
@@ -130,8 +127,8 @@ export default abstract class View extends BaseBodyStyler {
      */
     destroy(): void {
         // Remove from parent
-        if (this.parent && this.parent.$children)
-            this.parent.$children.splice(this.parent.children.indexOf(this), 1);
+        if (this.parent && this.parent.children)
+            this.parent.children.splice(this.parent.children.indexOf(this), 1);
         this.body.remove();
 
         // Clear all instance variables
@@ -190,7 +187,7 @@ export default abstract class View extends BaseBodyStyler {
      * @memberOf View
      */
     forChild(iteratee: (child: View) => void): this {
-        for (const child of this.$children) iteratee(child);
+        for (const child of this.children) iteratee(child);
         return this;
     }
 
@@ -218,7 +215,7 @@ export default abstract class View extends BaseBodyStyler {
      * @memberOf View
      */
     removeAllChildren(): this {
-        this.$children.splice(0, this.children.length);
+        this.children.splice(0, this.children.length);
         return this.buildChildren();
     }
 
@@ -231,7 +228,7 @@ export default abstract class View extends BaseBodyStyler {
      */
     buildChildren(): this {
         this.body.innerHTML = '';
-        this.$children.forEach(child => {
+        this.children.forEach(child => {
             if (child && child.pstatus == PStatus.Visible) {
                 child.parent = this;
                 this.body.appendChild(child.body);
@@ -348,7 +345,7 @@ export default abstract class View extends BaseBodyStyler {
      */
     signal(data: string, ...args: unknown[]): void {
         this.handle(data, ...args);
-        this.$children.forEach(child => child.signal(data, ...args));
+        this.children.forEach(child => child.signal(data, ...args));
     }
 
     /**
