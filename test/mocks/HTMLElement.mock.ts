@@ -1,3 +1,5 @@
+type AttributeName = 'id' | 'name';
+
 function tokenizeQuery(query: string): { type: string; value: string }[] {
     const out: { type: string; value: string }[] = [];
     const { length } = query;
@@ -91,15 +93,22 @@ export default class HTMLElementMock {
 
     public classList: string[];
 
-    public id: string;
-
     private children: (HTMLElementMock | string)[];
+
+    private attributes: {
+        id: string;
+        name: string;
+    };
 
     public constructor(tagName: string) {
         this.tagName = tagName;
         this.style = {};
-        this.id = '';
         this.children = [];
+        this.classList = [];
+        this.attributes = {
+            id: '',
+            name: '',
+        };
     }
 
     public querySelector(query: string): HTMLElementMock | null {
@@ -117,7 +126,8 @@ export default class HTMLElementMock {
 
         if (queryMap.id) {
             direct.filter(
-                el => typeof el !== 'string' && el.id === queryMap.id,
+                el =>
+                    typeof el !== 'string' && el.attributes.id === queryMap.id,
             );
         }
 
@@ -150,11 +160,27 @@ export default class HTMLElementMock {
         elements.forEach(el => this.children.push(el));
     }
 
+    public appendChild(element: HTMLElementMock): void {
+        this.children.push(element);
+    }
+
+    public setAttribute(attributeName: AttributeName, value: string): void {
+        this.attributes[attributeName] = value;
+    }
+
     public get className(): string {
         return this.classList.join(' ');
     }
 
     public set className(value: string) {
         this.classList = value.split(' ');
+    }
+
+    public get id(): string {
+        return this.attributes.id;
+    }
+
+    public set id(value: string) {
+        this.attributes.id = value;
     }
 }
