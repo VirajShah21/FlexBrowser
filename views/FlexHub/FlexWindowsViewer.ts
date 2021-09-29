@@ -7,7 +7,10 @@ import { ScrollView } from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import { ViewController } from '@Hi/ViewController';
+import {
+    navigateToHubMainPage,
+    toggleBookmarkButtonClicked,
+} from '@UI/triggers/hub-triggers';
 import HubTitlebar from './components/HubTitlebar';
 
 /**
@@ -31,11 +34,7 @@ export default class FlexWindowViewer extends HIFullScreenView {
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .padding(0)
-                            .whenClicked(() =>
-                                ViewController.getController(
-                                    'AppController',
-                                )?.navigateTo('hub'),
-                            ),
+                            .whenClicked(navigateToHubMainPage),
                         new Spacer(),
                     ).width('100%'),
                 ),
@@ -77,23 +76,9 @@ export default class FlexWindowViewer extends HIFullScreenView {
                         new Spacer(),
                         new ClickButton(new IonIcon('bookmark-outline'))
                             .describe('bookmark')
-                            .whenClicked(ev => {
-                                const bookmarkIcon = (
-                                    ev.view.children[0] as IonIcon
-                                ).body as HTMLInputElement;
-                                if (ev.view.description === 'bookmark') {
-                                    flexarch.addBookmark(win);
-                                    bookmarkIcon.name = 'bookmark';
-                                    ev.view.describe('unbookmark');
-                                } else if (
-                                    ev.view.description === 'unbookmark'
-                                ) {
-                                    // TODO: Enable removeBookmark()
-                                    // flexarch.removeBookmark(win);
-                                    bookmarkIcon.name = 'bookmark-outline';
-                                    ev.view.describe('bookmark');
-                                }
-                            }),
+                            .whenClicked(ev =>
+                                toggleBookmarkButtonClicked(ev, win),
+                            ),
                     ).width('100%'),
                 )
                     .width('100%')
