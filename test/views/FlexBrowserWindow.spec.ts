@@ -1,11 +1,11 @@
 import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
 import { expect } from 'chai';
-import FlexBrowserWindow from '../views/FlexBrowserWindow';
-import DocumentMock from './mocks/Document.mock';
-import FlexArch from './mocks/flexarch.mock';
-import HTMLElementMock from './mocks/HTMLElement.mock';
-import LocalStorageMock from './mocks/LocalStorage.mock';
+import FlexBrowserWindow from '../../views/FlexBrowserWindow';
+import DocumentMock from '../mocks/Document.mock';
+import FlexArch from '../mocks/flexarch.mock';
+import HTMLElementMock from '../mocks/HTMLElement.mock';
+import LocalStorageMock from '../mocks/LocalStorage.mock';
 
 globalThis.document = DocumentMock as unknown as Document;
 globalThis.localStorage = LocalStorageMock as unknown as Storage;
