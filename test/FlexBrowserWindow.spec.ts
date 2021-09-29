@@ -37,3 +37,15 @@ describe('FlexBrowserWindow resolving URL Input', () => {
         );
     });
 });
+
+describe('FlexBrowserWindow: URL Bar Navigation', () => {
+    let win: FlexBrowserWindow;
+
+    beforeEach(() => {
+        win = new FlexBrowserWindow();
+    });
+
+    it('Should add to session history when second parameter is true', () => {
+        // expect(win)
+    });
+});

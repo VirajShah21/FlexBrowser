@@ -104,10 +104,11 @@ export default class FlexBrowserWindow extends HIFullScreenView {
      *
      * @param {string} url The URL to navigate to.
      * @param {boolean} [addToHistory=true] Whether the URL should be added to the local history.
+     * @returns {string[]} A **copy** of the current window's session history
      *
      * @memberOf FlexBrowserWindow
      */
-    public goTo(url: string, addToHistory = true): void {
+    public goTo(url: string, addToHistory = true): string[] {
         const newUrl = FlexBrowserWindow.goodUrl(url);
 
         const icon = this.getViewById('url-refresh-button') as IonIcon;
@@ -122,6 +123,8 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         }
 
         urlbar.model.value = newUrl;
+
+        return this.history.map(e => e);
     }
 
     /**
