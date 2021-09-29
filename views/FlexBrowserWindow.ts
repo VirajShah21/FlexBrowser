@@ -117,7 +117,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
             this.historyPointer = this.history.length - 1;
         }
 
-        urlbar.model.value = newUrl;
+        urlbar.value = newUrl;
 
         return this.history.map(e => e);
     }
