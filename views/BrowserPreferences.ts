@@ -7,7 +7,7 @@ import { HColor, HumanColorName, RGBAModel } from '@Hi/Colors';
  * @class BrowserPreferences
  */
 export default class BrowserPreferences {
-    private static colorTheme: HumanColorName;
+    private static colorTheme: HumanColorName = 'blue';
 
     /**
      * Sets the highlight color theme to a specified Human color theme.
