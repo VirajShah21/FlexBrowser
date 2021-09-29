@@ -1,3 +1,7 @@
+import CSSStyleDefinitionMock from './CSSStyleDefinition.mock';
+
+type AttributeName = 'id' | 'name';
+
 function tokenizeQuery(query: string): { type: string; value: string }[] {
     const out: { type: string; value: string }[] = [];
     const { length } = query;
@@ -87,19 +91,31 @@ export function assertIsHTMLElementMockCollection(
 export default class HTMLElementMock {
     public tagName: string;
 
-    public style: Record<string, string>;
-
     public classList: string[];
 
-    public id: string;
+    private style: CSSStyleDefinitionMock;
 
     private children: (HTMLElementMock | string)[];
 
+    private eventListeners: Record<string, (() => void)[]>;
+
+    private attributes: {
+        id: string;
+        name: string;
+        value: string;
+    };
+
     public constructor(tagName: string) {
         this.tagName = tagName;
-        this.style = {};
-        this.id = '';
+        this.style = new CSSStyleDefinitionMock();
         this.children = [];
+        this.classList = [];
+        this.attributes = {
+            id: '',
+            name: '',
+            value: '',
+        };
+        this.eventListeners = {};
     }
 
     public querySelector(query: string): HTMLElementMock | null {
@@ -117,7 +133,8 @@ export default class HTMLElementMock {
 
         if (queryMap.id) {
             direct.filter(
-                el => typeof el !== 'string' && el.id === queryMap.id,
+                el =>
+                    typeof el !== 'string' && el.attributes.id === queryMap.id,
             );
         }
 
@@ -150,11 +167,68 @@ export default class HTMLElementMock {
         elements.forEach(el => this.children.push(el));
     }
 
+    public appendChild(element: HTMLElementMock): void {
+        this.children.push(element);
+    }
+
+    public setAttribute(attributeName: AttributeName, value: string): void {
+        this.attributes[attributeName] = value;
+    }
+
+    public addEventListener(type: string, listener: () => void): void {
+        if (Object.prototype.hasOwnProperty.call(this.eventListeners, type)) {
+            this.eventListeners[type].push(listener);
+        } else {
+            this.eventListeners[type] = [listener];
+        }
+    }
+
+    public mockClick(): void {
+        if (
+            Object.prototype.hasOwnProperty.call(this.eventListeners, 'click')
+        ) {
+            this.eventListeners.click.forEach(listener => listener());
+        }
+    }
+
+    public mockInput(character: string): void {
+        this.attributes.value += character;
+        if (
+            Object.prototype.hasOwnProperty.call(this.eventListeners, 'input')
+        ) {
+            this.eventListeners.input.forEach(listener => listener());
+        }
+    }
+
     public get className(): string {
         return this.classList.join(' ');
     }
 
     public set className(value: string) {
         this.classList = value.split(' ');
+    }
+
+    public get id(): string {
+        return this.attributes.id;
+    }
+
+    public set id(value: string) {
+        this.attributes.id = value;
+    }
+
+    public get name(): string {
+        return this.attributes.name;
+    }
+
+    public set name(value: string) {
+        this.attributes.name = value;
+    }
+
+    public get value(): string {
+        return this.attributes.value;
+    }
+
+    public set value(newValue: string) {
+        this.attributes.value = newValue;
     }
 }

@@ -19,6 +19,7 @@ export class ViewController {
     constructor(screens: Record<string, View>) {
         this.screens = screens;
         ViewControllerData.controllers.push(this);
+        document.body.style.margin = '0';
     }
 
     /**
@@ -228,5 +229,3 @@ export interface HumanKeyPressEvent {
     browserEvent: Event;
     key: string;
 }
-
-document.body.style.margin = '0';
