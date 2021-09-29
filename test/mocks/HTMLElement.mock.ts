@@ -196,4 +196,12 @@ export default class HTMLElementMock {
     public set id(value: string) {
         this.attributes.id = value;
     }
+
+    public get name(): string {
+        return this.attributes.name;
+    }
+
+    public set name(value: string) {
+        this.attributes.name = value;
+    }
 }
