@@ -5,8 +5,8 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
 import { ViewController } from '@Hi/ViewController';
-import BrowserFrameRenderer from 'src/BrowserFrameRenderer';
-import BrowserPreferences from 'src/BrowserPreferences';
+import BrowserFrameRenderer from '@UI/BrowserFrameRenderer';
+import BrowserPreferences from '@UI/BrowserPreferences';
 
 export default class WidgetSelectorButton extends ClickButton {
     constructor(

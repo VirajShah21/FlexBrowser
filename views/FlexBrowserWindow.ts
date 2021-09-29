@@ -95,6 +95,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
             }
         }
         if (!goodProtocol) newUrl = `https://${newUrl}`;
+        if (newUrl.charAt(newUrl.length - 1) !== '/') newUrl += '/';
         return newUrl;
     }
 

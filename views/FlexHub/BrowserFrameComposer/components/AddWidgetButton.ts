@@ -1,6 +1,6 @@
 import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
-import BrowserPreferences from 'src/BrowserPreferences';
+import BrowserPreferences from '@UI/BrowserPreferences';
 import AddWidgetOverlay from '../AddWidgetOverlay';
 
 export default class AddWidgetButton extends ClickButton {

@@ -1,7 +1,7 @@
 import { HColor, HumanColorName } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
-import BrowserPreferences from 'src/BrowserPreferences';
+import BrowserPreferences from '@UI/BrowserPreferences';
 
 /**
  * Creates a circle icon with a specified color. The button binds to a

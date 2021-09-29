@@ -1,9 +1,9 @@
-const { describe, beforeEach } = require('mocha');
-const fs = require('fs');
-const os = require('os');
-const path = require('path');
-const { readBookmarksFile, writeBookmarksFile } = require('../../app');
-const expect = require('chai').expect;
+import { describe, beforeEach } from 'mocha';
+import * as fs from 'fs';
+import * as os from 'os';
+import * as path from 'path';
+import { expect } from 'chai';
+import { readBookmarksFile, writeBookmarksFile } from '../../app';
 
 const HOMEDIR = os.homedir();
 const BACKUP = path.join(HOMEDIR, '.flex-bookmarks.backup.json');

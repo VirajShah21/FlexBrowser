@@ -1,6 +1,6 @@
 import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
-import FlexBrowserWindow from 'src/FlexBrowserWindow';
+import FlexBrowserWindow from '@UI/FlexBrowserWindow';
 import TaskbarButton from './TaskbarButton';
 
 export default class RefreshTaskbarButton extends TaskbarButton {

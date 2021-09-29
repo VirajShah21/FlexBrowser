@@ -3,18 +3,18 @@
         "module": "es6",
         "lib": ["esnext", "dom"],
         "rootDir": ".",
-        "outDir": "./src/js",
+        "outDir": "./test/bin",
         "sourceMap": true,
         "noImplicitAny": true,
         "moduleResolution": "node",
         "noImplicitOverride": true,
         "noImplicitReturns": true,
         "target": "ES2020",
-        "allowJs": true,
         "resolveJsonModule": true,
         "baseUrl": ".",
         "paths": {
-            "@Hi/*": ["./Client/ts/*"]
+            "@Hi/*": ["./Client/ts/*"],
+            "@UI/*": ["./views/*"]
         },
         "strictNullChecks": true,
         "noUncheckedIndexedAccess": true

@@ -1,7 +1,7 @@
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
-import BrowserPreferences from 'src/BrowserPreferences';
+import BrowserPreferences from '@UI/BrowserPreferences';
 
 export default abstract class TaskbarButton extends ClickButton {
     constructor(icon: IonIcon) {
