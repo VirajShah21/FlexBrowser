@@ -29,6 +29,31 @@ export interface TransitionStyle {
 
 const definedTransitions: Record<string, Transition> = {};
 
+function generateKeyframeName(): string {
+    const tokens =
+        '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+    return `himvct${[0, 0, 0, 0, 0]
+        .map(() => tokens[Math.floor(Math.random() * tokens.length)])
+        .join('')}`;
+}
+
+function generateKeyframeCSS(transition: Transition): string {
+    let out = '';
+
+    for (let key in transition) {
+        if (
+            ['iterations', 'duration', 'delay', 'direction', 'after'].indexOf(
+                key,
+            ) < 0
+        ) {
+            out += `${key} { ${generateCSSProperties(
+                transition[key as TransitionFrameKey] as TransitionStyle,
+            )} }`;
+        }
+    }
+    return out;
+}
+
 export function defineTransition(transition: Transition): string {
     const name = generateKeyframeName();
     let el = document.head.querySelector('style#himvc-keyframe-defs');
@@ -44,20 +69,6 @@ export function defineTransition(transition: Transition): string {
 
 export function getTransitionDefintion(name: string): Transition | null {
     return definedTransitions[name] || null;
-}
-
-function generateKeyframeCSS(transition: Transition): string {
-    let out = '';
-    for (let key in transition)
-        if (
-            ['iterations', 'duration', 'delay', 'direction', 'after'].indexOf(
-                key,
-            ) < 0
-        )
-            out += `${key} { ${generateCSSProperties(
-                transition[key as TransitionFrameKey] as TransitionStyle,
-            )} }`;
-    return out;
 }
 
 function generateCSSProperties(properties: TransitionStyle): string {
@@ -85,15 +96,4 @@ function generateCSSProperty(property: string, value: unknown): string {
         default:
             return '';
     }
-}
-
-function generateKeyframeName(): string {
-    const tokens =
-        '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
-    return (
-        'himvct' +
-        [0, 0, 0, 0, 0]
-            .map(() => tokens[Math.floor(Math.random() * tokens.length)])
-            .join('')
-    );
 }
