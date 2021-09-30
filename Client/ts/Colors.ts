@@ -30,11 +30,15 @@ export type HumanColorName =
  */
 export class RGBAModel {
     public static readonly WHITE = new RGBAModel(255, 255, 255);
+
     public static readonly BLACK = new RGBAModel(0, 0, 0);
 
     public r: number;
+
     public g: number;
+
     public b: number;
+
     public a: number;
 
     /**
@@ -48,14 +52,16 @@ export class RGBAModel {
      * @memberOf RGBAModel
      */
     constructor(r: number, g: number, b: number, a = 1) {
-        if (r < 0) r = 0;
-        else if (r > 255) r = 255;
+        const c = [r, g, b, a];
 
-        if (g < 0) g = 0;
-        else if (g > 255) g = 255;
+        if (r < 0) c[0] = 0;
+        else if (r > 255) c[0] = 255;
 
-        if (b < 0) b = 0;
-        else if (b > 255) b = 255;
+        if (g < 0) c[1] = 0;
+        else if (g > 255) c[1] = 255;
+
+        if (b < 0) c[2] = 0;
+        else if (b > 255) c[2] = 255;
 
         this.r = r;
         this.g = g;
@@ -72,9 +78,8 @@ export class RGBAModel {
      * @memberOf RGBAModel
      */
     red(r: number): this {
-        if (r < 0) r = 0;
-        else if (r > 255) r = 255;
-        this.r = r;
+        if (r < 0) this.r = 0;
+        else if (r > 255) this.r = 255;
         return this;
     }
 
@@ -87,9 +92,8 @@ export class RGBAModel {
      * @memberOf RGBAModel
      */
     green(g: number): this {
-        if (g < 0) g = 0;
-        else if (g > 255) g = 255;
-        this.g = g;
+        if (g < 0) this.g = 0;
+        else if (g > 255) this.g = 255;
         return this;
     }
 
@@ -102,9 +106,8 @@ export class RGBAModel {
      * @memberOf RGBAModel
      */
     blue(b: number): this {
-        if (b < 0) b = 0;
-        else if (b > 255) b = 255;
-        this.b = b % 256;
+        if (b < 0) this.b = 0;
+        else if (b > 255) this.b = 255;
         return this;
     }
 
@@ -135,8 +138,9 @@ export class RGBAModel {
      * @memberOf RGBAModel
      */
     toString(): string {
-        if (this.a != 1)
+        if (this.a !== 1) {
             return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
+        }
         return `rgb(${this.r}, ${this.g}, ${this.b})`;
     }
 
@@ -162,9 +166,10 @@ export class RGBAModel {
  * @returns {RGBAModel} The `RGBAModel` for the specified color name.
  */
 export function HColor(color: HumanColorName): RGBAModel {
-    if (colorTheme === 'light')
+    if (colorTheme === 'light') {
         return RGBAModel.copy(HumanColorSwatch.light![color]!);
-    else return RGBAModel.copy(HumanColorSwatch.dark![color]!);
+    }
+    return RGBAModel.copy(HumanColorSwatch.dark![color]!);
 }
 
 /**
@@ -249,7 +254,7 @@ export const HumanColorSwatch: Record<string, Record<string, RGBAModel>> = {
 
 let colorTheme: 'light' | 'dark' = (() => {
     const tmp = localStorage.getItem('hi://theme');
-    if (tmp == 'light' || tmp == 'dark') return tmp;
+    if (tmp === 'light' || tmp === 'dark') return tmp;
     return 'light';
 })();
 
@@ -262,7 +267,7 @@ let colorTheme: 'light' | 'dark' = (() => {
 export function changeTheme(theme: 'light' | 'dark'): void {
     colorTheme = theme;
     ViewControllerData.controllers.forEach(controller =>
-        controller.signal('color')
+        controller.signal('color'),
     );
     localStorage.setItem('hi://theme', colorTheme);
 }
@@ -290,16 +295,16 @@ export function whichTheme(): 'light' | 'dark' {
  * @returns {RGBAModel} The average image color.
  */
 export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
-    const blockSize = 5, // only visit every 5 pixels
-        canvas = document.createElement('canvas'),
-        context = canvas.getContext && canvas.getContext('2d'),
-        rgb = new RGBAModel(0, 0, 0);
-    let data,
-        i = -4,
-        count = 0;
+    const blockSize = 5; // only visit every 5 pixels
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext && canvas.getContext('2d');
+    const model = new RGBAModel(0, 0, 0);
+    let data;
+    let i = -4;
+    let count = 0;
 
     if (!context) {
-        return rgb;
+        return model;
     }
 
     const height = (canvas.height =
@@ -313,22 +318,22 @@ export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
         data = context.getImageData(0, 0, width, height);
     } catch (e) {
         /* security error, img on diff domain */
-        return rgb;
+        return model;
     }
 
-    const length = data.data.length;
+    const { length } = data.data;
 
     while ((i += blockSize * 4) < length) {
         ++count;
-        rgb.r += data.data[i]!;
-        rgb.g += data.data[i + 1]!;
-        rgb.b += data.data[i + 2]!;
+        model.r += data.data[i]!;
+        model.g += data.data[i + 1]!;
+        model.b += data.data[i + 2]!;
     }
 
     // ~~ used to floor values
-    rgb.r = ~~(rgb.r / count);
-    rgb.g = ~~(rgb.g / count);
-    rgb.b = ~~(rgb.b / count);
+    model.r = ~~(model.r / count);
+    model.g = ~~(model.g / count);
+    model.b = ~~(model.b / count);
 
-    return rgb;
+    return model;
 }
