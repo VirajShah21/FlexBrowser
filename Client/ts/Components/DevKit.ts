@@ -10,9 +10,9 @@ import VStack from './VStack';
 // ! Fix all errors with null/dnull and implement a workaround
 export default class Preview extends VStack {
     private readonly dimensions: {
-        width?: number;
-        height?: number;
-        padding?: string;
+        width: number;
+        height: number;
+        padding: string;
     } = {
         width: 0,
         height: 0,
@@ -174,13 +174,15 @@ export default class Preview extends VStack {
     }
 
     static enableHover(view: View, exampleViewer: Preview): void {
+        const viewer = exampleViewer;
         view.whenMouseOver(ev => {
-            exampleViewer.dimensions.width = view.body.clientWidth;
-            exampleViewer.dimensions.height = view.body.clientHeight;
-            exampleViewer.componentInfo.name = view.constructor.name;
-            exampleViewer.componentInfo.id = view.body.id;
-            exampleViewer.componentInfo.description = view.description || '';
-            const computedStyles = window.getComputedStyle(view.body);
+            const thisComponent = ev.view;
+            viewer.componentWidth = thisComponent.body.clientWidth;
+            viewer.componentHeight = thisComponent.body.clientHeight;
+            viewer.componentName = thisComponent.constructor.name;
+            viewer.componentId = thisComponent.body.id;
+            viewer.componentDescription = thisComponent.description || '';
+            const computedStyles = window.getComputedStyle(thisComponent.body);
 
             const paddings = [
                 computedStyles.paddingTop,
@@ -190,34 +192,41 @@ export default class Preview extends VStack {
             ];
 
             if (
-                paddings[0] == paddings[1] &&
-                paddings[1] == paddings[2] &&
-                paddings[2] == paddings[3]
-            )
-                exampleViewer.dimensions.padding = paddings[0] as string;
-            else if (paddings[0] == paddings[2] && paddings[1] == paddings[3])
-                exampleViewer.dimensions.padding = `${paddings[0]} ${paddings[1]}`;
-            else
-                exampleViewer.dimensions.padding = `${paddings[0]} ${paddings[1]} ${paddings[2]} ${paddings[3]}`;
+                paddings[0] === paddings[1] &&
+                paddings[1] === paddings[2] &&
+                paddings[2] === paddings[3]
+            ) {
+                viewer.componentPadding = paddings[0] as string;
+            } else if (
+                paddings[0] === paddings[2] &&
+                paddings[1] === paddings[3]
+            ) {
+                viewer.componentPadding = `${paddings[0]} ${paddings[1]}`;
+            } else {
+                viewer.componentPadding = `${paddings[0]} ${paddings[1]} ${paddings[2]} ${paddings[3]}`;
+            }
 
-            if (exampleViewer.contrastToggle)
-                view.body.style.filter = 'brightness(50%)';
+            if (viewer.contrastToggle) {
+                thisComponent.body.style.filter = 'brightness(50%)';
+            }
 
             ev.browserEvent.stopPropagation();
-        }).whenMouseOut(() => {
-            if (exampleViewer.contrastToggle)
-                view.body.style.filter = 'brightness(100%)';
+        }).whenMouseOut(ev => {
+            const thisComponent = ev.view;
+            if (viewer.contrastToggle) {
+                thisComponent.body.style.filter = 'brightness(100%)';
+            }
         });
 
         view.forChild(child => {
-            this.enableHover(child, exampleViewer);
+            this.enableHover(child, viewer);
         });
     }
 
     static dimensionSub(axis: 'width' | 'height'): VStack {
         return new VStack(
             new TextView('•').id(`component-${axis}`).font('lg'),
-            new TextView(axis == 'width' ? 'Width' : 'Height')
+            new TextView(axis === 'width' ? 'Width' : 'Height')
                 .font('sm')
                 .foreground(HColor('gray')),
         );
