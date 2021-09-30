@@ -1,27 +1,43 @@
 export type HISizingValue = string | number;
-export type HISizeBounds =
-    | HISizingValue
-    | {
-          min?: HISizingValue;
-          max?: HISizingValue;
-          default?: HISizingValue;
-      };
-export type HIEdgeSizingValue =
-    | HISizingValue
-    | {
-          top?: HISizingValue;
-          right?: HISizingValue;
-          bottom?: HISizingValue;
-          left?: HISizingValue;
-      };
-export type HICornerSizingValue =
-    | HISizingValue
-    | {
-          top?: { left?: HISizingValue; right?: HISizingValue };
-          bottom?: { left?: HISizingValue; right?: HISizingValue };
-      };
+
+export type HISizeBoundsObject = {
+    min?: HISizingValue;
+    max?: HISizingValue;
+    default?: HISizingValue;
+};
+
+export type HIEdgeSizingObject = {
+    top?: HISizingValue;
+    right?: HISizingValue;
+    bottom?: HISizingValue;
+    left?: HISizingValue;
+};
+
+export type HICornerSizingObject = {
+    top?: { left?: HISizingValue; right?: HISizingValue };
+    bottom?: { left?: HISizingValue; right?: HISizingValue };
+};
+
+export type HISizeBounds = HISizingValue | HISizeBoundsObject;
+
+export type HIEdgeSizingValue = HISizingValue | HIEdgeSizingObject;
+
+export type HICornerSizingValue = HISizingValue | HICornerSizingObject;
 
 export type HISizingName = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+
+/**
+ * Standardizes an `HISizingValue` to a CSS-valid measurement.
+ * If a nubmer is provided, then default units are `px`.
+ *
+ * @export
+ * @param {HISizingValue} size The size to standardize.
+ * @returns {string} The CS-valid measurement for the sizing value.
+ */
+export function sizing(size: HISizingValue): string {
+    if (typeof size === 'number') return `${size}px`;
+    return size;
+}
 
 export const SizingValues = {
     BORDER_RADIUS: {
@@ -56,19 +72,6 @@ export const SizingValues = {
 };
 
 /**
- * Standardizes an `HISizingValue` to a CSS-valid measurement.
- * If a nubmer is provided, then default units are `px`.
- *
- * @export
- * @param {HISizingValue} size The size to standardize.
- * @returns {string} The CS-valid measurement for the sizing value.
- */
-export function sizing(size: HISizingValue): string {
-    if (typeof size == 'number') return `${size}px`;
-    return size;
-}
-
-/**
  * Standardizes an `HIEdgeSizingValue` to a map of CSS-valid measurements
  * for top, bottom, left, and right. If a map of `HISizingValues` are provided
  * and is missing values for `top`, `right`, `bottom`, or `left`, then that
@@ -92,26 +95,26 @@ export function edgeSizing(size: HIEdgeSizingValue): {
     bottom?: HISizingValue;
     left?: HISizingValue;
 } {
-    if (typeof size == 'string' || typeof size == 'number')
+    if (typeof size === 'string' || typeof size === 'number') {
         return {
             top: sizing(size),
             right: sizing(size),
             bottom: sizing(size),
             left: sizing(size),
         };
-    else {
-        const obj: {
-            top?: HISizingValue;
-            right?: HISizingValue;
-            bottom?: HISizingValue;
-            left?: HISizingValue;
-        } = {};
-
-        if (size.top) obj.top = sizing(size.top);
-        if (size.right) obj.right = sizing(size.right);
-        if (size.bottom) obj.bottom = sizing(size.bottom);
-        if (size.left) obj.left = sizing(size.left);
-
-        return obj;
     }
+
+    const obj: {
+        top?: HISizingValue;
+        right?: HISizingValue;
+        bottom?: HISizingValue;
+        left?: HISizingValue;
+    } = {};
+
+    if (size.top) obj.top = sizing(size.top);
+    if (size.right) obj.right = sizing(size.right);
+    if (size.bottom) obj.bottom = sizing(size.bottom);
+    if (size.left) obj.left = sizing(size.left);
+
+    return obj;
 }
