@@ -35,7 +35,8 @@ export default abstract class BaseBodyStyler {
     /**
      * Assigns the background color of a View
      *
-     * @param {(RGBAModel | 'none')} color The RGB color of the image, or 'none' for a transparent background.
+     * @param {(RGBAModel | 'none')} color The RGB color of the image, or
+     * 'none' for a transparent background.
      * @returns {this}
      *
      * @memberOf View
@@ -76,7 +77,8 @@ export default abstract class BaseBodyStyler {
     }
 
     /**
-     * Fixes a View in place. Scroll events will not affect the physical location of the View relative to the top-left corner of the window.
+     * Fixes a View in place. Scroll events will not affect the physical location of
+     * the View relative to the top-left corner of the window.
      * For titlebars (and similar), a z-index should also be assigned to the View.
      *
      * @returns {this}
@@ -91,7 +93,8 @@ export default abstract class BaseBodyStyler {
     /**
      * Add font details to a View.
      *
-     * @param {(string | number | HIFont | HISizingName)} fontClass The font data to provide to View's styling.
+     * @param {(string | number | HIFont | HISizingName)} fontClass The font data to
+     * provide to View's styling.
      * If a sizing value is provided ("xxs" to "xxl") then the sizing value is used.
      * All other strings are assigned to the styles font property (ex: "Arial" or "15px Arial")
      * @returns {this}
@@ -100,25 +103,30 @@ export default abstract class BaseBodyStyler {
      */
     font(fontClass: string | number | HIFont | HISizingName): this {
         if (
-            typeof fontClass == 'string' &&
+            typeof fontClass === 'string' &&
             Object.prototype.hasOwnProperty.call(SizingValues.FONT, fontClass)
         ) {
             this.body.style.fontSize =
                 SizingValues.FONT[fontClass as HISizingName];
-        } else if (typeof fontClass == 'string') {
+        } else if (typeof fontClass === 'string') {
             this.body.style.font = fontClass;
-        } else if (typeof fontClass == 'number')
+        } else if (typeof fontClass === 'number') {
             this.body.style.fontSize = sizing(fontClass);
-        else if (typeof fontClass == 'object') {
-            if (Object.prototype.hasOwnProperty.call(fontClass, 'family'))
+        } else if (typeof fontClass === 'object') {
+            if (Object.prototype.hasOwnProperty.call(fontClass, 'family')) {
                 this.body.style.fontFamily = fontClass.family!;
+            }
+
             if (
                 Object.prototype.hasOwnProperty.call(fontClass, 'size') &&
                 ['number', 'string'].indexOf(typeof fontClass.size) >= 0
-            )
+            ) {
                 this.body.style.fontSize = sizing(fontClass.size!);
-            if (Object.prototype.hasOwnProperty.call(fontClass, 'color'))
+            }
+
+            if (Object.prototype.hasOwnProperty.call(fontClass, 'color')) {
                 this.foreground(fontClass.color!);
+            }
         }
         return this;
     }
@@ -221,7 +229,7 @@ export default abstract class BaseBodyStyler {
      */
     public resizable(axis?: 'h' | 'v' | 'both' | 'none'): this {
         if (!axis) this.body.style.resize = 'both';
-        else
+        else {
             switch (axis) {
                 case 'h':
                     this.body.style.resize = 'horizontal';
@@ -232,6 +240,7 @@ export default abstract class BaseBodyStyler {
                 default:
                     this.body.style.resize = axis;
             }
+        }
         return this;
     }
 
@@ -261,10 +270,12 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     border(options: HIBorderProperties): this {
-        if (options.size != undefined)
+        if (options.size !== undefined) {
             this.body.style.borderWidth = sizing(options.size);
-        if (options.color)
+        }
+        if (options.color) {
             this.body.style.borderColor = options.color.toString();
+        }
         if (options.style) this.body.style.borderStyle = options.style;
 
         return this;
@@ -280,10 +291,14 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     borderTop(options: HIBorderProperties): this {
-        if (options.size != undefined)
+        if (options.size !== undefined) {
             this.body.style.borderTopWidth = sizing(options.size);
-        if (options.color)
+        }
+
+        if (options.color) {
             this.body.style.borderTopColor = options.color.toString();
+        }
+
         if (options.style) this.body.style.borderTopStyle = options.style;
 
         return this;
@@ -299,10 +314,14 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     borderRight(options: HIBorderProperties): this {
-        if (options.size != undefined)
+        if (options.size !== undefined) {
             this.body.style.borderRightWidth = sizing(options.size);
-        if (options.color)
+        }
+
+        if (options.color) {
             this.body.style.borderRightColor = options.color.toString();
+        }
+
         if (options.style) this.body.style.borderRightStyle = options.style;
 
         return this;
@@ -318,10 +337,14 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     borderBottom(options: HIBorderProperties): this {
-        if (options.size != undefined)
+        if (options.size !== undefined) {
             this.body.style.borderBottomWidth = sizing(options.size);
-        if (options.color)
+        }
+
+        if (options.color) {
             this.body.style.borderBottomColor = options.color.toString();
+        }
+
         if (options.style) this.body.style.borderBottomStyle = options.style;
 
         return this;
@@ -337,10 +360,14 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     borderLeft(options: HIBorderProperties): this {
-        if (options.size != undefined)
+        if (options.size !== undefined) {
             this.body.style.borderLeftWidth = sizing(options.size);
-        if (options.color)
+        }
+
+        if (options.color) {
             this.body.style.borderLeftColor = options.color.toString();
+        }
+
         if (options.style) this.body.style.borderLeftStyle = options.style;
 
         return this;
@@ -358,16 +385,24 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     padding(amount?: HIEdgeSizingValue): this {
-        if (amount != undefined) {
+        if (amount !== undefined) {
             const mapping = edgeSizing(amount);
+
             if (mapping.top) this.body.style.paddingTop = sizing(mapping.top);
-            if (mapping.right)
+
+            if (mapping.right) {
                 this.body.style.paddingRight = sizing(mapping.right);
-            if (mapping.bottom)
+            }
+
+            if (mapping.bottom) {
                 this.body.style.paddingBottom = sizing(mapping.bottom);
-            if (mapping.left)
+            }
+
+            if (mapping.left) {
                 this.body.style.paddingLeft = sizing(mapping.left);
+            }
         } else this.body.style.padding = '10px';
+
         return this;
     }
 
@@ -384,16 +419,24 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     margin(amount?: HIEdgeSizingValue): this {
-        if (amount != undefined) {
+        if (amount !== undefined) {
             const mapping = edgeSizing(amount);
-            if (mapping.top != undefined)
+
+            if (mapping.top !== undefined) {
                 this.body.style.marginTop = sizing(mapping.top);
-            if (mapping.right != undefined)
+            }
+
+            if (mapping.right !== undefined) {
                 this.body.style.marginRight = sizing(mapping.right);
-            if (mapping.bottom != undefined)
+            }
+
+            if (mapping.bottom !== undefined) {
                 this.body.style.marginBottom = sizing(mapping.bottom);
-            if (mapping.left != undefined)
+            }
+
+            if (mapping.left !== undefined) {
                 this.body.style.marginLeft = sizing(mapping.left);
+            }
         } else this.body.style.margin = '10px';
         return this;
     }
@@ -412,29 +455,33 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     rounded(amount?: HICornerSizingValue): this {
-        if (amount != undefined) {
-            if (typeof amount === 'string' || typeof amount === 'number')
+        if (amount !== undefined) {
+            if (typeof amount === 'string' || typeof amount === 'number') {
                 this.body.style.borderRadius = sizing(amount);
-            else {
+            } else {
                 if (amount.top) {
-                    if (amount.top.left != undefined)
+                    if (amount.top.left !== undefined) {
                         this.body.style.borderTopLeftRadius = sizing(
                             amount.top.left,
                         );
-                    if (amount.top.right != undefined)
+                    }
+                    if (amount.top.right !== undefined) {
                         this.body.style.borderTopRightRadius = sizing(
                             amount.top.right,
                         );
+                    }
                 }
                 if (amount.bottom) {
-                    if (amount.bottom.left != undefined)
+                    if (amount.bottom.left !== undefined) {
                         this.body.style.borderBottomLeftRadius = sizing(
                             amount.bottom.left,
                         );
-                    if (amount.bottom.right != undefined)
+                    }
+                    if (amount.bottom.right !== undefined) {
                         this.body.style.borderBottomRightRadius = sizing(
                             amount.bottom.right,
                         );
+                    }
                 }
             }
         } else this.body.style.borderRadius = '10px';
@@ -453,15 +500,18 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     width(frameWidth: HISizeBounds): this {
-        if (typeof frameWidth == 'string' || typeof frameWidth == 'number')
+        if (typeof frameWidth === 'string' || typeof frameWidth === 'number') {
             this.body.style.width = sizing(frameWidth);
-        else {
-            if (frameWidth.min)
+        } else {
+            if (frameWidth.min) {
                 this.body.style.minWidth = sizing(frameWidth.min);
-            if (frameWidth.max)
+            }
+            if (frameWidth.max) {
                 this.body.style.maxWidth = sizing(frameWidth.max);
-            if (frameWidth.default)
+            }
+            if (frameWidth.default) {
                 this.body.style.width = sizing(frameWidth.default);
+            }
         }
 
         return this;
@@ -478,15 +528,23 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     height(frameHeight: HISizeBounds): this {
-        if (typeof frameHeight == 'string' || typeof frameHeight == 'number')
+        if (
+            typeof frameHeight === 'string' ||
+            typeof frameHeight === 'number'
+        ) {
             this.body.style.height = sizing(frameHeight);
-        else {
-            if (frameHeight.min)
+        } else {
+            if (frameHeight.min) {
                 this.body.style.minHeight = sizing(frameHeight.min);
-            if (frameHeight.max)
+            }
+
+            if (frameHeight.max) {
                 this.body.style.maxHeight = sizing(frameHeight.max);
-            if (frameHeight.default)
+            }
+
+            if (frameHeight.default) {
                 this.body.style.height = sizing(frameHeight.default);
+            }
         }
 
         return this;
