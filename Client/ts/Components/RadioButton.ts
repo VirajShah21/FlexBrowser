@@ -1,34 +1,28 @@
-import { StateObject } from '@Hi/Types/states';
 import View from '@Hi/View';
 import { HumanEvent } from '@Hi/ViewController';
 
 export default class RadioButton extends View {
-    public readonly state = StateObject({ selected: false }, () => {
-        this.body.setAttribute(
-            'name',
-            this.state.selected ? 'radio-button-on' : 'radio-button-off'
-        );
-    });
+    private selectedFlag = false;
 
     constructor() {
         super('ion-icon');
         this.body.setAttribute('name', 'radio-button-off');
         this.body.addEventListener('click', () => {
-            this.state.selected = !this.state.selected;
+            this.selected = !this.selected;
         });
     }
 
     setSelected(value: boolean): this {
-        this.state.selected = value;
+        this.selected = value;
         return this;
     }
 
     isSelected(): boolean {
-        return this.state.selected;
+        return this.selected;
     }
 
     toggle(): this {
-        this.state.selected = !this.state.selected;
+        this.selected = !this.selected;
         return this;
     }
 
@@ -41,5 +35,13 @@ export default class RadioButton extends View {
             });
         });
         return this;
+    }
+
+    public get selected(): boolean {
+        return this.selectedFlag;
+    }
+
+    public set selected(value: boolean) {
+        this.selectedFlag = value;
     }
 }
