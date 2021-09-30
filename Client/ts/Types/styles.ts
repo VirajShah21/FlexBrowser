@@ -1,4 +1,4 @@
-import { RGBAModel } from '../Colors';
+import RGBAModel from '../RGBAModel';
 import { HISizingValue } from './sizing';
 
 export type HIBorderProperties = {

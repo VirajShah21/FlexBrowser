@@ -1,4 +1,5 @@
-import { HColor, HumanColorName, RGBAModel } from '@Hi/Colors';
+import { HColor, HumanColorName } from '@Hi/Colors';
+import RGBAModel from '@Hi/RGBAModel';
 
 /**
  * The preferences manager for Flex Browser.

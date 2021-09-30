@@ -1,5 +1,5 @@
-import { HIFont, HIBorderProperties } from '@Hi/Types/styles';
-import { RGBAModel } from './Colors';
+import { HIBorderProperties, HIFont } from '@Hi/Types/styles';
+import RGBAModel from './RGBAModel';
 import {
     edgeSizing,
     HICornerSizingValue,

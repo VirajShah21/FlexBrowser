@@ -1,4 +1,4 @@
-import { RGBAModel } from '@Hi/Colors';
+import RGBAModel from '@Hi/RGBAModel';
 import { HISizingValue, sizing } from '@Hi/Types/sizing';
 
 type TransitionStyleKey = 'background' | 'foreground' | 'opacity';
