@@ -25,9 +25,9 @@ export default class AlertOverlay extends Overlay {
                         .whenClicked(() => {
                             this.destroy();
                         })
-                        .addClass('hi-alert-overlay-confirm-button')
-                ).padding()
-            ).stretch()
+                        .addClass('hi-alert-overlay-confirm-button'),
+                ).padding(),
+            ).stretch(),
         );
         this.body.style.display = 'flex';
         this.width('100vw')
@@ -42,7 +42,7 @@ export default class AlertOverlay extends Overlay {
     whenConfirmed(callback: () => void): this {
         (
             this.getViewsByClass(
-                'hi-alert-overlay-confirm-button'
+                'hi-alert-overlay-confirm-button',
             )[0] as ClickButton
         ).whenClicked(callback);
         return this;
@@ -51,7 +51,7 @@ export default class AlertOverlay extends Overlay {
     whenCancelled(callback: () => void): this {
         (
             this.getViewsByClass(
-                'hi-alert-overlay-cancel-button'
+                'hi-alert-overlay-cancel-button',
             )[0] as ClickButton
         ).whenClicked(callback);
         return this;
