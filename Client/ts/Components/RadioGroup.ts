@@ -8,14 +8,17 @@ export default class RadioGroup {
         this.radios.forEach(radio => {
             radio.whenClicked(() => {
                 this.radios.forEach(otherRadio => {
-                    if (otherRadio != radio) otherRadio.setSelected(false);
+                    if (otherRadio !== radio) otherRadio.setSelected(false);
                 });
             });
         });
     }
 
     getSelected(): RadioButton | null {
-        for (const radio of this.radios) if (radio.isSelected()) return radio;
+        for (let i = 0; i < this.radios.length; i += 1) {
+            const curr = this.radios[i];
+            if (curr !== undefined) if (curr.isSelected()) return curr;
+        }
         return null;
     }
 }
