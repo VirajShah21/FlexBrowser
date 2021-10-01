@@ -28,8 +28,8 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
     it('Should navigate the controller back from the Bookmarks Viewer', () => {
         controller.navigateTo('bookmarks');
         expect(controller.visibleScreen).to.equal('bookmarks');
-        const windowsScreen = controller.screens.bookmarks;
-        const button = windowsScreen.getViewById('back-btn');
+        const bookmarksViewer = controller.screens.bookmarks;
+        const button = bookmarksViewer.getViewById('back-btn');
         (button.body as unknown as HTMLElementMock).mockClick();
         expect(controller.visibleScreen).to.equal('hub');
     });
@@ -37,8 +37,8 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
     it('Should navigate the controller back from the Preferences Viewer', () => {
         controller.navigateTo('preferences');
         expect(controller.visibleScreen).to.equal('preferences');
-        const windowsScreen = controller.screens.preferences;
-        const button = windowsScreen.getViewById('back-btn');
+        const preferencesViewer = controller.screens.preferences;
+        const button = preferencesViewer.getViewById('back-btn');
         (button.body as unknown as HTMLElementMock).mockClick();
         expect(controller.visibleScreen).to.equal('hub');
     });
