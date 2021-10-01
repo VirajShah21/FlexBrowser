@@ -126,10 +126,11 @@ export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
         return model;
     }
 
-    const height = (canvas.height =
-        imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height);
-    const width = (canvas.width =
-        imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width);
+    const height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
+    const width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
+
+    canvas.height = height;
+    canvas.width = width;
 
     context.drawImage(imgEl, 0, 0);
 
@@ -142,17 +143,17 @@ export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
 
     const { length } = data.data;
 
-    while ((i += blockSize * 4) < length) {
-        ++count;
+    while (i + blockSize * 4 < length) {
+        i += blockSize * 4;
+        count += 1;
         model.r += data.data[i]!;
         model.g += data.data[i + 1]!;
         model.b += data.data[i + 2]!;
     }
 
-    // ~~ used to floor values
-    model.r = ~~(model.r / count);
-    model.g = ~~(model.g / count);
-    model.b = ~~(model.b / count);
+    model.r = Math.floor(model.r / count);
+    model.g = Math.floor(model.g / count);
+    model.b = Math.floor(model.b / count);
 
     return model;
 }

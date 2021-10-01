@@ -1,4 +1,3 @@
-import { HColor } from '@Hi/Colors';
 import InputField from './InputField';
 
 export default class TextField extends InputField {
