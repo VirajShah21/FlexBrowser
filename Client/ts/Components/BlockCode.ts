@@ -1,8 +1,8 @@
-import { StateObject } from '@Hi/Types/states';
 import View from '@Hi/View';
 
 export default class BlockCode extends View {
     public override body: HTMLPreElement;
+
     private code: string;
 
     constructor(text: string) {

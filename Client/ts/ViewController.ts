@@ -165,9 +165,7 @@ export class ViewController {
      * @memberOf ViewController
      */
     signal(data: string): void {
-        for (const screen in this.screens) {
-            (this.screens[screen] as View).signal(data);
-        }
+        Object.values(this.screens).forEach(screen => screen.signal(data));
     }
 
     /**
@@ -212,9 +210,9 @@ export class ViewController {
     static allScreens(): Record<string, View> {
         const screens: Record<string, View> = {};
         ViewControllerData.controllers.forEach(controller => {
-            for (const screen in controller.screens) {
-                screens[screen] = controller.screens[screen] as View;
-            }
+            Object.keys(controller.screens).forEach(screenName => {
+                screens[screenName] = controller.screens[screenName]!;
+            });
         });
         return screens;
     }

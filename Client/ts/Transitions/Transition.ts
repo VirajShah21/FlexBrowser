@@ -37,10 +37,39 @@ function generateKeyframeName(): string {
         .join('')}`;
 }
 
+function generateCSSProperty(property: string, value: unknown): string {
+    switch (property) {
+        case 'background':
+            return `background: ${(value as RGBAModel).toString()}`;
+        case 'foreground':
+            return `color: ${(value as RGBAModel).toString()}`;
+        case 'opacity':
+            return `opacity: ${value}`;
+        case 'height':
+            return `height: ${sizing(value as HISizingValue)}`;
+        case 'width':
+            return `width: ${sizing(value as HISizingValue)}`;
+        default:
+            return '';
+    }
+}
+
+function generateCSSProperties(properties: TransitionStyle): string {
+    let out = '';
+    Object.keys(properties).forEach(property => {
+        out += `${generateCSSProperty(
+            property,
+            properties[property as TransitionStyleKey],
+        )};`;
+    });
+
+    return out;
+}
+
 function generateKeyframeCSS(transition: Transition): string {
     let out = '';
 
-    for (let key in transition) {
+    Object.keys(transition).forEach(key => {
         if (
             ['iterations', 'duration', 'delay', 'direction', 'after'].indexOf(
                 key,
@@ -50,7 +79,8 @@ function generateKeyframeCSS(transition: Transition): string {
                 transition[key as TransitionFrameKey] as TransitionStyle,
             )} }`;
         }
-    }
+    });
+
     return out;
 }
 
@@ -69,31 +99,4 @@ export function defineTransition(transition: Transition): string {
 
 export function getTransitionDefintion(name: string): Transition | null {
     return definedTransitions[name] || null;
-}
-
-function generateCSSProperties(properties: TransitionStyle): string {
-    let out = '';
-    for (let property in properties)
-        out += `${generateCSSProperty(
-            property,
-            properties[property as TransitionStyleKey],
-        )};`;
-    return out;
-}
-
-function generateCSSProperty(property: string, value: unknown): string {
-    switch (property) {
-        case 'background':
-            return `background: ${(value as RGBAModel).toString()}`;
-        case 'foreground':
-            return `color: ${(value as RGBAModel).toString()}`;
-        case 'opacity':
-            return `opacity: ${value}`;
-        case 'height':
-            return `height: ${sizing(value as HISizingValue)}`;
-        case 'width':
-            return `width: ${sizing(value as HISizingValue)}`;
-        default:
-            return '';
-    }
 }

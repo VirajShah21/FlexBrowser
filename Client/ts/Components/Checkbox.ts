@@ -3,6 +3,7 @@ import { HumanEvent } from '@Hi/ViewController';
 
 export default class Checkbox extends View {
     private checkedFlag: boolean;
+
     private icons: {
         checked: string;
         unchecked: string;

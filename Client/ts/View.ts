@@ -371,12 +371,8 @@ export default abstract class View extends BaseBodyStyler {
      *
      * @memberOf View
      */
-    handle(data: string, ...args: unknown[]): void {
-        if (data === '') {
-            console.warn('Caught an empty signal');
-            console.trace();
-        }
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
+    handle(data: string, ...args: unknown[]): void {}
 
     /**
      * Starts a transition on this View. A transition is defined by calling
