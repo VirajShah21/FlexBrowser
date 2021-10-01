@@ -13,7 +13,9 @@ export const ViewControllerData = {
  */
 export class ViewController {
     public screens: Record<string, View>;
+
     public binding: HTMLElement;
+
     public visibleScreen: string;
 
     constructor(screens: Record<string, View>) {
@@ -35,14 +37,16 @@ export class ViewController {
      * @memberOf ViewController
      */
     navigateTo(name = 'main', delay = 0): this {
-        if (typeof name != 'string')
+        if (typeof name !== 'string') {
             throw new Error(
                 `ViewController.navigateTo: Parameter name (1) should be of type string, instead got ${typeof name}`,
             );
-        if (!Object.prototype.hasOwnProperty.call(this.screens, name))
+        }
+        if (!Object.prototype.hasOwnProperty.call(this.screens, name)) {
             throw new Error(
                 `ViewController.navigateTo: ViewController does not have a screen named ${name}`,
             );
+        }
 
         const screen = this.screens[name];
 
@@ -50,10 +54,11 @@ export class ViewController {
             this.binding.innerHTML = '';
 
             if (screen) this.binding.appendChild(screen.body);
-            else
+            else {
                 this.binding.append(
                     `Error: No such screen "${name}" on this ViewController"`,
                 );
+            }
         }, delay);
 
         this.screens[this.visibleScreen]?.signal('hi:buildout');
@@ -73,18 +78,20 @@ export class ViewController {
      * @memberOf ViewController
      */
     addNavigator(name: string, screen: View): this {
-        if (typeof name != 'string')
+        if (typeof name !== 'string') {
             throw new Error(
                 `ViewController.addNavigator: Parameter name (1) should be of type string, instead got ${typeof name}`,
             );
-        if (!(screen instanceof View))
+        }
+        if (!(screen instanceof View)) {
             throw new Error(
                 `ViewController.addNavigator: Parameter screen (2) should be of type View, instead got ${typeof screen}.\nValue: ${
-                    typeof screen == 'object'
+                    typeof screen === 'object'
                         ? JSON.stringify(screen, null, 4)
                         : screen
                 }`,
             );
+        }
         this.screens[name] = screen;
         return this;
     }
@@ -139,7 +146,8 @@ export class ViewController {
      *
      * @static
      * @param {string} controllerName The name of the controller to query.
-     * @returns {(ViewController | undefined)} The requested ViewController. If a controller with the name is not specified, then this method will return undefined.
+     * @returns {(ViewController | undefined)} The requested ViewController.
+     * If a controller with the name is not specified, then this method will return undefined.
      *
      * @memberOf ViewController
      */
@@ -157,39 +165,39 @@ export class ViewController {
      * @memberOf ViewController
      */
     signal(data: string): void {
-        for (const screen in this.screens)
-            (this.screens[screen] as View).signal(data);
+        Object.values(this.screens).forEach(screen => screen.signal(data));
     }
 
     /**
-     * Automatically navigates to the first found screen with the specified name on any ViewController.
+     * Automatically navigates to the first found screen with the specified
+     * name on any ViewController.
      *
      * @static
      * @param {string} [name='main'] The screen name to navigate to.
      * @param {string} [delay=0] The amount of time to wait before switching
      * the View. This is especially helpful when using build out transitions.
      * The units are in milliseconds (1000 ms = 1 s). Default value is 0.
-     * @returns {(ViewController | null)} The requested ViewController. If no controller is found, then null is returned.
+     * @returns {(ViewController | null)} The requested ViewController. If no
+     * controller is found, then null is returned.
      *
      * @memberOf ViewController
      */
     static navigateTo(name = 'main', delay = 0): ViewController | null {
         const controller = ViewControllerData.controllers.find(
-            currentController => {
-                return Object.prototype.hasOwnProperty.call(
+            currentController =>
+                Object.prototype.hasOwnProperty.call(
                     currentController.screens,
                     name,
-                );
-            },
+                ),
         );
         if (controller) {
             controller.navigateTo(name, delay);
             controller.visibleScreen = name;
             return controller;
-        } else {
-            console.warn(`Could not navigate to ${name}`);
-            return null;
         }
+        // eslint-disable-next-line no-console
+        console.warn(`Could not navigate to ${name}`);
+        return null;
     }
 
     /**
@@ -203,9 +211,9 @@ export class ViewController {
     static allScreens(): Record<string, View> {
         const screens: Record<string, View> = {};
         ViewControllerData.controllers.forEach(controller => {
-            for (const screen in controller.screens) {
-                screens[screen] = controller.screens[screen] as View;
-            }
+            Object.keys(controller.screens).forEach(screenName => {
+                screens[screenName] = controller.screens[screenName]!;
+            });
         });
         return screens;
     }

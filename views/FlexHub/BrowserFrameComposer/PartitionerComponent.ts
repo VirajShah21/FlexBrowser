@@ -2,15 +2,13 @@ import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import { StateObject } from '@Hi/Types/states';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from '@UI/BrowserPreferences';
 import { BrowserFramePartition } from '@UI/Models/BrowserFrameModel';
 import PartitionComponentOrganizer from './PartitionComponentOrganizer';
-import PartitionEditor from './PartitionEditor';
 
 export default class PartitionerComponent extends VStack {
-    public partitions: BrowserFramePartition[];
+    private partitions: BrowserFramePartition[];
 
     constructor() {
         super(
@@ -37,13 +35,15 @@ export default class PartitionerComponent extends VStack {
 
         this.describe('Partioner').padding().width('100%');
 
-        this.partitions = StateObject([], p => {
-            const i = parseInt(p!, 10);
-            if (i === this.partitions.length - 1) {
-                this.getViewById('partitions')?.addChildren(
-                    new PartitionEditor(i + 1),
-                );
-            }
-        });
+        this.partitions = [];
+
+        // this.partitions = StateObject([], p => {
+        //     const i = parseInt(p!, 10);
+        //     if (i === this.partitions.length - 1) {
+        //         this.getViewById('partitions')?.addChildren(
+        //             new PartitionEditor(i + 1),
+        //         );
+        //     }
+        // });
     }
 }

@@ -1,6 +1,6 @@
 import BaseBodyStyler from './BaseBodyStyler';
 import { getTransitionDefintion } from './Transitions/Transition';
-import { StateObject, StateProxy } from './Types/states';
+import ViewCollection from './ViewCollection';
 import { HumanEvent } from './ViewController';
 
 interface ModelData {
@@ -33,22 +33,23 @@ export enum PStatus {
  */
 export default abstract class View extends BaseBodyStyler {
     public override body: HTMLElement;
+
     public parent?: View;
+
     public description?: string;
+
     public identifier: string;
+
     public pstatus: PStatus = PStatus.Visible;
 
-    public readonly children: StateProxy<View[]>;
-    protected readonly $children: View[] = [];
+    public readonly children: ViewCollection;
 
     constructor(element: string, ...children: View[]) {
         super(document.createElement(element));
+        this.children = [];
         this.addClass('hi-view');
-        this.children = StateObject(this.$children, () => {
-            this.buildChildren();
-        });
         children.forEach(child => {
-            this.$children.push(child);
+            this.children.push(child);
         });
         this.buildChildren();
     }
@@ -60,15 +61,17 @@ export default abstract class View extends BaseBodyStyler {
      * @returns An array of Views with a matching classname.
      */
     getViewsByClass(className: string): View[] {
-        const results = [];
-        if (this.$children) {
-            for (const child of this.$children) {
-                if (child.getClassList().indexOf(className) >= 0)
+        const results: View[] = [];
+        if (this.children) {
+            this.children.forEach(child => {
+                if (child.getClassList().indexOf(className) >= 0) {
                     results.push(child);
+                }
+
                 child.getViewsByClass(className).forEach(view => {
                     results.push(view);
                 });
-            }
+            });
         }
         return results;
     }
@@ -82,10 +85,13 @@ export default abstract class View extends BaseBodyStyler {
      * @memberOf View
      */
     getViewById(id: string): View | null {
-        for (const child of this.$children) {
-            if (child.identifier == id) return child;
-            const childResult = child.getViewById(id);
-            if (childResult) return childResult;
+        for (let i = 0; i < this.children.length; i += 1) {
+            if (Object.prototype.hasOwnProperty.call(this.children, i)) {
+                const child = this.children[i]!;
+                if (child.identifier === id) return child;
+                const childResult = child.getViewById(id);
+                if (childResult) return childResult;
+            }
         }
         return null;
     }
@@ -105,12 +111,13 @@ export default abstract class View extends BaseBodyStyler {
             }.${this.getClassList().join('.')}`,
             id: this.body.id,
             classList: this.getClassList(),
-            children: this.$children.map(child => child.getModelData()),
+            children: this.children.map(child => child.getModelData()),
         };
     }
 
     /**
-     * Describes a View. The description is not displayed, but rather used internally or to store data.
+     * Describes a View. The description is not displayed, but rather used
+     * internally or to store data.
      *
      * @param {string} description The description of to assign to this View.
      * @returns {this}
@@ -130,8 +137,9 @@ export default abstract class View extends BaseBodyStyler {
      */
     destroy(): void {
         // Remove from parent
-        if (this.parent && this.parent.$children)
-            this.parent.$children.splice(this.parent.children.indexOf(this), 1);
+        if (this.parent && this.parent.children) {
+            this.parent.children.splice(this.parent.children.indexOf(this), 1);
+        }
         this.body.remove();
 
         // Clear all instance variables
@@ -176,21 +184,22 @@ export default abstract class View extends BaseBodyStyler {
      */
     getClassList(): string[] {
         const classString = this.body.className;
-        return classString.split(' ').filter(className => {
-            return className.trim() != '';
-        });
+        return classString
+            .split(' ')
+            .filter(className => className.trim() !== '');
     }
 
     /**
      * Applies a function for each child of a parent view.
      *
-     * @param {(child: View) => void} iteratee The function to run, passing the child view as a parameter.
+     * @param {(child: View) => void} iteratee The function to run, passing the
+     * child view as a parameter.
      * @returns {this}
      *
      * @memberOf View
      */
     forChild(iteratee: (child: View) => void): this {
-        for (const child of this.$children) iteratee(child);
+        this.children.forEach(child => iteratee(child));
         return this;
     }
 
@@ -204,8 +213,9 @@ export default abstract class View extends BaseBodyStyler {
      */
     removeClass(classname: string): this {
         const classes = this.getClassList() as string[];
-        if (classes.indexOf(classname) >= 0)
+        if (classes.indexOf(classname) >= 0) {
             classes.splice(classes.indexOf(classname), 1);
+        }
         this.body.className = classes.join(' ');
         return this;
     }
@@ -218,7 +228,7 @@ export default abstract class View extends BaseBodyStyler {
      * @memberOf View
      */
     removeAllChildren(): this {
-        this.$children.splice(0, this.children.length);
+        this.children.splice(0, this.children.length);
         return this.buildChildren();
     }
 
@@ -231,9 +241,10 @@ export default abstract class View extends BaseBodyStyler {
      */
     buildChildren(): this {
         this.body.innerHTML = '';
-        this.$children.forEach(child => {
-            if (child && child.pstatus == PStatus.Visible) {
-                child.parent = this;
+        this.children.forEach(child => {
+            const childPointer = child;
+            if (child && child.pstatus === PStatus.Visible) {
+                childPointer.parent = this;
                 this.body.appendChild(child.body);
             }
         });
@@ -255,14 +266,14 @@ export default abstract class View extends BaseBodyStyler {
     root(stopAtView?: (view: View) => boolean): View {
         let root: View = this.parent as View;
 
-        if (root == undefined) return this;
+        if (root === undefined) return this;
 
         if (stopAtView) {
-            while (root.parent != undefined) {
+            while (root.parent !== undefined) {
                 if (stopAtView(root)) return root;
-                else root = root.parent;
+                root = root.parent;
             }
-        } else while (root.parent != undefined) root = root.parent;
+        } else while (root.parent !== undefined) root = root.parent;
 
         return root;
     }
@@ -348,7 +359,7 @@ export default abstract class View extends BaseBodyStyler {
      */
     signal(data: string, ...args: unknown[]): void {
         this.handle(data, ...args);
-        this.$children.forEach(child => child.signal(data, ...args));
+        this.children.forEach(child => child.signal(data, ...args));
     }
 
     /**
@@ -360,12 +371,8 @@ export default abstract class View extends BaseBodyStyler {
      *
      * @memberOf View
      */
-    handle(data: string, ...args: unknown[]): void {
-        if (data == '') {
-            console.warn('Caught an empty signal');
-            console.trace();
-        }
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
+    handle(data: string, ...args: unknown[]): void {}
 
     /**
      * Starts a transition on this View. A transition is defined by calling
@@ -383,15 +390,21 @@ export default abstract class View extends BaseBodyStyler {
 
             if (definition) {
                 this.body.style.animationName = transitionName;
-                this.body.style.animationIterationCount =
-                    definition.iterations + '';
-                this.body.style.animationDuration = definition.duration + 's';
-                if (definition.delay)
-                    this.body.style.animationDelay = definition.delay + 's';
-                if (definition.after)
+                this.body.style.animationIterationCount = `${definition.iterations}`;
+                this.body.style.animationDuration = `${definition.duration}s`;
+
+                if (definition.delay) {
+                    this.body.style.animationDelay = `${definition.delay}s`;
+                }
+
+                if (definition.after) {
                     this.body.style.animationFillMode = definition.after;
-                if (definition.direction)
+                }
+
+                if (definition.direction) {
                     this.body.style.animationDirection = definition.direction;
+                }
+
                 setTimeout(
                     () => resolve(this),
                     ((definition.delay || 0) +
@@ -400,7 +413,7 @@ export default abstract class View extends BaseBodyStyler {
                 );
             } else {
                 throw new Error(
-                    'Could not find transition with name: ' + transitionName,
+                    `Could not find transition with name: ${transitionName}`,
                 );
             }
         });

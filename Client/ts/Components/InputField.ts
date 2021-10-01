@@ -1,27 +1,22 @@
 import { HColor } from '@Hi/Colors';
 import { SizingValues } from '@Hi/Types/sizing';
-import { StateObject } from '@Hi/Types/states';
 import View from '@Hi/View';
 import { HumanEvent, HumanKeyPressEvent } from '@Hi/ViewController';
 
 export default class InputField extends View {
     public override body: HTMLInputElement;
 
-    public readonly model = StateObject(
-        {
-            value: '',
-            placeholder: '',
-        },
-        () => {
-            this.body.value = this.model.value; // ! Cannot use setAttribute for assigning input element's value
-            this.body.placeholder = this.model.placeholder;
-        }
-    );
+    private attributes: {
+        value: string;
+        placeholder: string;
+    };
 
     constructor(placeholder: string) {
         super('input');
-        this.model.value = '';
-        this.model.placeholder = placeholder || '';
+        this.attributes = {
+            value: '',
+            placeholder: placeholder || '',
+        };
         this.body.style.margin = '0';
         this.body.style.boxSizing = 'border-box';
         this.body.style.borderRadius = SizingValues.BORDER_RADIUS.xs;
@@ -30,7 +25,7 @@ export default class InputField extends View {
         this.body.style.padding = SizingValues.PADDING.xs;
         this.body.style.boxSizing = 'border-box';
         this.body.addEventListener('input', () => {
-            this.model.value = this.body.value;
+            this.attributes.value = this.body.value;
         });
         this.background(HColor('background'))
             .foreground(HColor('foreground'))
@@ -85,5 +80,23 @@ export default class InputField extends View {
     noOutline(): this {
         this.body.style.outline = 'none';
         return this;
+    }
+
+    public get value(): string {
+        return this.attributes.value;
+    }
+
+    public set value(newValue: string) {
+        this.attributes.value = newValue;
+        this.body.value = newValue;
+    }
+
+    public get placeholder(): string {
+        return this.attributes.placeholder;
+    }
+
+    public set placeholder(newPlaceholder: string) {
+        this.attributes.placeholder = newPlaceholder;
+        this.body.placeholder = newPlaceholder;
     }
 }

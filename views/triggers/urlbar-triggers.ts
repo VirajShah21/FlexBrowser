@@ -56,6 +56,6 @@ export function urlbarKeyPressed(ev: HumanKeyPressEvent): void {
         const browserWindow = ev.view.root(
             view => (view as FlexBrowserWindow).isBrowserWindow,
         ) as FlexBrowserWindow;
-        browserWindow.goTo((ev.view as InputField).model.value);
+        browserWindow.goTo((ev.view as InputField).value);
     }
 }

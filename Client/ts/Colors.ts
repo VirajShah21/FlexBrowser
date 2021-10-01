@@ -1,3 +1,5 @@
+import HumanColorSwatch from './HumanColorSwatch';
+import RGBAModel from './RGBAModel';
 import { ViewControllerData } from './ViewController';
 
 export type HumanColorName =
@@ -22,137 +24,11 @@ export type HumanColorName =
     | 'foreground'
     | 'background';
 
-/**
- * A wrapper class for standard red-green-blue colors.
- *
- * @export
- * @class RGBAModel
- */
-export class RGBAModel {
-    public static readonly WHITE = new RGBAModel(255, 255, 255);
-    public static readonly BLACK = new RGBAModel(0, 0, 0);
-
-    public r: number;
-    public g: number;
-    public b: number;
-    public a: number;
-
-    /**
-     * Creates an instance of RGBAModel.
-     * @param {number} r The amount of red (0 to 255).
-     * @param {number} g The amount of green (0 to 255).
-     * @param {number} b The amount of blue (0 to 255).
-     * @param {number} [a=1] The amount of alpha (0 to 1). This is also
-     * referred to as opacity.
-     *
-     * @memberOf RGBAModel
-     */
-    constructor(r: number, g: number, b: number, a = 1) {
-        if (r < 0) r = 0;
-        else if (r > 255) r = 255;
-
-        if (g < 0) g = 0;
-        else if (g > 255) g = 255;
-
-        if (b < 0) b = 0;
-        else if (b > 255) b = 255;
-
-        this.r = r;
-        this.g = g;
-        this.b = b;
-        this.a = a;
-    }
-
-    /**
-     * Change the red value of this color.
-     *
-     * @param {number} r New red value.
-     * @returns {this}
-     *
-     * @memberOf RGBAModel
-     */
-    red(r: number): this {
-        if (r < 0) r = 0;
-        else if (r > 255) r = 255;
-        this.r = r;
-        return this;
-    }
-
-    /**
-     * Change the green value of this color.
-     *
-     * @param {number} r New green value.
-     * @returns {this}
-     *
-     * @memberOf RGBAModel
-     */
-    green(g: number): this {
-        if (g < 0) g = 0;
-        else if (g > 255) g = 255;
-        this.g = g;
-        return this;
-    }
-
-    /**
-     * Change the blue value of this color.
-     *
-     * @param {number} r New blue value.
-     * @returns {this}
-     *
-     * @memberOf RGBAModel
-     */
-    blue(b: number): this {
-        if (b < 0) b = 0;
-        else if (b > 255) b = 255;
-        this.b = b % 256;
-        return this;
-    }
-
-    /**
-     * Change the alpha value of this color. This can be used to change
-     * the opacity of a background color or foreground color.
-     *
-     * @param {number} a The new alpha value (0 - 1).
-     * @returns {this}
-     *
-     * @memberOf RGBAModel
-     */
-    alpha(a: number): this {
-        this.a = a;
-        return this;
-    }
-
-    /**
-     * Converts this `RGBAModel` to a CSS-valid rgb or rgba definition.
-     *
-     * - rgb format: 'rgb($r, $g, $b)`
-     * - rgba format: 'rgba($r, $g, $b, $a)`
-     *
-     * @returns {string} If this color's alpha value is `1` (completely
-     * opaque), then only an `rgb` string is returned, otherwise an
-     * `rgba` string is returned.
-     *
-     * @memberOf RGBAModel
-     */
-    toString(): string {
-        if (this.a != 1)
-            return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
-        return `rgb(${this.r}, ${this.g}, ${this.b})`;
-    }
-
-    /**
-     * Generates a copy of an `RGBAModel`.
-     *
-     * @static
-     * @param {RGBAModel} rgba The color to copy.
-     * @returns {RGBAModel} A brand new `RGBAModel` object.
-     *
-     * @memberOf RGBAModel
-     */
-    static copy(rgba: RGBAModel): RGBAModel {
-        return new RGBAModel(rgba.r, rgba.g, rgba.b, rgba.a);
-    }
-}
+let colorTheme: 'light' | 'dark' = (() => {
+    const tmp = localStorage.getItem('hi://theme');
+    if (tmp === 'light' || tmp === 'dark') return tmp;
+    return 'light';
+})();
 
 /**
  * Converts a color name to a usable `RGBAModel` object.
@@ -162,9 +38,10 @@ export class RGBAModel {
  * @returns {RGBAModel} The `RGBAModel` for the specified color name.
  */
 export function HColor(color: HumanColorName): RGBAModel {
-    if (colorTheme === 'light')
+    if (colorTheme === 'light') {
         return RGBAModel.copy(HumanColorSwatch.light![color]!);
-    else return RGBAModel.copy(HumanColorSwatch.dark![color]!);
+    }
+    return RGBAModel.copy(HumanColorSwatch.dark![color]!);
 }
 
 /**
@@ -200,59 +77,6 @@ export function rgba(r: number, g: number, b: number, a: number): RGBAModel {
     return new RGBAModel(r, g, b, a);
 }
 
-export const HumanColorSwatch: Record<string, Record<string, RGBAModel>> = {
-    light: {
-        blue: rgb(0, 122, 255),
-        brown: rgb(162, 132, 94),
-        cyan: rgb(50, 173, 230),
-        green: rgb(52, 199, 89),
-        indigo: rgb(88, 86, 214),
-        mint: rgb(0, 199, 190),
-        orange: rgb(255, 149, 0),
-        pink: rgb(255, 45, 85),
-        purple: rgb(175, 82, 222),
-        red: rgb(255, 59, 48),
-        teal: rgb(48, 176, 199),
-        yellow: rgb(255, 204, 0),
-        gray: rgb(142, 142, 147),
-        gray2: rgb(174, 174, 178),
-        gray3: rgb(199, 199, 204),
-        gray4: rgb(209, 209, 214),
-        gray5: rgb(229, 229, 234),
-        gray6: rgb(242, 242, 247),
-        foreground: rgb(0, 0, 0),
-        background: rgb(255, 255, 255),
-    },
-    dark: {
-        blue: rgb(10, 132, 255),
-        brown: rgb(172, 142, 104),
-        cyan: rgb(100, 210, 255),
-        green: rgb(48, 209, 88),
-        indigo: rgb(94, 92, 230),
-        mint: rgb(102, 212, 207),
-        orange: rgb(255, 159, 10),
-        pink: rgb(255, 55, 95),
-        purple: rgb(191, 90, 242),
-        red: rgb(255, 69, 58),
-        teal: rgb(64, 200, 224),
-        yellow: rgb(255, 214, 10),
-        gray: rgb(142, 142, 147),
-        gray2: rgb(99, 99, 102),
-        gray3: rgb(72, 72, 74),
-        gray4: rgb(58, 58, 60),
-        gray5: rgb(44, 44, 46),
-        gray6: rgb(28, 28, 30),
-        foreground: rgb(255, 255, 255),
-        background: rgb(0, 0, 0),
-    },
-};
-
-let colorTheme: 'light' | 'dark' = (() => {
-    const tmp = localStorage.getItem('hi://theme');
-    if (tmp == 'light' || tmp == 'dark') return tmp;
-    return 'light';
-})();
-
 /**
  * Changes and saves the color theme to `localStorage`.
  *
@@ -262,7 +86,7 @@ let colorTheme: 'light' | 'dark' = (() => {
 export function changeTheme(theme: 'light' | 'dark'): void {
     colorTheme = theme;
     ViewControllerData.controllers.forEach(controller =>
-        controller.signal('color')
+        controller.signal('color'),
     );
     localStorage.setItem('hi://theme', colorTheme);
 }
@@ -290,22 +114,23 @@ export function whichTheme(): 'light' | 'dark' {
  * @returns {RGBAModel} The average image color.
  */
 export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
-    const blockSize = 5, // only visit every 5 pixels
-        canvas = document.createElement('canvas'),
-        context = canvas.getContext && canvas.getContext('2d'),
-        rgb = new RGBAModel(0, 0, 0);
-    let data,
-        i = -4,
-        count = 0;
+    const blockSize = 5; // only visit every 5 pixels
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext && canvas.getContext('2d');
+    const model = new RGBAModel(0, 0, 0);
+    let data;
+    let i = -4;
+    let count = 0;
 
     if (!context) {
-        return rgb;
+        return model;
     }
 
-    const height = (canvas.height =
-        imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height);
-    const width = (canvas.width =
-        imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width);
+    const height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
+    const width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
+
+    canvas.height = height;
+    canvas.width = width;
 
     context.drawImage(imgEl, 0, 0);
 
@@ -313,22 +138,22 @@ export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
         data = context.getImageData(0, 0, width, height);
     } catch (e) {
         /* security error, img on diff domain */
-        return rgb;
+        return model;
     }
 
-    const length = data.data.length;
+    const { length } = data.data;
 
-    while ((i += blockSize * 4) < length) {
-        ++count;
-        rgb.r += data.data[i]!;
-        rgb.g += data.data[i + 1]!;
-        rgb.b += data.data[i + 2]!;
+    while (i + blockSize * 4 < length) {
+        i += blockSize * 4;
+        count += 1;
+        model.r += data.data[i]!;
+        model.g += data.data[i + 1]!;
+        model.b += data.data[i + 2]!;
     }
 
-    // ~~ used to floor values
-    rgb.r = ~~(rgb.r / count);
-    rgb.g = ~~(rgb.g / count);
-    rgb.b = ~~(rgb.b / count);
+    model.r = Math.floor(model.r / count);
+    model.g = Math.floor(model.g / count);
+    model.b = Math.floor(model.b / count);
 
-    return rgb;
+    return model;
 }

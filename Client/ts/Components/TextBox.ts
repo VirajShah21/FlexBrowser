@@ -1,7 +1,8 @@
 import View from '@Hi/View';
 
-export class TextBox extends View {
+export default class TextBox extends View {
     public override body: HTMLTextAreaElement;
+
     public value: string;
 
     constructor(placeholder: string) {

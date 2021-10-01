@@ -22,21 +22,21 @@ export default class PromptOverlay extends Overlay {
                         .whenClicked(() => {
                             this.destroy();
                         })
-                        .addClass('hi-prompt-overlay-confirm-button')
-                ).padding()
-            )
+                        .addClass('hi-prompt-overlay-confirm-button'),
+                ).padding(),
+            ),
         );
     }
 
     whenConfirmed(callback: (response: string) => void): this {
         (
             this.getViewsByClass(
-                'hi-prompt-overlay-confirm-button'
+                'hi-prompt-overlay-confirm-button',
             )[0] as ClickButton
         ).whenClicked(() => {
             callback(
-                (this.getViewsByClass('hi-prompt-input')[0] as InputField).model
-                    .value
+                (this.getViewsByClass('hi-prompt-input')[0] as InputField)
+                    .value,
             );
         });
         return this;
@@ -45,7 +45,7 @@ export default class PromptOverlay extends Overlay {
     whenCancelled(callback: () => void): this {
         (
             this.getViewsByClass(
-                'hi-prompt-overlay-cancel-button'
+                'hi-prompt-overlay-cancel-button',
             )[0] as ClickButton
         ).whenClicked(callback);
         return this;

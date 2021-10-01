@@ -1,22 +1,12 @@
 import { HISizingValue, sizing } from '@Hi/Types/sizing';
-import { StateObject } from '@Hi/Types/states';
 import View from '@Hi/View';
 
 export default class TextView extends View {
     public override body: HTMLSpanElement;
 
-    public readonly model = StateObject(
-        {
-            text: '',
-        },
-        () => {
-            this.body.textContent = this.model.text;
-        }
-    );
-
     constructor(text: string) {
         super('span');
-        this.model.text = text;
+        this.text = text;
     }
 
     lineHeight(height: HISizingValue): this {
@@ -42,6 +32,14 @@ export default class TextView extends View {
     textEnd(): this {
         this.body.style.textAlign = 'right';
         return this;
+    }
+
+    public get text(): string {
+        return this.body.textContent || '';
+    }
+
+    public set text(val: string) {
+        this.body.textContent = val;
     }
 }
 

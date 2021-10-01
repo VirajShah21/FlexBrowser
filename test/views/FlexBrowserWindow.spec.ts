@@ -62,6 +62,6 @@ describe('FlexBrowserWindow: URL Bar Navigation', () => {
     it('Should update the URL Bar value', () => {
         const urlbar = win.getViewById('url') as InputField;
         win.goTo('https://virajshah.org/', false);
-        expect(urlbar.model.value).to.equal('https://virajshah.org/');
+        expect(urlbar.value).to.equal('https://virajshah.org/');
     });
 });

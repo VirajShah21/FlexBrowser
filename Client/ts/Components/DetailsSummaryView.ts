@@ -1,15 +1,19 @@
-import { StateObject, StateProxy } from '@Hi/Types/states';
 import View from '@Hi/View';
 import TextView from './TextView';
 
 export default class DetailsSummaryView extends View {
-    public state: StateProxy<{ text: string }>;
+    private textView: TextView;
 
     constructor(summaryText: string) {
         super('summary', new TextView(summaryText).id('summary-text'));
-        this.state = StateObject({ text: summaryText }, () => {
-            (this.getViewById('summary-text') as TextView).model.text =
-                this.state.text;
-        });
+        this.textView = this.getViewById('summary-text') as TextView;
+    }
+
+    public get text(): string {
+        return this.textView.text;
+    }
+
+    public set text(val: string) {
+        this.textView.text = val;
     }
 }
