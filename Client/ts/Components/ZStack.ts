@@ -15,7 +15,8 @@ export default class ZStack extends Stack {
         this.body.style.alignItems = 'center';
         this.body.style.justifyContent = 'center';
 
-        this.$children.forEach(child => {
+        this.children.forEach(child => {
+            // eslint-disable-next-line no-param-reassign
             child.body.style.gridArea = '1/1/1/1';
         });
     }

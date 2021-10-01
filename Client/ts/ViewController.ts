@@ -195,6 +195,7 @@ export class ViewController {
             controller.visibleScreen = name;
             return controller;
         }
+        // eslint-disable-next-line no-console
         console.warn(`Could not navigate to ${name}`);
         return null;
     }
