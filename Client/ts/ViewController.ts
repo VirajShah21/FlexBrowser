@@ -12,16 +12,14 @@ export const ViewControllerData = {
  * @class ViewController
  */
 export class ViewController {
-    public screens: Record<string, View>;
-
     public binding: HTMLElement;
 
-    public visibleScreen: string;
+    private currentView: View;
 
-    constructor(screens: Record<string, View>) {
-        this.screens = screens;
+    constructor(name: string) {
         ViewControllerData.controllers.push(this);
         document.body.style.margin = '0';
+        ViewControllerData.controllerMap[name] = this;
     }
 
     /**
@@ -36,63 +34,15 @@ export class ViewController {
      *
      * @memberOf ViewController
      */
-    navigateTo(name = 'main', delay = 0): this {
-        if (typeof name !== 'string') {
-            throw new Error(
-                `ViewController.navigateTo: Parameter name (1) should be of type string, instead got ${typeof name}`,
-            );
-        }
-        if (!Object.prototype.hasOwnProperty.call(this.screens, name)) {
-            throw new Error(
-                `ViewController.navigateTo: ViewController does not have a screen named ${name}`,
-            );
-        }
-
-        const screen = this.screens[name];
-
+    navigateTo(view: View, delay = 0): this {
         window.setTimeout(() => {
             this.binding.innerHTML = '';
-
-            if (screen) this.binding.appendChild(screen.body);
-            else {
-                this.binding.append(
-                    `Error: No such screen "${name}" on this ViewController"`,
-                );
-            }
+            this.binding.appendChild(view.body);
         }, delay);
+        this.currentView.signal('hi:buildout');
+        view.signal('hi:buildin');
+        this.currentView = view;
 
-        this.screens[this.visibleScreen]?.signal('hi:buildout');
-        screen?.signal('hi:buildin');
-        this.visibleScreen = name;
-
-        return this;
-    }
-
-    /**
-     * Adds a screen to the navigator wrapper.
-     *
-     * @param {string} name The name of the new screen.
-     * @param {View} screen The view which the screen is attached to.
-     * @returns {this}
-     *
-     * @memberOf ViewController
-     */
-    addNavigator(name: string, screen: View): this {
-        if (typeof name !== 'string') {
-            throw new Error(
-                `ViewController.addNavigator: Parameter name (1) should be of type string, instead got ${typeof name}`,
-            );
-        }
-        if (!(screen instanceof View)) {
-            throw new Error(
-                `ViewController.addNavigator: Parameter screen (2) should be of type View, instead got ${typeof screen}.\nValue: ${
-                    typeof screen === 'object'
-                        ? JSON.stringify(screen, null, 4)
-                        : screen
-                }`,
-            );
-        }
-        this.screens[name] = screen;
         return this;
     }
 
@@ -129,19 +79,6 @@ export class ViewController {
     }
 
     /**
-     * Maps this controller to a specified name in the ViewController registry.
-     *
-     * @param {string} controllerName The name of this controller in the registry.
-     * @returns {this}
-     *
-     * @memberOf ViewController
-     */
-    mapTo(controllerName: string): this {
-        ViewControllerData.controllerMap[controllerName] = this;
-        return this;
-    }
-
-    /**
      * Statically access a controller via the controller's name in the registry.
      *
      * @static
@@ -166,38 +103,6 @@ export class ViewController {
      */
     signal(data: string): void {
         Object.values(this.screens).forEach(screen => screen.signal(data));
-    }
-
-    /**
-     * Automatically navigates to the first found screen with the specified
-     * name on any ViewController.
-     *
-     * @static
-     * @param {string} [name='main'] The screen name to navigate to.
-     * @param {string} [delay=0] The amount of time to wait before switching
-     * the View. This is especially helpful when using build out transitions.
-     * The units are in milliseconds (1000 ms = 1 s). Default value is 0.
-     * @returns {(ViewController | null)} The requested ViewController. If no
-     * controller is found, then null is returned.
-     *
-     * @memberOf ViewController
-     */
-    static navigateTo(name = 'main', delay = 0): ViewController | null {
-        const controller = ViewControllerData.controllers.find(
-            currentController =>
-                Object.prototype.hasOwnProperty.call(
-                    currentController.screens,
-                    name,
-                ),
-        );
-        if (controller) {
-            controller.navigateTo(name, delay);
-            controller.visibleScreen = name;
-            return controller;
-        }
-        // eslint-disable-next-line no-console
-        console.warn(`Could not navigate to ${name}`);
-        return null;
     }
 
     /**
