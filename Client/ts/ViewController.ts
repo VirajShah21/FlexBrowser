@@ -14,7 +14,7 @@ export const ViewControllerData = {
 export class ViewController {
     public binding: HTMLElement;
 
-    private activeView: number;
+    private activeViewIndex: number;
 
     private viewHistory: View[] = [];
 
@@ -38,25 +38,28 @@ export class ViewController {
      */
     navigateTo(view: View, delay = 0): this {
         window.setTimeout(() => {
-            this.activeView = this.viewHistory.length;
+            this.activeViewIndex = this.viewHistory.length;
             this.viewHistory.push(view);
             this.binding.innerHTML = '';
             this.binding.appendChild(view.body);
             view.signal('hi:buildin');
         }, delay);
-        this.viewHistory[this.activeView]!.signal('hi:buildout');
+        const activeView = this.viewHistory[this.activeViewIndex];
+        if (activeView) activeView.signal('hi:buildout');
         return this;
     }
 
     navigateBack(delay = 0): this {
         window.setTimeout(() => {
-            this.activeView -= 1;
+            this.activeViewIndex -= 1;
             this.viewHistory.pop();
             this.binding.innerHTML = '';
-            this.binding.appendChild(this.viewHistory[this.activeView]!.body);
-            this.viewHistory[this.activeView]!.signal('hi:buildin');
+            this.binding.appendChild(
+                this.viewHistory[this.activeViewIndex]!.body,
+            );
+            this.viewHistory[this.activeViewIndex]!.signal('hi:buildin');
         }, delay);
-        this.viewHistory[this.activeView]!.signal('hi:buildout');
+        this.viewHistory[this.activeViewIndex]!.signal('hi:buildout');
         return this;
     }
 
@@ -85,7 +88,7 @@ export class ViewController {
         window.addEventListener('resize', ev =>
             handler({
                 type: 'Resize',
-                view: this.viewHistory[this.activeView]!,
+                view: this.viewHistory[this.activeViewIndex]!,
                 browserEvent: ev,
             }),
         );
@@ -93,7 +96,7 @@ export class ViewController {
     }
 
     findViewById(id: string): View | null {
-        return this.viewHistory[this.activeView]!.findViewById(id);
+        return this.viewHistory[this.activeViewIndex]!.findViewById(id);
     }
 
     /**
@@ -133,13 +136,23 @@ export class ViewController {
     }
 
     public signalActive(data: string, ...args: unknown[]): void {
-        this.viewHistory[this.activeView]!.signal(data, ...args);
+        this.viewHistory[this.activeViewIndex]!.signal(data, ...args);
     }
 
     public signalInactive(data: string, ...args: unknown[]): void {
         this.viewHistory
-            .filter(view => view !== this.viewHistory[this.activeView])
+            .filter(view => view !== this.viewHistory[this.activeViewIndex])
             .forEach(view => view.signal(data, ...args));
+    }
+
+    public get activeView(): View {
+        if (
+            this.activeViewIndex >= 0 &&
+            this.activeViewIndex < this.viewHistory.length
+        ) {
+            return this.viewHistory[this.activeViewIndex]!;
+        }
+        throw new Error('Could not resolve the active view.');
     }
 }
 

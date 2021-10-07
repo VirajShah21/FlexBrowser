@@ -2,6 +2,9 @@ import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
 import { ViewController } from '@Hi/ViewController';
 import { getAppController, reloadAppController } from '@UI/FlexBrowserApp';
+import FlexBookmarksViewer from '@UI/FlexHub/FlexBookmarksViewer';
+import FlexPreferences from '@UI/FlexHub/FlexPreferences';
+import FlexWindowsViewer from '@UI/FlexHub/FlexWindowsViewer';
 import { toggleBookmarkButtonClicked } from '@UI/triggers/hub-triggers';
 import { expect } from 'chai';
 import mockBrowser from '../../mocks/Browser.mock';
@@ -17,30 +20,33 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
     });
 
     it('Should navigate the controller back from the Windows Viewer', () => {
-        controller.navigateTo('windows');
-        expect(controller.visibleScreen).to.equal('windows');
-        const windowsScreen = controller.screens.windows;
-        const button = windowsScreen.findViewById('back-btn');
+        controller.navigateTo(new FlexWindowsViewer());
+        expect(controller.activeView.constructor.name).to.equal(
+            'FlexHubWindowsViewer',
+        );
+        const button = controller.findViewById('back-btn');
         (button.body as unknown as HTMLElementMock).mockClick();
-        expect(controller.visibleScreen).to.equal('hub');
+        expect(controller.activeView.constructor.name).to.equal('FlexHub');
     });
 
     it('Should navigate the controller back from the Bookmarks Viewer', () => {
-        controller.navigateTo('bookmarks');
-        expect(controller.visibleScreen).to.equal('bookmarks');
-        const bookmarksViewer = controller.screens.bookmarks;
-        const button = bookmarksViewer.findViewById('back-btn');
+        controller.navigateTo(new FlexBookmarksViewer());
+        expect(controller.activeView.constructor.name).to.equal(
+            'FlexBookmarksViewer',
+        );
+        const button = controller.findViewById('back-btn');
         (button.body as unknown as HTMLElementMock).mockClick();
-        expect(controller.visibleScreen).to.equal('hub');
+        expect(controller.activeView.constructor.name).to.equal('hub');
     });
 
     it('Should navigate the controller back from the Preferences Viewer', () => {
-        controller.navigateTo('preferences');
-        expect(controller.visibleScreen).to.equal('preferences');
-        const preferencesViewer = controller.screens.preferences;
-        const button = preferencesViewer.findViewById('back-btn');
+        controller.navigateTo(new FlexPreferences());
+        expect(controller.activeView.constructor.name).to.equal(
+            'FlexPreferences',
+        );
+        const button = controller.findViewById('back-btn');
         (button.body as unknown as HTMLElementMock).mockClick();
-        expect(controller.visibleScreen).to.equal('hub');
+        expect(controller.activeView.constructor.name).to.equal('FlexHub');
     });
 });
 
