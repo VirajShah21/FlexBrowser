@@ -8,7 +8,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import {
-    navigateToHubMainPage,
+    navigateBack,
     toggleBookmarkButtonClicked,
 } from '@UI/triggers/hub-triggers';
 import HubTitlebar from './components/HubTitlebar';
@@ -34,7 +34,7 @@ export default class FlexWindowViewer extends HIFullScreenView {
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .padding(0)
-                            .whenClicked(navigateToHubMainPage)
+                            .whenClicked(navigateBack)
                             .id('back-btn'),
                         new Spacer(),
                     ).width('100%'),

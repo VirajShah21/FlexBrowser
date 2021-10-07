@@ -1,8 +1,8 @@
 import IonIcon from '@Hi/Components/IonIcon';
 import { HumanEvent, ViewController } from '@Hi/ViewController';
 
-export function navigateToHubMainPage(): void {
-    ViewController.getController('AppController')?.navigateTo('hub');
+export function navigateBack(): void {
+    ViewController.getController('AppController')?.navigateBack();
 }
 
 export function toggleBookmarkButtonClicked(

@@ -14,7 +14,9 @@ export const ViewControllerData = {
 export class ViewController {
     public binding: HTMLElement;
 
-    private activeView: View;
+    private activeView: number;
+
+    private viewHistory: View[] = [];
 
     constructor(name: string) {
         ViewControllerData.controllers.push(this);
@@ -36,13 +38,25 @@ export class ViewController {
      */
     navigateTo(view: View, delay = 0): this {
         window.setTimeout(() => {
+            this.activeView = this.viewHistory.length;
+            this.viewHistory.push(view);
             this.binding.innerHTML = '';
             this.binding.appendChild(view.body);
+            view.signal('hi:buildin');
         }, delay);
-        this.activeView.signal('hi:buildout');
-        view.signal('hi:buildin');
-        this.activeView = view;
+        this.viewHistory[this.activeView]!.signal('hi:buildout');
+        return this;
+    }
 
+    navigateBack(delay = 0): this {
+        window.setTimeout(() => {
+            this.activeView -= 1;
+            this.viewHistory.pop();
+            this.binding.innerHTML = '';
+            this.binding.appendChild(this.viewHistory[this.activeView]!.body);
+            this.viewHistory[this.activeView]!.signal('hi:buildin');
+        }, delay);
+        this.viewHistory[this.activeView]!.signal('hi:buildout');
         return this;
     }
 
@@ -71,7 +85,7 @@ export class ViewController {
         window.addEventListener('resize', ev =>
             handler({
                 type: 'Resize',
-                view: this.activeView,
+                view: this.viewHistory[this.activeView]!,
                 browserEvent: ev,
             }),
         );
