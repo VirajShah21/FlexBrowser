@@ -87,19 +87,19 @@ source docs.sh
 
 ### 🛠 Improvements
 
--   Fix `FontWeight` not working on `TextView` (Branch: `himvc`).
--   Add build-in and build-out animations to everything.
-    -   Add animation preferences in hub
+-   Fix `FontWeight` not working on `TextView` (Branch: `himvc`). DONE
+-   Add build-in and build-out animations to everything. DONE
+    -   Add animation preferences in hub DONE
 
 ### 🆕 New Features
 
 -   **Bookmarks** 🔖
-    -   **Bookmark Button** – The ability to add new bookmarks
+    -   **Bookmark Button** DONE – The ability to add new bookmarks
     -   **Bookmarks Page** DONE – The ability to view bookmarks
 -   **First Start Initialization** 1️⃣
     -   **Features Display** – Should give a quick walkthrough of all features.
-    -   **Keep track of launches** – A .flexrc.json file should be created after first launch. (Stores preferences).
-    -   **Hide other windows** – Hide browser and hub until first start page is finished.
+    -   **Keep track of launches** DONE – A .flexrc.json file should be created after first launch. (Stores preferences).
+    -   **Hide other windows** DONE – Hide browser and hub until first start page is finished.
 -   **Taskbar customization**
     -   **Partitioning Taskbar** – Create regions, set alignment, and min/max/default sizes
     -   **Picking Items** – Choose browser frame components and insert them into different partitions
