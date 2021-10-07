@@ -27,13 +27,5 @@ module.exports = {
     parserOptions: {
         project: './tsconfig.json',
     },
-    settings: {
-        'import/resolver': {
-            typescript: {
-                alwaysTryTypes: true,
-                project: './',
-            },
-        },
-    },
     ignorePatterns: ['*.js', 'out/**/*'],
 };
