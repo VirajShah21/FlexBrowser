@@ -62,7 +62,7 @@ export default class FlexWindowViewer extends HIFullScreenView {
      * @memberOf FlexWindowViewer
      */
     override handle(): void {
-        const container = this.getViewById(
+        const container = this.findViewById(
             'window-buttons-container',
         ) as VStack;
         const windowList = flexarch.getWindowList();

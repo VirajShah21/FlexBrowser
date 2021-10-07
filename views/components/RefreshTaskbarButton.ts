@@ -10,7 +10,7 @@ export default class RefreshTaskbarButton extends TaskbarButton {
             const browserWindow = ev.view.root(
                 view => (view as FlexBrowserWindow).isBrowserWindow,
             ) as FlexBrowserWindow;
-            const url = (browserWindow.getViewById('url') as InputField).value;
+            const url = (browserWindow.findViewById('url') as InputField).value;
 
             browserWindow.goTo(url);
         });

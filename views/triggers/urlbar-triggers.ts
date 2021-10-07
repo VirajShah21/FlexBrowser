@@ -36,7 +36,7 @@ export function changeReloadButtonToGoButton(ev: HumanEvent): void {
     const browserWindow = ev.view.root(
         view => (view as FlexBrowserWindow).isBrowserWindow,
     ) as FlexBrowserWindow;
-    const icon = browserWindow.getViewById('url-refresh-button') as IonIcon;
+    const icon = browserWindow.findViewById('url-refresh-button') as IonIcon;
 
     (icon.body as HTMLInputElement).name = 'arrow-forward-outline'; // ! Workaround to use .name
 }

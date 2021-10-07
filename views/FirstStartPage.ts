@@ -93,7 +93,7 @@ export default class FirstStartPage extends HIFullScreenView {
             page1: Theming(),
         })
             .mapTo('FirstStartPageController')
-            .bind(this.getViewById('viewer')!.body)
+            .bind(this.findViewById('viewer')!.body)
             .navigateTo();
         this.pageNumber = 0;
     }

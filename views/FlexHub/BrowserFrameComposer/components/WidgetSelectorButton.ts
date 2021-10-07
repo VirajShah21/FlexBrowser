@@ -39,7 +39,7 @@ export default class WidgetSelectorButton extends ClickButton {
                             'AppController',
                         ) as ViewController
                     ).screens.frameComposer as HIFullScreenView
-                ).getViewById(
+                ).findViewById(
                     'partition-component-organizer',
                 ) as BrowserFrameRenderer;
 

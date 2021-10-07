@@ -6,7 +6,7 @@ export default class DetailsSummaryView extends View {
 
     constructor(summaryText: string) {
         super('summary', new TextView(summaryText).id('summary-text'));
-        this.textView = this.getViewById('summary-text') as TextView;
+        this.textView = this.findViewById('summary-text') as TextView;
     }
 
     public get text(): string {

@@ -24,7 +24,7 @@ export default class PartitionerComponent extends VStack {
                                     'AppController',
                                 ) as ViewController
                             ).screens.frameComposer as HIFullScreenView
-                        ).getViewById(
+                        ).findViewById(
                             'partition-component-organizer',
                         ) as PartitionComponentOrganizer
                     ).addPartition({ components: [], padding: 0 });

@@ -84,12 +84,12 @@ export default abstract class View extends BaseBodyStyler {
      *
      * @memberOf View
      */
-    getViewById(id: string): View | null {
+    findViewById(id: string): View | null {
         for (let i = 0; i < this.children.length; i += 1) {
             if (Object.prototype.hasOwnProperty.call(this.children, i)) {
                 const child = this.children[i]!;
                 if (child.identifier === id) return child;
-                const childResult = child.getViewById(id);
+                const childResult = child.findViewById(id);
                 if (childResult) return childResult;
             }
         }
