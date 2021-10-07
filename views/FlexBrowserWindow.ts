@@ -67,7 +67,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                 .background(HColor('background').alpha(0.5)),
         );
 
-        const titlebar = this.getViewById('titlebar') as View;
+        const titlebar = this.findViewById('titlebar') as View;
         titlebar.body.style.setProperty('-webkit-app-region', 'drag');
     }
 
@@ -106,8 +106,8 @@ export default class FlexBrowserWindow extends HIFullScreenView {
     public goTo(url: string, addToHistory = true): string[] {
         const newUrl = FlexBrowserWindow.goodUrl(url);
 
-        const icon = this.getViewById('url-refresh-button') as IonIcon;
-        const urlbar = this.getViewById('url') as InputField;
+        const icon = this.findViewById('url-refresh-button') as IonIcon;
+        const urlbar = this.findViewById('url') as InputField;
 
         flexarch.changeUrl(newUrl);
         (icon.body as HTMLInputElement).name = 'refresh-circle-outline'; // ! Workaround to use .name

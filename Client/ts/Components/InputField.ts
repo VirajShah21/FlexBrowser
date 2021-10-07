@@ -6,17 +6,8 @@ import { HumanEvent, HumanKeyPressEvent } from '@Hi/ViewController';
 export default class InputField extends View {
     public override body: HTMLInputElement;
 
-    private attributes: {
-        value: string;
-        placeholder: string;
-    };
-
     constructor(placeholder: string) {
         super('input');
-        this.attributes = {
-            value: '',
-            placeholder: placeholder || '',
-        };
         this.body.style.margin = '0';
         this.body.style.boxSizing = 'border-box';
         this.body.style.borderRadius = SizingValues.BORDER_RADIUS.xs;
@@ -24,9 +15,7 @@ export default class InputField extends View {
         this.body.style.textAlign = 'left';
         this.body.style.padding = SizingValues.PADDING.xs;
         this.body.style.boxSizing = 'border-box';
-        this.body.addEventListener('input', () => {
-            this.attributes.value = this.body.value;
-        });
+        this.body.placeholder = placeholder;
         this.background(HColor('background'))
             .foreground(HColor('foreground'))
             .noOutline();
@@ -83,20 +72,18 @@ export default class InputField extends View {
     }
 
     public get value(): string {
-        return this.attributes.value;
+        return this.body.value;
     }
 
     public set value(newValue: string) {
-        this.attributes.value = newValue;
         this.body.value = newValue;
     }
 
     public get placeholder(): string {
-        return this.attributes.placeholder;
+        return this.body.placeholder;
     }
 
     public set placeholder(newPlaceholder: string) {
-        this.attributes.placeholder = newPlaceholder;
         this.body.placeholder = newPlaceholder;
     }
 }

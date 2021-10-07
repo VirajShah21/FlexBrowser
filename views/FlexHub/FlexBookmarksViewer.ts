@@ -5,7 +5,7 @@ import HStack from '@Hi/Components/HStack';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import { navigateToHubMainPage } from '@UI/triggers/hub-triggers';
+import { navigateBack } from '@UI/triggers/hub-triggers';
 import HubTitlebar from './components/HubTitlebar';
 
 export default class FlexBookmarksViewer extends HIFullScreenView {
@@ -16,7 +16,7 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                     'Bookmarks',
                     new HStack(
                         new ClickButton(new TextView('Back'))
-                            .whenClicked(navigateToHubMainPage)
+                            .whenClicked(navigateBack)
                             .padding(0)
                             .id('back-btn'),
                         new Spacer(),

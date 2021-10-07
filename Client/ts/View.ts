@@ -1,6 +1,5 @@
 import BaseBodyStyler from './BaseBodyStyler';
 import { getTransitionDefintion } from './Transitions/Transition';
-import ViewCollection from './ViewCollection';
 import { HumanEvent } from './ViewController';
 
 interface ModelData {
@@ -84,12 +83,12 @@ export default abstract class View extends BaseBodyStyler {
      *
      * @memberOf View
      */
-    getViewById(id: string): View | null {
+    findViewById(id: string): View | null {
         for (let i = 0; i < this.children.length; i += 1) {
             if (Object.prototype.hasOwnProperty.call(this.children, i)) {
                 const child = this.children[i]!;
                 if (child.identifier === id) return child;
-                const childResult = child.getViewById(id);
+                const childResult = child.findViewById(id);
                 if (childResult) return childResult;
             }
         }
@@ -422,4 +421,16 @@ export default abstract class View extends BaseBodyStyler {
     public removeTransition(): void {
         this.body.style.animationName = '';
     }
+}
+
+export class ViewCollection extends Array<View> {
+    constructor(views: View[]) {
+        super();
+        views.forEach(view => {
+            this.push(view);
+        });
+    }
+
+    // ! Whenver a call to this object is made, it should call buildChildren()
+    // ! to update the View
 }

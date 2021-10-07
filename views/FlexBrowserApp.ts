@@ -1,28 +1,16 @@
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from './BrowserPreferences';
-import FirstStartPage from './FirstStartPage';
 import FlexBrowserWindow from './FlexBrowserWindow';
-import BrowserFrameComposer from './FlexHub/BrowserFrameComposer/BrowserFrameComposer';
-import FlexBookmarksViewer from './FlexHub/FlexBookmarksViewer';
 import FlexHub from './FlexHub/FlexHub';
-import FlexPreferences from './FlexHub/FlexPreferences';
-import FlexWindowsViewer from './FlexHub/FlexWindowsViewer';
 
 let AppController: ViewController;
 
-export function reloadAppController(flexWindow = 'browser'): void {
-    AppController = new ViewController({
-        browser: new FlexBrowserWindow(),
-        hub: new FlexHub(),
-        preferences: new FlexPreferences(),
-        windows: new FlexWindowsViewer(),
-        frameComposer: new BrowserFrameComposer(),
-        bookmarks: new FlexBookmarksViewer(),
-        firstStart: new FirstStartPage(),
-    })
+export function reloadAppController(flexWindow?: string): void {
+    AppController = new ViewController('AppController')
         .bind()
-        .navigateTo(flexWindow)
-        .mapTo('AppController');
+        .navigateTo(
+            flexWindow === 'browser' ? new FlexBrowserWindow() : new FlexHub(),
+        );
 }
 
 export function getAppController(): ViewController {
@@ -30,4 +18,4 @@ export function getAppController(): ViewController {
 }
 
 BrowserPreferences.initialize();
-reloadAppController();
+reloadAppController('browser');

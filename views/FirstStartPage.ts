@@ -5,6 +5,7 @@ import HStack from '@Hi/Components/HStack';
 import Spacer from '@Hi/Components/Spacer';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import View from '@Hi/View';
 import { ViewController } from '@Hi/ViewController';
 import HighlightColorPreferences from './FlexHub/components/HighlightColorPreferences';
 import ThemePreferences from './FlexHub/components/ThemePreferences';
@@ -58,6 +59,8 @@ export default class FirstStartPage extends HIFullScreenView {
 
     private pageNumber: number;
 
+    private pages: View[] = [MainIntro(), Theming()];
+
     /**
      * Creates an instance of FirstStartPage.
      *
@@ -88,13 +91,9 @@ export default class FirstStartPage extends HIFullScreenView {
 
         this.body.style.setProperty('-webkit-app-region', 'drag');
 
-        this.controller = new ViewController({
-            main: MainIntro(),
-            page1: Theming(),
-        })
-            .mapTo('FirstStartPageController')
-            .bind(this.getViewById('viewer')!.body)
-            .navigateTo();
+        this.controller = new ViewController('FSCarousel')
+            .bind(this.findViewById('viewer')!.body)
+            .navigateTo(this.pages[0]!);
         this.pageNumber = 0;
     }
 
@@ -106,7 +105,7 @@ export default class FirstStartPage extends HIFullScreenView {
      */
     public previous(): void {
         if (this.pageNumber > 0) this.pageNumber -= 1;
-        this.updateController();
+        this.controller.navigateTo(this.pages[this.pageNumber]!);
     }
 
     /**
@@ -117,21 +116,6 @@ export default class FirstStartPage extends HIFullScreenView {
      */
     public next(): void {
         this.pageNumber += 1;
-        this.updateController();
-    }
-
-    /**
-     * Update the ViewController for the slideshow
-     *
-     * @private
-     *
-     * @memberOf FirstStartPage
-     */
-    private updateController(): void {
-        if (this.pageNumber === 0) {
-            this.controller.navigateTo();
-        } else {
-            this.controller.navigateTo(`page${this.pageNumber}`);
-        }
+        this.controller.navigateTo(this.pages[this.pageNumber]!);
     }
 }

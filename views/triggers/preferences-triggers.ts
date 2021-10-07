@@ -17,7 +17,7 @@ export function highlightColorSelected(
         );
     ev.view
         .root()
-        .getViewById(`highlight-${color}`)
+        .findViewById(`highlight-${color}`)
         ?.borderBottom({
             size: 3,
             style: 'solid',

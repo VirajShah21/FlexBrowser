@@ -10,6 +10,9 @@ import { defineTransition } from '@Hi/Transitions/Transition';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from '../BrowserPreferences';
 import HubTitlebar from './components/HubTitlebar';
+import FlexBookmarksViewer from './FlexBookmarksViewer';
+import FlexPreferences from './FlexPreferences';
+import FlexWindowsViewer from './FlexWindowsViewer';
 
 const hubButtonBuildIn = defineTransition({
     from: {
@@ -87,10 +90,9 @@ export default class FlexHub extends HIFullScreenView {
 
                     HubButton(new IonIcon('albums'), 'Windows').whenClicked(
                         () => {
-                            ViewController.navigateTo('windows', 1000);
-                            ViewController.getController(
-                                'AppController',
-                            )?.signal('refresh-windows');
+                            ViewController.getController('AppController')!
+                                .navigateTo(new FlexWindowsViewer(), 1000)
+                                .signal('refresh-windows');
                         },
                     ),
 
@@ -100,7 +102,9 @@ export default class FlexHub extends HIFullScreenView {
                         new IonIcon('bookmarks'),
                         'Bookmarks',
                     ).whenClicked(() => {
-                        ViewController.navigateTo('bookmarks', 1000);
+                        ViewController.getController(
+                            'AppController',
+                        )!.navigateTo(new FlexBookmarksViewer(), 1000);
                     }),
 
                     new Spacer(),
@@ -113,7 +117,9 @@ export default class FlexHub extends HIFullScreenView {
                         new IonIcon('cog-outline'),
                         'Preferences',
                     ).whenClicked(() =>
-                        ViewController.navigateTo('preferences', 1000),
+                        ViewController.getController(
+                            'AppController',
+                        )!.navigateTo(new FlexPreferences(), 1000),
                     ),
 
                     new Spacer(),

@@ -113,7 +113,7 @@ export default class Preview extends VStack {
 
     public set componentWidth(val: number) {
         this.dimensions.width = val;
-        (this.getViewById('component-width') as TextView).text = `${val}`;
+        (this.findViewById('component-width') as TextView).text = `${val}`;
     }
 
     public get componentHeight(): number {
@@ -122,7 +122,7 @@ export default class Preview extends VStack {
 
     public set componentHeight(val: number) {
         this.dimensions.height = val;
-        (this.getViewById('component-height') as TextView).text = `${val}`;
+        (this.findViewById('component-height') as TextView).text = `${val}`;
     }
 
     public get componentPadding(): string {
@@ -131,7 +131,7 @@ export default class Preview extends VStack {
 
     public set componentPadding(val: string) {
         this.dimensions.padding = val;
-        (this.getViewById('component-padding') as TextView).text = `${val}`;
+        (this.findViewById('component-padding') as TextView).text = `${val}`;
     }
 
     public get componentName(): string | undefined {
@@ -140,7 +140,7 @@ export default class Preview extends VStack {
 
     public set componentName(name: string | undefined) {
         this.componentInfo.name = name;
-        (this.getViewById('component-name') as TextView).text = name || '•';
+        (this.findViewById('component-name') as TextView).text = name || '•';
     }
 
     public get componentId(): string | undefined {
@@ -149,7 +149,7 @@ export default class Preview extends VStack {
 
     public set componentId(id: string | undefined) {
         this.componentInfo.id = id;
-        (this.getViewById('component-id') as TextView).text = id || '•';
+        (this.findViewById('component-id') as TextView).text = id || '•';
     }
 
     public get componentDescription(): string | undefined {
@@ -158,7 +158,7 @@ export default class Preview extends VStack {
 
     public set componentDescription(description: string | undefined) {
         this.componentInfo.description = description;
-        (this.getViewById('component-description') as TextView).text =
+        (this.findViewById('component-description') as TextView).text =
             description || '•';
     }
 
@@ -168,7 +168,7 @@ export default class Preview extends VStack {
 
     public set contrstMode(value: boolean) {
         this.contrastToggle = value;
-        this.getViewById('toggle-contrast-button')?.foreground(
+        this.findViewById('toggle-contrast-button')?.foreground(
             HColor(this.contrastToggle ? 'green' : 'gray'),
         );
     }
