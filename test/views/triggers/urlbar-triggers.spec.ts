@@ -10,11 +10,11 @@ describe('URLBar (Trigger): When keys are pressed', () => {
 
     beforeEach(() => {
         win = new FlexBrowserWindow();
-        urlbar = win.getViewById('url') as URLBar;
+        urlbar = win.findViewById('url') as URLBar;
     });
 
     it('Should change refresh icon to go icon when input is changed', () => {
-        const refreshIcon = win.getViewById('url-refresh-button') as IonIcon;
+        const refreshIcon = win.findViewById('url-refresh-button') as IonIcon;
 
         expect((refreshIcon.body as unknown as HTMLElementMock).name).to.equal(
             'refresh-circle-outline',

@@ -51,7 +51,7 @@ describe('FlexBrowserWindow: URL Bar Navigation', () => {
     });
 
     it('Should change the "Go" icon to a "Reload icon"', () => {
-        const icon = win.getViewById('url-refresh-button') as IonIcon;
+        const icon = win.findViewById('url-refresh-button') as IonIcon;
         (icon.body as unknown as HTMLElementMock).name = 'alt-icon';
         win.goTo('https://google.com/', false);
         expect((icon.body as unknown as HTMLElementMock).name).to.equal(
@@ -60,7 +60,7 @@ describe('FlexBrowserWindow: URL Bar Navigation', () => {
     });
 
     it('Should update the URL Bar value', () => {
-        const urlbar = win.getViewById('url') as InputField;
+        const urlbar = win.findViewById('url') as InputField;
         win.goTo('https://virajshah.org/', false);
         expect(urlbar.value).to.equal('https://virajshah.org/');
     });
