@@ -14,7 +14,7 @@ export const ViewControllerData = {
 export class ViewController {
     public binding: HTMLElement;
 
-    private currentView: View;
+    private activeView: View;
 
     constructor(name: string) {
         ViewControllerData.controllers.push(this);
@@ -39,9 +39,9 @@ export class ViewController {
             this.binding.innerHTML = '';
             this.binding.appendChild(view.body);
         }, delay);
-        this.currentView.signal('hi:buildout');
+        this.activeView.signal('hi:buildout');
         view.signal('hi:buildin');
-        this.currentView = view;
+        this.activeView = view;
 
         return this;
     }
@@ -71,7 +71,7 @@ export class ViewController {
         window.addEventListener('resize', ev =>
             handler({
                 type: 'Resize',
-                view: this.screens[this.visibleScreen] as View,
+                view: this.activeView,
                 browserEvent: ev,
             }),
         );
@@ -101,27 +101,12 @@ export class ViewController {
      *
      * @memberOf ViewController
      */
-    signal(data: string): void {
-        Object.values(this.screens).forEach(screen => screen.signal(data));
-    }
-
-    /**
-     * Puts all screens into a single contained object.
-     *
-     * @static
-     * @returns {Record<string, View>} An object mapping screen names to the screen.
-     *
-     * @memberOf ViewController
-     */
-    static allScreens(): Record<string, View> {
-        const screens: Record<string, View> = {};
-        ViewControllerData.controllers.forEach(controller => {
-            Object.keys(controller.screens).forEach(screenName => {
-                screens[screenName] = controller.screens[screenName]!;
-            });
-        });
-        return screens;
-    }
+    // ! Disabled to see where it is used in project
+    // ! Should only signal the activeView
+    // ! [...].signalAll() should signal all open Views
+    // signal(data: string): void {
+    //     Object.values(this.screens).forEach(screen => screen.signal(data));
+    // }
 }
 
 /**
