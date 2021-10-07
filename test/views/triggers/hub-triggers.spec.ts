@@ -22,7 +22,7 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
     it('Should navigate the controller back from the Windows Viewer', () => {
         controller.navigateTo(new FlexWindowsViewer());
         expect(controller.activeView.constructor.name).to.equal(
-            'FlexHubWindowsViewer',
+            'FlexWindowViewer',
         );
         const button = controller.findViewById('back-btn');
         (button.body as unknown as HTMLElementMock).mockClick();
@@ -36,7 +36,7 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
         );
         const button = controller.findViewById('back-btn');
         (button.body as unknown as HTMLElementMock).mockClick();
-        expect(controller.activeView.constructor.name).to.equal('hub');
+        expect(controller.activeView.constructor.name).to.equal('FlexHub');
     });
 
     it('Should navigate the controller back from the Preferences Viewer', () => {
