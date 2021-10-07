@@ -107,3 +107,10 @@ source docs.sh
     -   **URL Packager** – Take the current URL and add it as a web app.
     -   **App Drawer** – Launcher for the web apps.
     -   **Frameless Windows** – Add archs for opening frameless webapps.
+-   **Search** 🔍
+    -   **Default Google Search** – Detect if the user does not enter a URL and perform a google search instead.
+    -   **Custom Search Engines** – Enable adding custom search engines or special prefixes (eg: `google: hello world`, `duckduckgo: hello world`)
+-   **Window-splitting** 🪟 – Have multiple windows in the same frame side-by-side or above-and-below.
+-   **Notes Plugin** 📝 – Lightweight feature for adding notes for URLs
+-   **Flextensions** 🧩 – Extensions for the Flex Browser (Notes should probably be packed inside this)
+    -   **Flextension to Install Chrome Extensions** – Make it easy to install chrome extensions, either from the webstore (`.crx` files, which is hard in electron, and unpacked)
