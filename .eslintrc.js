@@ -23,7 +23,6 @@ module.exports = {
         'implicit-arrow-linebreak': 'off',
         'function-paren-newline': 'off',
         'arrow-parens': 'off',
-        'import/no-cycle': 1,
     },
     parserOptions: {
         project: './tsconfig.json',
