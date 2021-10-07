@@ -1,6 +1,6 @@
 import View from '../View';
 
-export class Container extends View {
+export default class Container extends View {
     constructor(...children: View[]) {
         super('div', ...children);
     }
