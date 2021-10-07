@@ -10,15 +10,15 @@
 
 One day I installed Microsoft Edge. That's the same thing as Chrome, but with a different frame. So I decided to make my own browser... with a different frame.
 
-- [Contributing](# -contributing)
-    - [Contributing Rules](# -contributing-rules)
-    - [Style Guide Notes](# -style-guide-notes)
-    - [Building](# -building)
-    - [Testing](# -testing)
-    - [Documentation / Lint Report Generation](# -documentation-lint-report-generation)
-- [Dev Tasks](# -dev-tasks)
-    - [Improvements](# -improvements)
-    - [New Features](# -new-features)
+- [Contributing](#-contributing)
+    - [Contributing Rules](#-contributing-rules)
+    - [Style Guide Notes](#-style-guide-notes)
+    - [Building](#-building)
+    - [Testing](#-testing)
+    - [Documentation / Lint Report Generation](#-documentation-lint-report-generation)
+- [Dev Tasks](#-dev-tasks)
+    - [Improvements](#-improvements)
+    - [New Features](#-new-features)
 
 ## ✍️ Contributing
 
