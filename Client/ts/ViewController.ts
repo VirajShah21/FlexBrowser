@@ -153,22 +153,3 @@ export class ViewController {
         return null;
     }
 }
-
-/**
- * An object holding the details of a triggered event
- *
- * @export
- * @interface HumanEvent
- */
-export interface HumanEvent {
-    view: View;
-    type: string;
-    browserEvent: Event;
-}
-
-export interface HumanKeyPressEvent {
-    view: View;
-    type: 'KeyPress';
-    browserEvent: Event;
-    key: string;
-}

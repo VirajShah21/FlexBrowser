@@ -1,6 +1,6 @@
 import BaseBodyStyler from './BaseBodyStyler';
 import { getTransitionDefintion } from './Transitions/Transition';
-import { HumanEvent } from './ViewController';
+import HumanEvent from './Types/HumanEvent';
 
 interface ModelData {
     viewName: string;
