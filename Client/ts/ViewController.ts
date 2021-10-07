@@ -14,7 +14,7 @@ export const ViewControllerData = {
 export class ViewController {
     public binding: HTMLElement;
 
-    private activeViewIndex: number;
+    private activeViewIndex = -1;
 
     private viewHistory: View[] = [];
 
@@ -37,29 +37,30 @@ export class ViewController {
      * @memberOf ViewController
      */
     navigateTo(view: View, delay = 0): this {
+        const oldView = this.activeView;
+        this.viewHistory.push(view);
+        this.activeViewIndex = this.viewHistory.length - 1;
         window.setTimeout(() => {
-            this.activeViewIndex = this.viewHistory.length;
-            this.viewHistory.push(view);
             this.binding.innerHTML = '';
             this.binding.appendChild(view.body);
             view.signal('hi:buildin');
         }, delay);
-        const activeView = this.viewHistory[this.activeViewIndex];
-        if (activeView) activeView.signal('hi:buildout');
+        if (oldView) oldView.signal('hi:buildout');
         return this;
     }
 
     navigateBack(delay = 0): this {
+        const oldView = this.activeView;
+        this.activeViewIndex -= 1;
+        this.viewHistory.pop();
         window.setTimeout(() => {
-            this.activeViewIndex -= 1;
-            this.viewHistory.pop();
             this.binding.innerHTML = '';
             this.binding.appendChild(
                 this.viewHistory[this.activeViewIndex]!.body,
             );
             this.viewHistory[this.activeViewIndex]!.signal('hi:buildin');
         }, delay);
-        this.viewHistory[this.activeViewIndex]!.signal('hi:buildout');
+        if (oldView) oldView.signal('hi:buildout');
         return this;
     }
 
@@ -122,9 +123,6 @@ export class ViewController {
      *
      * @memberOf ViewController
      */
-    // ! Disabled to see where it is used in project
-    // ! Should only signal the activeView
-    // ! [...].signalAll() should signal all open Views
     public static signalAll(data: string, ...args: unknown[]): void {
         Object.values(ViewControllerData.controllers).forEach(controller =>
             controller.signal(data, ...args),
@@ -145,14 +143,14 @@ export class ViewController {
             .forEach(view => view.signal(data, ...args));
     }
 
-    public get activeView(): View {
+    public get activeView(): View | null {
         if (
             this.activeViewIndex >= 0 &&
             this.activeViewIndex < this.viewHistory.length
         ) {
             return this.viewHistory[this.activeViewIndex]!;
         }
-        throw new Error('Could not resolve the active view.');
+        return null;
     }
 }
 
