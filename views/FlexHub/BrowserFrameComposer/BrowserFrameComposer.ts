@@ -26,7 +26,7 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                             .whenClicked(() =>
                                 ViewController.getController(
                                     'AppController',
-                                )?.navigateTo('preferences'),
+                                )?.navigateBack(),
                             ),
                         new Spacer(),
                     ).width('100%'),

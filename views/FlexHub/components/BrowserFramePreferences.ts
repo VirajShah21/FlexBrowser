@@ -8,6 +8,7 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserFrameComposer from '../BrowserFrameComposer/BrowserFrameComposer';
 
 /**
  * Generates a preview of a browser frame
@@ -80,7 +81,7 @@ export default class BrowserFramePreferences extends VStack {
                     .whenClicked(() =>
                         ViewController.getController(
                             'AppController',
-                        )?.navigateTo('frameComposer'),
+                        )?.navigateTo(new BrowserFrameComposer()),
                     ),
             ).width('100%'),
 

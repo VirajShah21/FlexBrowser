@@ -92,6 +92,10 @@ export class ViewController {
         return this;
     }
 
+    findViewById(id: string): View | null {
+        return this.viewHistory[this.activeView]!.findViewById(id);
+    }
+
     /**
      * Statically access a controller via the controller's name in the registry.
      *
@@ -118,9 +122,25 @@ export class ViewController {
     // ! Disabled to see where it is used in project
     // ! Should only signal the activeView
     // ! [...].signalAll() should signal all open Views
-    // signal(data: string): void {
-    //     Object.values(this.screens).forEach(screen => screen.signal(data));
-    // }
+    public static signalAll(data: string, ...args: unknown[]): void {
+        Object.values(ViewControllerData.controllers).forEach(controller =>
+            controller.signal(data, ...args),
+        );
+    }
+
+    public signal(data: string, ...args: unknown[]): void {
+        this.viewHistory.forEach(view => view.signal(data, ...args));
+    }
+
+    public signalActive(data: string, ...args: unknown[]): void {
+        this.viewHistory[this.activeView]!.signal(data, ...args);
+    }
+
+    public signalInactive(data: string, ...args: unknown[]): void {
+        this.viewHistory
+            .filter(view => view !== this.viewHistory[this.activeView])
+            .forEach(view => view.signal(data, ...args));
+    }
 }
 
 /**

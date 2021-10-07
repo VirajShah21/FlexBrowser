@@ -1,6 +1,5 @@
 import HumanColorSwatch from './HumanColorSwatch';
 import RGBAModel from './RGBAModel';
-import { ViewControllerData } from './ViewController';
 
 export type HumanColorName =
     | 'blue'
@@ -85,9 +84,6 @@ export function rgba(r: number, g: number, b: number, a: number): RGBAModel {
  */
 export function changeTheme(theme: 'light' | 'dark'): void {
     colorTheme = theme;
-    ViewControllerData.controllers.forEach(controller =>
-        controller.signal('color'),
-    );
     localStorage.setItem('hi://theme', colorTheme);
 }
 
