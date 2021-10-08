@@ -10,6 +10,7 @@ import NewWindowTaskbarButton from './components/NewWindowTaskbarButton';
 import PageNavigationTaskbarButtons from './components/PageNavigationTaskbarButtons';
 import RefreshTaskbarButton from './components/RefreshTaskbarButton';
 import URLBar from './components/URLBar';
+import ValidURL from './Models/ValidURL';
 
 /**
  * The window browser frame for Flex Browser
@@ -81,7 +82,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
      * @memberOf FlexBrowserWindow
      */
     public goTo(url: string, addToHistory = true): string[] {
-        const newUrl = FlexBrowserWindow.goodUrl(url);
+        const newUrl = new ValidURL(url).toString();
 
         const icon = this.findViewById('url-refresh-button') as IonIcon;
         const urlbar = this.findViewById('url') as InputField;
