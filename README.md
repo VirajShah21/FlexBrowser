@@ -9,7 +9,7 @@
 One day I installed Microsoft Edge. That's the same thing as Chrome, but with a different frame. So I decided to make my own browser... with a different frame.
 
 -   [User Features](#user-features)
--   [Contributing](#%EF%B8%8F-contributing)
+-   [Contributing](#✍️-contributing)
     -   [Contributing Rules](#%EF%B8%8F-contributing-rules)
     -   [Style Guide Notes](#%E2%84%B9-style-guide-notes)
     -   [Building](#-building)
