@@ -1,3 +1,4 @@
+import HubTitlebar from '@Components/hub/HubTitlebar';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
@@ -8,7 +9,7 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import { ViewController } from '@Hi/ViewController';
-import HubTitlebar from '@Components/hub/HubTitlebar';
+import * as strings from '@Resources/strings.json';
 import BrowserPreferences from '../BrowserPreferences';
 import FlexBookmarksViewer from './FlexBookmarksViewer';
 import FlexPreferences from './FlexPreferences';
@@ -81,7 +82,7 @@ export default class FlexHub extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new HubTitlebar('Flex Hub'),
+                new HubTitlebar(strings.hub_main_title),
 
                 new Spacer(),
 

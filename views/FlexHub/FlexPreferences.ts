@@ -10,6 +10,7 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { navigateBack } from '@Triggers/hub-triggers';
 import BrowserPreferences from '@UI/BrowserPreferences';
+import * as strings from '@Resources/strings.json';
 
 /**
  * The main preferences pane in the hub.
@@ -28,7 +29,7 @@ export default class FlexPreferences extends HIFullScreenView {
         super(
             new VStack(
                 new HubTitlebar(
-                    'Preferences',
+                    strings.preferences_title,
                     new ClickButton(new TextView('Back'))
                         .padding(0)
                         .foreground(HColor(BrowserPreferences.getColorTheme()))

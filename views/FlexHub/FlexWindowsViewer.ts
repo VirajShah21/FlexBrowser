@@ -12,6 +12,7 @@ import {
     navigateBack,
     toggleBookmarkButtonClicked,
 } from '@Triggers/hub-triggers';
+import * as strings from '@Resources/strings.json';
 
 /**
  * The Window (list) Viewer in the Hub.
@@ -30,7 +31,7 @@ export default class FlexWindowViewer extends HIFullScreenView {
         super(
             new VStack(
                 new HubTitlebar(
-                    'Windows',
+                    strings.windows_viewer_title,
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .padding(0)
