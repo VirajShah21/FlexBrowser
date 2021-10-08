@@ -8,14 +8,19 @@
 
 One day I installed Microsoft Edge. That's the same thing as Chrome, but with a different frame. So I decided to make my own browser... with a different frame.
 
+## Outline
+
+> These section anchors are made to link correctly using the GitHub Markdown Renderer.
+> Next to each link with issues, will be a 🔱 which will link correctly in VS Code's Markdown Preview.
+
 -   [User Features](#user-features)
--   [Contributing](#✍️-contributing)
-    -   [Contributing Rules](#%EF%B8%8F-contributing-rules)
-    -   [Style Guide Notes](#%E2%84%B9-style-guide-notes)
-    -   [Building](#-building)
-    -   [Testing](#-testing)
-    -   [Documentation / Lint Report Generation](#-documentation--lint-report-generation)
--   [Dev Tasks](#-dev-tasks-)
+-   [Contributing](#%EF%B8%8F-contributing) [🔱 ](#✍️-contributing)
+    -   [Contributing Rules](#%EF%B8%8F-contributing-rules) [🔱 ](#👩‍⚖️-contributing-rules)
+    -   [Style Guide Notes](#%E2%84%B9-style-guide-notes) [🔱](#ℹ-style-guide-notes)
+    -   [Building](#-building) [🔱 ](#📦-building)
+    -   [Testing](#-testing) [🔱 ](#🧪-testing)
+    -   [Documentation / Lint Report Generation](#-documentation--lint-report-generation) [🔱 ](#📑-documentation--lint-report-generation)
+-   [Dev Tasks](#-dev-tasks-) [🔱 ](#👩‍💻-dev-tasks-👩‍💻)
     -   [Improvements](#-improvements)
     -   [New Features](#-new-features)
 
