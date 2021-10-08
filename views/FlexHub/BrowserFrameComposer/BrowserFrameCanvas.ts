@@ -5,10 +5,10 @@ import TextView from '@Hi/Components/TextView';
 import View from '@Hi/View';
 import BrowserFrameRenderer from '@UI/BrowserFrameRenderer';
 import BrowserPreferences from '@UI/BrowserPreferences';
-import NewWindowTaskbarButton from '@UI/components/NewWindowTaskbarButton';
-import PageNavigationTaskbarButtons from '@UI/components/PageNavigationTaskbarButtons';
-import RefreshTaskbarButton from '@UI/components/RefreshTaskbarButton';
-import URLBar from '@UI/components/URLBar';
+import NewWindowTaskbarButton from 'components/NewWindowTaskbarButton';
+import PageNavigationTaskbarButtons from 'components/PageNavigationTaskbarButtons';
+import RefreshTaskbarButton from 'components/RefreshTaskbarButton';
+import URLBar from 'components/URLBar';
 import BrowserFrameModel, {
     BrowserFrameComponent,
 } from '@UI/Models/BrowserFrameModel';

@@ -6,11 +6,11 @@ import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
-import NewWindowTaskbarButton from './components/NewWindowTaskbarButton';
-import PageNavigationTaskbarButtons from './components/PageNavigationTaskbarButtons';
-import RefreshTaskbarButton from './components/RefreshTaskbarButton';
-import URLBar from './components/URLBar';
-import ValidURL from './Models/ValidURL';
+import ValidURL from 'Models/ValidURL';
+import NewWindowTaskbarButton from '../components/NewWindowTaskbarButton';
+import PageNavigationTaskbarButtons from '../components/PageNavigationTaskbarButtons';
+import RefreshTaskbarButton from '../components/RefreshTaskbarButton';
+import URLBar from '../components/URLBar';
 
 /**
  * The window browser frame for Flex Browser

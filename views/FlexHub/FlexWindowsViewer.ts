@@ -7,7 +7,7 @@ import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import HubTitlebar from '@UI/components/hub/HubTitlebar';
+import HubTitlebar from 'components/hub/HubTitlebar';
 import {
     navigateBack,
     toggleBookmarkButtonClicked,
