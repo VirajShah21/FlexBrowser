@@ -397,17 +397,14 @@ export default abstract class View extends BaseBodyStyler {
                 this.body.style.animationIterationCount = `${definition.iterations}`;
                 this.body.style.animationDuration = `${definition.duration}s`;
 
-                if (definition.delay) {
-                    this.body.style.animationDelay = `${definition.delay}s`;
-                }
+                this.body.style.animationDelay = definition.delay
+                    ? `${definition.delay}s`
+                    : '0s';
 
-                if (definition.after) {
-                    this.body.style.animationFillMode = definition.after;
-                }
+                this.body.style.animationFillMode = definition.after || 'none';
 
-                if (definition.direction) {
-                    this.body.style.animationDirection = definition.direction;
-                }
+                this.body.style.animationDirection =
+                    definition.direction || 'normal';
 
                 setTimeout(
                     () => resolve(this),
