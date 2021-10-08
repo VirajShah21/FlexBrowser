@@ -1,3 +1,4 @@
+import HubTitlebar from '@Components/hub/HubTitlebar';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
@@ -7,11 +8,10 @@ import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import HubTitlebar from 'components/hub/HubTitlebar';
 import {
     navigateBack,
     toggleBookmarkButtonClicked,
-} from '@UI/triggers/hub-triggers';
+} from '@Triggers/hub-triggers';
 
 /**
  * The Window (list) Viewer in the Hub.

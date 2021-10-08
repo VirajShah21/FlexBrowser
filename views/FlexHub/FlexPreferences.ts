@@ -1,15 +1,15 @@
+import BrowserFramePreferences from '@Components/hub/BrowserFramePreferences';
+import HighlightColorPreferences from '@Components/hub/HighlightColorPreferences';
+import HubTitlebar from '@Components/hub/HubTitlebar';
+import ThemePreferences from '@Components/hub/ThemePreferences';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import HighlightColorPreferences from 'components/hub/HighlightColorPreferences';
-import HubTitlebar from 'components/hub/HubTitlebar';
-import ThemePreferences from 'components/hub/ThemePreferences';
-import { navigateBack } from '@UI/triggers/hub-triggers';
-import BrowserPreferences from '../BrowserPreferences';
-import BrowserFramePreferences from '../../components/hub/BrowserFramePreferences';
+import { navigateBack } from '@Triggers/hub-triggers';
+import BrowserPreferences from '@UI/BrowserPreferences';
 
 /**
  * The main preferences pane in the hub.

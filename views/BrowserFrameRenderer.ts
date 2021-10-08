@@ -1,8 +1,8 @@
 import HStack from '@Hi/Components/HStack';
 import BrowserFrameModel, {
-    BrowserFrameComponent,
     BrowserFramePartition,
-} from './Models/BrowserFrameModel';
+    BrowserFrameComponent,
+} from '@Models/BrowserFrameModel';
 
 /**
  * The base class for all renderers of the `BrowserFrameModel`.

@@ -1,3 +1,7 @@
+import NewWindowTaskbarButton from '@Components/NewWindowTaskbarButton';
+import PageNavigationTaskbarButtons from '@Components/PageNavigationTaskbarButtons';
+import RefreshTaskbarButton from '@Components/RefreshTaskbarButton';
+import URLBar from '@Components/URLBar';
 import { HColor } from '@Hi/Colors';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
@@ -6,11 +10,7 @@ import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
-import ValidURL from 'Models/ValidURL';
-import NewWindowTaskbarButton from '../components/NewWindowTaskbarButton';
-import PageNavigationTaskbarButtons from '../components/PageNavigationTaskbarButtons';
-import RefreshTaskbarButton from '../components/RefreshTaskbarButton';
-import URLBar from '../components/URLBar';
+import ValidURL from '@Models/ValidURL';
 
 /**
  * The window browser frame for Flex Browser

@@ -3,9 +3,9 @@ import TextField from '@Hi/Components/TextField';
 import {
     changeReloadButtonToGoButton,
     urlbarFocusedState,
-    urlbarKeyPressed,
     urlbarUnfocusedState,
-} from '@UI/triggers/urlbar-triggers';
+    urlbarKeyPressed,
+} from '@Triggers/urlbar-triggers';
 
 export default class URLBar extends TextField {
     constructor() {

@@ -2,8 +2,8 @@ import ClickButton from '@Hi/Components/ClickButton';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
+import { BrowserFramePartition } from '@Models/BrowserFrameModel';
 import BrowserPreferences from '@UI/BrowserPreferences';
-import { BrowserFramePartition } from '@UI/Models/BrowserFrameModel';
 import PartitionComponentOrganizer from './PartitionComponentOrganizer';
 
 export default class PartitionerComponent extends VStack {
