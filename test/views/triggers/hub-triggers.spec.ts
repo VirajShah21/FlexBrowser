@@ -5,7 +5,7 @@ import { getAppController, reloadAppController } from '@UI/FlexBrowserApp';
 import FlexBookmarksViewer from '@UI/FlexHub/FlexBookmarksViewer';
 import FlexPreferences from '@UI/FlexHub/FlexPreferences';
 import FlexWindowsViewer from '@UI/FlexHub/FlexWindowsViewer';
-import { toggleBookmarkButtonClicked } from '@UI/triggers/hub-triggers';
+import { toggleBookmarkButtonClicked } from '@Triggers/hub-triggers';
 import { expect } from 'chai';
 import mockBrowser from '../../mocks/Browser.mock';
 import HTMLElementMock from '../../mocks/HTMLElement.mock';

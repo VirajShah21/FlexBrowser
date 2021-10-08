@@ -14,10 +14,10 @@
         "paths": {
             "@Hi/*": ["../Client/ts/*"],
             "@UI/*": ["../views/*"],
-            "@Components/*": ["./components/*"],
-            "@Triggers/*": ["./triggers/*"],
-            "@Resources/*": ["./resources/*"],
-            "@Models/*": ["./Models/*"]
+            "@Components/*": ["../components/*"],
+            "@Triggers/*": ["../triggers/*"],
+            "@Resources/*": ["../resources/*"],
+            "@Models/*": ["../Models/*"]
         }
     }
 }

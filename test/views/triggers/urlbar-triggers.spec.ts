@@ -1,5 +1,5 @@
 import IonIcon from '@Hi/Components/IonIcon';
-import URLBar from '@UI/components/URLBar';
+import URLBar from '@Components/URLBar';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
 import { expect } from 'chai';
 import HTMLElementMock from '../../mocks/HTMLElement.mock';
