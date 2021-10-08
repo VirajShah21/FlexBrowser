@@ -1,3 +1,4 @@
+import HumanEvent from './Types/HumanEvent';
 import View from './View';
 
 export const ViewControllerData = {

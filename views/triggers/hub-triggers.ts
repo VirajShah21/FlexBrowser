@@ -1,5 +1,6 @@
 import IonIcon from '@Hi/Components/IonIcon';
-import { HumanEvent, ViewController } from '@Hi/ViewController';
+import HumanEvent from '@Hi/Types/HumanEvent';
+import { ViewController } from '@Hi/ViewController';
 
 export function navigateBack(): void {
     ViewController.getController('AppController')?.navigateBack();
