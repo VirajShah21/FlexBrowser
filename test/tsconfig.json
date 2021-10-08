@@ -13,7 +13,11 @@
         ],
         "paths": {
             "@Hi/*": ["../Client/ts/*"],
-            "@UI/*": ["../views/*"]
+            "@UI/*": ["../views/*"],
+            "@Components/*": ["./components/*"],
+            "@Triggers/*": ["./triggers/*"],
+            "@Resources/*": ["./resources/*"],
+            "@Models/*": ["./Models/*"]
         }
     }
 }

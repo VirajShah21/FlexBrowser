@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "es6",
         "lib": ["esnext", "dom"],
-        "rootDir": ".",
+        "rootDir": "./",
         "outDir": "./test/bin",
         "sourceMap": true,
         "noImplicitAny": true,
@@ -15,10 +15,10 @@
         "paths": {
             "@Hi/*": ["./Client/ts/*"],
             "@UI/*": ["./views/*"],
-            "@Components/*": ["./views/components/*"],
-            "@Triggers/*": ["./views/triggers/*"],
-            "@Resources/*": ["./views/resources/*"],
-            "@Models/*": ["./views/Models"]
+            "@Components/*": ["./components/*"],
+            "@Triggers/*": ["./triggers/*"],
+            "@Resources/*": ["./resources/*"],
+            "@Models/*": ["./Models/*"]
         },
         "strictNullChecks": true,
         "noUncheckedIndexedAccess": true
