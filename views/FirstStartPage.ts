@@ -7,8 +7,8 @@ import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
 import { ViewController } from '@Hi/ViewController';
-import HighlightColorPreferences from './FlexHub/components/HighlightColorPreferences';
-import ThemePreferences from './FlexHub/components/ThemePreferences';
+import HighlightColorPreferences from './components/hub/HighlightColorPreferences';
+import ThemePreferences from './components/hub/ThemePreferences';
 
 /**
  * @returns The main welcome screen
