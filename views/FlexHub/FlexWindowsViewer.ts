@@ -7,11 +7,11 @@ import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import HubTitlebar from '@UI/components/hub/HubTitlebar';
 import {
     navigateBack,
     toggleBookmarkButtonClicked,
 } from '@UI/triggers/hub-triggers';
-import HubTitlebar from './components/HubTitlebar';
 
 /**
  * The Window (list) Viewer in the Hub.

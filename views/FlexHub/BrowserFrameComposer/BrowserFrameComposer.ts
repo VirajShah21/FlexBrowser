@@ -8,7 +8,7 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from '@UI/BrowserPreferences';
-import HubTitlebar from '../components/HubTitlebar';
+import HubTitlebar from '@UI/components/hub/HubTitlebar';
 import BrowserFrameCanvas from './BrowserFrameCanvas';
 import PartitionComponentOrganizer from './PartitionComponentOrganizer';
 import PartitionerComponent from './PartitionerComponent';
