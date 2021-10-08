@@ -18,4 +18,4 @@ export function getAppController(): ViewController {
 }
 
 BrowserPreferences.initialize();
-reloadAppController('browser');
+reloadAppController(document.body.dataset.window);
