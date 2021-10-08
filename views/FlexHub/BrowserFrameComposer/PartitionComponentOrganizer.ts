@@ -11,7 +11,7 @@ import URLBar from '@UI/components/URLBar';
 import BrowserFrameModel, {
     BrowserFrameComponent,
 } from '@UI/Models/BrowserFrameModel';
-import AddWidgetButton from './components/AddWidgetButton';
+import AddWidgetButton from '../../components/hub/BrowserFrameComposer/AddWidgetButton';
 
 function makeComponent(model: BrowserFrameComponent): View {
     switch (model.name) {
