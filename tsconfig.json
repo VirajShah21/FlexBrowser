@@ -14,7 +14,11 @@
         "baseUrl": ".",
         "paths": {
             "@Hi/*": ["./Client/ts/*"],
-            "@UI/*": ["./views/*"]
+            "@UI/*": ["./views/*"],
+            "@Components/*": ["./views/components/*"],
+            "@Triggers/*": ["./views/triggers/*"],
+            "@Resources/*": ["./views/resources/*"],
+            "@Models/*": ["./views/Models"]
         },
         "strictNullChecks": true,
         "noUncheckedIndexedAccess": true
