@@ -20,6 +20,7 @@ export default class ValidURL {
                     this.value.indexOf('://'),
                 );
                 if (proto === 'http' || proto === 'https') return proto;
+                throw new Error(`No such protocol: ${proto}`);
             }
         }
         return 'https';

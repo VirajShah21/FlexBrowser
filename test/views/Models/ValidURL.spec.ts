@@ -22,7 +22,7 @@ describe('Models.ValidURL: When constructed with a URL query', () => {
     });
 
     it('Should throw an error when an unknown protocol is provided', () => {
-        expect(url6.protocol).to.throw(Error);
+        expect(() => url6.protocol).to.throw(Error);
     });
 
     it('Should get the domain name without any trailing slashes', () => {
@@ -33,14 +33,16 @@ describe('Models.ValidURL: When constructed with a URL query', () => {
         [url2, url4].forEach(url =>
             expect(url.domain).to.equal('www.google.com'),
         );
-
-        expect(url6.domain).to.throw(Error);
     });
 
     it('Should get the path if provided (default is "/")', () => {
         [url1, url2, url3].forEach(url => expect(url.path).to.equal('/'));
         expect(url4.path).to.equal('/search?q=Hello+World');
-        expect(url5.path).to.equal('/dive/something');
-        expect(url6.path).to.throw(Error);
+        expect(url5.path).to.equal('/drive/something');
+    });
+
+    it('Should throw an error when getting domain or path when an unknown protocol is provided', () => {
+        expect(() => url6.domain).to.throw(Error);
+        expect(() => url6.path).to.throw(Error);
     });
 });
