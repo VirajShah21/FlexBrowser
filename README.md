@@ -8,6 +8,7 @@
 
 One day I installed Microsoft Edge. That's the same thing as Chrome, but with a different frame. So I decided to make my own browser... with a different frame.
 
+- [User Features](#user-features)
 - [Contributing](#%EF%B8%8F-contributing)
     - [Contributing Rules](#%EF%B8%8F-contributing-rules)
     - [Style Guide Notes](#%E2%84%B9-style-guide-notes)
@@ -17,6 +18,30 @@ One day I installed Microsoft Edge. That's the same thing as Chrome, but with a 
 - [Dev Tasks](#-dev-tasks-)
     - [Improvements](#-improvements)
     - [New Features](#-new-features)
+
+## User Features
+
+> **_Key:_**
+> 🟢 = Stable
+> 🟡 = Unstable
+> 🔴 = Not working
+> 🔵 = Being Implemented
+> 
+
+-   🟢 **Basic Browsing Features** – URL/Search bar, forward/back navigation, create new windows, etc.
+-   🟢 **Hub** – A central location to manage all your browser windows, bookmarks, etc.
+-   🟢 **Customization Preferences**
+    -   🟢 **Light/Dark Theme** – Choose when to use a light or dark theme.
+    -   🟢 **Highlight Color** – Select a secondary color to use for browser UI elements.
+    -   🔵 **Frame Customization** – Customize how the browser frame looks and feels.
+-   🟢 **Search**
+    -   🟢 **URL/Search Query detection** – Automatically determine whether to navigate to a URL or perform a search.
+    -   🟢 **Google Search** – Uses Google as the default search engine.
+    -   🔴 **Custom Search Engines** – Define custom search engines
+    -   🔴 **Search Swap** – Allows for searching using an alternative search engine when using a specific search prefix.
+-   🟢 **Windows Viewer**
+    -   🟢 **Windows Overview** – Displays a list of all open Flex Browser windows.
+    -   🔵 **Instant Bookmark** – Bookmark directly from the Windows Viewer
 
 ## ✍️ Contributing
 
