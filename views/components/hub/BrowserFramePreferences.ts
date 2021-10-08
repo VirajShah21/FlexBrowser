@@ -8,7 +8,7 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from '@UI/BrowserPreferences';
-import BrowserFrameComposer from '../BrowserFrameComposer/BrowserFrameComposer';
+import BrowserFrameComposer from '../../FlexHub/BrowserFrameComposer/BrowserFrameComposer';
 
 /**
  * Generates a preview of a browser frame

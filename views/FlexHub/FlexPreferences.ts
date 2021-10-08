@@ -6,7 +6,7 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { navigateBack } from '@UI/triggers/hub-triggers';
 import BrowserPreferences from '../BrowserPreferences';
-import BrowserFramePreferences from './components/BrowserFramePreferences';
+import BrowserFramePreferences from '../components/hub/BrowserFramePreferences';
 import HighlightColorPreferences from './components/HighlightColorPreferences';
 import HubTitlebar from './components/HubTitlebar';
 import ThemePreferences from './components/ThemePreferences';
