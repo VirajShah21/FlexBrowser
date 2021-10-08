@@ -2,7 +2,7 @@ import IonIcon from '@Hi/Components/IonIcon';
 import URLBar from '@Components/URLBar';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
 import { expect } from 'chai';
-import HTMLElementMock from '../../mocks/HTMLElement.mock';
+import HTMLElementMock from '../mocks/HTMLElement.mock';
 
 describe('URLBar (Trigger): When keys are pressed', () => {
     let win: FlexBrowserWindow;
