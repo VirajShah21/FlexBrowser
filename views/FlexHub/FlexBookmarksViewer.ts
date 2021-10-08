@@ -7,7 +7,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { navigateBack } from '@Triggers/hub-triggers';
-import * as strings from '@Resources/strings.json';
+import strings from '@Resources/strings.json';
 
 export default class FlexBookmarksViewer extends HIFullScreenView {
     constructor() {

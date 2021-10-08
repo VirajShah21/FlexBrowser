@@ -12,7 +12,7 @@ import {
     navigateBack,
     toggleBookmarkButtonClicked,
 } from '@Triggers/hub-triggers';
-import * as strings from '@Resources/strings.json';
+import strings from '@Resources/strings.json';
 
 /**
  * The Window (list) Viewer in the Hub.

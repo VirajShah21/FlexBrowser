@@ -4,6 +4,7 @@
         "moduleResolution": "node",
         "lib": ["ES6", "DOM"],
         "target": "es6",
+        "resolveJsonModule": true,
         "types": [
             "node",
             "mocha",

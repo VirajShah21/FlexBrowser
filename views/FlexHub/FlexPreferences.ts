@@ -10,7 +10,7 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { navigateBack } from '@Triggers/hub-triggers';
 import BrowserPreferences from '@UI/BrowserPreferences';
-import * as strings from '@Resources/strings.json';
+import strings from '@Resources/strings.json';
 
 /**
  * The main preferences pane in the hub.

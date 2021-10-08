@@ -11,6 +11,7 @@
         "noImplicitReturns": true,
         "target": "es6",
         "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "paths": {
             "@Hi/*": ["./Client/ts/*"],
