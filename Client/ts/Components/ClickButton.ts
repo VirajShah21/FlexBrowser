@@ -1,7 +1,7 @@
 import { HColor } from '@Hi/Colors';
+import HumanEvent from '@Hi/Types/HumanEvent';
 import { SizingValues } from '@Hi/Types/sizing';
 import View from '@Hi/View';
-import { HumanEvent } from '@Hi/ViewController';
 
 export default class ClickButton extends View {
     public override body: HTMLButtonElement;

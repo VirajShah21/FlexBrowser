@@ -3,7 +3,7 @@ import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
 import TextField from '@Hi/Components/TextField';
 import { defineTransition } from '@Hi/Transitions/Transition';
-import { HumanEvent, HumanKeyPressEvent } from '@Hi/ViewController';
+import HumanEvent, { HumanKeyPressEvent } from '@Hi/Types/HumanEvent';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
 
 const whenFocusedTransition = defineTransition({

@@ -1,6 +1,6 @@
 import BaseBodyStyler from './BaseBodyStyler';
 import { getTransitionDefintion } from './Transitions/Transition';
-import { HumanEvent } from './ViewController';
+import HumanEvent from './Types/HumanEvent';
 
 interface ModelData {
     viewName: string;
@@ -43,6 +43,11 @@ export default abstract class View extends BaseBodyStyler {
 
     public readonly children: ViewCollection;
 
+    /**
+     *
+     * @param element The HTML tagname which should be used to generate the View.
+     * @param children The initial group of children to add before the View is rendered.
+     */
     constructor(element: string, ...children: View[]) {
         super(document.createElement(element));
         this.children = [];

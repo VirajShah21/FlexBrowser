@@ -1,7 +1,7 @@
 import { HColor } from '@Hi/Colors';
+import HumanEvent, { HumanKeyPressEvent } from '@Hi/Types/HumanEvent';
 import { SizingValues } from '@Hi/Types/sizing';
 import View from '@Hi/View';
-import { HumanEvent, HumanKeyPressEvent } from '@Hi/ViewController';
 
 export default class InputField extends View {
     public override body: HTMLInputElement;

@@ -1,6 +1,6 @@
 import View from '@Hi/View';
 
-export class ScrollView extends View {
+export default class ScrollView extends View {
     constructor(...children: View[]) {
         super('div', ...children);
         this.body.style.overflowY = 'scroll';

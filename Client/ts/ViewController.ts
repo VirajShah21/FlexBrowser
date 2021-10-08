@@ -1,3 +1,4 @@
+import HumanEvent from './Types/HumanEvent';
 import View from './View';
 
 export const ViewControllerData = {
@@ -152,23 +153,4 @@ export class ViewController {
         }
         return null;
     }
-}
-
-/**
- * An object holding the details of a triggered event
- *
- * @export
- * @interface HumanEvent
- */
-export interface HumanEvent {
-    view: View;
-    type: string;
-    browserEvent: Event;
-}
-
-export interface HumanKeyPressEvent {
-    view: View;
-    type: 'KeyPress';
-    browserEvent: Event;
-    key: string;
 }

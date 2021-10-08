@@ -1,5 +1,5 @@
 import View from '@Hi/View';
-import { HumanEvent } from '@Hi/ViewController';
+import HumanEvent from '@Hi/Types/HumanEvent';
 
 export default class Checkbox extends View {
     private checkedFlag: boolean;

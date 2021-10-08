@@ -1,5 +1,5 @@
+import HumanEvent from '@Hi/Types/HumanEvent';
 import View from '@Hi/View';
-import { HumanEvent } from '@Hi/ViewController';
 
 export default class RadioButton extends View {
     private selectedFlag = false;

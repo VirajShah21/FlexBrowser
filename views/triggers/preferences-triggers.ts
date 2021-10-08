@@ -1,5 +1,5 @@
 import { HColor, HumanColorName } from '@Hi/Colors';
-import { HumanEvent } from '@Hi/ViewController';
+import HumanEvent from '@Hi/Types/HumanEvent';
 import BrowserPreferences from '@UI/BrowserPreferences';
 
 export function highlightColorSelected(
