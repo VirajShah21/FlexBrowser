@@ -3,7 +3,7 @@ import ClickButton from './ClickButton';
 import HStack from './HStack';
 import IonIcon from './IonIcon';
 import Overlay from './Overlay';
-import { ScrollView } from './ScrollView';
+import ScrollView from './ScrollView';
 import TextContent from './TextView';
 import VStack from './VStack';
 
