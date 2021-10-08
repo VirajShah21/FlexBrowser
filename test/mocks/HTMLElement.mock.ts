@@ -91,31 +91,29 @@ export function assertIsHTMLElementMockCollection(
 export default class HTMLElementMock {
     public tagName: string;
 
-    public classList: string[];
+    public classList: string[] = [];
 
-    private style: CSSStyleDefinitionMock;
+    private style: CSSStyleDefinitionMock = new CSSStyleDefinitionMock();
 
-    private children: (HTMLElementMock | string)[];
+    private children: (HTMLElementMock | string)[] = [];
 
-    private eventListeners: Record<string, (() => void)[]>;
+    private eventListeners: Record<string, (() => void)[]> = {};
 
     private attributes: {
         id: string;
         name: string;
         value: string;
+        dataset: Record<string, string>;
     };
 
     public constructor(tagName: string) {
         this.tagName = tagName;
-        this.style = new CSSStyleDefinitionMock();
-        this.children = [];
-        this.classList = [];
         this.attributes = {
             id: '',
             name: '',
             value: '',
+            dataset: {},
         };
-        this.eventListeners = {};
     }
 
     public querySelector(query: string): HTMLElementMock | null {
@@ -230,5 +228,13 @@ export default class HTMLElementMock {
 
     public set value(newValue: string) {
         this.attributes.value = newValue;
+    }
+
+    public get dataset(): Record<string, string> {
+        return this.attributes.dataset;
+    }
+
+    public set dataset(data: Record<string, string>) {
+        this.attributes.dataset = data;
     }
 }
