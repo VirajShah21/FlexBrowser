@@ -36,7 +36,6 @@ if (ipcMain) {
         );
 
         let obj = flexBrowserInstances.map(instance => {
-            debug(`BrowserView instance: ${JSON.stringify(instance, null, 4)}`);
             return {
                 title: instance.getBrowserView().webContents.getTitle(),
                 url: instance.getBrowserView().webContents.getURL(),
@@ -72,6 +71,16 @@ if (ipcMain) {
             .webContents.loadURL(to);
     });
     info('Binded URL Bar onchange listener');
+
+    ipcMain.on('pref', (_, preference, value) => {
+        const rc = readRC();
+        if (value) {
+            rc[preference] = value;
+            writeRC(rc);
+        }
+        return rc[preference];
+    });
+    info('Defined (on) pref');
 }
 
 /**
