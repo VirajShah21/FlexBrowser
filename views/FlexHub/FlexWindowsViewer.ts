@@ -52,7 +52,9 @@ export default class FlexWindowViewer extends HIFullScreenView {
             ).stretch(),
         );
 
-        this.background(HColor('background')).foreground(HColor('foreground'));
+        this.background(HColor('background').alpha(0.75)).foreground(
+            HColor('foreground'),
+        );
     }
 
     /**
