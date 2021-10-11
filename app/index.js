@@ -64,6 +64,14 @@ if (ipcMain) {
         }
     });
     info('Defined (on) addBookmark');
+
+    ipcMain.on('changeUrl', (event, to) => {
+        flexBrowserInstances
+            .find(i => i.webContents == event.sender)
+            .getBrowserView()
+            .webContents.loadURL(to);
+    });
+    info('Binded URL Bar onchange listener');
 }
 
 /**
@@ -107,14 +115,6 @@ function createWindow() {
         });
     });
     info('Binded Listener for resizing browser window');
-
-    ipcMain.on('changeUrl', (event, to) => {
-        flexBrowserInstances
-            .find(i => i.webContents == event.sender)
-            .getBrowserView()
-            .webContents.loadURL(to);
-    });
-    info('Binded URL Bar onchange listener');
 }
 
 /**
