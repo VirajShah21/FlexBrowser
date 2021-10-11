@@ -32,18 +32,21 @@ if (ipcMain) {
 
     ipcMain.on('getWindowList', event => {
         debug(
-            flexBrowserInstances
-                .map(obj => JSON.stringify(obj, null, 4))
-                .toString(),
+            `Retrieving window list. Found ${flexBrowserInstances.length} windows.`,
         );
 
         let obj = flexBrowserInstances.map(instance => {
-            debug(JSON.stringify(instance, null, 4));
+            debug(`BrowserView instance: ${JSON.stringify(instance, null, 4)}`);
             return {
                 title: instance.getBrowserView().webContents.getTitle(),
                 url: instance.getBrowserView().webContents.getURL(),
             };
         });
+
+        debug(
+            `Returning from getWindowList with ${JSON.stringify(obj, null, 4)}`,
+        );
+
         event.returnValue = obj;
     });
     info('Defined (on) getWindowList');
