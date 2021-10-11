@@ -66,20 +66,28 @@ export default class FlexWindowViewer extends HIFullScreenView {
 }
 
 class FlexWindowsViewerItem extends ClickButton {
+    private static readonly MAXLEN = 55;
+
     constructor(meta: URLMeta) {
         super(
             new VStack(
                 new IonIcon('compass').font('xxl').padding(),
                 new Spacer(),
                 new TextView(
-                    meta.title.length < 25
+                    meta.title.length < FlexWindowsViewerItem.MAXLEN
                         ? meta.title
-                        : `${meta.title.substring(0, 22)}...`,
+                        : `${meta.title.substring(
+                              0,
+                              FlexWindowsViewerItem.MAXLEN - 3,
+                          )}...`,
                 ),
                 new TextView(
-                    meta.url.length < 25
+                    meta.url.length < FlexWindowsViewerItem.MAXLEN
                         ? meta.url
-                        : `${meta.url.substring(0, 22)}...`,
+                        : `${meta.url.substring(
+                              0,
+                              FlexWindowsViewerItem.MAXLEN - 3,
+                          )}...`,
                 ).foreground(HColor('background').alpha(0.5)),
             ),
         );
@@ -88,7 +96,6 @@ class FlexWindowsViewerItem extends ClickButton {
             .background(BrowserPreferences.getPrimaryColor())
             .foreground(HColor('background'))
             .padding()
-            .width('45vw')
-            .height('45vw');
+            .width('100%');
     }
 }
