@@ -15,6 +15,7 @@ import {
 import strings from '@Resources/strings.json';
 import BrowserPreferences from '@UI/BrowserPreferences';
 import URLMeta from '@Models/URLMeta';
+import TruncatedTextView from '@Hi/Components/TruncatedTextView';
 
 /**
  * The Window (list) Viewer in the Hub.
@@ -73,21 +74,10 @@ class FlexWindowsViewerItem extends ClickButton {
             new VStack(
                 new IonIcon('compass').font('xxl').padding(),
                 new Spacer(),
-                new TextView(
-                    meta.title.length < FlexWindowsViewerItem.MAXLEN
-                        ? meta.title
-                        : `${meta.title.substring(
-                              0,
-                              FlexWindowsViewerItem.MAXLEN - 3,
-                          )}...`,
-                ),
-                new TextView(
-                    meta.url.length < FlexWindowsViewerItem.MAXLEN
-                        ? meta.url
-                        : `${meta.url.substring(
-                              0,
-                              FlexWindowsViewerItem.MAXLEN - 3,
-                          )}...`,
+                new TruncatedTextView(meta.title, FlexWindowsViewerItem.MAXLEN),
+                new TruncatedTextView(
+                    meta.url,
+                    FlexWindowsViewerItem.MAXLEN,
                 ).foreground(HColor('background').alpha(0.5)),
             ),
         );
@@ -96,6 +86,7 @@ class FlexWindowsViewerItem extends ClickButton {
             .background(BrowserPreferences.getPrimaryColor())
             .foreground(HColor('background'))
             .padding()
-            .width('100%');
+            .width('100%')
+            .margin({ bottom: 25 });
     }
 }
