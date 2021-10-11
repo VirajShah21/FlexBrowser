@@ -25,19 +25,33 @@ const browserWindowOptions = {
 // During testing, ipcMain is undefined.
 // This guard should not be removed.
 if (ipcMain) {
+    info('Defining IPC Main API');
+
     ipcMain.on('newWindow', createWindow);
+    info('Defined (on) newWindow');
 
     ipcMain.on('getWindowList', event => {
-        let obj = flexBrowserInstances.map(instance => ({
-            title: instance.getBrowserView().webContents.getTitle(),
-            url: instance.getBrowserView().webContents.getURL(),
-        }));
+        debug(
+            flexBrowserInstances
+                .map(obj => JSON.stringify(obj, null, 4))
+                .toString(),
+        );
+
+        let obj = flexBrowserInstances.map(instance => {
+            debug(JSON.stringify(instance, null, 4));
+            return {
+                title: instance.getBrowserView().webContents.getTitle(),
+                url: instance.getBrowserView().webContents.getURL(),
+            };
+        });
         event.returnValue = obj;
     });
+    info('Defined (on) getWindowList');
 
     ipcMain.on('getBookmarks', event => {
         event.returnValue = readBookmarksFile();
     });
+    info('Defined (on) getBookmarks');
 
     ipcMain.on('addBookmark', (event, meta) => {
         let bookmarks = readBookmarksFile();
@@ -46,6 +60,7 @@ if (ipcMain) {
             writeBookmarksFile(bookmarks);
         }
     });
+    info('Defined (on) addBookmark');
 }
 
 /**
