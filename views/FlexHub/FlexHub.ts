@@ -91,9 +91,9 @@ export default class FlexHub extends HIFullScreenView {
 
                     HubButton(new IonIcon('albums'), 'Windows').whenClicked(
                         () => {
-                            ViewController.getController('AppController')!
-                                .navigateTo(new FlexWindowsViewer(), 1000)
-                                .signal('refresh-windows');
+                            ViewController.getController(
+                                'AppController',
+                            )!.navigateTo(new FlexWindowsViewer(), 1000);
                         },
                     ),
 

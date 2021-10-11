@@ -13,6 +13,8 @@ import {
     toggleBookmarkButtonClicked,
 } from '@Triggers/hub-triggers';
 import strings from '@Resources/strings.json';
+import BrowserPreferences from '@UI/BrowserPreferences';
+import URLMeta from '@Models/URLMeta';
 
 /**
  * The Window (list) Viewer in the Hub.
@@ -41,7 +43,11 @@ export default class FlexWindowViewer extends HIFullScreenView {
                     ).width('100%'),
                 ),
                 new ScrollView(
-                    new VStack()
+                    new VStack(
+                        ...flexarch
+                            .getWindowList()
+                            .map(meta => new FlexWindowsViewerItem(meta)),
+                    )
                         .width('100%')
                         .padding()
                         .id('window-buttons-container'),
@@ -56,41 +62,23 @@ export default class FlexWindowViewer extends HIFullScreenView {
             HColor('foreground'),
         );
     }
+}
 
-    /**
-     * Whenever any signal is sent to this screen it will refresh the
-     * list of windows.
-     *
-     *
-     * @memberOf FlexWindowViewer
-     */
-    override handle(): void {
-        const container = this.findViewById(
-            'window-buttons-container',
-        ) as VStack;
-        const windowList = flexarch.getWindowList();
-        container.removeAllChildren().addChildren(
-            ...windowList.map(win =>
-                new ClickButton(
-                    new HStack(
-                        new IonIcon('globe-outline')
-                            .font('lg')
-                            .margin({ right: 10 }),
-                        new TextView(win.title),
-                        new Spacer(),
-                        new ClickButton(new IonIcon('bookmark-outline'))
-                            .describe('bookmark')
-                            .whenClicked(ev =>
-                                toggleBookmarkButtonClicked(ev, win),
-                            ),
-                    ).width('100%'),
-                )
-                    .width('100%')
-                    .padding()
-                    .background(HColor('gray5'))
-                    .margin({ bottom: 10 })
-                    .rounded(),
+class FlexWindowsViewerItem extends ClickButton {
+    constructor(meta: URLMeta) {
+        super(
+            new VStack(
+                new IonIcon('compass').font('xxl').padding(),
+                new TextView(meta.title),
+                new TextView(meta.url).foreground(
+                    HColor('background').alpha(0.5),
+                ),
             ),
         );
+
+        this.rounded()
+            .background(BrowserPreferences.getPrimaryColor())
+            .foreground(HColor('background'))
+            .padding();
     }
 }
