@@ -36,6 +36,7 @@ export default class FlexWindowViewer extends HIFullScreenView {
                     strings.windows_viewer_title,
                     new HStack(
                         new ClickButton(new TextView('Back'))
+                            .foreground(BrowserPreferences.getPrimaryColor())
                             .padding(0)
                             .whenClicked(navigateBack)
                             .id('back-btn'),
