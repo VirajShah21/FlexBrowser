@@ -2,8 +2,9 @@ import { HColor } from '@Hi/Colors';
 import HumanEvent from '@Hi/Types/HumanEvent';
 import { SizingValues } from '@Hi/Types/sizing';
 import View from '@Hi/View';
+import Group from './Group';
 
-export default class ClickButton extends View {
+export default class ClickButton extends Group {
     public override body: HTMLButtonElement;
 
     constructor(...children: View[]) {
