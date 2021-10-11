@@ -70,16 +70,25 @@ class FlexWindowsViewerItem extends ClickButton {
         super(
             new VStack(
                 new IonIcon('compass').font('xxl').padding(),
-                new TextView(meta.title),
-                new TextView(meta.url).foreground(
-                    HColor('background').alpha(0.5),
+                new Spacer(),
+                new TextView(
+                    meta.title.length < 25
+                        ? meta.title
+                        : `${meta.title.substring(0, 22)}...`,
                 ),
+                new TextView(
+                    meta.url.length < 25
+                        ? meta.url
+                        : `${meta.url.substring(0, 22)}...`,
+                ).foreground(HColor('background').alpha(0.5)),
             ),
         );
 
         this.rounded()
             .background(BrowserPreferences.getPrimaryColor())
             .foreground(HColor('background'))
-            .padding();
+            .padding()
+            .width('45vw')
+            .height('45vw');
     }
 }
