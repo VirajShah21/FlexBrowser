@@ -108,8 +108,11 @@ function createWindow() {
     });
     info('Binded Listener for resizing browser window');
 
-    ipcMain.on('changeUrl', (_, to) => {
-        if (win.isFocused()) win.getBrowserView().webContents.loadURL(to);
+    ipcMain.on('changeUrl', (event, to) => {
+        flexBrowserInstances
+            .find(i => i.webContents == event.sender)
+            .getBrowserView()
+            .webContents.loadURL(to);
     });
     info('Binded URL Bar onchange listener');
 }
