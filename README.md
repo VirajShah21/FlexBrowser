@@ -147,3 +147,9 @@ source docs.sh
 -   **Notes Plugin** 📝 – Lightweight feature for adding notes for URLs
 -   **Flextensions** 🧩 – Extensions for the Flex Browser (Notes should probably be packed inside this)
     -   **Flextension to Install Chrome Extensions** – Make it easy to install chrome extensions, either from the webstore (`.crx` files, which is hard in electron, and unpacked)
+-   **Brand Manager** 👾 – `.flexbrands.json` to store branding data
+    -   **Favicon Finder** – Automatically resolve the location of the websites Favicon
+    -   **Override Favicons** – Allow the user to prefer a large icon or image for certain domains, "contains" in address, or subdomains.
+    -   **Color Resolver** – Resolve the primary colors from a favicon, icon, or logo.
+    -   **Appropriate Branding** – Display brand icons and colors wherever appropriate
+    -   For more information, refer to [README/branding.md](Branding documentation)
