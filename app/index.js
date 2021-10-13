@@ -72,15 +72,24 @@ if (ipcMain) {
     });
     info('Binded URL Bar onchange listener');
 
-    ipcMain.on('pref', (_, preference, value) => {
+    ipcMain.on('pref', (event, preference, value) => {
         const rc = readRC();
         if (value) {
             rc[preference] = value;
             writeRC(rc);
         }
-        return rc[preference];
+        if (Object.prototype.hasOwnProperty.call(rc, preference)) {
+            event.returnValue = rc[preference];
+        } else {
+            event.returnValue = undefined;
+        }
     });
     info('Defined (on) pref');
+
+    ipcMain.on('getAllPreferences', event => {
+        event.returnValue = readRC();
+    });
+    info('Defined (on) getAllPreferences');
 }
 
 /**
@@ -184,6 +193,8 @@ function startup() {
             lastSession: {
                 version: '0.0.1',
             },
+            colorTheme: 'blue',
+            theme: 'dark',
         });
         info('Since no flexrc file was found in ~/.flexrc, one was created.');
         firstStartWindow();
