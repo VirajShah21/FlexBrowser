@@ -1,12 +1,11 @@
 import { HColor } from '@Hi/Colors';
-import Checkbox from '@Hi/Components/Checkbox';
-import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import SearchEngineItem from './SearchEngineItem';
 
 export default class SearchEnginePreference extends HIFullScreenView {
     constructor() {
@@ -36,25 +35,10 @@ export default class SearchEnginePreference extends HIFullScreenView {
                     .font('sm'),
 
                 new ScrollView(
-                    new VStack(
-                        new HStack(
-                            new Spacer(),
-                            new Checkbox(),
-                            new Spacer(),
-                            new TextView('Google')
-                                .width('calc((100% - 50px) / 2')
-                                .textStart(),
-                            new TextView('https://google.com/search?q=')
-                                .width('calc((100% - 50px) / 2')
-                                .textStart(),
-                        )
-                            .width('100%')
-                            .font('sm'),
-                        new Spacer(),
-                    ).stretch(),
+                    new VStack(new SearchEngineItem(), new Spacer()).stretch(),
                 )
                     .width('100%')
-                    .height('500px'),
+                    .height('100px'),
             ).padding(),
         );
     }
