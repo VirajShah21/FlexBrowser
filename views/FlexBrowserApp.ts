@@ -1,5 +1,4 @@
 import { ViewController } from '@Hi/ViewController';
-import BrowserPreferences from './BrowserPreferences';
 import FlexBrowserWindow from './FlexBrowserWindow';
 import FlexHub from './FlexHub/FlexHub';
 

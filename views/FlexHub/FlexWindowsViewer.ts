@@ -7,15 +7,12 @@ import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
-import VStack from '@Hi/Components/VStack';
-import {
-    navigateBack,
-    toggleBookmarkButtonClicked,
-} from '@Triggers/hub-triggers';
-import strings from '@Resources/strings.json';
-import BrowserPreferences from '@UI/BrowserPreferences';
-import URLMeta from '@Models/URLMeta';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
+import VStack from '@Hi/Components/VStack';
+import URLMeta from '@Models/URLMeta';
+import strings from '@Resources/strings.json';
+import { navigateBack } from '@Triggers/hub-triggers';
+import BrowserPreferences from '@UI/BrowserPreferences';
 
 /**
  * The Window (list) Viewer in the Hub.
