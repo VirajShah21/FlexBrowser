@@ -8,6 +8,12 @@ import VStack from '@Hi/Components/VStack';
 import SearchEngineItem from './SearchEngineItem';
 
 export default class SearchEnginePreference extends HIFullScreenView {
+    private searchEngineList: {
+        isDefault: boolean;
+        name: string;
+        urlPrefix: string;
+    }[];
+
     constructor() {
         super(
             new VStack(
@@ -36,9 +42,16 @@ export default class SearchEnginePreference extends HIFullScreenView {
 
                 new ScrollView(
                     new VStack(
-                        new SearchEngineItem(),
-                        new SearchEngineItem(),
-                        new SearchEngineItem(),
+                        new SearchEngineItem(
+                            'Google Search',
+                            'https://google.com/search?q=',
+                            true,
+                        ),
+                        new SearchEngineItem(
+                            'Duck Duck Go',
+                            'https://duckduckgo.com/q=',
+                        ),
+                        new SearchEngineItem('Bing', 'https://bing.com/s='),
                         new Spacer(),
                     ).stretch(),
                 )
