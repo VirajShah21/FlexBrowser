@@ -32,13 +32,13 @@ export default class FlexPreferences extends HIFullScreenView {
                     strings.preferences_title,
                     new ClickButton(new TextView('Back'))
                         .padding(0)
-                        .foreground(HColor(BrowserPreferences.getColorTheme()))
+                        .foreground(HColor(BrowserPreferences.colorTheme))
                         .whenClicked(navigateBack)
                         .id('back-btn'),
                     new Spacer(),
                     new ClickButton(new TextView('Reload'))
                         .padding(0)
-                        .foreground(HColor(BrowserPreferences.getColorTheme()))
+                        .foreground(HColor(BrowserPreferences.colorTheme))
                         .whenClicked(() => window.location.reload()),
                 ),
 

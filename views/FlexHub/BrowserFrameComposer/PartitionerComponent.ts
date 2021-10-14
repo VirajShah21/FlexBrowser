@@ -1,3 +1,4 @@
+import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
@@ -12,7 +13,7 @@ export default class PartitionerComponent extends VStack {
     constructor() {
         super(
             new ClickButton(new TextView('Add Partition'))
-                .foreground(BrowserPreferences.getPrimaryColor())
+                .foreground(HColor(BrowserPreferences.colorTheme))
                 .whenClicked(() => {
                     this.partitions.push({ components: [], padding: 0 });
 

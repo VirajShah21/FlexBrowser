@@ -50,7 +50,7 @@ function HubButton(icon: IonIcon, title: string): ClickButton {
             .alignMiddle(),
     )
         .padding()
-        .foreground(BrowserPreferences.getPrimaryColor())
+        .foreground(HColor(BrowserPreferences.colorTheme))
         .width(100)
         .height(100)
         .addClass('hub-menu-button');

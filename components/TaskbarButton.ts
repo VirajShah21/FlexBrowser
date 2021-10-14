@@ -19,7 +19,7 @@ export default abstract class TaskbarButton extends ClickButton {
     });
 
     constructor(icon: IonIcon) {
-        super(icon.foreground(BrowserPreferences.getPrimaryColor()));
+        super(icon.foreground(HColor(BrowserPreferences.colorTheme)));
 
         this.rounded()
             .font('xl')

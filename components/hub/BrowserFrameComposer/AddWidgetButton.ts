@@ -1,3 +1,4 @@
+import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
 import BrowserPreferences from '@UI/BrowserPreferences';
@@ -14,7 +15,7 @@ export default class AddWidgetButton extends ClickButton {
         this.partition = partition;
         this.index = index;
 
-        this.foreground(BrowserPreferences.getPrimaryColor()).whenClicked(
+        this.foreground(HColor(BrowserPreferences.colorTheme)).whenClicked(
             () => new AddWidgetOverlay(partition, index),
         );
     }

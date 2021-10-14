@@ -60,7 +60,7 @@ export default class PartionEditor extends HStack {
                 .margin({ left: 25 }),
         );
 
-        this.background(BrowserPreferences.getPrimaryColor().alpha(0.5))
+        this.background(HColor(BrowserPreferences.colorTheme).alpha(0.5))
             .padding()
             .foreground(HColor('background'))
             .width('100%')

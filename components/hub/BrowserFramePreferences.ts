@@ -46,7 +46,7 @@ function BrowserFramePreview(): VStack {
         ).width('100%'),
     )
         .background(HColor('gray5'))
-        .foreground(BrowserPreferences.getPrimaryColor())
+        .foreground(HColor(BrowserPreferences.colorTheme))
         .width('100%')
         .padding(5)
         .rounded()
@@ -77,7 +77,7 @@ export default class BrowserFramePreferences extends VStack {
                 new Spacer(),
                 new ClickButton(new TextView('Edit'))
                     .padding(0)
-                    .foreground(BrowserPreferences.getPrimaryColor())
+                    .foreground(HColor(BrowserPreferences.colorTheme))
                     .whenClicked(() =>
                         ViewController.getController(
                             'AppController',

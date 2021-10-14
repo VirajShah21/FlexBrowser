@@ -1,4 +1,5 @@
 import { HColor, HumanColorName } from '@Hi/Colors';
+import HumanColorSwatch from '@Hi/HumanColorSwatch';
 import RGBAModel from '@Hi/RGBAModel';
 
 /**
@@ -8,55 +9,75 @@ import RGBAModel from '@Hi/RGBAModel';
  * @class BrowserPreferences
  */
 export default class BrowserPreferences {
-    private static colorTheme: HumanColorName = 'blue';
+    private static cache: FlexRC = {};
 
     /**
-     * Sets the highlight color theme to a specified Human color theme.
+     * Uncaches a property from `BrowserPreferences.cache` after 60 seconds.
      *
-     * @static
-     * @param {HumanColorName} to The color name to change the theme to.
-     *
-     * @memberOf BrowserPreferences
+     * @param prop The property to uncache
      */
-    public static setColorTheme(to: HumanColorName): void {
-        BrowserPreferences.colorTheme = to;
-        localStorage.setItem('flex://color-theme', to);
+    public static uncache(prop: string): void {
+        window.setTimeout(() => {
+            Object.defineProperty(BrowserPreferences.cache, prop, null!);
+        }, 60000); // Uncache every 60 seconds
     }
 
     /**
-     * Gets the highlight color theme name.
+     * Fetches the name of the color theme.
+     *
+     * Order of access:
+     *
+     * 1. Cache (cleared every 60 seconds)
+     * 2. ~/.flexrc
+     * 3. 'blue'
      *
      * @static
-     * @returns {HumanColorName} The current color theme.
-     *
+     * @type {HumanColorName}
      * @memberOf BrowserPreferences
      */
-    public static getColorTheme(): HumanColorName {
-        return BrowserPreferences.colorTheme;
+    public static get colorTheme(): HumanColorName {
+        let ret = BrowserPreferences.cache.colorTheme;
+
+        try {
+            BrowserPreferences.assertIsHumanColorName(ret);
+        } catch (e) {
+            ret = flexarch.pref('colorTheme') || 'blue';
+            BrowserPreferences.assertIsHumanColorName(ret);
+            try {
+                BrowserPreferences.assertIsHumanColorName(ret);
+            } catch (err) {
+                ret = 'blue';
+            }
+        }
+        return ret as HumanColorName;
     }
 
     /**
-     * Gets the `RGBAModel` of the current color theme.
+     * Sets the name of the color theme. This updates the cache and
+     * `~/.flexrc`.
      *
      * @static
-     * @returns {RGBAModel} The current color theme's `RGBAModel`.
      *
      * @memberOf BrowserPreferences
      */
-    public static getPrimaryColor(): RGBAModel {
-        return HColor(BrowserPreferences.colorTheme);
+    public static set colorTheme(name: HumanColorName) {
+        BrowserPreferences.cache.colorTheme = name;
+        flexarch.pref('colorTheme', name);
     }
 
-    /**
-     * Initializes all static values for `BrowserPreferences`
-     *
-     * @static
-     *
-     * @memberOf BrowserPreferences
-     */
-    public static initialize(): void {
-        BrowserPreferences.colorTheme = (localStorage.getItem(
-            'flex://color-theme',
-        ) || 'blue') as HumanColorName;
+    private static assertIsHumanColorName(
+        s?: string,
+    ): asserts s is HumanColorName {
+        if (!Object.prototype.hasOwnProperty.call(HumanColorSwatch.dark, s)) {
+            throw new Error(`${s} is not a HumanColorName.`);
+        }
+    }
+
+    private static assertIsTheme(
+        name?: string,
+    ): asserts name is 'light' | 'dark' {
+        if (name && name !== 'light' && name !== 'dark') {
+            throw new Error(`${name} is not either "light" or "dark"`);
+        }
     }
 }

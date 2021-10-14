@@ -84,7 +84,7 @@ export default class BrowserFrameCanvas extends BrowserFrameRenderer {
         this.setBrowserFrameModel(model);
 
         this.background(HColor('gray5'))
-            .foreground(BrowserPreferences.getPrimaryColor())
+            .foreground(HColor(BrowserPreferences.colorTheme))
             .width('100%')
             .padding(5)
             .rounded(5);

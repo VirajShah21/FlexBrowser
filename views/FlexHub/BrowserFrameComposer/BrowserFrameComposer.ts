@@ -22,7 +22,7 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .padding(0)
-                            .foreground(BrowserPreferences.getPrimaryColor())
+                            .foreground(HColor(BrowserPreferences.colorTheme))
                             .whenClicked(() =>
                                 ViewController.getController(
                                     'AppController',
