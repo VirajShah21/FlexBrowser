@@ -35,10 +35,27 @@ export default class SearchEnginePreference extends HIFullScreenView {
                     .font('sm'),
 
                 new ScrollView(
-                    new VStack(new SearchEngineItem(), new Spacer()).stretch(),
+                    new VStack(
+                        new SearchEngineItem(),
+                        new SearchEngineItem(),
+                        new SearchEngineItem(),
+                        new Spacer(),
+                    ).stretch(),
                 )
                     .width('100%')
-                    .height('100px'),
+                    .height('100px')
+                    .border({
+                        size: 1,
+                        style: 'solid',
+                        color: HColor('background'),
+                    })
+                    .borderTop({ size: 0 })
+                    .rounded({
+                        bottom: {
+                            left: 5,
+                            right: 5,
+                        },
+                    }),
             ).padding(),
         );
     }
