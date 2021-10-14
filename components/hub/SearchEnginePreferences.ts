@@ -9,12 +9,6 @@ import SearchEngineItem from './SearchEngineItem';
 import SearchEngineListHead from './SearchEngineListHead';
 
 export default class SearchEnginePreference extends HIFullScreenView {
-    private searchEngineList: {
-        isDefault: boolean;
-        name: string;
-        urlPrefix: string;
-    }[];
-
     constructor() {
         super(
             new VStack(

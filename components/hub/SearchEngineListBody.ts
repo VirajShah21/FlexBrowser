@@ -5,6 +5,12 @@ import VStack from '@Hi/Components/VStack';
 import SearchEngineItem from './SearchEngineItem';
 
 export default class SearchEngineListBody extends ScrollView {
+    private searchEngineList: {
+        isDefault: boolean;
+        name: string;
+        urlPrefix: string;
+    }[];
+
     constructor() {
         super(
             new VStack(
@@ -36,5 +42,11 @@ export default class SearchEngineListBody extends ScrollView {
                     right: 5,
                 },
             });
+
+        this.children[0]!.forChild((child, index) => {
+            child.background(
+                index % 2 ? HColor('background') : HColor('gray5'),
+            );
+        });
     }
 }
