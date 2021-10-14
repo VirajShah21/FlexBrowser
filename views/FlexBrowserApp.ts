@@ -17,5 +17,4 @@ export function getAppController(): ViewController {
     return AppController;
 }
 
-BrowserPreferences.initialize();
 reloadAppController(document.body.dataset.window);
