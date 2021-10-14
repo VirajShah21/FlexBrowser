@@ -12,6 +12,7 @@ import { navigateBack } from '@Triggers/hub-triggers';
 import BrowserPreferences from '@UI/BrowserPreferences';
 import strings from '@Resources/strings.json';
 import ScrollView from '@Hi/Components/ScrollView';
+import SearchEnginePreferences from '@Components/hub/SearchEnginePreferences';
 
 /**
  * The main preferences pane in the hub.
@@ -49,6 +50,8 @@ export default class FlexPreferences extends HIFullScreenView {
                     new ThemePreferences(),
 
                     new BrowserFramePreferences(),
+
+                    new SearchEnginePreferences(),
                 )
                     .height('100%')
                     .width('100%')

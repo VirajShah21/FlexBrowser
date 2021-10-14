@@ -69,7 +69,9 @@ export default class HubTitlebar extends VStack {
             .background(HColor('background').alpha(0.25))
             .foreground(HColor('foreground'))
             .fixed()
-            .setTop(0);
+            .setTop(0)
+            .blur(50)
+            .zIndex(100);
 
         this.body.style.overflow = 'hidden';
         this.body.style.setProperty('-webkit-app-region', 'drag');
