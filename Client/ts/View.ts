@@ -202,8 +202,8 @@ export default abstract class View extends BaseBodyStyler {
      *
      * @memberOf View
      */
-    forChild(iteratee: (child: View) => void): this {
-        this.children.forEach(child => iteratee(child));
+    forChild(iteratee: (child: View, index: number) => void): this {
+        this.children.forEach((child, i) => iteratee(child, i));
         return this;
     }
 
