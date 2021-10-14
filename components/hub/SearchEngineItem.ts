@@ -13,6 +13,6 @@ export default class SearchEngineItem extends HStack {
             new TextView(urlPrefix).width('calc((100% - 50px) / 2').textStart(),
         );
 
-        this.width('100%').font('sm');
+        this.width('100%').font('sm').padding({ top: 3, bottom: 3 });
     }
 }
