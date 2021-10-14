@@ -66,11 +66,10 @@ export default class HubTitlebar extends VStack {
         this.padding()
             .width('100%')
             .height(HubTitlebar.HEIGHT)
-            .background(HColor('background').alpha(0.25))
+            .background(HColor('background'))
             .foreground(HColor('foreground'))
             .fixed()
             .setTop(0)
-            .blur(50)
             .zIndex(100);
 
         this.body.style.overflow = 'hidden';
