@@ -11,6 +11,7 @@ import VStack from '@Hi/Components/VStack';
 import { navigateBack } from '@Triggers/hub-triggers';
 import BrowserPreferences from '@UI/BrowserPreferences';
 import strings from '@Resources/strings.json';
+import ScrollView from '@Hi/Components/ScrollView';
 
 /**
  * The main preferences pane in the hub.
@@ -42,13 +43,16 @@ export default class FlexPreferences extends HIFullScreenView {
                         .whenClicked(() => window.location.reload()),
                 ),
 
-                new HighlightColorPreferences(),
+                new ScrollView(
+                    new HighlightColorPreferences(),
 
-                new ThemePreferences(),
+                    new ThemePreferences(),
 
-                new BrowserFramePreferences(),
-
-                new Spacer(),
+                    new BrowserFramePreferences(),
+                )
+                    .height('100%')
+                    .width('100%')
+                    .padding({ top: HubTitlebar.HEIGHT }),
             )
                 .stretch()
                 .background(HColor('background').alpha(0.75))
