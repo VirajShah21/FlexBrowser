@@ -6,6 +6,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import SearchEngineItem from './SearchEngineItem';
+import SearchEngineListHead from './SearchEngineListHead';
 
 export default class SearchEnginePreference extends HIFullScreenView {
     private searchEngineList: {
@@ -25,20 +26,7 @@ export default class SearchEnginePreference extends HIFullScreenView {
                     new Spacer(),
                 ).width('100%'),
 
-                new HStack(
-                    new TextView('').width('50px').textStart(),
-                    new TextView('Name')
-                        .width('calc((100% - 50px) / 2)')
-                        .textStart(),
-                    new TextView('URL Prefix')
-                        .width('calc((100% - 50px) / 2)')
-                        .textStart(),
-                )
-                    .width('100%')
-                    .background(HColor('background'))
-                    .rounded({ top: { left: 5, right: 5 } })
-                    .padding(5)
-                    .font('sm'),
+                new SearchEngineListHead(),
 
                 new ScrollView(
                     new VStack(
