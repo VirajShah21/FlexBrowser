@@ -12,6 +12,12 @@ export default class FlexArch {
     }
 
     static addBookmark(): void {}
-}
 
-globalThis.flexarch = FlexArch;
+    static pref(): string | null {
+        return '';
+    }
+
+    static getAllPreferences(): FlexRC {
+        return {};
+    }
+}
