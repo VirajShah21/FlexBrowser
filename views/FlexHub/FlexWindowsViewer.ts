@@ -14,6 +14,31 @@ import strings from '@Resources/strings.json';
 import { navigateBack } from '@Triggers/hub-triggers';
 import BrowserPreferences from '@UI/BrowserPreferences';
 
+class FlexWindowsViewerItem extends ClickButton {
+    private static readonly MAXLEN = 55;
+
+    constructor(meta: URLMeta) {
+        super(
+            new VStack(
+                new IonIcon('compass').font('xxl').padding(),
+                new Spacer(),
+                new TruncatedTextView(meta.title, FlexWindowsViewerItem.MAXLEN),
+                new TruncatedTextView(
+                    meta.url,
+                    FlexWindowsViewerItem.MAXLEN,
+                ).foreground(HColor('background').alpha(0.5)),
+            ),
+        );
+
+        this.rounded()
+            .background(HColor(BrowserPreferences.colorTheme))
+            .foreground(HColor('background'))
+            .padding()
+            .width('100%')
+            .margin({ bottom: 25 });
+    }
+}
+
 /**
  * The Window (list) Viewer in the Hub.
  *
@@ -60,30 +85,5 @@ export default class FlexWindowViewer extends HIFullScreenView {
         this.background(HColor('background').alpha(0.75)).foreground(
             HColor('foreground'),
         );
-    }
-}
-
-class FlexWindowsViewerItem extends ClickButton {
-    private static readonly MAXLEN = 55;
-
-    constructor(meta: URLMeta) {
-        super(
-            new VStack(
-                new IonIcon('compass').font('xxl').padding(),
-                new Spacer(),
-                new TruncatedTextView(meta.title, FlexWindowsViewerItem.MAXLEN),
-                new TruncatedTextView(
-                    meta.url,
-                    FlexWindowsViewerItem.MAXLEN,
-                ).foreground(HColor('background').alpha(0.5)),
-            ),
-        );
-
-        this.rounded()
-            .background(HColor(BrowserPreferences.colorTheme))
-            .foreground(HColor('background'))
-            .padding()
-            .width('100%')
-            .margin({ bottom: 25 });
     }
 }

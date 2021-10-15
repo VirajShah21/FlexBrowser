@@ -2,7 +2,7 @@ import { HColor, HumanColorName } from '@Hi/Colors';
 import HumanEvent from '@Hi/Types/HumanEvent';
 import BrowserPreferences from '@UI/BrowserPreferences';
 
-export function highlightColorSelected(
+export default function highlightColorSelected(
     ev: HumanEvent,
     color: HumanColorName,
 ): void {
