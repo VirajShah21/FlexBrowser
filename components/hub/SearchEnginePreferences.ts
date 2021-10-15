@@ -1,10 +1,10 @@
 import { HColor, rgb } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
-import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
 import Spacer from '@Hi/Components/Spacer';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import { addBlankCustomSearchEngine } from '@Triggers/custom-search-triggers';
 import SearchEngineListBody from './SearchEngineListBody';
 import SearchEngineListHead from './SearchEngineListHead';
 
@@ -44,7 +44,8 @@ export default class SearchEnginePreference extends VStack {
                     .rounded({
                         top: { right: 5 },
                         bottom: { right: 5 },
-                    }),
+                    })
+                    .whenClicked(ev => addBlankCustomSearchEngine(ev)),
                 new ClickButton(new TextView('Make Default'))
                     .background(HColor('blue'))
                     .foreground(rgb(255, 255, 255))

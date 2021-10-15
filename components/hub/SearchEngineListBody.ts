@@ -1,10 +1,11 @@
 import { HColor } from '@Hi/Colors';
 import ScrollView from '@Hi/Components/ScrollView';
-import Spacer from '@Hi/Components/Spacer';
 import VStack from '@Hi/Components/VStack';
 import SearchEngineItem from './SearchEngineItem';
 
 export default class SearchEngineListBody extends ScrollView {
+    public readonly isSearchEngineListBody = true;
+
     private searchEngineList: {
         isDefault?: boolean;
         name: string;
@@ -26,10 +27,10 @@ export default class SearchEngineListBody extends ScrollView {
     ];
 
     constructor() {
-        super(new VStack().id('search-engine-list').stretch());
+        super(new VStack().id('search-engine-list').stretch().alignStart());
 
         this.width('100%')
-            .height('100px')
+            .height({ min: 100 })
             .border({
                 size: 1,
                 style: 'solid',
@@ -41,7 +42,9 @@ export default class SearchEngineListBody extends ScrollView {
                     left: 5,
                     right: 5,
                 },
-            });
+            })
+            .resizable('v')
+            .id('search-engine-list-body');
 
         this.updateList();
 
@@ -50,6 +53,15 @@ export default class SearchEngineListBody extends ScrollView {
                 index % 2 ? HColor('background') : HColor('gray5'),
             );
         });
+    }
+
+    public push(item: {
+        isDefault?: boolean;
+        name: string;
+        urlPrefix: string;
+    }): void {
+        this.searchEngineList.push(item);
+        this.updateList();
     }
 
     private updateList() {
@@ -65,7 +77,6 @@ export default class SearchEngineListBody extends ScrollView {
                             item.isDefault || false,
                         ),
                 ),
-                new Spacer(),
             );
     }
 }
