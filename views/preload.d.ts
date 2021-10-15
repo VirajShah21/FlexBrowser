@@ -6,6 +6,7 @@ declare interface URLMeta {
 declare interface FlexRC {
     colorTheme?: string;
     theme?: string;
+    searchEngines?: { name: string; urlPrefix: string }[];
 }
 
 declare namespace flexarch {

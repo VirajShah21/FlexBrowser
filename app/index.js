@@ -195,6 +195,20 @@ function startup() {
             },
             colorTheme: 'blue',
             theme: 'dark',
+            searchEngines: [
+                {
+                    name: 'Google Search',
+                    urlPrefix: 'https://google.com/search?q=',
+                },
+                {
+                    name: 'Duck Duck Go',
+                    urlPrefix: 'https://duckduckgo.com/q=',
+                },
+                {
+                    name: 'Bing',
+                    urlPrefix: 'https://duckduckgo.com/q=',
+                },
+            ],
         });
         info('Since no flexrc file was found in ~/.flexrc, one was created.');
         firstStartWindow();
