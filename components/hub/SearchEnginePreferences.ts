@@ -8,54 +8,53 @@ import VStack from '@Hi/Components/VStack';
 import SearchEngineListBody from './SearchEngineListBody';
 import SearchEngineListHead from './SearchEngineListHead';
 
-export default class SearchEnginePreference extends HIFullScreenView {
+export default class SearchEnginePreference extends VStack {
     constructor() {
         super(
-            new VStack(
-                new HStack(
-                    new TextView('Search Engine Preferences')
-                        .font('md')
-                        .bold()
-                        .margin({ bottom: 10 }),
-                    new Spacer(),
-                ).width('100%'),
+            new HStack(
+                new TextView('Search Engine Preferences')
+                    .font('md')
+                    .bold()
+                    .margin({ bottom: 10 }),
+                new Spacer(),
+            ).width('100%'),
 
-                new SearchEngineListHead(),
+            new SearchEngineListHead(),
 
-                new SearchEngineListBody(),
+            new SearchEngineListBody(),
 
-                new HStack(
-                    new ClickButton(new TextView('-').weight(FontWeight.Bold))
-                        .background(HColor('gray'))
-                        .foreground(HColor('foreground'))
-                        .borderRight({
-                            size: 1,
-                            style: 'solid',
-                            color: HColor('gray3'),
-                        })
-                        .rounded(0)
-                        .rounded({
-                            top: { left: 5 },
-                            bottom: { left: 5 },
-                        }),
-                    new ClickButton(new TextView('+').weight(FontWeight.Bold))
-                        .background(HColor('gray'))
-                        .foreground(HColor('foreground'))
-                        .rounded(0)
-                        .rounded({
-                            top: { right: 5 },
-                            bottom: { right: 5 },
-                        }),
-                    new ClickButton(new TextView('Make Default'))
-                        .background(HColor('blue'))
-                        .foreground(rgb(255, 255, 255))
-                        .rounded(5)
-                        .margin({ left: 10 }),
-                    new Spacer(),
-                )
-                    .width('100%')
-                    .margin({ top: 10 }),
-            ).padding(),
+            new HStack(
+                new ClickButton(new TextView('-').weight(FontWeight.Bold))
+                    .background(HColor('gray'))
+                    .foreground(HColor('foreground'))
+                    .borderRight({
+                        size: 1,
+                        style: 'solid',
+                        color: HColor('gray3'),
+                    })
+                    .rounded(0)
+                    .rounded({
+                        top: { left: 5 },
+                        bottom: { left: 5 },
+                    }),
+                new ClickButton(new TextView('+').weight(FontWeight.Bold))
+                    .background(HColor('gray'))
+                    .foreground(HColor('foreground'))
+                    .rounded(0)
+                    .rounded({
+                        top: { right: 5 },
+                        bottom: { right: 5 },
+                    }),
+                new ClickButton(new TextView('Make Default'))
+                    .background(HColor('blue'))
+                    .foreground(rgb(255, 255, 255))
+                    .rounded(5)
+                    .margin({ left: 10 }),
+                new Spacer(),
+            )
+                .width('100%')
+                .margin({ top: 10 }),
         );
+        this.padding();
     }
 }
