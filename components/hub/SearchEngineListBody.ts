@@ -1,5 +1,6 @@
 import { HColor } from '@Hi/Colors';
 import ScrollView from '@Hi/Components/ScrollView';
+import Spacer from '@Hi/Components/Spacer';
 import VStack from '@Hi/Components/VStack';
 import SearchEngineItem from './SearchEngineItem';
 
@@ -30,7 +31,7 @@ export default class SearchEngineListBody extends ScrollView {
         this.width('100%')
             .height('100px')
             .border({
-                size: 2,
+                size: 1,
                 style: 'solid',
                 color: HColor('gray'),
             })
@@ -42,7 +43,9 @@ export default class SearchEngineListBody extends ScrollView {
                 },
             });
 
-        this.children[0]!.forChild((child, index) => {
+        this.updateList();
+
+        this.findViewById('search-engine-list')!.forChild((child, index) => {
             child.background(
                 index % 2 ? HColor('background') : HColor('gray5'),
             );
@@ -51,15 +54,18 @@ export default class SearchEngineListBody extends ScrollView {
 
     private updateList() {
         const list = this.searchEngineList;
-        this.removeAllChildren().addChildren(
-            ...list.map(
-                item =>
-                    new SearchEngineItem(
-                        item.name,
-                        item.urlPrefix,
-                        item.isDefault || false,
-                    ),
-            ),
-        );
+        this.findViewById('search-engine-list')!
+            .removeAllChildren()
+            .addChildren(
+                ...list.map(
+                    item =>
+                        new SearchEngineItem(
+                            item.name,
+                            item.urlPrefix,
+                            item.isDefault || false,
+                        ),
+                ),
+                new Spacer(),
+            );
     }
 }
