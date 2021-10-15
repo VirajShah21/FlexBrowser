@@ -12,10 +12,10 @@ class SearchEngineTextCell extends TextField {
 }
 
 export default class SearchEngineItem extends HStack {
-    public constructor(name: string, urlPrefix: string, isDefault = false) {
+    public constructor(name: string, urlPrefix: string) {
         super(
             new Spacer(),
-            new Checkbox(isDefault).font('md'),
+            new Checkbox().font('md'),
             new Spacer(),
             new SearchEngineTextCell('eg: Google, Bing, Yahoo', name)
                 .width('calc((100% - 50px) / 2')

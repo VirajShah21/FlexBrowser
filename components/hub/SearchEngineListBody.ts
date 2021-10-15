@@ -7,14 +7,12 @@ export default class SearchEngineListBody extends ScrollView {
     public readonly isSearchEngineListBody = true;
 
     private searchEngineList: {
-        isDefault?: boolean;
         name: string;
         urlPrefix: string;
     }[] = [
         {
             name: 'Google Search',
             urlPrefix: 'https://google.com/search?q=',
-            isDefault: true,
         },
         {
             name: 'Duck Duck Go',
@@ -70,12 +68,7 @@ export default class SearchEngineListBody extends ScrollView {
             .removeAllChildren()
             .addChildren(
                 ...list.map(
-                    item =>
-                        new SearchEngineItem(
-                            item.name,
-                            item.urlPrefix,
-                            item.isDefault || false,
-                        ),
+                    item => new SearchEngineItem(item.name, item.urlPrefix),
                 ),
             );
     }
