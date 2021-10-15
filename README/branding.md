@@ -69,14 +69,14 @@ Different formats for key:
 
 ### Interface: Branding
 
-| Property | Type                                       | Description                                             |
-| -------- | ------------------------------------------ | ------------------------------------------------------- |
-| `org`    | `string`                                   | The name of organization which the branding applies to. |
-| `fav`    | `string`<sup>1</sup>                       | The URL path of the favicon.                            |
-| `color`  | [`number`, `number`, `number`]<sup>2</sup> | The RGB/RGBA of the brand color.                        |
-| `abbr`   | `string`<sup>3</sup>                       | The abbreviation of the organization.                   |
-| `logo`   | `string`<sup>4</sup>                       | The logo frequently used by the brand.                  |
-| `prod`   | `string?`<sup>5</sup>                      | The product name the page(s) pertain to                 |
+| Property | Type                                   | Description                                             |
+| -------- | -------------------------------------- | ------------------------------------------------------- |
+| `org`    | `string`                               | The name of organization which the branding applies to. |
+| `fav`    | `string`<sup>1</sup>                   | The URL path of the favicon.                            |
+| `color`  | `[number, number, number]`<sup>2</sup> | The RGB/RGBA of the brand color.                        |
+| `abbr`   | `string`<sup>3</sup>                   | The abbreviation of the organization.                   |
+| `logo`   | `string`<sup>4</sup>                   | The logo frequently used by the brand.                  |
+| `prod`   | `string?`<sup>5</sup>                  | The product name the page(s) pertain to                 |
 
 ### Complete File Structure
 
