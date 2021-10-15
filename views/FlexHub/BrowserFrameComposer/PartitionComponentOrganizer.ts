@@ -1,17 +1,17 @@
+import AddWidgetButton from '@Components/hub/BrowserFrameComposer/AddWidgetButton';
+import NewWindowTaskbarButton from '@Components/NewWindowTaskbarButton';
+import PageNavigationTaskbarButtons from '@Components/PageNavigationTaskbarButtons';
+import RefreshTaskbarButton from '@Components/RefreshTaskbarButton';
+import URLBar from '@Components/URLBar';
 import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import View from '@Hi/View';
-import BrowserFrameRenderer from '@UI/BrowserFrameRenderer';
-import NewWindowTaskbarButton from '@UI/components/NewWindowTaskbarButton';
-import PageNavigationTaskbarButtons from '@UI/components/PageNavigationTaskbarButtons';
-import RefreshTaskbarButton from '@UI/components/RefreshTaskbarButton';
-import URLBar from '@UI/components/URLBar';
 import BrowserFrameModel, {
     BrowserFrameComponent,
-} from '@UI/Models/BrowserFrameModel';
-import AddWidgetButton from './components/AddWidgetButton';
+} from '@Models/BrowserFrameModel';
+import BrowserFrameRenderer from '@UI/BrowserFrameRenderer';
 
 function makeComponent(model: BrowserFrameComponent): View {
     switch (model.name) {

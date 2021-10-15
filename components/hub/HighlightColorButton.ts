@@ -1,7 +1,7 @@
-import { HColor, HumanColorName } from '@Hi/Colors';
+import { HumanColorName, HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
-import { highlightColorSelected } from '@UI/triggers/preferences-triggers';
+import highlightColorSelected from '@Triggers/preferences-triggers';
 
 /**
  * Creates a circle icon with a specified color. The button binds to a

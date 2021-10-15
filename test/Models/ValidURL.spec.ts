@@ -1,5 +1,5 @@
 import { describe } from 'mocha';
-import ValidURL from '@UI/Models/ValidURL';
+import ValidURL from '@Models/ValidURL';
 import { expect } from 'chai';
 
 describe('Models.ValidURL: When constructed with a URL query', () => {

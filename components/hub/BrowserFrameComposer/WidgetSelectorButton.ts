@@ -19,7 +19,7 @@ export default class WidgetSelectorButton extends ClickButton {
             new VStack(
                 componentPlaceholder
                     .font('xxl')
-                    .foreground(BrowserPreferences.getPrimaryColor()),
+                    .foreground(HColor(BrowserPreferences.colorTheme)),
                 new TextView(label)
                     .font('xs')
                     .foreground(HColor('gray'))

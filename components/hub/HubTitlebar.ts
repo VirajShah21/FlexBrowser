@@ -41,6 +41,8 @@ const hubTitlebarBuildOut = defineTransition({
  * @extends {VStack}
  */
 export default class HubTitlebar extends VStack {
+    public static readonly HEIGHT = 100;
+
     /**
      * Creates an instance of HubTitlebar. A title must be specified.
      * Additionally, children can be added to the View. All children will
@@ -63,9 +65,12 @@ export default class HubTitlebar extends VStack {
         );
         this.padding()
             .width('100%')
-            .height(100)
-            .background(HColor('background').alpha(0.25))
-            .foreground(HColor('foreground'));
+            .height(HubTitlebar.HEIGHT)
+            .background(HColor('background'))
+            .foreground(HColor('foreground'))
+            .fixed()
+            .setTop(0)
+            .zIndex(100);
 
         this.body.style.overflow = 'hidden';
         this.body.style.setProperty('-webkit-app-region', 'drag');

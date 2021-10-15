@@ -1,5 +1,4 @@
 import { ViewController } from '@Hi/ViewController';
-import BrowserPreferences from './BrowserPreferences';
 import FlexBrowserWindow from './FlexBrowserWindow';
 import FlexHub from './FlexHub/FlexHub';
 
@@ -17,5 +16,4 @@ export function getAppController(): ViewController {
     return AppController;
 }
 
-BrowserPreferences.initialize();
 reloadAppController(document.body.dataset.window);

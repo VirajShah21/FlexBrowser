@@ -6,7 +6,7 @@ import Overlay from '@Hi/Components/Overlay';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import WidgetSelectorButton from './components/WidgetSelectorButton';
+import WidgetSelectorButton from '@Components/hub/BrowserFrameComposer/WidgetSelectorButton';
 
 export default class AddWidgetOverlay extends Overlay {
     constructor(partition: number, index: number) {

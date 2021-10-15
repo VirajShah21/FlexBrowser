@@ -20,6 +20,14 @@ function addBookmark(meta) {
     ipcRenderer.send('addBookmark', meta);
 }
 
+function pref(property, value) {
+    return ipcRenderer.sendSync('pref', property, value);
+}
+
+function getAllPreferences() {
+    return ipcRenderer.sendSync('getAllPreferences');
+}
+
 contextBridge.exposeInMainWorld('flexarch', {
     changeUrl,
     newWindow,
@@ -27,4 +35,6 @@ contextBridge.exposeInMainWorld('flexarch', {
     Bookmarks: [],
     getBookmarks,
     addBookmark,
+    pref,
+    getAllPreferences,
 });

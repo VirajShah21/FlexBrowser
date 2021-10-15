@@ -8,7 +8,7 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
 import BrowserPreferences from '@UI/BrowserPreferences';
-import HubTitlebar from '../components/HubTitlebar';
+import HubTitlebar from '@Components/hub/HubTitlebar';
 import BrowserFrameCanvas from './BrowserFrameCanvas';
 import PartitionComponentOrganizer from './PartitionComponentOrganizer';
 import PartitionerComponent from './PartitionerComponent';
@@ -22,7 +22,7 @@ export default class BrowserFrameComposer extends HIFullScreenView {
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .padding(0)
-                            .foreground(BrowserPreferences.getPrimaryColor())
+                            .foreground(HColor(BrowserPreferences.colorTheme))
                             .whenClicked(() =>
                                 ViewController.getController(
                                     'AppController',

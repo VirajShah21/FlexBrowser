@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "es6",
         "lib": ["esnext", "dom"],
-        "rootDir": ".",
+        "rootDir": "./",
         "outDir": "./test/bin",
         "sourceMap": true,
         "noImplicitAny": true,
@@ -11,10 +11,15 @@
         "noImplicitReturns": true,
         "target": "es6",
         "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "paths": {
             "@Hi/*": ["./Client/ts/*"],
-            "@UI/*": ["./views/*"]
+            "@UI/*": ["./views/*"],
+            "@Components/*": ["./components/*"],
+            "@Triggers/*": ["./triggers/*"],
+            "@Resources/*": ["./resources/*"],
+            "@Models/*": ["./Models/*"]
         },
         "strictNullChecks": true,
         "noUncheckedIndexedAccess": true

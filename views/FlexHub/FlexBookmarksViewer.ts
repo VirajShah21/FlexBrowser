@@ -1,3 +1,4 @@
+import HubTitlebar from '@Components/hub/HubTitlebar';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
@@ -5,15 +6,15 @@ import HStack from '@Hi/Components/HStack';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import { navigateBack } from '@UI/triggers/hub-triggers';
-import HubTitlebar from './components/HubTitlebar';
+import { navigateBack } from '@Triggers/hub-triggers';
+import strings from '@Resources/strings.json';
 
 export default class FlexBookmarksViewer extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
                 new HubTitlebar(
-                    'Bookmarks',
+                    strings.bookmarks_viewer_title,
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .whenClicked(navigateBack)

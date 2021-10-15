@@ -25,19 +25,35 @@ const browserWindowOptions = {
 // During testing, ipcMain is undefined.
 // This guard should not be removed.
 if (ipcMain) {
+    info('Defining IPC Main API');
+
     ipcMain.on('newWindow', createWindow);
+    info('Defined (on) newWindow');
 
     ipcMain.on('getWindowList', event => {
-        let obj = flexBrowserInstances.map(instance => ({
-            title: instance.getBrowserView().webContents.getTitle(),
-            url: instance.getBrowserView().webContents.getURL(),
-        }));
+        debug(
+            `Retrieving window list. Found ${flexBrowserInstances.length} windows.`,
+        );
+
+        let obj = flexBrowserInstances.map(instance => {
+            return {
+                title: instance.getBrowserView().webContents.getTitle(),
+                url: instance.getBrowserView().webContents.getURL(),
+            };
+        });
+
+        debug(
+            `Returning from getWindowList with ${JSON.stringify(obj, null, 4)}`,
+        );
+
         event.returnValue = obj;
     });
+    info('Defined (on) getWindowList');
 
     ipcMain.on('getBookmarks', event => {
         event.returnValue = readBookmarksFile();
     });
+    info('Defined (on) getBookmarks');
 
     ipcMain.on('addBookmark', (event, meta) => {
         let bookmarks = readBookmarksFile();
@@ -46,6 +62,34 @@ if (ipcMain) {
             writeBookmarksFile(bookmarks);
         }
     });
+    info('Defined (on) addBookmark');
+
+    ipcMain.on('changeUrl', (event, to) => {
+        flexBrowserInstances
+            .find(i => i.webContents == event.sender)
+            .getBrowserView()
+            .webContents.loadURL(to);
+    });
+    info('Binded URL Bar onchange listener');
+
+    ipcMain.on('pref', (event, preference, value) => {
+        const rc = readRC();
+        if (value) {
+            rc[preference] = value;
+            writeRC(rc);
+        }
+        if (Object.prototype.hasOwnProperty.call(rc, preference)) {
+            event.returnValue = rc[preference];
+        } else {
+            event.returnValue = undefined;
+        }
+    });
+    info('Defined (on) pref');
+
+    ipcMain.on('getAllPreferences', event => {
+        event.returnValue = readRC();
+    });
+    info('Defined (on) getAllPreferences');
 }
 
 /**
@@ -89,11 +133,6 @@ function createWindow() {
         });
     });
     info('Binded Listener for resizing browser window');
-
-    ipcMain.on('changeUrl', (_, to) => {
-        if (win.isFocused()) win.getBrowserView().webContents.loadURL(to);
-    });
-    info('Binded URL Bar onchange listener');
 }
 
 /**
@@ -154,6 +193,8 @@ function startup() {
             lastSession: {
                 version: '0.0.1',
             },
+            colorTheme: 'blue',
+            theme: 'dark',
         });
         info('Since no flexrc file was found in ~/.flexrc, one was created.');
         firstStartWindow();

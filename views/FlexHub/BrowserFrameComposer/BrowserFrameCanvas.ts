@@ -1,17 +1,17 @@
+import NewWindowTaskbarButton from '@Components/NewWindowTaskbarButton';
+import PageNavigationTaskbarButtons from '@Components/PageNavigationTaskbarButtons';
+import RefreshTaskbarButton from '@Components/RefreshTaskbarButton';
+import URLBar from '@Components/URLBar';
 import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import View from '@Hi/View';
-import BrowserFrameRenderer from '@UI/BrowserFrameRenderer';
-import BrowserPreferences from '@UI/BrowserPreferences';
-import NewWindowTaskbarButton from '@UI/components/NewWindowTaskbarButton';
-import PageNavigationTaskbarButtons from '@UI/components/PageNavigationTaskbarButtons';
-import RefreshTaskbarButton from '@UI/components/RefreshTaskbarButton';
-import URLBar from '@UI/components/URLBar';
 import BrowserFrameModel, {
     BrowserFrameComponent,
-} from '@UI/Models/BrowserFrameModel';
+} from '@Models/BrowserFrameModel';
+import BrowserFrameRenderer from '@UI/BrowserFrameRenderer';
+import BrowserPreferences from '@UI/BrowserPreferences';
 
 function makeComponent(model: BrowserFrameComponent): View {
     switch (model.name) {
@@ -84,7 +84,7 @@ export default class BrowserFrameCanvas extends BrowserFrameRenderer {
         this.setBrowserFrameModel(model);
 
         this.background(HColor('gray5'))
-            .foreground(BrowserPreferences.getPrimaryColor())
+            .foreground(HColor(BrowserPreferences.colorTheme))
             .width('100%')
             .padding(5)
             .rounded(5);

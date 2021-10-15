@@ -1,3 +1,4 @@
+import HubTitlebar from '@Components/hub/HubTitlebar';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
@@ -8,8 +9,8 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import { ViewController } from '@Hi/ViewController';
+import strings from '@Resources/strings.json';
 import BrowserPreferences from '../BrowserPreferences';
-import HubTitlebar from './components/HubTitlebar';
 import FlexBookmarksViewer from './FlexBookmarksViewer';
 import FlexPreferences from './FlexPreferences';
 import FlexWindowsViewer from './FlexWindowsViewer';
@@ -49,7 +50,7 @@ function HubButton(icon: IonIcon, title: string): ClickButton {
             .alignMiddle(),
     )
         .padding()
-        .foreground(BrowserPreferences.getPrimaryColor())
+        .foreground(HColor(BrowserPreferences.colorTheme))
         .width(100)
         .height(100)
         .addClass('hub-menu-button');
@@ -81,7 +82,7 @@ export default class FlexHub extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new HubTitlebar('Flex Hub'),
+                new HubTitlebar(strings.hub_main_title),
 
                 new Spacer(),
 
@@ -90,9 +91,9 @@ export default class FlexHub extends HIFullScreenView {
 
                     HubButton(new IonIcon('albums'), 'Windows').whenClicked(
                         () => {
-                            ViewController.getController('AppController')!
-                                .navigateTo(new FlexWindowsViewer(), 1000)
-                                .signal('refresh-windows');
+                            ViewController.getController(
+                                'AppController',
+                            )!.navigateTo(new FlexWindowsViewer(), 1000);
                         },
                     ),
 

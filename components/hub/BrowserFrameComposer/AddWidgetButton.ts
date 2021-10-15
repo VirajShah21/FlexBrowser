@@ -1,7 +1,8 @@
+import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
 import BrowserPreferences from '@UI/BrowserPreferences';
-import AddWidgetOverlay from '../AddWidgetOverlay';
+import AddWidgetOverlay from '../../../views/FlexHub/BrowserFrameComposer/AddWidgetOverlay';
 
 export default class AddWidgetButton extends ClickButton {
     private partition: number;
@@ -14,7 +15,7 @@ export default class AddWidgetButton extends ClickButton {
         this.partition = partition;
         this.index = index;
 
-        this.foreground(BrowserPreferences.getPrimaryColor()).whenClicked(
+        this.foreground(HColor(BrowserPreferences.colorTheme)).whenClicked(
             () => new AddWidgetOverlay(partition, index),
         );
     }

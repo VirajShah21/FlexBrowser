@@ -4,6 +4,7 @@
         "moduleResolution": "node",
         "lib": ["ES6", "DOM"],
         "target": "es6",
+        "resolveJsonModule": true,
         "types": [
             "node",
             "mocha",
@@ -13,7 +14,11 @@
         ],
         "paths": {
             "@Hi/*": ["../Client/ts/*"],
-            "@UI/*": ["../views/*"]
+            "@UI/*": ["../views/*"],
+            "@Components/*": ["../components/*"],
+            "@Triggers/*": ["../triggers/*"],
+            "@Resources/*": ["../resources/*"],
+            "@Models/*": ["../Models/*"]
         }
     }
 }

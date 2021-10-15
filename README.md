@@ -8,25 +8,33 @@
 
 One day I installed Microsoft Edge. That's the same thing as Chrome, but with a different frame. So I decided to make my own browser... with a different frame.
 
-- [User Features](#user-features)
-- [Contributing](#%EF%B8%8F-contributing)
-    - [Contributing Rules](#%EF%B8%8F-contributing-rules)
-    - [Style Guide Notes](#%E2%84%B9-style-guide-notes)
-    - [Building](#-building)
-    - [Testing](#-testing)
-    - [Documentation / Lint Report Generation](#-documentation--lint-report-generation)
-- [Dev Tasks](#-dev-tasks-)
-    - [Improvements](#-improvements)
-    - [New Features](#-new-features)
+## Outline
+
+> These section anchors are made to link correctly using the GitHub Markdown Renderer.
+> Next to each link with issues, will be a 🔱 which will link correctly in VS Code's Markdown Preview.
+
+-   [User Features](#user-features)
+-   [Contributing](#%EF%B8%8F-contributing) [🔱 ](#✍️-contributing)
+    -   [Contributing Rules](#%EF%B8%8F-contributing-rules) [🔱 ](#👩‍⚖️-contributing-rules)
+    -   [Style Guide Notes](#%E2%84%B9-style-guide-notes) [🔱](#ℹ-style-guide-notes)
+    -   [Building](#-building) [🔱 ](#📦-building)
+    -   [Testing](#-testing) [🔱 ](#🧪-testing)
+    -   [Documentation / Lint Report Generation](#-documentation--lint-report-generation) [🔱 ](#📑-documentation--lint-report-generation)
+-   [Dev Tasks](#-dev-tasks-) [🔱 ](#👩‍💻-dev-tasks-👩‍💻)
+    -   [Improvements](#-improvements)
+    -   [New Features](#-new-features)
 
 ## User Features
 
 > **_Key:_**
+>
 > 🟢 = Stable
+>
 > 🟡 = Unstable
+>
 > 🔴 = Not working
+>
 > 🔵 = Being Implemented
-> 
 
 -   🟢 **Basic Browsing Features** – URL/Search bar, forward/back navigation, create new windows, etc.
 -   🟢 **Hub** – A central location to manage all your browser windows, bookmarks, etc.
@@ -133,9 +141,15 @@ source docs.sh
     -   **App Drawer** – Launcher for the web apps.
     -   **Frameless Windows** – Add archs for opening frameless webapps.
 -   **Search** 🔍
-    -   **Default Google Search** – Detect if the user does not enter a URL and perform a google search instead.
+    -   **Default Google Search** DONE – Detect if the user does not enter a URL and perform a google search instead.
     -   **Custom Search Engines** – Enable adding custom search engines or special prefixes (eg: `google: hello world`, `duckduckgo: hello world`)
 -   **Window-splitting** 🪟 – Have multiple windows in the same frame side-by-side or above-and-below.
 -   **Notes Plugin** 📝 – Lightweight feature for adding notes for URLs
 -   **Flextensions** 🧩 – Extensions for the Flex Browser (Notes should probably be packed inside this)
     -   **Flextension to Install Chrome Extensions** – Make it easy to install chrome extensions, either from the webstore (`.crx` files, which is hard in electron, and unpacked)
+-   **Brand Manager** 👾 – `.flexbrands.json` to store branding data
+    -   **Favicon Finder** – Automatically resolve the location of the websites Favicon
+    -   **Override Favicons** – Allow the user to prefer a large icon or image for certain domains, "contains" in address, or subdomains.
+    -   **Color Resolver** – Resolve the primary colors from a favicon, icon, or logo.
+    -   **Appropriate Branding** – Display brand icons and colors wherever appropriate
+    -   For more information, refer to [README/branding.md](Branding documentation)
