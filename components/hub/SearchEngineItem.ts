@@ -25,6 +25,6 @@ export default class SearchEngineItem extends HStack {
                 .textStart(),
         );
 
-        this.width('100%').font('sm').padding({ top: 3, bottom: 3 });
+        this.width('100%').font('sm').padding({ top: 2, bottom: 2 });
     }
 }
