@@ -162,6 +162,7 @@ export default abstract class View extends BaseBodyStyler {
         children.forEach(child => {
             this.children.push(child);
         });
+        this.buildChildren();
         return this;
     }
 
