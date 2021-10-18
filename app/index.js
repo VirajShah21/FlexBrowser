@@ -197,14 +197,17 @@ function startup() {
             theme: 'dark',
             searchEngines: [
                 {
-                    name: 'Google Search',
+                    id: 'google',
+                    name: 'Google',
                     urlPrefix: 'https://google.com/search?q=',
                 },
                 {
+                    id: 'duck-duck-go',
                     name: 'Duck Duck Go',
                     urlPrefix: 'https://duckduckgo.com/q=',
                 },
                 {
+                    id: 'bing',
                     name: 'Bing',
                     urlPrefix: 'https://duckduckgo.com/q=',
                 },
