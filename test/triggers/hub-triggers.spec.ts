@@ -8,14 +8,15 @@ import FlexWindowsViewer from '@UI/FlexHub/FlexWindowsViewer';
 import { expect } from 'chai';
 import mockBrowser from '../mocks/Browser.mock';
 import { reloadAppController, getAppController } from '@UI/FlexBrowserApp';
+import InputField from '@Hi/Components/InputField';
+import TextView from '@Hi/Components/TextView';
 
 describe('Hub (Trigger): Navigating to main hub page', () => {
     let controller: ViewController;
 
     beforeEach(() => {
         mockBrowser();
-        document.body.dataset.window = 'hub';
-        reloadAppController();
+        reloadAppController('hub');
         controller = getAppController();
     });
 

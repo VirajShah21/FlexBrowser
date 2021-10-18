@@ -6,7 +6,7 @@ import FlexHub from './FlexHub/FlexHub';
 
 let AppController: ViewController;
 
-export function reloadAppController(flexWindow?: string): void {
+export function reloadAppController(flexWindow: string): void {
     AppController = new ViewController('AppController').bind();
 
     switch (flexWindow) {
