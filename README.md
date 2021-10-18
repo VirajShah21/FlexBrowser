@@ -10,9 +10,6 @@ One day I installed Microsoft Edge. That's the same thing as Chrome, but with a 
 
 ## Outline
 
-> These section anchors are made to link correctly using the GitHub Markdown Renderer.
-> Next to each link with issues, will be a 🔱 which will link correctly in VS Code's Markdown Preview.
-
 -   [User Features](#user-features)
 -   [Contributing](#contributing)
     -   [Contributing Rules](#contributing-rules)
