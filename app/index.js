@@ -90,6 +90,19 @@ if (ipcMain) {
         event.returnValue = readRC();
     });
     info('Defined (on) getAllPreferences');
+
+    ipcMain.on('brandRegistry', (event, rule, branding) => {
+        const registry = readBrandingRegistry();
+        if (rule && branding) {
+            registry[rule] = branding;
+            writeBrandingRegistry(registry);
+            event.returnValue = branding;
+        } else if (rule) {
+            event.returnValue = registry[rule];
+        } else {
+            throw new Error('IPC: brandRegistry must provide rule parameter');
+        }
+    });
 }
 
 /**
