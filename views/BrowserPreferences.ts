@@ -40,8 +40,7 @@ export default class BrowserPreferences {
         try {
             BrowserPreferences.assertIsHumanColorName(ret);
         } catch (e) {
-            ret = flexarch.pref('colorTheme') || 'blue';
-            BrowserPreferences.assertIsHumanColorName(ret);
+            ret = (flexarch.pref('colorTheme') as string | undefined) || 'blue';
             try {
                 BrowserPreferences.assertIsHumanColorName(ret);
             } catch (err) {
@@ -64,6 +63,31 @@ export default class BrowserPreferences {
         flexarch.pref('colorTheme', name);
     }
 
+    public static get searchEngines(): CustomSearchEngine[] {
+        let ret = BrowserPreferences.cache.searchEngines;
+
+        try {
+            BrowserPreferences.assertIsArrayOfCustomSearchEngine(ret);
+        } catch (e) {
+            try {
+                ret = JSON.parse(
+                    (flexarch.pref('searchEngines') as string | undefined) ||
+                        '[]',
+                );
+                BrowserPreferences.assertIsArrayOfCustomSearchEngine(ret);
+            } catch (err) {
+                ret = [];
+            }
+        }
+
+        return ret;
+    }
+
+    public static set searchEngines(list: CustomSearchEngine[]) {
+        BrowserPreferences.cache.searchEngines = list;
+        flexarch.pref('searchEngines', list);
+    }
+
     private static assertIsHumanColorName(
         s?: string,
     ): asserts s is HumanColorName {
@@ -78,5 +102,50 @@ export default class BrowserPreferences {
         if (name && name !== 'light' && name !== 'dark') {
             throw new Error(`${name} is not either "light" or "dark"`);
         }
+    }
+
+    private static assertIsCustomSearchEngineObject(
+        obj?: unknown,
+    ): asserts obj is CustomSearchEngine {
+        if (obj === undefined) throw new Error('Object is undefined');
+
+        if (!Object.prototype.hasOwnProperty.call(obj, 'id')) {
+            throw new Error(
+                `Object is not CustomSearchEngine object. Missing 'id' field: ${JSON.stringify(
+                    obj,
+                    null,
+                    4,
+                )}.`,
+            );
+        }
+
+        if (!Object.prototype.hasOwnProperty.call(obj, 'name')) {
+            throw new Error(
+                `Object is not CustomSearchEngine object. Missing 'name' field: ${JSON.stringify(
+                    obj,
+                    null,
+                    4,
+                )}.`,
+            );
+        }
+
+        if (!Object.prototype.hasOwnProperty.call(obj, 'urlPrefix')) {
+            throw new Error(
+                `Object is not CustomSearchEngine object. Missing 'urlPrefix' field: ${JSON.stringify(
+                    obj,
+                    null,
+                    4,
+                )}.`,
+            );
+        }
+    }
+
+    private static assertIsArrayOfCustomSearchEngine(
+        arr?: unknown[],
+    ): asserts arr is CustomSearchEngine[] {
+        if (arr === undefined) throw new Error('Object is undefined');
+        arr.forEach(item =>
+            BrowserPreferences.assertIsCustomSearchEngineObject(item),
+        );
     }
 }
