@@ -15,6 +15,7 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
 
     beforeEach(() => {
         mockBrowser();
+        document.body.dataset.window = 'hub';
         reloadAppController();
         controller = getAppController();
     });
