@@ -3,10 +3,16 @@ declare interface URLMeta {
     url: string;
 }
 
+declare interface CustomSearchEngine {
+    id: string;
+    name: string;
+    urlPrefix: string;
+}
+
 declare interface FlexRC {
     colorTheme?: string;
     theme?: string;
-    searchEngines?: { name: string; urlPrefix: string }[];
+    searchEngines?: CustomSearchEngine[];
 }
 
 declare namespace flexarch {
@@ -15,7 +21,7 @@ declare namespace flexarch {
     function getWindowList(): URLMeta[];
     function getBookmarks(): URLMeta[];
     function addBookmark(bookmark: URLMeta): void;
-    function pref(property: string, value?: string): string | null;
+    function pref(property: string, value?: unknown): unknown;
     function getAllPreferences(): {
         colorTheme?: string;
         theme?: string;
