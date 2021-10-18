@@ -41,11 +41,15 @@ export default class BrowserPreferences {
             BrowserPreferences.assertIsHumanColorName(ret);
         } catch (e) {
             ret = (flexarch.pref('colorTheme') as string | undefined) || 'blue';
+
             try {
                 BrowserPreferences.assertIsHumanColorName(ret);
             } catch (err) {
                 ret = 'blue';
             }
+
+            BrowserPreferences.cache.colorTheme = ret;
+            BrowserPreferences.uncache('colorTheme');
         }
         return ret as HumanColorName;
     }
@@ -61,6 +65,7 @@ export default class BrowserPreferences {
     public static set colorTheme(name: HumanColorName) {
         BrowserPreferences.cache.colorTheme = name;
         flexarch.pref('colorTheme', name);
+        BrowserPreferences.uncache('colorTheme');
     }
 
     public static get searchEngines(): CustomSearchEngine[] {
@@ -77,6 +82,8 @@ export default class BrowserPreferences {
             } catch (err) {
                 ret = [];
             }
+            BrowserPreferences.cache.searchEngines = ret;
+            BrowserPreferences.uncache('searchEngines');
         }
 
         return ret;
@@ -85,6 +92,46 @@ export default class BrowserPreferences {
     public static set searchEngines(list: CustomSearchEngine[]) {
         BrowserPreferences.cache.searchEngines = list;
         flexarch.pref('searchEngines', list);
+        BrowserPreferences.uncache('searchEngines');
+    }
+
+    public static get defaultSearchEngine(): CustomSearchEngine {
+        let id = BrowserPreferences.cache.defaultSearchEngine;
+
+        try {
+            BrowserPreferences.assertIsCustomSearchEngineObject(
+                BrowserPreferences.searchEngines.find(
+                    engine => engine.id === id,
+                ),
+            );
+        } catch (e) {
+            id = flexarch.pref('defaultSearchEngine');
+            try {
+                BrowserPreferences.assertIsCustomSearchEngineObject(
+                    BrowserPreferences.searchEngines.find(
+                        engine => engine.id === id,
+                    ),
+                );
+            } catch (e2) {
+                return {
+                    id: 'google',
+                    name: 'Google',
+                    urlPrefix: 'https://google.com/search?q=',
+                };
+            }
+
+            BrowserPreferences.cache.defaultSearchEngine = id;
+            BrowserPreferences.uncache('defaultSearchEngine');
+        }
+        return BrowserPreferences.searchEngines.find(
+            engine => engine.id === id,
+        )!;
+    }
+
+    public static set setDefaultSearchEngine(value: string) {
+        BrowserPreferences.cache.defaultSearchEngine = value;
+        flexarch.pref('defaultSearchEngine', value);
+        BrowserPreferences.uncache('defaultSearchEngine');
     }
 
     private static assertIsHumanColorName(
