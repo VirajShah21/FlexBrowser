@@ -11,6 +11,7 @@ One day I installed Microsoft Edge. That's the same thing as Chrome, but with a 
 ## Outline
 
 -   [User Features](#user-features)
+    -   [Preferences](#preferences)
 -   [Contributing](#contributing)
     -   [Contributing Rules](#contributing-rules)
     -   [Style Guide Notes](#style-guide-notes)
@@ -47,6 +48,45 @@ One day I installed Microsoft Edge. That's the same thing as Chrome, but with a 
 -   🟢 **Windows Viewer**
     -   🟢 **Windows Overview** – Displays a list of all open Flex Browser windows.
     -   🔵 **Instant Bookmark** – Bookmark directly from the Windows Viewer
+
+### Preferences
+
+Configuring the browser should always be flawless. There are several different ways to configure the browser:
+
+1. Modify `~/.flexrc.json`: After the browser has been launched for the first time, a preferences file will be created in the current user's home directory.
+2. Use the Preferences GUI in the Hub menu.
+
+So why are there two different ways of configuring the browser? Method 1 is the default way to configure the browser. Every preferences is stored within the runcom file (JSON format). Preferences are constantly pulled from this file and used by the browser. When the browser accesses each preference, it is stored in a cache. After 60 seconds of each preference being loaded into cache, the preference property is deleted. Once the property needs to be retrieved again, the browser will go back to the `~/.flexrc.json` file to get the potentially new value of the preference property. The Preferences GUI, however, is just a simplified medium of modifying the runcome/json file.
+
+After first launch, the following `~/.flexrc.json` file is created:
+
+```json
+{
+    "lastSession": {
+        "version": "0.0.1"
+    },
+    "colorTheme": "blue",
+    "theme": "dark",
+    "searchEngines": [
+        {
+            "id": "google",
+            "name": "Google",
+            "urlPrefix": "https://google.com/search?q="
+        },
+        {
+            "id": "duck-duck-go",
+            "name": "Duck Duck Go",
+            "urlPrefix": "https://duckduckgo.com/q="
+        },
+        {
+            "id": "bing",
+            "name": "Bing",
+            "urlPrefix": "https://duckduckgo.com/q="
+        }
+    ],
+    "defaultSearchEngine": "google"
+}
+```
 
 ## Contributing
 
