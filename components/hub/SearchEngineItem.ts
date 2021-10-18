@@ -7,24 +7,41 @@ class SearchEngineTextCell extends TextField {
     public constructor(placeholder: string, value: string) {
         super(placeholder);
         this.value = value;
-        this.border({ size: 0 }).font('sm').background('none');
+        this.border({ size: 0 })
+            .font('sm')
+            .background('none')
+            .whenChanged(ev => {
+                ev.view
+                    .root(view =>
+                        Object.prototype.hasOwnProperty.call(
+                            view,
+                            'isSearchEngineListBody',
+                        ),
+                    )
+                    .signal('updateSearchEngineList');
+            });
     }
 }
 
 export default class SearchEngineItem extends HStack {
-    public constructor(name: string, urlPrefix: string, isDefault = false) {
+    public constructor(name: string, urlPrefix: string) {
         super(
             new Spacer(),
-            new Checkbox(isDefault).font('md'),
+            new Checkbox().font('md').id('engine-checkbox'),
             new Spacer(),
             new SearchEngineTextCell('eg: Google, Bing, Yahoo', name)
                 .width('calc((100% - 50px) / 2')
-                .textStart(),
+                .textStart()
+                .id('engine-name'),
             new SearchEngineTextCell('eg: google.com/search?q=', urlPrefix)
                 .width('calc((100% - 50px) / 2')
-                .textStart(),
+                .textStart()
+                .id('engine-prefix'),
         );
 
-        this.width('100%').font('sm').padding({ top: 2, bottom: 2 });
+        this.width('100%')
+            .font('sm')
+            .padding({ top: 2, bottom: 2 })
+            .addClass('search-engine-item');
     }
 }

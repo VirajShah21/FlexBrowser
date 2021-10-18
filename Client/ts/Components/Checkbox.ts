@@ -46,7 +46,7 @@ export default class Checkbox extends View {
     public set checked(val: boolean) {
         this.checkedFlag = val;
         (this.body as HTMLInputElement).name = this.checkedFlag
-            ? 'square-outline'
-            : 'checkbox';
+            ? 'checkbox'
+            : 'square-outline';
     }
 }

@@ -2,20 +2,19 @@ import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
 import { ViewController } from '@Hi/ViewController';
 import { toggleBookmarkButtonClicked } from '@Triggers/hub-triggers';
+import { getAppController, reloadAppController } from '@UI/FlexBrowserApp';
 import FlexBookmarksViewer from '@UI/FlexHub/FlexBookmarksViewer';
 import FlexPreferences from '@UI/FlexHub/FlexPreferences';
 import FlexWindowsViewer from '@UI/FlexHub/FlexWindowsViewer';
 import { expect } from 'chai';
 import mockBrowser from '../mocks/Browser.mock';
-import HTMLElementMock from '../mocks/HTMLElement.mock';
-import { reloadAppController, getAppController } from '@UI/FlexBrowserApp';
 
 describe('Hub (Trigger): Navigating to main hub page', () => {
     let controller: ViewController;
 
     beforeEach(() => {
         mockBrowser();
-        reloadAppController();
+        reloadAppController('hub');
         controller = getAppController();
     });
 
@@ -25,7 +24,7 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
             'FlexWindowViewer',
         );
         const button = controller.findViewById('back-btn');
-        (button.body as unknown as HTMLElementMock).mockClick();
+        button.body.click();
         expect(controller.activeView.constructor.name).to.equal('FlexHub');
     });
 
@@ -35,7 +34,7 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
             'FlexBookmarksViewer',
         );
         const button = controller.findViewById('back-btn');
-        (button.body as unknown as HTMLElementMock).mockClick();
+        button.body.click();
         expect(controller.activeView.constructor.name).to.equal('FlexHub');
     });
 
@@ -45,7 +44,7 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
             'FlexPreferences',
         );
         const button = controller.findViewById('back-btn');
-        (button.body as unknown as HTMLElementMock).mockClick();
+        button.body.click();
         expect(controller.activeView.constructor.name).to.equal('FlexHub');
     });
 });
@@ -64,16 +63,16 @@ describe('Hub (Trigger): Should toggle bookmarks button', () => {
 
     it('Should toggle between bookmarked and unbookmarks.', () => {
         btn.describe('bookmark');
-        (btn.body as unknown as HTMLElementMock).mockClick();
+        btn.body.click();
         expect(btn.description).to.equal('unbookmark');
-        (btn.body as unknown as HTMLElementMock).mockClick();
+        btn.body.click();
         expect(btn.description).to.equal('bookmark');
     });
 
     it('Should default to not bookmarked state so user can bookmark.', () => {
-        (btn.body as unknown as HTMLElementMock).mockClick();
+        btn.body.click();
         expect(btn.description).to.equal('unbookmark');
-        (btn.body as unknown as HTMLElementMock).mockClick();
+        btn.body.click();
         expect(btn.description).to.equal('bookmark');
     });
 });

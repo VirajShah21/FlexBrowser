@@ -18,7 +18,7 @@ module.exports = {
         complexity: [1, 15],
         'guard-for-in': 1,
         'no-constructor-return': 1,
-        '@typescript-eslint/indent': ['warn', 4],
+        '@typescript-eslint/indent': ['off', 4],
         'operator-linebreak': 'off',
         'implicit-arrow-linebreak': 'off',
         'function-paren-newline': 'off',

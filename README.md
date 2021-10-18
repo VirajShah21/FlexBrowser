@@ -10,19 +10,17 @@ One day I installed Microsoft Edge. That's the same thing as Chrome, but with a 
 
 ## Outline
 
-> These section anchors are made to link correctly using the GitHub Markdown Renderer.
-> Next to each link with issues, will be a 🔱 which will link correctly in VS Code's Markdown Preview.
-
 -   [User Features](#user-features)
--   [Contributing](#%EF%B8%8F-contributing) [🔱 ](#✍️-contributing)
-    -   [Contributing Rules](#%EF%B8%8F-contributing-rules) [🔱 ](#👩‍⚖️-contributing-rules)
-    -   [Style Guide Notes](#%E2%84%B9-style-guide-notes) [🔱](#ℹ-style-guide-notes)
-    -   [Building](#-building) [🔱 ](#📦-building)
-    -   [Testing](#-testing) [🔱 ](#🧪-testing)
-    -   [Documentation / Lint Report Generation](#-documentation--lint-report-generation) [🔱 ](#📑-documentation--lint-report-generation)
--   [Dev Tasks](#-dev-tasks-) [🔱 ](#👩‍💻-dev-tasks-👩‍💻)
-    -   [Improvements](#-improvements)
-    -   [New Features](#-new-features)
+    -   [Preferences](#preferences)
+-   [Contributing](#contributing)
+    -   [Contributing Rules](#contributing-rules)
+    -   [Style Guide Notes](#style-guide-notes)
+    -   [Building](#building)
+    -   [Testing](#testing)
+    -   [Documentation / Lint Report Generation](#documentation--lint-report-generation)
+-   [Dev Tasks](#dev-tasks)
+    -   [Improvements](#improvements)
+    -   [New Features](#new-features)
 
 ## User Features
 
@@ -45,15 +43,54 @@ One day I installed Microsoft Edge. That's the same thing as Chrome, but with a 
 -   🟢 **Search**
     -   🟢 **URL/Search Query detection** – Automatically determine whether to navigate to a URL or perform a search.
     -   🟢 **Google Search** – Uses Google as the default search engine.
-    -   🔴 **Custom Search Engines** – Define custom search engines
+    -   🟢 **Custom Search Engines** – Define custom search engines
     -   🔴 **Search Swap** – Allows for searching using an alternative search engine when using a specific search prefix.
 -   🟢 **Windows Viewer**
     -   🟢 **Windows Overview** – Displays a list of all open Flex Browser windows.
     -   🔵 **Instant Bookmark** – Bookmark directly from the Windows Viewer
 
-## ✍️ Contributing
+### Preferences
 
-### 👩‍⚖️ Contributing Rules
+Configuring the browser should always be flawless. There are several different ways to configure the browser:
+
+1. Modify `~/.flexrc.json`: After the browser has been launched for the first time, a preferences file will be created in the current user's home directory.
+2. Use the Preferences GUI in the Hub menu.
+
+So why are there two different ways of configuring the browser? Method 1 is the default way to configure the browser. Every preferences is stored within the runcom file (JSON format). Preferences are constantly pulled from this file and used by the browser. When the browser accesses each preference, it is stored in a cache. After 60 seconds of each preference being loaded into cache, the preference property is deleted. Once the property needs to be retrieved again, the browser will go back to the `~/.flexrc.json` file to get the potentially new value of the preference property. The Preferences GUI, however, is just a simplified medium of modifying the runcome/json file.
+
+After first launch, the following `~/.flexrc.json` file is created:
+
+```json
+{
+    "lastSession": {
+        "version": "0.0.1"
+    },
+    "colorTheme": "blue",
+    "theme": "dark",
+    "searchEngines": [
+        {
+            "id": "google",
+            "name": "Google",
+            "urlPrefix": "https://google.com/search?q="
+        },
+        {
+            "id": "duck-duck-go",
+            "name": "Duck Duck Go",
+            "urlPrefix": "https://duckduckgo.com/q="
+        },
+        {
+            "id": "bing",
+            "name": "Bing",
+            "urlPrefix": "https://duckduckgo.com/q="
+        }
+    ],
+    "defaultSearchEngine": "google"
+}
+```
+
+## Contributing
+
+### Contributing Rules
 
 -   New features should branch out from `origin/dev`.
 -   All sub-branches for a feature must be merged with their original branch.
@@ -74,11 +111,11 @@ One day I installed Microsoft Edge. That's the same thing as Chrome, but with a 
     -   Unrelated code should not be touched.
 -   All code will be scrutinized with a thorough screening and testing process prior to approving the pull request to `origin/dev`.
 
-### ℹ Style Guide Notes
+### Style Guide Notes
 
 Style warnings will be provided by eslint (`.eslintrc.js`), TypeScript (`tsconfig.json`), and Prettier (`.prettierrc`).
 
-### 📦 Building
+### Building
 
 **Step 1: Installing Dependencies**
 
@@ -104,11 +141,11 @@ npm run make
 
 Navigate to `out/flex-browser-darwin-x64` and click on `flex-browser.app`
 
-### 🧪 Testing
+### Testing
 
 To run all tests, run `npm test`. All tests can be found in `tests/`.
 
-### 📑 Documentation / Lint Report Generation
+### Documentation / Lint Report Generation
 
 Documentation and lint report generation is done using the same script.
 
@@ -116,15 +153,15 @@ Documentation and lint report generation is done using the same script.
 source docs.sh
 ```
 
-## 👨‍💻 Dev Tasks 👩‍💻
+## Dev Tasks
 
-### 🛠 Improvements
+### Improvements
 
 -   Fix `FontWeight` not working on `TextView` (Branch: `himvc`). DONE
 -   Add build-in and build-out animations to everything. DONE
     -   Add animation preferences in hub DONE
 
-### 🆕 New Features
+### New Features
 
 -   **Bookmarks** 🔖
     -   **Bookmark Button** DONE – The ability to add new bookmarks

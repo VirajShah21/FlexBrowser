@@ -17,7 +17,10 @@ export default class BrowserPreferences {
      */
     public static uncache(prop: string): void {
         window.setTimeout(() => {
-            Object.defineProperty(BrowserPreferences.cache, prop, null!);
+            Object.defineProperty(BrowserPreferences.cache, prop, {
+                value: undefined,
+                writable: true,
+            });
         }, 60000); // Uncache every 60 seconds
     }
 
@@ -40,13 +43,16 @@ export default class BrowserPreferences {
         try {
             BrowserPreferences.assertIsHumanColorName(ret);
         } catch (e) {
-            ret = flexarch.pref('colorTheme') || 'blue';
-            BrowserPreferences.assertIsHumanColorName(ret);
+            ret = (flexarch.pref('colorTheme') as string | undefined) || 'blue';
+
             try {
                 BrowserPreferences.assertIsHumanColorName(ret);
             } catch (err) {
                 ret = 'blue';
             }
+
+            BrowserPreferences.cache.colorTheme = ret;
+            BrowserPreferences.uncache('colorTheme');
         }
         return ret as HumanColorName;
     }
@@ -62,6 +68,79 @@ export default class BrowserPreferences {
     public static set colorTheme(name: HumanColorName) {
         BrowserPreferences.cache.colorTheme = name;
         flexarch.pref('colorTheme', name);
+        BrowserPreferences.uncache('colorTheme');
+    }
+
+    public static get searchEngines(): CustomSearchEngine[] {
+        let ret = BrowserPreferences.cache.searchEngines;
+
+        try {
+            BrowserPreferences.assertIsArrayOfCustomSearchEngine(ret);
+        } catch (e) {
+            try {
+                ret =
+                    (flexarch.pref('searchEngines') as CustomSearchEngine[]) ||
+                    [];
+                BrowserPreferences.assertIsArrayOfCustomSearchEngine(ret);
+            } catch (err) {
+                ret = [];
+            }
+            BrowserPreferences.cache.searchEngines = ret;
+            BrowserPreferences.uncache('searchEngines');
+        }
+
+        return ret;
+    }
+
+    public static set searchEngines(list: CustomSearchEngine[]) {
+        BrowserPreferences.cache.searchEngines = list;
+        flexarch.pref('searchEngines', list);
+        BrowserPreferences.uncache('searchEngines');
+    }
+
+    public static get defaultSearchEngine(): CustomSearchEngine {
+        let id = BrowserPreferences.cache.defaultSearchEngine;
+
+        try {
+            BrowserPreferences.assertIsCustomSearchEngineObject(
+                BrowserPreferences.searchEngines.find(
+                    engine => engine.id === id,
+                ),
+            );
+        } catch (e) {
+            id = flexarch.pref('defaultSearchEngine') as string;
+            try {
+                BrowserPreferences.assertIsCustomSearchEngineObject(
+                    BrowserPreferences.searchEngines.find(
+                        engine => engine.id === id,
+                    ),
+                );
+            } catch (e2) {
+                return {
+                    id: 'google',
+                    name: 'Google',
+                    urlPrefix: 'https://google.com/search?q=',
+                };
+            }
+
+            BrowserPreferences.cache.defaultSearchEngine = id;
+            BrowserPreferences.uncache('defaultSearchEngine');
+        }
+        return BrowserPreferences.searchEngines.find(
+            engine => engine.id === id,
+        )!;
+    }
+
+    public static set defaultSearchEngine(id: string | CustomSearchEngine) {
+        if (typeof id === 'string') {
+            BrowserPreferences.cache.defaultSearchEngine = id;
+            flexarch.pref('defaultSearchEngine', id);
+            BrowserPreferences.uncache('defaultSearchEngine');
+        } else {
+            BrowserPreferences.cache.defaultSearchEngine = id.id;
+            flexarch.pref('defaultSearchEngine', id.id);
+            BrowserPreferences.uncache('defaultSearchEngine');
+        }
     }
 
     private static assertIsHumanColorName(
@@ -78,5 +157,50 @@ export default class BrowserPreferences {
         if (name && name !== 'light' && name !== 'dark') {
             throw new Error(`${name} is not either "light" or "dark"`);
         }
+    }
+
+    private static assertIsCustomSearchEngineObject(
+        obj?: unknown,
+    ): asserts obj is CustomSearchEngine {
+        if (obj === undefined) throw new Error('Object is undefined');
+
+        if (!Object.prototype.hasOwnProperty.call(obj, 'id')) {
+            throw new Error(
+                `Object is not CustomSearchEngine object. Missing 'id' field: ${JSON.stringify(
+                    obj,
+                    null,
+                    4,
+                )}.`,
+            );
+        }
+
+        if (!Object.prototype.hasOwnProperty.call(obj, 'name')) {
+            throw new Error(
+                `Object is not CustomSearchEngine object. Missing 'name' field: ${JSON.stringify(
+                    obj,
+                    null,
+                    4,
+                )}.`,
+            );
+        }
+
+        if (!Object.prototype.hasOwnProperty.call(obj, 'urlPrefix')) {
+            throw new Error(
+                `Object is not CustomSearchEngine object. Missing 'urlPrefix' field: ${JSON.stringify(
+                    obj,
+                    null,
+                    4,
+                )}.`,
+            );
+        }
+    }
+
+    private static assertIsArrayOfCustomSearchEngine(
+        arr?: unknown[],
+    ): asserts arr is CustomSearchEngine[] {
+        if (arr === undefined) throw new Error('Object is undefined');
+        arr.forEach(item =>
+            BrowserPreferences.assertIsCustomSearchEngineObject(item),
+        );
     }
 }
