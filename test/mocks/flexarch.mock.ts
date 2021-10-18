@@ -20,4 +20,8 @@ export default class FlexArch {
     static getAllPreferences(): FlexRC {
         return {};
     }
+
+    static brandRegistry(): Branding {
+        return null;
+    }
 }
