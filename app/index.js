@@ -212,6 +212,7 @@ function startup() {
                     urlPrefix: 'https://duckduckgo.com/q=',
                 },
             ],
+            defaultSearchEngine: 'google',
         });
         info('Since no flexrc file was found in ~/.flexrc, one was created.');
         firstStartWindow();
