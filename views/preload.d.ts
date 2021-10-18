@@ -38,4 +38,5 @@ declare namespace flexarch {
         colorTheme?: string;
         theme?: string;
     };
+    function brandRegistry(rule: string, branding?: Branding): Branding;
 }
