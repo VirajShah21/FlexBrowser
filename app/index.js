@@ -283,7 +283,7 @@ const readBookmarksFile = (exports.readBookmarksFile = () => {
 const writeBookmarksFile = (exports.writeBookmarksFile = bookmarks => {
     fs.writeFileSync(
         path.join(HOMEDIR, '.flex-bookmarks.json'),
-        JSON.stringify(bookmarks),
+        JSON.stringify(bookmarks, null, 4),
     );
     info('Finished writing bookmarks file.');
 });
