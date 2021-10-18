@@ -1,3 +1,5 @@
+import BrowserPreferences from '@UI/BrowserPreferences';
+
 type ValidURLProtocol = 'https' | 'http';
 
 export default class ValidURL {
@@ -53,6 +55,12 @@ export default class ValidURL {
     }
 
     public toString(): string {
-        return `${this.protocol}://${this.domain}${this.path}`;
+        if (this.isURL()) {
+            return `${this.protocol}://${this.domain}${this.path}`;
+        }
+
+        return `${BrowserPreferences.defaultSearchEngine.urlPrefix}${this.value
+            .split(' ')
+            .join('+')}`;
     }
 }
