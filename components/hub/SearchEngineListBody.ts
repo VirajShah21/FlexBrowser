@@ -73,7 +73,10 @@ export default class SearchEngineListBody extends ScrollView {
                         id: SearchEngineListBody.getEngineId(name),
                     });
                 });
+
             this.searchEngineList = list;
+
+            flexarch.pref('searchEngines', list);
         }
     }
 
