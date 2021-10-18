@@ -1,3 +1,5 @@
+declare type BrandingRegistry = Record<string, Branding>;
+
 declare interface URLMeta {
     title: string;
     url: string;
@@ -14,6 +16,15 @@ declare interface FlexRC {
     theme?: string;
     searchEngines?: CustomSearchEngine[];
     defaultSearchEngine?: string;
+}
+
+declare interface Branding {
+    org: string;
+    fav: string;
+    color: [number, number, number];
+    abbr: string;
+    logo: string;
+    prod: string;
 }
 
 declare namespace flexarch {
