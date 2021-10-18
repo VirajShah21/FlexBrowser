@@ -246,7 +246,10 @@ const readRC = (exports.readRC = () => {
 });
 
 const writeRC = (exports.writeRC = data => {
-    fs.writeFileSync(path.join(HOMEDIR, '.flexrc.json'), JSON.stringify(data));
+    fs.writeFileSync(
+        path.join(HOMEDIR, '.flexrc.json'),
+        JSON.stringify(data, null, 4),
+    );
     info('Finished writing RC File');
 });
 
@@ -305,6 +308,4 @@ const writeBrandingRegistry = (exports.writeBrandingRegistry = registry => {
     info('Finished writing branding registry');
 });
 
-if (app) {
-    app.whenReady().then(() => startup());
-}
+if (app) app.whenReady().then(() => startup());
