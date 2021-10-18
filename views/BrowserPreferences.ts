@@ -70,10 +70,9 @@ export default class BrowserPreferences {
             BrowserPreferences.assertIsArrayOfCustomSearchEngine(ret);
         } catch (e) {
             try {
-                ret = JSON.parse(
-                    (flexarch.pref('searchEngines') as string | undefined) ||
-                        '[]',
-                );
+                ret =
+                    (flexarch.pref('searchEngines') as CustomSearchEngine[]) ||
+                    [];
                 BrowserPreferences.assertIsArrayOfCustomSearchEngine(ret);
             } catch (err) {
                 ret = [];
