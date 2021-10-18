@@ -4,7 +4,10 @@ import HStack from '@Hi/Components/HStack';
 import Spacer from '@Hi/Components/Spacer';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import { addBlankCustomSearchEngine } from '@Triggers/custom-search-triggers';
+import {
+    addBlankCustomSearchEngine,
+    setDefaultSearchEngine,
+} from '@Triggers/custom-search-triggers';
 import BrowserPreferences from '@UI/BrowserPreferences';
 import SearchEngineListBody from './SearchEngineListBody';
 import SearchEngineListHead from './SearchEngineListHead';
@@ -46,12 +49,13 @@ export default class SearchEnginePreference extends VStack {
                         top: { right: 5 },
                         bottom: { right: 5 },
                     })
-                    .whenClicked(ev => addBlankCustomSearchEngine(ev)),
+                    .whenClicked(addBlankCustomSearchEngine),
                 new ClickButton(new TextView('Make Default'))
                     .background(HColor('blue'))
                     .foreground(rgb(255, 255, 255))
                     .rounded(5)
-                    .margin({ left: 10 }),
+                    .margin({ left: 10 })
+                    .whenClicked(setDefaultSearchEngine),
                 new Spacer(),
                 new TextView(
                     `Default Search Engine: ${BrowserPreferences.defaultSearchEngine.name}`,

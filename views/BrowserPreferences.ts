@@ -128,10 +128,16 @@ export default class BrowserPreferences {
         )!;
     }
 
-    public static set setDefaultSearchEngine(value: string) {
-        BrowserPreferences.cache.defaultSearchEngine = value;
-        flexarch.pref('defaultSearchEngine', value);
-        BrowserPreferences.uncache('defaultSearchEngine');
+    public static set defaultSearchEngine(id: string | CustomSearchEngine) {
+        if (typeof id === 'string') {
+            BrowserPreferences.cache.defaultSearchEngine = id;
+            flexarch.pref('defaultSearchEngine', id);
+            BrowserPreferences.uncache('defaultSearchEngine');
+        } else {
+            BrowserPreferences.cache.defaultSearchEngine = id.id;
+            flexarch.pref('defaultSearchEngine', id.id);
+            BrowserPreferences.uncache('defaultSearchEngine');
+        }
     }
 
     private static assertIsHumanColorName(
