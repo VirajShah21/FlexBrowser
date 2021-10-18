@@ -266,7 +266,7 @@ const readBookmarksFile = (exports.readBookmarksFile = () => {
             ),
         );
     } catch (e) {
-        info('Error reading/parsing bookmarks file.');
+        warn('Error reading/parsing bookmarks file.');
         return [];
     }
 });
@@ -283,6 +283,26 @@ const writeBookmarksFile = (exports.writeBookmarksFile = bookmarks => {
         JSON.stringify(bookmarks),
     );
     info('Finished writing bookmarks file.');
+});
+
+const readBrandingRegistry = (exports.readBrandingRegistry = () => {
+    try {
+        info('Reading branding registry.');
+        return JSON.parse(
+            fs.readFileSync(path.join(HOMEDIR, '.flex-branding.json'), 'utf-8'),
+        );
+    } catch (e) {
+        warn('Error reading/parsing branding registry.');
+        return {};
+    }
+});
+
+const writeBrandingRegistry = (exports.writeBrandingRegistry = registry => {
+    fs.writeFileSync(
+        path.join(HOMEDIR, '.flex-branding.json'),
+        JSON.stringify(registry, null, 4),
+    );
+    info('Finished writing branding registry');
 });
 
 if (app) {
