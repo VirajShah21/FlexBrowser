@@ -1,5 +1,14 @@
 # Branding Features
 
+-   [Abstract](#abstract)
+-   [Technical Problems](#technical-problems)
+-   [Technical Resolutions](#technical-resolutions)
+-   [Branding Format Specifications](#branding-format-specifications)
+    -   [Record: Branding Registry](#record-branding-registry)
+    -   [Interface: Branding](#interface-branding)
+    -   [Complete File Structure](#complete-file-structure)
+-   [Rule Merging](#rule-merging)
+
 ## Abstract
 
 Branding is very important for all organizations.
