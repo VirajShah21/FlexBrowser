@@ -5,6 +5,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { addBlankCustomSearchEngine } from '@Triggers/custom-search-triggers';
+import BrowserPreferences from '@UI/BrowserPreferences';
 import SearchEngineListBody from './SearchEngineListBody';
 import SearchEngineListHead from './SearchEngineListHead';
 
@@ -52,6 +53,9 @@ export default class SearchEnginePreference extends VStack {
                     .rounded(5)
                     .margin({ left: 10 }),
                 new Spacer(),
+                new TextView(
+                    `Default Search Engine: ${BrowserPreferences.defaultSearchEngine.name}`,
+                ).font('sm'),
             )
                 .width('100%')
                 .margin({ top: 10 }),
