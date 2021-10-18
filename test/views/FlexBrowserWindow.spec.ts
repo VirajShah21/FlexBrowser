@@ -17,7 +17,7 @@ describe('FlexBrowserWindow: URL Bar Navigation', () => {
         ]);
     });
 
-    it('Should change the "Go" icon to a "Reload icon"', () => {
+    xit('Should change the "Go" icon to a "Reload icon"', () => {
         const icon = win.findViewById('url-refresh-button') as IonIcon;
         (icon.body as HTMLInputElement).name = 'alt-icon';
         win.goTo('https://google.com/', false);

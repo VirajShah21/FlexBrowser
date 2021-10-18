@@ -30,4 +30,4 @@ export function getAppController(): ViewController {
     return AppController;
 }
 
-reloadAppController(document.body.dataset.window);
+reloadAppController(document.body.dataset.window || 'hub');

@@ -17,7 +17,7 @@ describe('URLBar (Trigger): When keys are pressed', () => {
 
         expect(refreshIcon.name).to.equal('refresh-circle-outline');
 
-        urlbar.value = 'h';
+        urlbar.value = 'hi';
 
         expect(refreshIcon.name).to.equal('arrow-forward-outline');
     });

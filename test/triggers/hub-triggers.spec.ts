@@ -2,14 +2,12 @@ import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
 import { ViewController } from '@Hi/ViewController';
 import { toggleBookmarkButtonClicked } from '@Triggers/hub-triggers';
+import { getAppController, reloadAppController } from '@UI/FlexBrowserApp';
 import FlexBookmarksViewer from '@UI/FlexHub/FlexBookmarksViewer';
 import FlexPreferences from '@UI/FlexHub/FlexPreferences';
 import FlexWindowsViewer from '@UI/FlexHub/FlexWindowsViewer';
 import { expect } from 'chai';
 import mockBrowser from '../mocks/Browser.mock';
-import { reloadAppController, getAppController } from '@UI/FlexBrowserApp';
-import InputField from '@Hi/Components/InputField';
-import TextView from '@Hi/Components/TextView';
 
 describe('Hub (Trigger): Navigating to main hub page', () => {
     let controller: ViewController;
