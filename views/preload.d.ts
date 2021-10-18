@@ -13,6 +13,7 @@ declare interface FlexRC {
     colorTheme?: string;
     theme?: string;
     searchEngines?: CustomSearchEngine[];
+    defaultSearchEngine: string;
 }
 
 declare namespace flexarch {
