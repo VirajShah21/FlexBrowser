@@ -7,7 +7,6 @@ import FlexPreferences from '@UI/FlexHub/FlexPreferences';
 import FlexWindowsViewer from '@UI/FlexHub/FlexWindowsViewer';
 import { expect } from 'chai';
 import mockBrowser from '../mocks/Browser.mock';
-import HTMLElementMock from '../mocks/HTMLElement.mock';
 import { reloadAppController, getAppController } from '@UI/FlexBrowserApp';
 
 describe('Hub (Trigger): Navigating to main hub page', () => {
@@ -17,6 +16,7 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
         mockBrowser();
         document.body.dataset.window = 'hub';
         reloadAppController();
+        throw new Error(JSON.stringify(controller, null, 4));
         controller = getAppController();
     });
 
@@ -26,7 +26,7 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
             'FlexWindowViewer',
         );
         const button = controller.findViewById('back-btn');
-        (button.body as unknown as HTMLElementMock).mockClick();
+        button.body.click();
         expect(controller.activeView.constructor.name).to.equal('FlexHub');
     });
 
@@ -36,7 +36,7 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
             'FlexBookmarksViewer',
         );
         const button = controller.findViewById('back-btn');
-        (button.body as unknown as HTMLElementMock).mockClick();
+        button.body.click();
         expect(controller.activeView.constructor.name).to.equal('FlexHub');
     });
 
@@ -46,7 +46,7 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
             'FlexPreferences',
         );
         const button = controller.findViewById('back-btn');
-        (button.body as unknown as HTMLElementMock).mockClick();
+        button.body.click();
         expect(controller.activeView.constructor.name).to.equal('FlexHub');
     });
 });
@@ -65,16 +65,16 @@ describe('Hub (Trigger): Should toggle bookmarks button', () => {
 
     it('Should toggle between bookmarked and unbookmarks.', () => {
         btn.describe('bookmark');
-        (btn.body as unknown as HTMLElementMock).mockClick();
+        btn.body.click();
         expect(btn.description).to.equal('unbookmark');
-        (btn.body as unknown as HTMLElementMock).mockClick();
+        btn.body.click();
         expect(btn.description).to.equal('bookmark');
     });
 
     it('Should default to not bookmarked state so user can bookmark.', () => {
-        (btn.body as unknown as HTMLElementMock).mockClick();
+        btn.body.click();
         expect(btn.description).to.equal('unbookmark');
-        (btn.body as unknown as HTMLElementMock).mockClick();
+        btn.body.click();
         expect(btn.description).to.equal('bookmark');
     });
 });

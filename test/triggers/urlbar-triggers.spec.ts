@@ -2,7 +2,6 @@ import IonIcon from '@Hi/Components/IonIcon';
 import URLBar from '@Components/URLBar';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
 import { expect } from 'chai';
-import HTMLElementMock from '../mocks/HTMLElement.mock';
 
 describe('URLBar (Trigger): When keys are pressed', () => {
     let win: FlexBrowserWindow;
@@ -16,13 +15,13 @@ describe('URLBar (Trigger): When keys are pressed', () => {
     it('Should change refresh icon to go icon when input is changed', () => {
         const refreshIcon = win.findViewById('url-refresh-button') as IonIcon;
 
-        expect((refreshIcon.body as unknown as HTMLElementMock).name).to.equal(
+        expect((refreshIcon.body as HTMLInputElement).name).to.equal(
             'refresh-circle-outline',
         );
 
-        (urlbar.body as unknown as HTMLElementMock).mockInput('h');
+        urlbar.value = 'h';
 
-        expect((refreshIcon.body as unknown as HTMLElementMock).name).to.equal(
+        expect((refreshIcon.body as HTMLInputElement).name).to.equal(
             'arrow-forward-outline',
         );
     });
