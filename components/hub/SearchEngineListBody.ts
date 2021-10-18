@@ -28,7 +28,7 @@ export default class SearchEngineListBody extends ScrollView {
         super(new VStack().id('search-engine-list').stretch().alignStart());
 
         this.width('100%')
-            .height({ min: 100 })
+            .height({ min: 100, default: 100 })
             .border({
                 size: 1,
                 style: 'solid',
