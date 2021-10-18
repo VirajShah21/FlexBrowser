@@ -8,7 +8,7 @@ import {
     addBlankCustomSearchEngine,
     setDefaultSearchEngine,
 } from '@Triggers/custom-search-triggers';
-import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserPreferences from '@Models/BrowserPreferences';
 import SearchEngineListBody from './SearchEngineListBody';
 import SearchEngineListHead from './SearchEngineListHead';
 

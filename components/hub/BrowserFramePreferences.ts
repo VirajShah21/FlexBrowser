@@ -7,7 +7,7 @@ import TextField from '@Hi/Components/TextField';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
-import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserPreferences from '@Models/BrowserPreferences';
 import BrowserFrameComposer from '../../views/FlexHub/BrowserFrameComposer/BrowserFrameComposer';
 
 /**

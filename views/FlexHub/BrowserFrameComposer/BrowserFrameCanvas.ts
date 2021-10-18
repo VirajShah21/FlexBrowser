@@ -11,7 +11,7 @@ import BrowserFrameModel, {
     BrowserFrameComponent,
 } from '@Models/BrowserFrameModel';
 import BrowserFrameRenderer from '@UI/BrowserFrameRenderer';
-import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserPreferences from '@Models/BrowserPreferences';
 
 function makeComponent(model: BrowserFrameComponent): View {
     switch (model.name) {

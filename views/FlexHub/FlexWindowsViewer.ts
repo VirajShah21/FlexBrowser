@@ -12,7 +12,7 @@ import VStack from '@Hi/Components/VStack';
 import URLMeta from '@Models/URLMeta';
 import strings from '@Resources/strings.json';
 import { navigateBack } from '@Triggers/hub-triggers';
-import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserPreferences from '@Models/BrowserPreferences';
 
 class FlexWindowsViewerItem extends ClickButton {
     private static readonly MAXLEN = 55;

@@ -1,4 +1,4 @@
-import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserPreferences from '@Models/BrowserPreferences';
 
 type ValidURLProtocol = 'https' | 'http';
 

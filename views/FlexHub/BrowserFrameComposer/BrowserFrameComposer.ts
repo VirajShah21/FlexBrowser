@@ -7,7 +7,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { ViewController } from '@Hi/ViewController';
-import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserPreferences from '@Models/BrowserPreferences';
 import HubTitlebar from '@Components/hub/HubTitlebar';
 import BrowserFrameCanvas from './BrowserFrameCanvas';
 import PartitionComponentOrganizer from './PartitionComponentOrganizer';

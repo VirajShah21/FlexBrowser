@@ -1,6 +1,6 @@
 import { HColor, HumanColorName } from '@Hi/Colors';
 import HumanEvent from '@Hi/Types/HumanEvent';
-import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserPreferences from '@Models/BrowserPreferences';
 
 export default function highlightColorSelected(
     ev: HumanEvent,
