@@ -81,6 +81,8 @@ export default class SearchEngineListBody extends ScrollView {
     }
 
     private static getEngineId(name: string): string {
-        return name.toLowerCase().replaceAll(' ', '-');
+        let tmp = name.trim().toLowerCase();
+        while (tmp.includes(' ')) tmp = tmp.replace(' ', '-');
+        return tmp;
     }
 }
