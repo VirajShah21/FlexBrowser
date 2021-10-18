@@ -77,7 +77,8 @@ export default class FlexWindowViewer extends HIFullScreenView {
                         .id('window-buttons-container'),
                 )
                     .width('100%')
-                    .padding(),
+                    .padding()
+                    .padding({ top: HubTitlebar.HEIGHT + 10 }),
                 new Spacer(),
             ).stretch(),
         );
