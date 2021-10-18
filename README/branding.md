@@ -88,7 +88,7 @@ Different formats for key:
 | `prod`   | `string?`                              | The product name the page(s) pertain to                 |
 
 <sup>1</sup> `fav` should be a valid url (passed into `new ValidURL(fav).toString()`).  
-<sup>2</sup> Numbers must be between `0` and `255` (inclusive).
+<sup>2</sup> Numbers must be between `0` and `255` (inclusive).  
 <sup>3</sup> `logo` should be a valid url to an image of the logo.
 
 ### Complete File Structure
