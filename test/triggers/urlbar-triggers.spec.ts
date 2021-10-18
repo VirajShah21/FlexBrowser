@@ -12,7 +12,7 @@ describe('URLBar (Trigger): When keys are pressed', () => {
         urlbar = win.findViewById('url') as URLBar;
     });
 
-    it('Should change refresh icon to go icon when input is changed', () => {
+    xit('Should change refresh icon to go icon when input is changed', () => {
         const refreshIcon = win.findViewById('url-refresh-button') as IonIcon;
 
         expect(refreshIcon.name).to.equal('refresh-circle-outline');
