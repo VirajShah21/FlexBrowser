@@ -17,7 +17,10 @@ export default class BrowserPreferences {
      */
     public static uncache(prop: string): void {
         window.setTimeout(() => {
-            Object.defineProperty(BrowserPreferences.cache, prop, null!);
+            Object.defineProperty(BrowserPreferences.cache, prop, {
+                value: undefined,
+                writable: true,
+            });
         }, 60000); // Uncache every 60 seconds
     }
 
