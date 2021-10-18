@@ -58,9 +58,9 @@ There are a couple problems when dealing with branding:
 
 ## Branding Format Specifications
 
-| Directory | Filename             | Format                  |
-| --------- | -------------------- | ----------------------- |
-| `~`       | `.flexbranding.json` | `BrandingRegistry/JSON` |
+| Directory | Filename              | Format                  |
+| --------- | --------------------- | ----------------------- |
+| `~`       | `.flex-branding.json` | `BrandingRegistry/JSON` |
 
 ### Record: BrandingRegistry
 
