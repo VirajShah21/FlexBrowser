@@ -6,7 +6,7 @@ export function addBlankCustomSearchEngine(ev: HumanEvent): void {
         ev.view
             .root()
             .findViewById('search-engine-list-body') as SearchEngineListBody
-    ).push({ name: '', urlPrefix: '' });
+    ).push({ id: '', name: '', urlPrefix: '' });
 }
 
 export function removeSelectedSearchEngines(): void {}

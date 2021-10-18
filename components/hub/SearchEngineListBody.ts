@@ -1,10 +1,12 @@
 import { HColor } from '@Hi/Colors';
 import ScrollView from '@Hi/Components/ScrollView';
+import TextField from '@Hi/Components/TextField';
 import VStack from '@Hi/Components/VStack';
 import BrowserPreferences from '@UI/BrowserPreferences';
 import SearchEngineItem from './SearchEngineItem';
 
 export default class SearchEngineListBody extends ScrollView {
+    // Required for `SearchEngineItem` to find this root view
     public readonly isSearchEngineListBody = true;
 
     private searchEngineList: CustomSearchEngine[] =
@@ -52,5 +54,30 @@ export default class SearchEngineListBody extends ScrollView {
                 index % 2 ? HColor('background') : HColor('gray5'),
             );
         });
+    }
+
+    public override handle(data: string): void {
+        if (data === 'updateSearchEngineList') {
+            const list: CustomSearchEngine[] = [];
+            this.findViewById('search-engine-list')
+                ?.getViewsByClass('search-engine-item')
+                .forEach(item => {
+                    const name = (item.findViewById('engine-name') as TextField)
+                        .value;
+
+                    list.push({
+                        name,
+                        urlPrefix: (
+                            item.findViewById('engine-prefix') as TextField
+                        ).value,
+                        id: SearchEngineListBody.getEngineId(name),
+                    });
+                });
+            this.searchEngineList = list;
+        }
+    }
+
+    private static getEngineId(name: string): string {
+        return name.toLowerCase().replaceAll(' ', '-');
     }
 }
