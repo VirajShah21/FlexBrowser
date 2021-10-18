@@ -105,7 +105,7 @@ export default class BrowserPreferences {
                 ),
             );
         } catch (e) {
-            id = flexarch.pref('defaultSearchEngine');
+            id = flexarch.pref('defaultSearchEngine') as string;
             try {
                 BrowserPreferences.assertIsCustomSearchEngineObject(
                     BrowserPreferences.searchEngines.find(
