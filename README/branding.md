@@ -4,7 +4,7 @@
 -   [Technical Problems](#technical-problems)
 -   [Technical Resolutions](#technical-resolutions)
 -   [Branding Format Specifications](#branding-format-specifications)
-    -   [Record: Branding Registry](#record-branding-registry)
+    -   [Record: Branding Registry](#record-brandingregistry)
     -   [Interface: Branding](#interface-branding)
     -   [Complete File Structure](#complete-file-structure)
 -   [Rule Merging](#rule-merging)
