@@ -4,6 +4,8 @@ import { SizingValues } from '@Hi/Types/sizing';
 import View from '@Hi/View';
 
 export default class InputField extends View {
+    private whenChangedListeners: ((ev: Event) => void)[] = [];
+
     public override body: HTMLInputElement;
 
     constructor(placeholder: string) {
@@ -44,13 +46,15 @@ export default class InputField extends View {
     }
 
     whenChanged(callback: (event: HumanEvent) => void): this {
-        this.body.addEventListener('input', browserEvent => {
+        const listener = (browserEvent: Event) => {
             callback({
                 view: this,
                 type: 'Change',
                 browserEvent,
             });
-        });
+        };
+        this.body.addEventListener('input', listener);
+        this.whenChangedListeners.push(listener);
         return this;
     }
 
@@ -77,6 +81,9 @@ export default class InputField extends View {
 
     public set value(newValue: string) {
         this.body.value = newValue;
+        this.whenChangedListeners.forEach(listener =>
+            listener({} as unknown as Event),
+        );
     }
 
     public get placeholder(): string {

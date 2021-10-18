@@ -16,7 +16,6 @@ describe('Hub (Trigger): Navigating to main hub page', () => {
         mockBrowser();
         document.body.dataset.window = 'hub';
         reloadAppController();
-        throw new Error(JSON.stringify(controller, null, 4));
         controller = getAppController();
     });
 

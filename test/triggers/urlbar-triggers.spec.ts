@@ -15,8 +15,6 @@ describe('URLBar (Trigger): When keys are pressed', () => {
     it('Should change refresh icon to go icon when input is changed', () => {
         const refreshIcon = win.findViewById('url-refresh-button') as IonIcon;
 
-        // throw new Error(JSON.stringify(refreshIcon.body, null, 4));
-
         expect(refreshIcon.name).to.equal('refresh-circle-outline');
 
         urlbar.value = 'h';
