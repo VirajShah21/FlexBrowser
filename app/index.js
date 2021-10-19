@@ -321,4 +321,24 @@ const writeBrandingRegistry = (exports.writeBrandingRegistry = registry => {
     info('Finished writing branding registry');
 });
 
+const readHistoryFile = (exports.readHistoryFile = () => {
+    try {
+        info('Reading history file');
+        return JSON.parse(
+            fs.readFileSync(path.join(HOMEDIR, '.flex-history.json'), 'utf-8'),
+        );
+    } catch (e) {
+        warn('Error reading/parsing history file.');
+        return [];
+    }
+});
+
+const writeHistoryFile = (exports.writeHistoryFile = history => {
+    fs.writeFileSync(
+        path.join(HOMEDIR, '.flex-history.json'),
+        JSON.stringify(history, null, 4),
+    );
+    info('Finished writing history file.');
+});
+
 if (app) app.whenReady().then(() => startup());
