@@ -143,7 +143,7 @@ export default class BrowserPreferences {
         }
     }
 
-    private static assertIsHumanColorName(
+    public static assertIsHumanColorName(
         s?: string,
     ): asserts s is HumanColorName {
         if (!Object.prototype.hasOwnProperty.call(HumanColorSwatch.dark, s)) {
@@ -151,7 +151,7 @@ export default class BrowserPreferences {
         }
     }
 
-    private static assertIsTheme(
+    public static assertIsTheme(
         name?: string,
     ): asserts name is 'light' | 'dark' {
         if (name && name !== 'light' && name !== 'dark') {
@@ -159,7 +159,7 @@ export default class BrowserPreferences {
         }
     }
 
-    private static assertIsCustomSearchEngineObject(
+    public static assertIsCustomSearchEngineObject(
         obj?: unknown,
     ): asserts obj is CustomSearchEngine {
         if (obj === undefined) throw new Error('Object is undefined');
@@ -195,7 +195,7 @@ export default class BrowserPreferences {
         }
     }
 
-    private static assertIsArrayOfCustomSearchEngine(
+    public static assertIsArrayOfCustomSearchEngine(
         arr?: unknown[],
     ): asserts arr is CustomSearchEngine[] {
         if (arr === undefined) throw new Error('Object is undefined');
