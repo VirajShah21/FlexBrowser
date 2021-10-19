@@ -2,7 +2,7 @@ import SearchEngineListBody from '@Components/hub/SearchEngineListBody';
 import Checkbox from '@Hi/Components/Checkbox';
 import InputField from '@Hi/Components/InputField';
 import HumanEvent from '@Hi/Types/HumanEvent';
-import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserPreferences from '@Models/BrowserPreferences';
 
 export function addBlankCustomSearchEngine(ev: HumanEvent): void {
     (

@@ -9,7 +9,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { navigateBack } from '@Triggers/hub-triggers';
-import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserPreferences from '@Models/BrowserPreferences';
 import strings from '@Resources/strings.json';
 import ScrollView from '@Hi/Components/ScrollView';
 import SearchEnginePreferences from '@Components/hub/SearchEnginePreferences';

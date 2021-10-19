@@ -28,6 +28,10 @@ function getAllPreferences() {
     return ipcRenderer.sendSync('getAllPreferences');
 }
 
+function brandRegistry(rule, branding) {
+    return ipcRenderer.sendSync('brandRegistry', rule, branding);
+}
+
 contextBridge.exposeInMainWorld('flexarch', {
     changeUrl,
     newWindow,
@@ -37,4 +41,5 @@ contextBridge.exposeInMainWorld('flexarch', {
     addBookmark,
     pref,
     getAllPreferences,
+    brandRegistry,
 });

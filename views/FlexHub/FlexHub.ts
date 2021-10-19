@@ -10,7 +10,7 @@ import VStack from '@Hi/Components/VStack';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import { ViewController } from '@Hi/ViewController';
 import strings from '@Resources/strings.json';
-import BrowserPreferences from '../BrowserPreferences';
+import BrowserPreferences from '../../Models/BrowserPreferences';
 import FlexBookmarksViewer from './FlexBookmarksViewer';
 import FlexPreferences from './FlexPreferences';
 import FlexWindowsViewer from './FlexWindowsViewer';
