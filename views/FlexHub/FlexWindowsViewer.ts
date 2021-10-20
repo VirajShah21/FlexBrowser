@@ -2,17 +2,14 @@ import HubTitlebar from '@Components/hub/HubTitlebar';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
-import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
-import TextView from '@Hi/Components/TextView';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
 import VStack from '@Hi/Components/VStack';
+import BrowserPreferences from '@Models/BrowserPreferences';
 import URLMeta from '@Models/URLMeta';
 import HubTitles from '@Resources/strings/HubTitles.json';
-import { navigateBack } from '@Triggers/hub-triggers';
-import BrowserPreferences from '@Models/BrowserPreferences';
 
 class FlexWindowsViewerItem extends ClickButton {
     private static readonly MAXLEN = 55;
@@ -55,17 +52,7 @@ export default class FlexWindowViewer extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new HubTitlebar(
-                    HubTitles.WindowsViewer,
-                    new HStack(
-                        new ClickButton(new TextView('Back'))
-                            .foreground(HColor(BrowserPreferences.colorTheme))
-                            .padding(0)
-                            .whenClicked(navigateBack)
-                            .id('back-btn'),
-                        new Spacer(),
-                    ).width('100%'),
-                ),
+                new HubTitlebar(HubTitles.WindowsViewer).insertBackButton(),
                 new ScrollView(
                     new VStack(
                         ...flexarch
