@@ -10,7 +10,7 @@ import TextView from '@Hi/Components/TextView';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
 import VStack from '@Hi/Components/VStack';
 import URLMeta from '@Models/URLMeta';
-import strings from '@Resources/strings.json';
+import HubTitles from '@Resources/strings/HubTitles.json';
 import { navigateBack } from '@Triggers/hub-triggers';
 import BrowserPreferences from '@Models/BrowserPreferences';
 
@@ -56,7 +56,7 @@ export default class FlexWindowViewer extends HIFullScreenView {
         super(
             new VStack(
                 new HubTitlebar(
-                    strings.windows_viewer_title,
+                    HubTitles.WindowsViewer,
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .foreground(HColor(BrowserPreferences.colorTheme))

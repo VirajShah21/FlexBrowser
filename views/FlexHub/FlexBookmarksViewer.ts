@@ -7,14 +7,14 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { navigateBack } from '@Triggers/hub-triggers';
-import strings from '@Resources/strings.json';
+import HubTitles from '@Resources/strings/HubTitles.json';
 
 export default class FlexBookmarksViewer extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
                 new HubTitlebar(
-                    strings.bookmarks_viewer_title,
+                    HubTitles.BookmarksViewer,
                     new HStack(
                         new ClickButton(new TextView('Back'))
                             .whenClicked(navigateBack)
