@@ -10,11 +10,11 @@
             "mocha",
             "../app/index",
             "../app/ArchLogger",
-            "../views/preload"
+            "../UI/preload"
         ],
         "paths": {
             "@Hi/*": ["../Client/ts/*"],
-            "@UI/*": ["../views/*"],
+            "@UI/*": ["../UI/*"],
             "@Components/*": ["../components/*"],
             "@Triggers/*": ["../triggers/*"],
             "@Resources/*": ["../resources/*"],
