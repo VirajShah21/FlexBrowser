@@ -5,7 +5,7 @@ declare interface URLMeta {
     url: string;
 }
 
-declare interface CustomSearchEngine {
+declare interface CustomSearchEngine extends Record<string, string> {
     id: string;
     name: string;
     urlPrefix: string;
