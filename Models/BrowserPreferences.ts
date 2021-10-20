@@ -218,6 +218,12 @@ export default class BrowserPreferences {
                 }) is of type <${typeof obj.urlPrefix}> and should be <string>.`,
             );
         }
+
+        if (obj.id.includes(' ')) {
+            throw new Error(
+                `Object is not CustomSearchEgnine object. The property "id" contains spaces ("${obj.id}").`,
+            );
+        }
     }
 
     public static assertIsArrayOfCustomSearchEngine(
