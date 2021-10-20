@@ -9,7 +9,7 @@ import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import { ViewController } from '@Hi/ViewController';
-import strings from '@Resources/strings.json';
+import HubTitles from '@Resources/strings/HubTitles.json';
 import BrowserPreferences from '../../Models/BrowserPreferences';
 import FlexBookmarksViewer from './FlexBookmarksViewer';
 import FlexPreferences from './FlexPreferences';
@@ -82,7 +82,7 @@ export default class FlexHub extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new HubTitlebar(strings.hub_main_title),
+                new HubTitlebar(HubTitles.Main),
 
                 new Spacer(),
 
