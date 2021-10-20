@@ -1,3 +1,4 @@
+import HumanEvent from '@Hi/Types/HumanEvent';
 import View from '@Hi/View';
 
 export default class ImageView extends View {
@@ -23,5 +24,16 @@ export default class ImageView extends View {
 
     public set altText(val: string) {
         this.body.alt = val;
+    }
+
+    public whenLoaded(callback: (ev: HumanEvent) => void): this {
+        this.body.addEventListener('load', browserEvent => {
+            callback({
+                type: 'Load',
+                view: this,
+                browserEvent,
+            });
+        });
+        return this;
     }
 }
