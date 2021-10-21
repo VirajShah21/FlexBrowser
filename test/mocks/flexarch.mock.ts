@@ -31,4 +31,11 @@ export default class FlexArch {
     static focusWindow(id: number): void {}
 
     static focusHub(): void {}
+
+    static urlInfo(): URLMeta {
+        return {
+            title: '',
+            url: '',
+        };
+    }
 }

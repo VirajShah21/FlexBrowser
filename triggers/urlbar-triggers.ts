@@ -1,3 +1,4 @@
+import URLBar from '@Components/URLBar';
 import { HColor } from '@Hi/Colors';
 import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
@@ -42,13 +43,18 @@ export function changeReloadButtonToGoButton(ev: HumanEvent): void {
 }
 
 export function urlbarFocusedState(ev: HumanEvent): void {
-    ev.view.transition(whenFocusedTransition);
-    (ev.view.background(HColor('background')) as TextField).textStart();
+    const urlBar = ev.view as URLBar;
+    urlBar.transition(whenFocusedTransition);
+    urlBar.background(HColor('background')).textStart();
+    urlBar.value = urlBar.urlInfo.url;
 }
 
 export function urlbarUnfocusedState(ev: HumanEvent): void {
-    ev.view.transition(whenUnfocusedTransition);
-    (ev.view.background('none') as TextField).textCenter();
+    const urlBar = ev.view as URLBar;
+    urlBar.transition(whenUnfocusedTransition);
+    urlBar.background('none').textCenter();
+    urlBar.value = '';
+    urlBar.placeholder = urlBar.urlInfo.title;
 }
 
 export function urlbarKeyPressed(ev: HumanKeyPressEvent): void {

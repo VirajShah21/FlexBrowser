@@ -40,6 +40,10 @@ function focusHub() {
     ipcRenderer.send('focusHub');
 }
 
+function urlInfo() {
+    return ipcRenderer.sendSync('urlInfo');
+}
+
 contextBridge.exposeInMainWorld('flexarch', {
     changeUrl,
     newWindow,
@@ -52,4 +56,5 @@ contextBridge.exposeInMainWorld('flexarch', {
     brandRegistry,
     focusWindow,
     focusHub,
+    urlInfo,
 });

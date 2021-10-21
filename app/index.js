@@ -124,6 +124,18 @@ if (ipcMain) {
         hubWindow.flashFrame(true);
         setTimeout(() => hubWindow.flashFrame(false), 1000);
     });
+
+    ipcMain.on('urlInfo', event => {
+        const instance = flexBrowserInstances.find(
+            i => i.webContents == event.sender,
+        );
+        const browserView = instance.getBrowserView();
+        event.returnValue = {
+            url: browserView.webContents.getURL(),
+            title: browserView.webContents.getTitle(),
+            windowId: instance.id,
+        };
+    });
 }
 
 /**
@@ -167,6 +179,18 @@ function createWindow() {
         });
     });
     info('Binded Listener for resizing browser window');
+
+    win.getBrowserView().webContents.addListener('did-navigate-in-page', () => {
+        const history = readHistoryFile();
+        const { webContents } = win.getBrowserView();
+
+        history.push({
+            url: webContents.getURL(),
+            title: webContents.getTitle(),
+        });
+
+        writeHistoryFile(history);
+    });
 }
 
 /**

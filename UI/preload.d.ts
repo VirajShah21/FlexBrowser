@@ -42,4 +42,5 @@ declare namespace flexarch {
     function brandRegistry(rule: string, branding?: Branding): Branding;
     function focusWindow(windowId: number): void;
     function focusHub(): void;
+    function urlInfo(): URLMeta;
 }
