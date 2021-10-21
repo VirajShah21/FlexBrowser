@@ -124,6 +124,13 @@ if (ipcMain) {
         hubWindow.flashFrame(true);
         setTimeout(() => hubWindow.flashFrame(false), 1000);
     });
+
+    ipcMain.on('pageURL', event => {
+        event.returnValue = flexBrowserInstances
+            .find(i => i.webContents == event.sender)
+            .getBrowserView()
+            .webContents.getURL();
+    });
 }
 
 /**
