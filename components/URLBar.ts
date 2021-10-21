@@ -18,6 +18,11 @@ export default class URLBar extends TextField {
         after: 'forwards',
     });
 
+    public urlInfo: URLMeta = {
+        url: 'flex://home',
+        title: 'Flex Homepage',
+    };
+
     constructor() {
         super('flex://home');
 
@@ -32,6 +37,10 @@ export default class URLBar extends TextField {
             .whenUnfocused(urlbarUnfocusedState)
             .whenKeyPressed(urlbarKeyPressed)
             .opacity(0);
+    }
+
+    public updateURLInfo(): void {
+        this.urlInfo = flexarch.urlInfo();
     }
 
     public override handle(data: string): void {
