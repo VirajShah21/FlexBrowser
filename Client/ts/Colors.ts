@@ -107,10 +107,21 @@ export function whichTheme(): 'light' | 'dark' {
  *
  * @export
  * @param {HTMLImageElement} imgEl The image element to analyze.
+ * @param {number} blockSize Visits every `blockSize` pixel when analyzing
+ * the image. The default value is 5, however, if you know an image will be
+ * small (such as a favicon) then a value of 1 will suffice. For performance
+ * in heavy applications, when analyzing larger images, a larger block size
+ * should be used. This will slightly decrease accuracy, while significantly
+ * improving performance.
+ * @param {RGBAModel[]} ignoreColors The list of colors to ignore. For example,
+ * if the background of an image is white, then you may want to ignore that color.
  * @returns {RGBAModel} The average image color.
  */
-export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
-    const blockSize = 5; // only visit every 5 pixels
+export function getAverageRGB(
+    imgEl: HTMLImageElement,
+    blockSize = 5,
+    ignoreColors: RGBAModel[] = [],
+): RGBAModel {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext && canvas.getContext('2d');
     const model = new RGBAModel(0, 0, 0);
@@ -141,10 +152,19 @@ export function getAverageRGB(imgEl: HTMLImageElement): RGBAModel {
 
     while (i + blockSize * 4 < length) {
         i += blockSize * 4;
-        count += 1;
-        model.r += data.data[i]!;
-        model.g += data.data[i + 1]!;
-        model.b += data.data[i + 2]!;
+        const r = data.data[i];
+        const g = data.data[i + 1];
+        const b = data.data[i + 2];
+        if (
+            ignoreColors.filter(
+                color => color.r === r && color.g === g && color.b === b,
+            ).length === 0
+        ) {
+            count += 1;
+            model.r += r!;
+            model.g += g!;
+            model.b += b!;
+        }
     }
 
     model.r = Math.floor(model.r / count);

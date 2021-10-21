@@ -55,7 +55,7 @@ class FlexWindowsViewerItem extends ClickButton {
             });
 
         image.whenLoaded(() => {
-            const avg = getAverageRGB(image.body);
+            const avg = getAverageRGB(image.body, 1, [RGBAModel.WHITE]);
             this.background(avg);
             if (avg.isLight()) {
                 this.foreground(RGBAModel.BLACK);
