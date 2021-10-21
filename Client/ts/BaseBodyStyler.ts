@@ -697,19 +697,19 @@ export default abstract class BaseBodyStyler {
         const values = window.getComputedStyle(this.body);
         return {
             for: this,
-            width: parseInt(values.width, 10),
-            height: parseInt(values.height, 10),
+            width: values.width,
+            height: values.height,
             padding: [
-                parseInt(values.paddingTop, 10),
-                parseInt(values.paddingRight, 10),
-                parseInt(values.paddingBottom, 10),
-                parseInt(values.paddingLeft, 10),
+                values.paddingTop,
+                values.paddingRight,
+                values.paddingBottom,
+                values.paddingLeft,
             ],
             margin: [
-                parseInt(values.marginTop, 10),
-                parseInt(values.marginRight, 10),
-                parseInt(values.marginBottom, 10),
-                parseInt(values.marginRight, 10),
+                values.marginTop,
+                values.marginRight,
+                values.marginBottom,
+                values.marginRight,
             ],
         };
     }
@@ -718,8 +718,8 @@ export default abstract class BaseBodyStyler {
 interface ComputedStyle<T extends BaseBodyStyler>
     extends Record<string, unknown> {
     for: T;
-    width: number;
-    height: number;
-    padding: [number, number, number, number];
-    margin: [number, number, number, number];
+    width: HISizingValue;
+    height: HISizingValue;
+    padding: [HISizingValue, HISizingValue, HISizingValue, HISizingValue];
+    margin: [HISizingValue, HISizingValue, HISizingValue, HISizingValue];
 }
