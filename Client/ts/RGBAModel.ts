@@ -5,10 +5,6 @@
  * @class RGBAModel
  */
 export default class RGBAModel {
-    public static readonly WHITE = new RGBAModel(255, 255, 255);
-
-    public static readonly BLACK = new RGBAModel(0, 0, 0);
-
     public r: number;
 
     public g: number;
@@ -120,6 +116,14 @@ export default class RGBAModel {
         return `rgb(${this.r}, ${this.g}, ${this.b})`;
     }
 
+    public isDark(): boolean {
+        return (this.r + this.g + this.b) / 3 < 128;
+    }
+
+    public isLight(): boolean {
+        return (this.r + this.g + this.b) / 3 >= 128;
+    }
+
     /**
      * Generates a copy of an `RGBAModel`.
      *
@@ -131,5 +135,13 @@ export default class RGBAModel {
      */
     static copy(rgba: RGBAModel): RGBAModel {
         return new RGBAModel(rgba.r, rgba.g, rgba.b, rgba.a);
+    }
+
+    public static get BLACK(): RGBAModel {
+        return new RGBAModel(0, 0, 0, 1);
+    }
+
+    public static get WHITE(): RGBAModel {
+        return new RGBAModel(255, 255, 255, 1);
     }
 }
