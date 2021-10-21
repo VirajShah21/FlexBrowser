@@ -125,11 +125,16 @@ if (ipcMain) {
         setTimeout(() => hubWindow.flashFrame(false), 1000);
     });
 
-    ipcMain.on('pageURL', event => {
-        event.returnValue = flexBrowserInstances
-            .find(i => i.webContents == event.sender)
-            .getBrowserView()
-            .webContents.getURL();
+    ipcMain.on('urlInfo', event => {
+        const instance = flexBrowserInstances.find(
+            i => i.webContents == event.sender,
+        );
+        const browserView = instance.getBrowserView();
+        event.returnValue = {
+            url: browserView.webContents.getURL(),
+            title: browserView.webContents.getTitle(),
+            windowId: instance.id,
+        };
     });
 }
 
@@ -177,7 +182,13 @@ function createWindow() {
 
     win.getBrowserView().webContents.addListener('did-navigate-in-page', () => {
         const history = readHistoryFile();
-        history.push(win.getBrowserView().webContents.getURL());
+        const { webContents } = win.getBrowserView();
+
+        history.push({
+            url: webContents.getURL(),
+            title: webContents.getTitle(),
+        });
+
         writeHistoryFile(history);
     });
 }
