@@ -30,17 +30,21 @@ export default class URLBar extends TextField {
             .textCenter()
             .background('none')
             .foreground(HColor('gray'))
-            .id('url')
             .whenChanged(changeReloadButtonToGoButton)
             .noOutline()
             .whenFocused(urlbarFocusedState)
             .whenUnfocused(urlbarUnfocusedState)
             .whenKeyPressed(urlbarKeyPressed)
             .opacity(0);
+
+        window.setInterval(() => {
+            this.updateURLInfo();
+        }, 1000);
     }
 
     public updateURLInfo(): void {
         this.urlInfo = flexarch.urlInfo();
+        this.placeholder = this.urlInfo.title;
     }
 
     public override handle(data: string): void {
