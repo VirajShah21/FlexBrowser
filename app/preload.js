@@ -36,6 +36,10 @@ function focusWindow(id) {
     ipcRenderer.send('focusWindow', id);
 }
 
+function focusHub() {
+    ipcRenderer.send('focusHub');
+}
+
 contextBridge.exposeInMainWorld('flexarch', {
     changeUrl,
     newWindow,
@@ -47,4 +51,5 @@ contextBridge.exposeInMainWorld('flexarch', {
     getAllPreferences,
     brandRegistry,
     focusWindow,
+    focusHub,
 });

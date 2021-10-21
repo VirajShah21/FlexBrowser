@@ -1,3 +1,4 @@
+import LaunchHubTaskbarButton from '@Components/LaunchHubTaskbarButton';
 import NewWindowTaskbarButton from '@Components/NewWindowTaskbarButton';
 import PageNavigationTaskbarButtons from '@Components/PageNavigationTaskbarButtons';
 import RefreshTaskbarButton from '@Components/RefreshTaskbarButton';
@@ -50,7 +51,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                     new HStack(
                         new RefreshTaskbarButton(),
                         new Spacer(),
-
+                        new LaunchHubTaskbarButton(),
                         new NewWindowTaskbarButton(),
                     )
                         .width('25%')

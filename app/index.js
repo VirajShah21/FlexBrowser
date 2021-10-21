@@ -112,8 +112,8 @@ if (ipcMain) {
         );
 
         instance.focus();
-        instance.flashFrame();
-        window.setTimeout(instance.flashFrame, 1000);
+        instance.flashFrame(true);
+        setTimeout(() => instance.flashFrame(false), 1000);
     });
 
     ipcMain.on('focusHub', () => {
@@ -121,6 +121,8 @@ if (ipcMain) {
             createHubWindow();
         }
         hubWindow.focus();
+        hubWindow.flashFrame(true);
+        setTimeout(() => hubWindow.flashFrame(false), 1000);
     });
 }
 
