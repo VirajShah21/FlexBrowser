@@ -27,4 +27,8 @@ export default class FlexArch {
     static brandRegistry(): Branding {
         return null;
     }
+
+    static focusWindow(id: number): void {}
+
+    static focusHub(): void {}
 }
