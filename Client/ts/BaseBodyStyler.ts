@@ -692,4 +692,34 @@ export default abstract class BaseBodyStyler {
         this.body.style.opacity = `${o}`;
         return this;
     }
+
+    public get computed(): ComputedStyle<BaseBodyStyler> {
+        const values = window.getComputedStyle(this.body);
+        return {
+            for: this,
+            width: parseInt(values.width, 10),
+            height: parseInt(values.height, 10),
+            padding: [
+                parseInt(values.paddingTop, 10),
+                parseInt(values.paddingRight, 10),
+                parseInt(values.paddingBottom, 10),
+                parseInt(values.paddingLeft, 10),
+            ],
+            margin: [
+                parseInt(values.marginTop, 10),
+                parseInt(values.marginRight, 10),
+                parseInt(values.marginBottom, 10),
+                parseInt(values.marginRight, 10),
+            ],
+        };
+    }
+}
+
+interface ComputedStyle<T extends BaseBodyStyler>
+    extends Record<string, unknown> {
+    for: T;
+    width: number;
+    height: number;
+    padding: [number, number, number, number];
+    margin: [number, number, number, number];
 }
