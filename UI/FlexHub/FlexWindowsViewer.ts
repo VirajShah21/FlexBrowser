@@ -75,11 +75,21 @@ class FlexWindowsViewerItem extends ClickButton {
                     .border({ color: RGBAModel.WHITE });
             }
         });
+
+        const untriedExtensions = ['png', 'svg', 'jpg'];
+        image.whenError(() => {
+            if (untriedExtensions.length > 0) {
+                image.source = FlexWindowsViewerItem.getFaviconURL(
+                    meta,
+                    untriedExtensions.splice(0, 1)[0],
+                );
+            }
+        });
     }
 
-    public static getFaviconURL(meta: URLMeta): string {
+    public static getFaviconURL(meta: URLMeta, extension = 'ico'): string {
         const url = new ValidURL(meta.url);
-        return `${url.protocol}://${url.domain}/favicon.ico`;
+        return `${url.protocol}://${url.domain}/favicon.${extension}`;
     }
 }
 
