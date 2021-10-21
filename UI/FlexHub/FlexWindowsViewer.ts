@@ -2,22 +2,32 @@ import HubTitlebar from '@Components/hub/HubTitlebar';
 import { getAverageRGB, HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
+import HStack from '@Hi/Components/HStack';
 import ImageView from '@Hi/Components/ImageView';
-import IonIcon from '@Hi/Components/IonIcon';
+// import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
 import VStack from '@Hi/Components/VStack';
+import RGBAModel from '@Hi/RGBAModel';
 import BrowserPreferences from '@Models/BrowserPreferences';
 import URLMeta from '@Models/URLMeta';
 import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
 
 class FlexWindowsViewerItem extends ClickButton {
-    private static readonly MAXLEN = 55;
+    private static readonly MAXLEN = 15;
 
     constructor(meta: URLMeta) {
-        const image = new ImageView(FlexWindowsViewerItem.getFaviconURL(meta));
+        const image = new ImageView(FlexWindowsViewerItem.getFaviconURL(meta))
+            .rounded('100%')
+            .border({
+                size: 2,
+                style: 'solid',
+                color: HColor(BrowserPreferences.colorTheme),
+            })
+            .width(36)
+            .height(36);
 
         super(
             new VStack(
@@ -25,10 +35,9 @@ class FlexWindowsViewerItem extends ClickButton {
                 image,
                 new Spacer(),
                 new TruncatedTextView(meta.title, FlexWindowsViewerItem.MAXLEN),
-                new TruncatedTextView(
-                    meta.url,
-                    FlexWindowsViewerItem.MAXLEN,
-                ).foreground(HColor('background').alpha(0.5)),
+                new TruncatedTextView(meta.url, FlexWindowsViewerItem.MAXLEN)
+                    .id('window-title')
+                    .foreground(HColor('background').alpha(0.5)),
             ),
         );
 
@@ -36,12 +45,29 @@ class FlexWindowsViewerItem extends ClickButton {
             .background(HColor(BrowserPreferences.colorTheme))
             .foreground(HColor('background'))
             .padding()
-            .width('100%')
-            .margin({ bottom: 25 });
+            .margin({ bottom: 25, right: 25 })
+            .width(this.computed.height);
 
         image.whenLoaded(() => {
             const avg = getAverageRGB(image.body);
             this.background(avg);
+            if (avg.isLight()) {
+                this.foreground(RGBAModel.BLACK);
+                this.findViewById('window-title')?.foreground(
+                    RGBAModel.BLACK.alpha(0.5),
+                );
+                image
+                    .background(RGBAModel.BLACK)
+                    .border({ color: RGBAModel.BLACK });
+            } else {
+                this.foreground(RGBAModel.WHITE);
+                this.findViewById('window-title')?.foreground(
+                    RGBAModel.WHITE.alpha(0.5),
+                );
+                image
+                    .background(RGBAModel.WHITE)
+                    .border({ color: RGBAModel.WHITE });
+            }
         });
     }
 
@@ -69,14 +95,15 @@ export default class FlexWindowViewer extends HIFullScreenView {
             new VStack(
                 new HubTitlebar(HubTitles.WindowsViewer).insertBackButton(),
                 new ScrollView(
-                    new VStack(
+                    new HStack(
                         ...flexarch
                             .getWindowList()
                             .map(meta => new FlexWindowsViewerItem(meta)),
                     )
                         .width('100%')
                         .padding()
-                        .id('window-buttons-container'),
+                        .id('window-buttons-container')
+                        .wrap(),
                 )
                     .width('100%')
                     .padding()
