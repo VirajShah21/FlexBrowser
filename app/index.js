@@ -8,6 +8,7 @@ const { error, info, warn, debug, initializeLogger } = require('./ArchLogger');
 initializeLogger();
 
 const flexBrowserInstances = [];
+let hubWindow = undefined;
 
 const browserWindowOptions = {
     width: 800,
@@ -106,7 +107,20 @@ if (ipcMain) {
     });
 
     ipcMain.on('focusWindow', (event, id) => {
-        flexBrowserInstances.find(instance => instance.id == id).focus();
+        const instance = flexBrowserInstances.find(
+            instance => instance.id == id,
+        );
+
+        instance.focus();
+        instance.flashFrame();
+        window.setTimeout(instance.flashFrame, 1000);
+    });
+
+    ipcMain.on('focusHub', () => {
+        if (hubWindow === null || hubWindow === undefined) {
+            createHubWindow();
+        }
+        hubWindow.focus();
     });
 }
 
@@ -173,6 +187,12 @@ function createHubWindow() {
 
     info('Hub Window Created.');
     win.loadFile('app/hub.html').then(() => info('Hub Window source loaded.'));
+
+    win.addListener('close', () => {
+        hubWindow = null;
+    });
+
+    hubWindow = win;
 }
 
 function firstStartWindow() {
