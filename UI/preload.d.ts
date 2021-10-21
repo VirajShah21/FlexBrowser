@@ -3,6 +3,7 @@ declare type BrandingRegistry = Record<string, Branding>;
 declare interface URLMeta {
     title: string;
     url: string;
+    windowId?: number;
 }
 
 declare interface CustomSearchEngine extends Record<string, string> {
@@ -39,4 +40,5 @@ declare namespace flexarch {
         theme?: string;
     };
     function brandRegistry(rule: string, branding?: Branding): Branding;
+    function focusWindow(windowId: number): void;
 }

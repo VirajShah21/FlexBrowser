@@ -39,6 +39,7 @@ if (ipcMain) {
             return {
                 title: instance.getBrowserView().webContents.getTitle(),
                 url: instance.getBrowserView().webContents.getURL(),
+                windowId: instance.id,
             };
         });
 
@@ -102,6 +103,10 @@ if (ipcMain) {
         } else {
             throw new Error('IPC: brandRegistry must provide rule parameter');
         }
+    });
+
+    ipcMain.on('focusWindow', (event, id) => {
+        flexBrowserInstances.find(instance => instance.id == id).focus();
     });
 }
 

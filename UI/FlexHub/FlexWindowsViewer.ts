@@ -10,14 +10,13 @@ import TruncatedTextView from '@Hi/Components/TruncatedTextView';
 import VStack from '@Hi/Components/VStack';
 import RGBAModel from '@Hi/RGBAModel';
 import BrowserPreferences from '@Models/BrowserPreferences';
-import URLMeta from '@Models/URLMeta';
 import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
 
 class FlexWindowsViewerItem extends ClickButton {
     private static readonly MAXLEN = 15;
 
-    constructor(meta: URLMeta) {
+    constructor(meta: URLMeta, windowId: number) {
         const image = new ImageView(FlexWindowsViewerItem.getFaviconURL(meta))
             .rounded('100%')
             .border({
@@ -50,7 +49,10 @@ class FlexWindowsViewerItem extends ClickButton {
             .padding()
             .margin({ bottom: 25, right: 25 })
             .width(150)
-            .height(150);
+            .height(150)
+            .whenClicked(() => {
+                flexarch.focusWindow(windowId);
+            });
 
         image.whenLoaded(() => {
             const avg = getAverageRGB(image.body);
@@ -102,7 +104,13 @@ export default class FlexWindowViewer extends HIFullScreenView {
                     new HStack(
                         ...flexarch
                             .getWindowList()
-                            .map(meta => new FlexWindowsViewerItem(meta)),
+                            .map(
+                                meta =>
+                                    new FlexWindowsViewerItem(
+                                        meta,
+                                        meta.windowId ?? 0,
+                                    ),
+                            ),
                     )
                         .width('100%')
                         .padding()
