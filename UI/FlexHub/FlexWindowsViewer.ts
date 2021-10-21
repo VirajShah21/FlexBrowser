@@ -4,7 +4,6 @@ import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
 import ImageView from '@Hi/Components/ImageView';
-// import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
@@ -27,7 +26,8 @@ class FlexWindowsViewerItem extends ClickButton {
                 color: HColor(BrowserPreferences.colorTheme),
             })
             .width(36)
-            .height(36);
+            .height(36)
+            .margin({ bottom: 10 });
 
         super(
             new VStack(
@@ -35,7 +35,10 @@ class FlexWindowsViewerItem extends ClickButton {
                 image,
                 new Spacer(),
                 new TruncatedTextView(meta.title, FlexWindowsViewerItem.MAXLEN),
-                new TruncatedTextView(meta.url, FlexWindowsViewerItem.MAXLEN)
+                new TruncatedTextView(
+                    new ValidURL(meta.url).shortestRepresentation,
+                    FlexWindowsViewerItem.MAXLEN,
+                )
                     .id('window-title')
                     .foreground(HColor('background').alpha(0.5)),
             ),
@@ -46,7 +49,8 @@ class FlexWindowsViewerItem extends ClickButton {
             .foreground(HColor('background'))
             .padding()
             .margin({ bottom: 25, right: 25 })
-            .width(this.computed.height);
+            .width(150)
+            .height(150);
 
         image.whenLoaded(() => {
             const avg = getAverageRGB(image.body);
