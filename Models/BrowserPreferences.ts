@@ -1,5 +1,6 @@
 import { HumanColorName } from '@Hi/Colors';
 import HumanColorSwatch from '@Hi/HumanColorSwatch';
+import hasOwnProperty from '@Hi/Types/helpers';
 
 /**
  * The preferences manager for Flex Browser.
@@ -143,7 +144,7 @@ export default class BrowserPreferences {
         }
     }
 
-    private static assertIsHumanColorName(
+    public static assertIsHumanColorName(
         s?: string,
     ): asserts s is HumanColorName {
         if (!Object.prototype.hasOwnProperty.call(HumanColorSwatch.dark, s)) {
@@ -151,7 +152,7 @@ export default class BrowserPreferences {
         }
     }
 
-    private static assertIsTheme(
+    public static assertIsTheme(
         name?: string,
     ): asserts name is 'light' | 'dark' {
         if (name && name !== 'light' && name !== 'dark') {
@@ -159,12 +160,12 @@ export default class BrowserPreferences {
         }
     }
 
-    private static assertIsCustomSearchEngineObject(
-        obj?: unknown,
-    ): asserts obj is CustomSearchEngine {
+    public static assertIsCustomSearchEngineObject(
+        obj?: Record<string, unknown>,
+    ): asserts obj is CustomSearchEngine & Record<string, unknown> {
         if (obj === undefined) throw new Error('Object is undefined');
 
-        if (!Object.prototype.hasOwnProperty.call(obj, 'id')) {
+        if (!hasOwnProperty(obj, 'id')) {
             throw new Error(
                 `Object is not CustomSearchEngine object. Missing 'id' field: ${JSON.stringify(
                     obj,
@@ -193,13 +194,44 @@ export default class BrowserPreferences {
                 )}.`,
             );
         }
+
+        if (typeof obj.id !== 'string') {
+            throw new Error(
+                `Object is not CustomSearchEngine object. The property "id" (${
+                    obj.id
+                }) is of type <${typeof obj.id}> and should be <string>.`,
+            );
+        }
+
+        if (typeof obj.name !== 'string') {
+            throw new Error(
+                `Object is not CustomSearchEngine object. The property "name" (${
+                    obj.name
+                }) is of type <${typeof obj.name}> and should be <string>.`,
+            );
+        }
+
+        if (typeof obj.urlPrefix !== 'string') {
+            throw new Error(
+                `Object is not CustomSearchEngine object. The property "urlPrefix" (${
+                    obj.urlPrefix
+                }) is of type <${typeof obj.urlPrefix}> and should be <string>.`,
+            );
+        }
+
+        if (obj.id.includes(' ')) {
+            throw new Error(
+                `Object is not CustomSearchEgnine object. The property "id" contains spaces ("${obj.id}").`,
+            );
+        }
     }
 
-    private static assertIsArrayOfCustomSearchEngine(
-        arr?: unknown[],
-    ): asserts arr is CustomSearchEngine[] {
+    public static assertIsArrayOfCustomSearchEngine(
+        arr?: Record<string, unknown>[],
+    ): asserts arr is CustomSearchEngine[] & Record<string, unknown>[] {
         if (arr === undefined) throw new Error('Object is undefined');
-        arr.forEach(item =>
+
+        (arr as Record<string, string>[]).forEach(item =>
             BrowserPreferences.assertIsCustomSearchEngineObject(item),
         );
     }

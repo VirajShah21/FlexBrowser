@@ -1,9 +1,12 @@
+declare type BrandingRegistry = Record<string, Branding>;
+
 declare interface URLMeta {
     title: string;
     url: string;
+    windowId?: number;
 }
 
-declare interface CustomSearchEngine {
+declare interface CustomSearchEngine extends Record<string, string> {
     id: string;
     name: string;
     urlPrefix: string;
@@ -14,6 +17,15 @@ declare interface FlexRC {
     theme?: string;
     searchEngines?: CustomSearchEngine[];
     defaultSearchEngine?: string;
+}
+
+declare interface Branding {
+    org: string;
+    fav: string;
+    color: [number, number, number];
+    abbr: string;
+    logo: string;
+    prod: string;
 }
 
 declare namespace flexarch {
@@ -27,4 +39,7 @@ declare namespace flexarch {
         colorTheme?: string;
         theme?: string;
     };
+    function brandRegistry(rule: string, branding?: Branding): Branding;
+    function focusWindow(windowId: number): void;
+    function focusHub(): void;
 }

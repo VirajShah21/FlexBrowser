@@ -1,4 +1,4 @@
-import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserPreferences from '@Models/BrowserPreferences';
 
 type ValidURLProtocol = 'https' | 'http';
 
@@ -52,6 +52,18 @@ export default class ValidURL {
             return '/';
         }
         return `/search?q=${this.value.split(' ').join('+')}`;
+    }
+
+    public get shortestRepresentation(): string {
+        const namespaces = this.domain.split('.');
+        const urlPath = this.path;
+
+        if (namespaces.length > 1 && namespaces[0] === 'www') {
+            namespaces.shift();
+        }
+        const domain = namespaces.join('.');
+
+        return `${domain}${urlPath.trim() === '/' ? '' : urlPath}`;
     }
 
     public toString(): string {

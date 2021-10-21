@@ -1,10 +1,11 @@
+import ThemedButton from '@Components/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { defineTransition } from '@Hi/Transitions/Transition';
-import View from '@Hi/View';
+import { navigateBack } from '@Triggers/hub-triggers';
 
 const hubTitlebarBuildIn = defineTransition({
     from: {
@@ -53,10 +54,10 @@ export default class HubTitlebar extends VStack {
      *
      * @memberOf HubTitlebar
      */
-    constructor(title: string, ...children: View[]) {
+    constructor(title: string) {
         super(
             new Spacer(),
-            new HStack(...children).width('100%').margin({ top: 20 }),
+            new HStack().width('100%').margin({ top: 20 }).id('titlebar-menu'),
 
             new HStack(
                 new TextView(title).font('xxl').bold(),
@@ -74,6 +75,22 @@ export default class HubTitlebar extends VStack {
 
         this.body.style.overflow = 'hidden';
         this.body.style.setProperty('-webkit-app-region', 'drag');
+    }
+
+    public insertBackButton(appendSpacer = true): this {
+        const container = this.findViewById('titlebar-menu');
+        container?.addChildren(
+            new ThemedButton(new TextView('Back'))
+                .whenClicked(navigateBack)
+                .id('back-btn'),
+        );
+        if (appendSpacer) this.insertSpacer();
+        return this;
+    }
+
+    public insertSpacer(): this {
+        this.findViewById('titlebar-menu')?.addChildren(new Spacer());
+        return this;
     }
 
     public override handle(data: string): void {

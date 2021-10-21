@@ -7,4 +7,18 @@ export default abstract class Stack extends Group {
         this.body.style.display = 'flex';
         this.body.style.boxSizing = 'border-box';
     }
+
+    public wrap(
+        behavior:
+            | 'nowrap'
+            | 'wrap'
+            | 'wrap-reverse'
+            | 'inherit'
+            | 'initial'
+            | 'revert'
+            | 'unset' = 'wrap',
+    ): this {
+        this.body.style.flexWrap = behavior;
+        return this;
+    }
 }

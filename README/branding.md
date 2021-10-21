@@ -1,5 +1,14 @@
 # Branding Features
 
+-   [Abstract](#abstract)
+-   [Technical Problems](#technical-problems)
+-   [Technical Resolutions](#technical-resolutions)
+-   [Branding Format Specifications](#branding-format-specifications)
+    -   [Record: Branding Registry](#record-brandingregistry)
+    -   [Interface: Branding](#interface-branding)
+    -   [Complete File Structure](#complete-file-structure)
+-   [Rule Merging](#rule-merging)
+
 ## Abstract
 
 Branding is very important for all organizations.
@@ -49,9 +58,9 @@ There are a couple problems when dealing with branding:
 
 ## Branding Format Specifications
 
-| Directory | Filename             | Format                  |
-| --------- | -------------------- | ----------------------- |
-| `~`       | `.flexbranding.json` | `BrandingRegistry/JSON` |
+| Directory | Filename              | Format                  |
+| --------- | --------------------- | ----------------------- |
+| `~`       | `.flex-branding.json` | `BrandingRegistry/JSON` |
 
 ### Record: BrandingRegistry
 
@@ -74,9 +83,13 @@ Different formats for key:
 | `org`    | `string`                               | The name of organization which the branding applies to. |
 | `fav`    | `string`<sup>1</sup>                   | The URL path of the favicon.                            |
 | `color`  | `[number, number, number]`<sup>2</sup> | The RGB/RGBA of the brand color.                        |
-| `abbr`   | `string`<sup>3</sup>                   | The abbreviation of the organization.                   |
-| `logo`   | `string`<sup>4</sup>                   | The logo frequently used by the brand.                  |
-| `prod`   | `string?`<sup>5</sup>                  | The product name the page(s) pertain to                 |
+| `abbr`   | `string`                               | The abbreviation of the organization.                   |
+| `logo`   | `string`<sup>3</sup>                   | The logo frequently used by the brand.                  |
+| `prod`   | `string?`                              | The product name the page(s) pertain to                 |
+
+<sup>1</sup> `fav` should be a valid url (passed into `new ValidURL(fav).toString()`).  
+<sup>2</sup> Numbers must be between `0` and `255` (inclusive).  
+<sup>3</sup> `logo` should be a valid url to an image of the logo.
 
 ### Complete File Structure
 

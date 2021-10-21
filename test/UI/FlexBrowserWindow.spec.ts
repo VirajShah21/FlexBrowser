@@ -1,7 +1,7 @@
 import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
 import { expect } from 'chai';
-import FlexBrowserWindow from '../../views/FlexBrowserWindow';
+import FlexBrowserWindow from '@UI/FlexBrowserWindow';
 
 describe('FlexBrowserWindow: URL Bar Navigation', () => {
     let win: FlexBrowserWindow;

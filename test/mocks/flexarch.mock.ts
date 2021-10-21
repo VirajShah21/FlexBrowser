@@ -1,4 +1,6 @@
 export default class FlexArch {
+    private static readonly mockFlexRcFile: FlexRC = {};
+
     static changeUrl(): void {}
 
     static newWindow(): void {}
@@ -13,11 +15,20 @@ export default class FlexArch {
 
     static addBookmark(): void {}
 
-    static pref(): string | null {
-        return '';
+    static pref(property: string, value?: unknown): unknown {
+        if (value) this.mockFlexRcFile[property] = value;
+        return this.mockFlexRcFile[property];
     }
 
     static getAllPreferences(): FlexRC {
         return {};
     }
+
+    static brandRegistry(): Branding {
+        return null;
+    }
+
+    static focusWindow(id: number): void {}
+
+    static focusHub(): void {}
 }

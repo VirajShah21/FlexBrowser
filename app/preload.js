@@ -28,6 +28,18 @@ function getAllPreferences() {
     return ipcRenderer.sendSync('getAllPreferences');
 }
 
+function brandRegistry(rule, branding) {
+    return ipcRenderer.sendSync('brandRegistry', rule, branding);
+}
+
+function focusWindow(id) {
+    ipcRenderer.send('focusWindow', id);
+}
+
+function focusHub() {
+    ipcRenderer.send('focusHub');
+}
+
 contextBridge.exposeInMainWorld('flexarch', {
     changeUrl,
     newWindow,
@@ -37,4 +49,7 @@ contextBridge.exposeInMainWorld('flexarch', {
     addBookmark,
     pref,
     getAllPreferences,
+    brandRegistry,
+    focusWindow,
+    focusHub,
 });

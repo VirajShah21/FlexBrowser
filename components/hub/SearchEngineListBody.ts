@@ -2,7 +2,7 @@ import { HColor } from '@Hi/Colors';
 import ScrollView from '@Hi/Components/ScrollView';
 import TextField from '@Hi/Components/TextField';
 import VStack from '@Hi/Components/VStack';
-import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserPreferences from '@Models/BrowserPreferences';
 import SearchEngineItem from './SearchEngineItem';
 
 export default class SearchEngineListBody extends ScrollView {

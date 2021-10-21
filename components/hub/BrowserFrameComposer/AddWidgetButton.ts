@@ -1,8 +1,8 @@
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
-import BrowserPreferences from '@UI/BrowserPreferences';
-import AddWidgetOverlay from '../../../views/FlexHub/BrowserFrameComposer/AddWidgetOverlay';
+import BrowserPreferences from '@Models/BrowserPreferences';
+import AddWidgetOverlay from '@UI/FlexHub/BrowserFrameComposer/AddWidgetOverlay';
 
 export default class AddWidgetButton extends ClickButton {
     private partition: number;

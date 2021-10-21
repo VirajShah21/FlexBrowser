@@ -2,7 +2,7 @@ import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
 import { defineTransition } from '@Hi/Transitions/Transition';
-import BrowserPreferences from '@UI/BrowserPreferences';
+import BrowserPreferences from '@Models/BrowserPreferences';
 
 export default abstract class TaskbarButton extends ClickButton {
     public readonly buildin = defineTransition({

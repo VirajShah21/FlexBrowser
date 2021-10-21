@@ -41,7 +41,7 @@ describe('Main Process: Bookmarks', () => {
         ];
         writeBookmarksFile(bookmarks);
         const saved = fs.readFileSync(BMFile, 'utf8');
-        expect(saved).to.equal(JSON.stringify(bookmarks));
+        expect(saved).to.equal(JSON.stringify(bookmarks, null, 4));
     });
 
     afterEach(() => restoreBackupOfBookmarks());

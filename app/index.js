@@ -8,6 +8,7 @@ const { error, info, warn, debug, initializeLogger } = require('./ArchLogger');
 initializeLogger();
 
 const flexBrowserInstances = [];
+let hubWindow = undefined;
 
 const browserWindowOptions = {
     width: 800,
@@ -39,6 +40,7 @@ if (ipcMain) {
             return {
                 title: instance.getBrowserView().webContents.getTitle(),
                 url: instance.getBrowserView().webContents.getURL(),
+                windowId: instance.id,
             };
         });
 
@@ -90,6 +92,38 @@ if (ipcMain) {
         event.returnValue = readRC();
     });
     info('Defined (on) getAllPreferences');
+
+    ipcMain.on('brandRegistry', (event, rule, branding) => {
+        const registry = readBrandingRegistry();
+        if (rule && branding) {
+            registry[rule] = branding;
+            writeBrandingRegistry(registry);
+            event.returnValue = branding;
+        } else if (rule) {
+            event.returnValue = registry[rule];
+        } else {
+            throw new Error('IPC: brandRegistry must provide rule parameter');
+        }
+    });
+
+    ipcMain.on('focusWindow', (event, id) => {
+        const instance = flexBrowserInstances.find(
+            instance => instance.id == id,
+        );
+
+        instance.focus();
+        instance.flashFrame(true);
+        setTimeout(() => instance.flashFrame(false), 1000);
+    });
+
+    ipcMain.on('focusHub', () => {
+        if (hubWindow === null || hubWindow === undefined) {
+            createHubWindow();
+        }
+        hubWindow.focus();
+        hubWindow.flashFrame(true);
+        setTimeout(() => hubWindow.flashFrame(false), 1000);
+    });
 }
 
 /**
@@ -155,6 +189,12 @@ function createHubWindow() {
 
     info('Hub Window Created.');
     win.loadFile('app/hub.html').then(() => info('Hub Window source loaded.'));
+
+    win.addListener('close', () => {
+        hubWindow = null;
+    });
+
+    hubWindow = win;
 }
 
 function firstStartWindow() {
@@ -246,7 +286,10 @@ const readRC = (exports.readRC = () => {
 });
 
 const writeRC = (exports.writeRC = data => {
-    fs.writeFileSync(path.join(HOMEDIR, '.flexrc.json'), JSON.stringify(data));
+    fs.writeFileSync(
+        path.join(HOMEDIR, '.flexrc.json'),
+        JSON.stringify(data, null, 4),
+    );
     info('Finished writing RC File');
 });
 
@@ -266,7 +309,7 @@ const readBookmarksFile = (exports.readBookmarksFile = () => {
             ),
         );
     } catch (e) {
-        info('Error reading/parsing bookmarks file.');
+        warn('Error reading/parsing bookmarks file.');
         return [];
     }
 });
@@ -280,11 +323,49 @@ const readBookmarksFile = (exports.readBookmarksFile = () => {
 const writeBookmarksFile = (exports.writeBookmarksFile = bookmarks => {
     fs.writeFileSync(
         path.join(HOMEDIR, '.flex-bookmarks.json'),
-        JSON.stringify(bookmarks),
+        JSON.stringify(bookmarks, null, 4),
     );
     info('Finished writing bookmarks file.');
 });
 
-if (app) {
-    app.whenReady().then(() => startup());
-}
+const readBrandingRegistry = (exports.readBrandingRegistry = () => {
+    try {
+        info('Reading branding registry.');
+        return JSON.parse(
+            fs.readFileSync(path.join(HOMEDIR, '.flex-branding.json'), 'utf-8'),
+        );
+    } catch (e) {
+        warn('Error reading/parsing branding registry.');
+        return {};
+    }
+});
+
+const writeBrandingRegistry = (exports.writeBrandingRegistry = registry => {
+    fs.writeFileSync(
+        path.join(HOMEDIR, '.flex-branding.json'),
+        JSON.stringify(registry, null, 4),
+    );
+    info('Finished writing branding registry');
+});
+
+const readHistoryFile = (exports.readHistoryFile = () => {
+    try {
+        info('Reading history file');
+        return JSON.parse(
+            fs.readFileSync(path.join(HOMEDIR, '.flex-history.json'), 'utf-8'),
+        );
+    } catch (e) {
+        warn('Error reading/parsing history file.');
+        return [];
+    }
+});
+
+const writeHistoryFile = (exports.writeHistoryFile = history => {
+    fs.writeFileSync(
+        path.join(HOMEDIR, '.flex-history.json'),
+        JSON.stringify(history, null, 4),
+    );
+    info('Finished writing history file.');
+});
+
+if (app) app.whenReady().then(() => startup());
