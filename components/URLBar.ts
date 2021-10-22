@@ -89,6 +89,9 @@ export default class URLBar extends HStack {
                 this.opacity(1);
                 this.removeTransition();
             });
+        } else if (data === 'browser-navigated') {
+            this.updateURLInfo();
+            this.updateFavicon();
         }
     }
 }
