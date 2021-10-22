@@ -73,16 +73,10 @@ export function urlbarUnfocusedState(ev: HumanEvent): void {
     const urlField = ev.view as TextField;
     const urlBar = urlField.parent as URLBar;
     const reloadBtn = urlBar.findViewById('url-refresh-button') as IonIcon;
-    const titlebarTransitionViews = ev.view
-        .root()
-        .getViewsByClass('titlebar-transition');
 
     urlBar.body.style.boxShadow = 'none';
     urlBar.transition(whenUnfocusedTransition).then(() => {
         urlField.placeholder = urlBar.urlInfo.title; // This can be delayed
-        titlebarTransitionViews.forEach(view =>
-            view.transition(FlexBrowserWindow.TRANS_HOVER),
-        );
     });
     urlField.textCenter();
     urlField.value = '';
