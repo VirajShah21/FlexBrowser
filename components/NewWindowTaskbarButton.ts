@@ -3,7 +3,7 @@ import TaskbarButton from './TaskbarButton';
 
 export default class NewWindowTaskbarButton extends TaskbarButton {
     constructor() {
-        super(new IonIcon('add-circle-outline'));
+        super(new IonIcon('add'));
         this.whenClicked(() => flexarch.newWindow());
     }
 }

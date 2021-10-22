@@ -22,7 +22,7 @@ export default abstract class TaskbarButton extends ClickButton {
         super(icon.foreground(HColor(BrowserPreferences.colorTheme)));
 
         this.rounded()
-            .font('xl')
+            .font('lg')
             .padding(3)
             .whenMouseOver(ev => ev.view.background(HColor('gray3')))
             .whenMouseOut(ev => ev.view.background('none'))

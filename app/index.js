@@ -3,7 +3,13 @@ const fs = require('fs');
 const path = require('path');
 const HOMEDIR = require('os').homedir();
 const nodeConfig = require('../package.json');
-const { error, info, warn, debug, initializeLogger } = require('./ArchLogger');
+const {
+    error,
+    info,
+    warn,
+    debug,
+    initializeLogger,
+} = require('./apis/ArchLogger');
 
 initializeLogger();
 
@@ -153,8 +159,8 @@ function createWindow() {
 
     flexBrowserInstances.push(win);
 
-    win.loadFile('app/index.html');
-    info('Loaded app/index.html to browser instance');
+    win.loadFile('app/loaders/index.html');
+    info('Loaded app/loaders/index.html to browser instance');
 
     win.setBrowserView(new BrowserView());
     info('Loaded Electron BrowserView');
@@ -180,7 +186,9 @@ function createWindow() {
     });
     info('Binded Listener for resizing browser window');
 
-    win.getBrowserView().webContents.addListener('did-navigate-in-page', () => {
+    win.getBrowserView().webContents.addListener('did-navigate-in-page', ev => {
+        win.webContents.executeJavaScript('signal("browser-navigated")');
+
         const history = readHistoryFile();
         const { webContents } = win.getBrowserView();
 
@@ -190,6 +198,10 @@ function createWindow() {
         });
 
         writeHistoryFile(history);
+    });
+
+    win.addListener('close', () => {
+        flexBrowserInstances.splice(flexBrowserInstances.indexOf(win), 1);
     });
 }
 
@@ -212,7 +224,9 @@ function createHubWindow() {
     });
 
     info('Hub Window Created.');
-    win.loadFile('app/hub.html').then(() => info('Hub Window source loaded.'));
+    win.loadFile('app/loaders/hub.html').then(() =>
+        info('Hub Window source loaded.'),
+    );
 
     win.addListener('close', () => {
         hubWindow = null;
@@ -237,7 +251,7 @@ function firstStartWindow() {
     });
 
     info('First Start Window Created.');
-    win.loadFile('app/first-start.html').then(() =>
+    win.loadFile('app/loaders/first-start.html').then(() =>
         info('First Start Window source loaded.'),
     );
 }
