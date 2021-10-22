@@ -161,7 +161,6 @@ export class ViewController {
  * The method is exposed as `signal()`.
  */
 Object.defineProperty(window, 'signal', {
-    value: (data: string, ...args: unknown[]): void =>
-        ViewController.signalAll(data, ...args),
+    value: ViewController.signalAll,
     writable: false,
 });
