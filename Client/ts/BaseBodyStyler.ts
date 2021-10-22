@@ -192,9 +192,10 @@ export default abstract class BaseBodyStyler {
      * @memberOf BaseBodyStyler
      */
     glow(color: RGBAModel, size: HISizingValue = 10): this {
-        this.body.style.filter = `drop-shadow(0 0 ${sizing(
-            size,
-        )} ${color.toString()})`;
+        this.body.style.setProperty(
+            'box-shadow',
+            `0 0 ${sizing(size)} ${color.toString()}`,
+        );
         return this;
     }
 
