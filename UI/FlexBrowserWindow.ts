@@ -1,7 +1,6 @@
 import LaunchHubTaskbarButton from '@Components/LaunchHubTaskbarButton';
 import NewWindowTaskbarButton from '@Components/NewWindowTaskbarButton';
 import PageNavigationTaskbarButtons from '@Components/PageNavigationTaskbarButtons';
-import RefreshTaskbarButton from '@Components/RefreshTaskbarButton';
 import URLBar from '@Components/URLBar';
 import { HColor } from '@Hi/Colors';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
@@ -49,7 +48,6 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                     }),
 
                     new HStack(
-                        new RefreshTaskbarButton(),
                         new Spacer(),
                         new LaunchHubTaskbarButton(),
                         new NewWindowTaskbarButton(),
@@ -90,7 +88,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         const urlbar = this.findViewById('url-bar') as URLBar;
 
         flexarch.changeUrl(newUrl);
-        (icon.body as HTMLInputElement).name = 'refresh-circle-outline'; // ! Workaround to use .name
+        (icon.body as HTMLInputElement).name = 'reload'; // ! Workaround to use .name
 
         if (addToHistory) {
             this.history.push(newUrl);

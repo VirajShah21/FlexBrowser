@@ -47,7 +47,7 @@ export default class URLBar extends HStack {
             .border({
                 size: 1,
                 style: 'solid',
-                color: HColor('gray').alpha(0.5),
+                color: HColor('gray6').alpha(0.5),
             })
             .rounded()
             .opacity(0)
