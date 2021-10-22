@@ -53,17 +53,21 @@ export function changeReloadButtonToGoButton(ev: HumanEvent): void {
 export function urlbarFocusedState(ev: HumanEvent): void {
     const urlField = ev.view as TextField;
     const urlBar = urlField.parent as URLBar;
+    const reloadBtn = urlBar.findViewById('url-refresh-button') as IonIcon;
     urlBar.transition(whenFocusedTransition);
     urlField.textStart().value = urlBar.urlInfo.url;
+    (reloadBtn.body as HTMLInputElement).name = 'arrow-forward-outline';
 }
 
 export function urlbarUnfocusedState(ev: HumanEvent): void {
     const urlField = ev.view as TextField;
     const urlBar = urlField.parent as URLBar;
+    const reloadBtn = urlBar.findViewById('url-refresh-button') as IonIcon;
     urlBar.transition(whenUnfocusedTransition);
     urlField.textCenter();
     urlField.value = '';
     urlField.placeholder = urlBar.urlInfo.title;
+    (reloadBtn.body as HTMLInputElement).name = 'reload';
 }
 
 export function urlbarKeyPressed(ev: HumanKeyPressEvent): void {

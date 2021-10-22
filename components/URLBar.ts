@@ -3,7 +3,6 @@ import HStack from '@Hi/Components/HStack';
 import TextField from '@Hi/Components/TextField';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import {
-    changeReloadButtonToGoButton,
     urlbarFocusedState,
     urlbarKeyPressed,
     urlbarUnfocusedState,
@@ -31,7 +30,6 @@ export default class URLBar extends HStack {
                 .width('100%')
                 .background('none')
                 .textCenter()
-                .whenChanged(changeReloadButtonToGoButton)
                 .noOutline()
                 .border({ size: 0 })
                 .whenFocused(urlbarFocusedState)
