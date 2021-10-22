@@ -48,6 +48,7 @@ One day I installed Microsoft Edge. That's the same thing as Chrome, but with a 
 -   🟢 **Windows Viewer**
     -   🟢 **Windows Overview** – Displays a list of all open Flex Browser windows.
     -   🔵 **Instant Bookmark** – Bookmark directly from the Windows Viewer
+-   🟢 **Dragable Menu Bar** – Allow the user to drag the entire browser window via the **websites** menu bar.
 
 ### Preferences
 
