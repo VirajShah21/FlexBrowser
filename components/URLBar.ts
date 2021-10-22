@@ -56,14 +56,6 @@ export default class URLBar extends HStack {
             .rounded()
             .opacity(0)
             .padding({ left: 5, right: 5 });
-
-        window.setInterval(() => {
-            this.updateURLInfo();
-        }, 1000);
-
-        window.setInterval(() => {
-            this.updateFavicon();
-        }, 5000);
     }
 
     public updateURLInfo(): void {
