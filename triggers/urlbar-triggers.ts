@@ -77,8 +77,8 @@ export function urlbarUnfocusedState(ev: HumanEvent): void {
         .root()
         .getViewsByClass('titlebar-transition');
 
+    urlBar.body.style.boxShadow = 'none';
     urlBar.transition(whenUnfocusedTransition).then(() => {
-        urlBar.glow(RGBAModel.BLACK.alpha(0), 0);
         urlField.placeholder = urlBar.urlInfo.title; // This can be delayed
         titlebarTransitionViews.forEach(view =>
             view.transition(FlexBrowserWindow.TRANS_HOVER),
