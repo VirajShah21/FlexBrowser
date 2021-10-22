@@ -9,6 +9,7 @@ import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
 import VStack from '@Hi/Components/VStack';
+import { defineTransition } from '@Hi/Transitions/Transition';
 import View from '@Hi/View';
 import ValidURL from '@Models/ValidURL';
 
@@ -21,6 +22,30 @@ import ValidURL from '@Models/ValidURL';
  */
 export default class FlexBrowserWindow extends HIFullScreenView {
     private static readonly PROTOCOLS = ['http', 'https'];
+
+    private static readonly TRANS_HOVER = defineTransition({
+        from: {
+            opacity: 0.1,
+        },
+        to: {
+            opacity: 1,
+        },
+        iterations: 1,
+        duration: 1,
+        after: 'forwards',
+    });
+
+    private static readonly TRANS_UNHOVER = defineTransition({
+        from: {
+            opacity: 1,
+        },
+        to: {
+            opacity: 0.1,
+        },
+        iterations: 1,
+        duration: 1,
+        after: 'forwards',
+    });
 
     public readonly isBrowserWindow = true;
 
@@ -39,7 +64,8 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                 new HStack(
                     new HStack(new PageNavigationTaskbarButtons(), new Spacer())
                         .width('25%')
-                        .padding({ left: 10, right: 10 }),
+                        .padding({ left: 10, right: 10 })
+                        .addClass('titlebar-transition'),
 
                     new HStack(new URLBar().id('url-bar')).width({
                         min: 200,
@@ -53,12 +79,29 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                         new NewWindowTaskbarButton(),
                     )
                         .width('25%')
-                        .padding({ left: 10, right: 10 }),
+                        .padding({ left: 10, right: 10 })
+                        .addClass('titlebar-transition'),
                 )
                     .blur()
                     .width('100%')
                     .padding()
                     .padding({ top: 20, bottom: 20 })
+                    .whenMouseOver(ev => {
+                        ev.view
+                            .getViewsByClass('titlebar-transition')
+                            .forEach(view =>
+                                view.transition(FlexBrowserWindow.TRANS_HOVER),
+                            );
+                    })
+                    .whenMouseOut(ev => {
+                        ev.view
+                            .getViewsByClass('titlebar-transition')
+                            .forEach(view =>
+                                view.transition(
+                                    FlexBrowserWindow.TRANS_UNHOVER,
+                                ),
+                            );
+                    })
                     .id('titlebar'),
 
                 new Spacer(), // Pushes navbar to top and makes space for Electron.BrowserView
