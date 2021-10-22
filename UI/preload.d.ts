@@ -43,4 +43,5 @@ declare namespace flexarch {
     function focusWindow(windowId: number): void;
     function focusHub(): void;
     function urlInfo(): URLMeta;
+    function hideTaskbar(): void;
 }
