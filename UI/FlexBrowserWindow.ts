@@ -8,6 +8,7 @@ import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
+import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import View from '@Hi/View';
@@ -61,6 +62,13 @@ export default class FlexBrowserWindow extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
+                new TextView('Flex Browser')
+                    .width('100%')
+                    .fixed()
+                    .font('sm')
+                    .foreground(HColor('gray'))
+                    .setTop(0)
+                    .padding({ top: 3, bottom: 3 }),
                 new HStack(
                     new HStack(new PageNavigationTaskbarButtons(), new Spacer())
                         .width('25%')
