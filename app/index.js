@@ -155,6 +155,19 @@ if (ipcMain) {
             height: instance.getSize()[1] - 22,
         });
     });
+
+    ipcMain.on('showTaskbar', event => {
+        const instance = flexBrowserInstances.find(
+            i => i.webContents == event.sender,
+        );
+        const browserView = instance.getBrowserView();
+        browserView.setBounds({
+            x: 0,
+            y: 70,
+            width: instance.getSize()[0],
+            height: instance.getSize()[1] - 70,
+        });
+    });
 }
 
 /**

@@ -48,6 +48,10 @@ function hideTaskbar() {
     ipcRenderer.send('hideTaskbar');
 }
 
+function showTaskbar() {
+    ipcRenderer.send('showTaskbar');
+}
+
 contextBridge.exposeInMainWorld('flexarch', {
     changeUrl,
     newWindow,
@@ -62,4 +66,5 @@ contextBridge.exposeInMainWorld('flexarch', {
     focusHub,
     urlInfo,
     hideTaskbar,
+    showTaskbar,
 });
