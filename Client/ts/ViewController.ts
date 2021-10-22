@@ -154,3 +154,14 @@ export class ViewController {
         return null;
     }
 }
+
+/**
+ * Exposes `ViewController.signalAll()` method to browser's global scope.
+ * This method is used because it is TypeScript compliant.
+ * The method is exposed as `signal()`.
+ */
+Object.defineProperty(window, 'signal', {
+    value: (data: string, ...args: unknown[]): void =>
+        ViewController.signalAll(data, ...args),
+    writable: false,
+});
