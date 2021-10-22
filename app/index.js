@@ -191,6 +191,10 @@ function createWindow() {
 
         writeHistoryFile(history);
     });
+
+    win.addListener('close', () => {
+        flexBrowserInstances.splice(flexBrowserInstances.indexOf(win), 1);
+    });
 }
 
 /**
