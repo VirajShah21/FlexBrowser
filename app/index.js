@@ -186,7 +186,9 @@ function createWindow() {
     });
     info('Binded Listener for resizing browser window');
 
-    win.getBrowserView().webContents.addListener('did-navigate-in-page', () => {
+    win.getBrowserView().webContents.addListener('did-navigate-in-page', ev => {
+        win.webContents.executeJavaScript('signal("browser-navigated")');
+
         const history = readHistoryFile();
         const { webContents } = win.getBrowserView();
 
