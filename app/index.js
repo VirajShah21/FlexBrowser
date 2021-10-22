@@ -1,4 +1,10 @@
-const { app, BrowserWindow, BrowserView, ipcMain } = require('electron');
+const {
+    app,
+    BrowserWindow,
+    BrowserView,
+    ipcMain,
+    nativeTheme,
+} = require('electron');
 const fs = require('fs');
 const path = require('path');
 const HOMEDIR = require('os').homedir();
@@ -26,7 +32,7 @@ const browserWindowOptions = {
     },
     titleBarStyle: 'customButtonsOnHover',
     transparent: true,
-    vibrancy: 'light',
+    vibrancy: readRC().theme || 'dark',
 };
 
 // During testing, ipcMain is undefined.
@@ -156,6 +162,11 @@ function createWindow() {
 
     // @ts-ignore
     const win = new BrowserWindow(browserWindowOptions);
+
+    const config = readRC();
+
+    if ((config.theme || 'dark') === 'dark') nativeTheme.themeSource = 'dark';
+    else nativeTheme.themeSource = 'light';
 
     flexBrowserInstances.push(win);
 
