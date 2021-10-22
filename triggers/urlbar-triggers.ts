@@ -2,12 +2,28 @@ import URLBar from '@Components/URLBar';
 import { HColor } from '@Hi/Colors';
 import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
-import TextField from '@Hi/Components/TextField';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import HumanEvent, { HumanKeyPressEvent } from '@Hi/Types/HumanEvent';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
 
 const whenFocusedTransition = defineTransition({
+    from: {
+        background: 'none',
+        width: '100%',
+    },
+    '25%': {
+        width: '25%',
+    },
+    to: {
+        background: HColor('background'),
+        width: '100%',
+    },
+    iterations: 1,
+    duration: 0.5,
+    after: 'forwards',
+});
+
+const whenUnfocusedTransition = defineTransition({
     from: {
         background: HColor('background'),
         width: '100%',
@@ -18,15 +34,6 @@ const whenFocusedTransition = defineTransition({
     to: {
         background: 'none',
         width: '100%',
-    },
-    iterations: 1,
-    duration: 0.5,
-    after: 'forwards',
-});
-
-const whenUnfocusedTransition = defineTransition({
-    to: {
-        background: HColor('background'),
     },
     iterations: 1,
     duration: 0.5,
