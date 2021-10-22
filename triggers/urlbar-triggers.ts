@@ -55,8 +55,15 @@ export function urlbarFocusedState(ev: HumanEvent): void {
     const urlField = ev.view as TextField;
     const urlBar = urlField.parent as URLBar;
     const reloadBtn = urlBar.findViewById('url-refresh-button') as IonIcon;
+    const titlebarTransitionViews = ev.view
+        .root()
+        .getViewsByClass('titlebar-transition');
+
     urlBar.transition(whenFocusedTransition).then(() => {
         urlBar.glow(RGBAModel.BLACK.alpha(0.25), 10);
+        titlebarTransitionViews.forEach(view =>
+            view.transition(FlexBrowserWindow.TRANS_UNHOVER),
+        );
     });
     urlField.textStart().value = urlBar.urlInfo.url;
     (reloadBtn.body as HTMLInputElement).name = 'arrow-forward-outline';
@@ -66,9 +73,16 @@ export function urlbarUnfocusedState(ev: HumanEvent): void {
     const urlField = ev.view as TextField;
     const urlBar = urlField.parent as URLBar;
     const reloadBtn = urlBar.findViewById('url-refresh-button') as IonIcon;
+    const titlebarTransitionViews = ev.view
+        .root()
+        .getViewsByClass('titlebar-transition');
+
     urlBar.transition(whenUnfocusedTransition).then(() => {
         urlBar.glow(RGBAModel.BLACK.alpha(0), 0);
         urlField.placeholder = urlBar.urlInfo.title; // This can be delayed
+        titlebarTransitionViews.forEach(view =>
+            view.transition(FlexBrowserWindow.TRANS_HOVER),
+        );
     });
     urlField.textCenter();
     urlField.value = '';

@@ -23,7 +23,7 @@ import ValidURL from '@Models/ValidURL';
 export default class FlexBrowserWindow extends HIFullScreenView {
     private static readonly PROTOCOLS = ['http', 'https'];
 
-    private static readonly TRANS_HOVER = defineTransition({
+    public static readonly TRANS_HOVER = defineTransition({
         from: {
             opacity: 0.1,
         },
@@ -35,7 +35,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         after: 'forwards',
     });
 
-    private static readonly TRANS_UNHOVER = defineTransition({
+    public static readonly TRANS_UNHOVER = defineTransition({
         from: {
             opacity: 1,
         },
