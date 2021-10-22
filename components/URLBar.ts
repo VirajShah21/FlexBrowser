@@ -60,12 +60,19 @@ export default class URLBar extends HStack {
         window.setInterval(() => {
             this.updateURLInfo();
         }, 1000);
+
+        window.setInterval(() => {
+            this.updateFavicon();
+        }, 5000);
     }
 
     public updateURLInfo(): void {
         this.urlInfo = flexarch.urlInfo();
         (this.findViewById('url') as TextField).placeholder =
             this.urlInfo.title;
+    }
+
+    public updateFavicon(): void {
         const favicon = this.findViewById('favicon') as ImageView;
         favicon.source = URLBar.getFaviconURL(this.urlInfo, 'ico');
         const untriedExtensions = ['png', 'svg', 'jpg'];
