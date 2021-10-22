@@ -3,7 +3,13 @@ const fs = require('fs');
 const path = require('path');
 const HOMEDIR = require('os').homedir();
 const nodeConfig = require('../package.json');
-const { error, info, warn, debug, initializeLogger } = require('./ArchLogger');
+const {
+    error,
+    info,
+    warn,
+    debug,
+    initializeLogger,
+} = require('./apis/ArchLogger');
 
 initializeLogger();
 
