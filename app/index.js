@@ -150,9 +150,9 @@ if (ipcMain) {
         const browserView = instance.getBrowserView();
         browserView.setBounds({
             x: 0,
-            y: 0,
+            y: 18,
             width: instance.getSize()[0],
-            height: instance.getSize()[1],
+            height: instance.getSize()[1] - 18,
         });
     });
 }
