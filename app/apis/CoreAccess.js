@@ -6,7 +6,7 @@ const { info, warn } = require('./ArchLogger.js');
 /**
  * @returns The flex runcome file in JSON format
  */
-const readRC = (exports.readRC = () => {
+exports.readRC = () => {
     try {
         const text = fs.readFileSync(
             path.join(HOMEDIR, '.flexrc.json'),
@@ -18,15 +18,15 @@ const readRC = (exports.readRC = () => {
         info('Error reading/parsing RC File.');
         return null;
     }
-});
+};
 
-const writeRC = (exports.writeRC = data => {
+exports.writeRC = data => {
     fs.writeFileSync(
         path.join(HOMEDIR, '.flexrc.json'),
         JSON.stringify(data, null, 4),
     );
     info('Finished writing RC File');
-});
+};
 
 /**
  * Reads the bookmarks file
@@ -34,7 +34,7 @@ const writeRC = (exports.writeRC = data => {
  * @returns The URLMeta[] of bookmarks from the bookmarks file.
  *
  */
-const readBookmarksFile = (exports.readBookmarksFile = () => {
+exports.readBookmarksFile = () => {
     try {
         info('Reading bookmarks File.');
         return JSON.parse(
@@ -47,7 +47,7 @@ const readBookmarksFile = (exports.readBookmarksFile = () => {
         warn('Error reading/parsing bookmarks file.');
         return [];
     }
-});
+};
 
 /**
  * Write to the bookmarks file.
@@ -55,15 +55,15 @@ const readBookmarksFile = (exports.readBookmarksFile = () => {
  * @param bookmarks The `URLMeta[]` to save to `~/.flex-bookmarks.json`.
  *
  */
-const writeBookmarksFile = (exports.writeBookmarksFile = bookmarks => {
+exports.writeBookmarksFile = bookmarks => {
     fs.writeFileSync(
         path.join(HOMEDIR, '.flex-bookmarks.json'),
         JSON.stringify(bookmarks, null, 4),
     );
     info('Finished writing bookmarks file.');
-});
+};
 
-const readBrandingRegistry = (exports.readBrandingRegistry = () => {
+exports.readBrandingRegistry = () => {
     try {
         info('Reading branding registry.');
         return JSON.parse(
@@ -73,17 +73,17 @@ const readBrandingRegistry = (exports.readBrandingRegistry = () => {
         warn('Error reading/parsing branding registry.');
         return {};
     }
-});
+};
 
-const writeBrandingRegistry = (exports.writeBrandingRegistry = registry => {
+exports.writeBrandingRegistry = registry => {
     fs.writeFileSync(
         path.join(HOMEDIR, '.flex-branding.json'),
         JSON.stringify(registry, null, 4),
     );
     info('Finished writing branding registry');
-});
+};
 
-const readHistoryFile = (exports.readHistoryFile = () => {
+exports.readHistoryFile = () => {
     try {
         info('Reading history file');
         return JSON.parse(
@@ -93,12 +93,12 @@ const readHistoryFile = (exports.readHistoryFile = () => {
         warn('Error reading/parsing history file.');
         return [];
     }
-});
+};
 
-const writeHistoryFile = (exports.writeHistoryFile = history => {
+exports.writeHistoryFile = history => {
     fs.writeFileSync(
         path.join(HOMEDIR, '.flex-history.json'),
         JSON.stringify(history, null, 4),
     );
     info('Finished writing history file.');
-});
+};

@@ -3,7 +3,10 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 import { expect } from 'chai';
-import { readBookmarksFile, writeBookmarksFile } from '../../app';
+import {
+    readBookmarksFile,
+    writeBookmarksFile,
+} from '../../app/apis/CoreAccess.js';
 
 const HOMEDIR = os.homedir();
 const BACKUP = path.join(HOMEDIR, '.flex-bookmarks.backup.json');

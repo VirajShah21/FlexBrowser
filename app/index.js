@@ -308,7 +308,10 @@ function startup() {
         info('Since no flexrc file was found in ~/.flexrc, one was created.');
         firstStartWindow();
         info('Loaded first start page.');
-    } else if (browserPrefs.lastSession.version != nodeConfig.version) {
+    } else if (
+        browserPrefs.lastSession &&
+        browserPrefs.lastSession.version != nodeConfig.version
+    ) {
         firstStartWindow();
         info('Running on a new browser version; loaded first start page.');
     } else {
