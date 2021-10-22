@@ -8,6 +8,7 @@ import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
+import TextField from '@Hi/Components/TextField';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
 import ValidURL from '@Models/ValidURL';
@@ -41,7 +42,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                         .width('25%')
                         .padding({ left: 10, right: 10 }),
 
-                    new HStack(new URLBar().id('url')).width({
+                    new HStack(new URLBar().id('url-bar')).width({
                         min: 200,
                         default: '50%',
                         max: 600,
@@ -85,7 +86,8 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         const newUrl = new ValidURL(url).toString();
 
         const icon = this.findViewById('url-refresh-button') as IonIcon;
-        const urlbar = this.findViewById('url') as URLBar;
+        const urlfield = this.findViewById('url') as TextField;
+        const urlbar = this.findViewById('url-bar') as URLBar;
 
         flexarch.changeUrl(newUrl);
         (icon.body as HTMLInputElement).name = 'refresh-circle-outline'; // ! Workaround to use .name
@@ -95,7 +97,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
             this.historyPointer = this.history.length - 1;
         }
 
-        urlbar.value = newUrl;
+        urlfield.value = newUrl;
         urlbar.updateURLInfo();
 
         return this.history.map(e => e);

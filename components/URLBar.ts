@@ -1,14 +1,16 @@
 import { HColor } from '@Hi/Colors';
+import HStack from '@Hi/Components/HStack';
 import TextField from '@Hi/Components/TextField';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import {
     changeReloadButtonToGoButton,
     urlbarFocusedState,
-    urlbarUnfocusedState,
     urlbarKeyPressed,
+    urlbarUnfocusedState,
 } from '@Triggers/urlbar-triggers';
+import RefreshTaskbarButton from './RefreshTaskbarButton';
 
-export default class URLBar extends TextField {
+export default class URLBar extends HStack {
     public readonly buildin = defineTransition({
         from: { opacity: 0 },
         to: { opacity: 1 },
@@ -24,18 +26,21 @@ export default class URLBar extends TextField {
     };
 
     constructor() {
-        super('flex://home');
+        super(
+            new TextField('flex://home')
+                .width('100%')
+                .textCenter()
+                .whenChanged(changeReloadButtonToGoButton)
+                .noOutline()
+                .whenFocused(urlbarFocusedState)
+                .whenUnfocused(urlbarUnfocusedState)
+                .whenKeyPressed(urlbarKeyPressed)
+                .opacity(0)
+                .id('url'),
+            new RefreshTaskbarButton(),
+        );
 
-        this.width('100%')
-            .textCenter()
-            .background('none')
-            .foreground(HColor('gray'))
-            .whenChanged(changeReloadButtonToGoButton)
-            .noOutline()
-            .whenFocused(urlbarFocusedState)
-            .whenUnfocused(urlbarUnfocusedState)
-            .whenKeyPressed(urlbarKeyPressed)
-            .opacity(0);
+        this.width('100%').background('none').foreground(HColor('gray'));
 
         window.setInterval(() => {
             this.updateURLInfo();
@@ -44,7 +49,8 @@ export default class URLBar extends TextField {
 
     public updateURLInfo(): void {
         this.urlInfo = flexarch.urlInfo();
-        this.placeholder = this.urlInfo.title;
+        (this.findViewById('url') as TextField).placeholder =
+            this.urlInfo.title;
     }
 
     public override handle(data: string): void {

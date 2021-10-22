@@ -2,6 +2,7 @@ import URLBar from '@Components/URLBar';
 import { HColor } from '@Hi/Colors';
 import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
+import TextField from '@Hi/Components/TextField';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import HumanEvent, { HumanKeyPressEvent } from '@Hi/Types/HumanEvent';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
@@ -52,16 +53,19 @@ export function changeReloadButtonToGoButton(ev: HumanEvent): void {
 export function urlbarFocusedState(ev: HumanEvent): void {
     const urlBar = ev.view as URLBar;
     urlBar.transition(whenFocusedTransition);
-    urlBar.background(HColor('background')).textStart();
-    urlBar.value = urlBar.urlInfo.url;
+    urlBar.background(HColor('background'));
+    (urlBar.findViewById('url') as TextField).textStart().value =
+        urlBar.urlInfo.url;
 }
 
 export function urlbarUnfocusedState(ev: HumanEvent): void {
     const urlBar = ev.view as URLBar;
     urlBar.transition(whenUnfocusedTransition);
-    urlBar.background('none').textCenter();
-    urlBar.value = '';
-    urlBar.placeholder = urlBar.urlInfo.title;
+    urlBar.background('none');
+    const urlfield = urlBar.findViewById('url') as TextField;
+    urlfield.textCenter();
+    urlfield.value = '';
+    urlfield.placeholder = urlBar.urlInfo.title;
 }
 
 export function urlbarKeyPressed(ev: HumanKeyPressEvent): void {
