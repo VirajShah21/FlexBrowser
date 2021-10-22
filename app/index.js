@@ -1,15 +1,23 @@
-const { app, BrowserWindow, BrowserView, ipcMain } = require('electron');
-const fs = require('fs');
-const path = require('path');
-const HOMEDIR = require('os').homedir();
-const nodeConfig = require('../package.json');
 const {
-    error,
-    info,
-    warn,
-    debug,
-    initializeLogger,
-} = require('./apis/ArchLogger');
+    app,
+    BrowserWindow,
+    BrowserView,
+    ipcMain,
+    nativeTheme,
+} = require('electron');
+const path = require('path');
+const nodeConfig = require('../package.json');
+const { info, debug, initializeLogger } = require('./apis/ArchLogger');
+const {
+    readRC,
+    writeRC,
+    readHistoryFile,
+    writeHistoryFile,
+    readBookmarksFile,
+    writeBookmarksFile,
+    readBrandingRegistry,
+    writeBrandingRegistry,
+} = require('./apis/CoreAccess.js');
 
 initializeLogger();
 
@@ -26,7 +34,7 @@ const browserWindowOptions = {
     },
     titleBarStyle: 'customButtonsOnHover',
     transparent: true,
-    vibrancy: 'light',
+    vibrancy: readRC().theme || 'dark',
 };
 
 // During testing, ipcMain is undefined.
@@ -157,6 +165,11 @@ function createWindow() {
     // @ts-ignore
     const win = new BrowserWindow(browserWindowOptions);
 
+    const config = readRC();
+
+    if ((config.theme || 'dark') === 'dark') nativeTheme.themeSource = 'dark';
+    else nativeTheme.themeSource = 'light';
+
     flexBrowserInstances.push(win);
 
     win.loadFile('app/loaders/index.html');
@@ -186,7 +199,7 @@ function createWindow() {
     });
     info('Binded Listener for resizing browser window');
 
-    win.getBrowserView().webContents.addListener('did-navigate-in-page', ev => {
+    win.getBrowserView().webContents.addListener('did-navigate-in-page', () => {
         win.webContents.executeJavaScript('signal("browser-navigated")');
 
         const history = readHistoryFile();
@@ -295,7 +308,10 @@ function startup() {
         info('Since no flexrc file was found in ~/.flexrc, one was created.');
         firstStartWindow();
         info('Loaded first start page.');
-    } else if (browserPrefs.lastSession.version != nodeConfig.version) {
+    } else if (
+        browserPrefs.lastSession &&
+        browserPrefs.lastSession.version != nodeConfig.version
+    ) {
         firstStartWindow();
         info('Running on a new browser version; loaded first start page.');
     } else {
@@ -305,105 +321,5 @@ function startup() {
         info('Loaded browser window');
     }
 }
-
-/**
- * @returns The flex runcome file in JSON format
- */
-const readRC = (exports.readRC = () => {
-    try {
-        const text = fs.readFileSync(
-            path.join(HOMEDIR, '.flexrc.json'),
-            'utf-8',
-        );
-        info('Read RC File.');
-        return JSON.parse(text);
-    } catch (e) {
-        info('Error reading/parsing RC File.');
-        return null;
-    }
-});
-
-const writeRC = (exports.writeRC = data => {
-    fs.writeFileSync(
-        path.join(HOMEDIR, '.flexrc.json'),
-        JSON.stringify(data, null, 4),
-    );
-    info('Finished writing RC File');
-});
-
-/**
- * Reads the bookmarks file
- *
- * @returns The URLMeta[] of bookmarks from the bookmarks file.
- *
- */
-const readBookmarksFile = (exports.readBookmarksFile = () => {
-    try {
-        info('Reading bookmarks File.');
-        return JSON.parse(
-            fs.readFileSync(
-                path.join(HOMEDIR, '.flex-bookmarks.json'),
-                'utf-8',
-            ),
-        );
-    } catch (e) {
-        warn('Error reading/parsing bookmarks file.');
-        return [];
-    }
-});
-
-/**
- * Write to the bookmarks file.
- *
- * @param bookmarks The `URLMeta[]` to save to `~/.flex-bookmarks.json`.
- *
- */
-const writeBookmarksFile = (exports.writeBookmarksFile = bookmarks => {
-    fs.writeFileSync(
-        path.join(HOMEDIR, '.flex-bookmarks.json'),
-        JSON.stringify(bookmarks, null, 4),
-    );
-    info('Finished writing bookmarks file.');
-});
-
-const readBrandingRegistry = (exports.readBrandingRegistry = () => {
-    try {
-        info('Reading branding registry.');
-        return JSON.parse(
-            fs.readFileSync(path.join(HOMEDIR, '.flex-branding.json'), 'utf-8'),
-        );
-    } catch (e) {
-        warn('Error reading/parsing branding registry.');
-        return {};
-    }
-});
-
-const writeBrandingRegistry = (exports.writeBrandingRegistry = registry => {
-    fs.writeFileSync(
-        path.join(HOMEDIR, '.flex-branding.json'),
-        JSON.stringify(registry, null, 4),
-    );
-    info('Finished writing branding registry');
-});
-
-const readHistoryFile = (exports.readHistoryFile = () => {
-    try {
-        info('Reading history file');
-        return JSON.parse(
-            fs.readFileSync(path.join(HOMEDIR, '.flex-history.json'), 'utf-8'),
-        );
-    } catch (e) {
-        warn('Error reading/parsing history file.');
-        return [];
-    }
-});
-
-const writeHistoryFile = (exports.writeHistoryFile = history => {
-    fs.writeFileSync(
-        path.join(HOMEDIR, '.flex-history.json'),
-        JSON.stringify(history, null, 4),
-    );
-    info('Finished writing history file.');
-});
 
 if (app) app.whenReady().then(() => startup());

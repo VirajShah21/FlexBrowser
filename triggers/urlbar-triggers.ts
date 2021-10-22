@@ -3,7 +3,6 @@ import { HColor } from '@Hi/Colors';
 import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
 import TextField from '@Hi/Components/TextField';
-import RGBAModel from '@Hi/RGBAModel';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import HumanEvent, { HumanKeyPressEvent } from '@Hi/Types/HumanEvent';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
@@ -60,7 +59,7 @@ export function urlbarFocusedState(ev: HumanEvent): void {
         .getViewsByClass('titlebar-transition');
 
     urlBar.transition(whenFocusedTransition).then(() => {
-        urlBar.glow(RGBAModel.BLACK.alpha(0.25), 10);
+        urlBar.glow(HColor('gray').alpha(0.8), 20);
         titlebarTransitionViews.forEach(view =>
             view.transition(FlexBrowserWindow.TRANS_UNHOVER),
         );

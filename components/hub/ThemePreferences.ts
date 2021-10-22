@@ -36,6 +36,7 @@ export default class ThemePreferences extends VStack {
                         .rounded()
                         .whenClicked(() => {
                             changeTheme('light');
+                            flexarch.pref('theme', 'light');
                         }),
                     new TextView('Light Mode').margin({ top: 5 }).font('sm'),
                 ).rounded(),
@@ -55,6 +56,7 @@ export default class ThemePreferences extends VStack {
                         .rounded()
                         .whenClicked(() => {
                             changeTheme('dark');
+                            flexarch.pref('theme', 'dark');
                         }),
                     new TextView('Dark Mode').margin({ top: 5 }).font('sm'),
                 ).rounded(),
