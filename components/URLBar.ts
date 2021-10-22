@@ -1,7 +1,9 @@
 import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
+import ImageView from '@Hi/Components/ImageView';
 import TextField from '@Hi/Components/TextField';
 import { defineTransition } from '@Hi/Transitions/Transition';
+import ValidURL from '@Models/ValidURL';
 import {
     urlbarFocusedState,
     urlbarKeyPressed,
@@ -26,6 +28,10 @@ export default class URLBar extends HStack {
 
     constructor() {
         super(
+            new ImageView('../assets/icon.png')
+                .id('favicon')
+                .width(15)
+                .height(15),
             new TextField('flex://home')
                 .width('100%')
                 .background('none')
@@ -60,6 +66,22 @@ export default class URLBar extends HStack {
         this.urlInfo = flexarch.urlInfo();
         (this.findViewById('url') as TextField).placeholder =
             this.urlInfo.title;
+        const favicon = this.findViewById('favicon') as ImageView;
+        favicon.source = URLBar.getFaviconURL(this.urlInfo, 'ico');
+        const untriedExtensions = ['png', 'svg', 'jpg'];
+        favicon.whenError(() => {
+            if (untriedExtensions.length > 0) {
+                favicon.source = URLBar.getFaviconURL(
+                    this.urlInfo,
+                    untriedExtensions.splice(0, 1)[0],
+                );
+            }
+        });
+    }
+
+    public static getFaviconURL(meta: URLMeta, extension = 'ico'): string {
+        const url = new ValidURL(meta.url);
+        return `${url.protocol}://${url.domain}/favicon.${extension}`;
     }
 
     public override handle(data: string): void {
