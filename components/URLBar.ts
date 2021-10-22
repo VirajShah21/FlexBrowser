@@ -29,18 +29,27 @@ export default class URLBar extends HStack {
         super(
             new TextField('flex://home')
                 .width('100%')
+                .background('none')
                 .textCenter()
                 .whenChanged(changeReloadButtonToGoButton)
                 .noOutline()
                 .whenFocused(urlbarFocusedState)
                 .whenUnfocused(urlbarUnfocusedState)
                 .whenKeyPressed(urlbarKeyPressed)
-                .opacity(0)
                 .id('url'),
             new RefreshTaskbarButton(),
         );
 
-        this.width('100%').background('none').foreground(HColor('gray'));
+        this.width('100%')
+            .background('none')
+            .foreground(HColor('gray'))
+            .border({
+                size: 1,
+                style: 'solid',
+                color: HColor('gray').alpha(0.5),
+            })
+            .rounded()
+            .opacity(0);
 
         window.setInterval(() => {
             this.updateURLInfo();

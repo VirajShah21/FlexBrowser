@@ -51,21 +51,19 @@ export function changeReloadButtonToGoButton(ev: HumanEvent): void {
 }
 
 export function urlbarFocusedState(ev: HumanEvent): void {
-    const urlBar = ev.view as URLBar;
+    const urlField = ev.view as TextField;
+    const urlBar = urlField.parent as URLBar;
     urlBar.transition(whenFocusedTransition);
-    urlBar.background(HColor('background'));
-    (urlBar.findViewById('url') as TextField).textStart().value =
-        urlBar.urlInfo.url;
+    urlField.textStart().value = urlBar.urlInfo.url;
 }
 
 export function urlbarUnfocusedState(ev: HumanEvent): void {
-    const urlBar = ev.view as URLBar;
+    const urlField = ev.view as TextField;
+    const urlBar = urlField.parent as URLBar;
     urlBar.transition(whenUnfocusedTransition);
-    urlBar.background('none');
-    const urlfield = urlBar.findViewById('url') as TextField;
-    urlfield.textCenter();
-    urlfield.value = '';
-    urlfield.placeholder = urlBar.urlInfo.title;
+    urlField.textCenter();
+    urlField.value = '';
+    urlField.placeholder = urlBar.urlInfo.title;
 }
 
 export function urlbarKeyPressed(ev: HumanKeyPressEvent): void {
