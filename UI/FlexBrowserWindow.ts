@@ -70,8 +70,12 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                         .font('sm')
                         .foreground(HColor('gray')),
                     new Spacer(),
-                    new HStack(new HideTaskbarButton()).width(100),
+                    new HStack(
+                        new Spacer(),
+                        new HideTaskbarButton().padding({ left: 5, right: 5 }),
+                    ).width(100),
                 )
+                    .width('100vw')
                     .fixed()
                     .zIndex(100)
                     .setTop(0)
