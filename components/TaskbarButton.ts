@@ -19,13 +19,16 @@ export default abstract class TaskbarButton extends ClickButton {
     });
 
     constructor(icon: IonIcon) {
-        super(icon.foreground(HColor(BrowserPreferences.colorTheme)));
+        super(icon);
 
         this.rounded()
+            .foreground(HColor('gray'))
             .font('lg')
-            .padding(3)
-            .whenMouseOver(ev => ev.view.background(HColor('gray3')))
-            .whenMouseOut(ev => ev.view.background('none'))
+            .padding()
+            .whenMouseOver(ev =>
+                ev.view.foreground(HColor(BrowserPreferences.colorTheme)),
+            )
+            .whenMouseOut(ev => ev.view.foreground(HColor('gray')))
             .opacity(0);
     }
 

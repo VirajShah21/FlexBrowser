@@ -2,6 +2,7 @@ import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
+import BrowserPreferences from '@Models/BrowserPreferences';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
 
 export default class RefreshURLButton extends ClickButton {
@@ -18,6 +19,10 @@ export default class RefreshURLButton extends ClickButton {
                     .value;
 
                 browserWindow.goTo(url);
-            });
+            })
+            .whenMouseOver(ev =>
+                ev.view.foreground(HColor(BrowserPreferences.colorTheme)),
+            )
+            .whenMouseOut(ev => ev.view.foreground(HColor('gray')));
     }
 }
