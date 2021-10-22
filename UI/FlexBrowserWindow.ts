@@ -1,3 +1,4 @@
+import HideTaskbarButton from '@Components/HideTaskbarButton';
 import LaunchHubTaskbarButton from '@Components/LaunchHubTaskbarButton';
 import NewWindowTaskbarButton from '@Components/NewWindowTaskbarButton';
 import PageNavigationTaskbarButtons from '@Components/PageNavigationTaskbarButtons';
@@ -62,13 +63,19 @@ export default class FlexBrowserWindow extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new TextView('Flex Browser')
-                    .width('100%')
+                new HStack(
+                    new HStack().width(100),
+                    new Spacer(),
+                    new TextView('Flex Browser')
+                        .font('sm')
+                        .foreground(HColor('gray')),
+                    new Spacer(),
+                    new HStack(new HideTaskbarButton()).width(100),
+                )
                     .fixed()
-                    .font('sm')
-                    .foreground(HColor('gray'))
+                    .zIndex(100)
                     .setTop(0)
-                    .padding({ top: 3, bottom: 3 }),
+                    .padding({ top: 4 }),
                 new HStack(
                     new HStack(new PageNavigationTaskbarButtons(), new Spacer())
                         .width('25%')

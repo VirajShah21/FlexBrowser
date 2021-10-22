@@ -4,6 +4,9 @@ import TaskbarButton from './TaskbarButton';
 export default class HideTaskbarButton extends TaskbarButton {
     constructor() {
         super(new IonIcon('expand'));
-        this.whenClicked(flexarch.hideTaskbar);
+        this.padding(0)
+            .font('sm')
+            .whenClicked(flexarch.hideTaskbar)
+            .whenClicked(() => console.log('bruh'));
     }
 }
