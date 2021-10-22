@@ -5,7 +5,7 @@ import TaskbarButton from './TaskbarButton';
 
 class NavButton extends TaskbarButton {
     constructor(direction: 'forward' | 'back') {
-        super(new IonIcon(`chevron-${direction}-circle-outline`));
+        super(new IonIcon(`chevron-${direction}-outline`));
     }
 }
 export default class PageNavigationTaskbarButtons extends HStack {
