@@ -33,6 +33,7 @@ export default class URLBar extends HStack {
                 .textCenter()
                 .whenChanged(changeReloadButtonToGoButton)
                 .noOutline()
+                .border({ size: 0 })
                 .whenFocused(urlbarFocusedState)
                 .whenUnfocused(urlbarUnfocusedState)
                 .whenKeyPressed(urlbarKeyPressed)
@@ -49,7 +50,8 @@ export default class URLBar extends HStack {
                 color: HColor('gray').alpha(0.5),
             })
             .rounded()
-            .opacity(0);
+            .opacity(0)
+            .padding({ left: 5, right: 5 });
 
         window.setInterval(() => {
             this.updateURLInfo();
