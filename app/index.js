@@ -7,7 +7,6 @@ const {
 } = require('electron');
 const path = require('path');
 const nodeConfig = require('../package.json');
-const { info, debug, initializeLogger } = require('./apis/ArchLogger');
 const {
     readRC,
     writeRC,
@@ -40,16 +39,9 @@ const browserWindowOptions = {
 // During testing, ipcMain is undefined.
 // This guard should not be removed.
 if (ipcMain) {
-    info('Defining IPC Main API');
-
     ipcMain.on('newWindow', createWindow);
-    info('Defined (on) newWindow');
 
     ipcMain.on('getWindowList', event => {
-        debug(
-            `Retrieving window list. Found ${flexBrowserInstances.length} windows.`,
-        );
-
         let obj = flexBrowserInstances.map(instance => {
             return {
                 title: instance.getBrowserView().webContents.getTitle(),
@@ -58,18 +50,12 @@ if (ipcMain) {
             };
         });
 
-        debug(
-            `Returning from getWindowList with ${JSON.stringify(obj, null, 4)}`,
-        );
-
         event.returnValue = obj;
     });
-    info('Defined (on) getWindowList');
 
     ipcMain.on('getBookmarks', event => {
         event.returnValue = readBookmarksFile();
     });
-    info('Defined (on) getBookmarks');
 
     ipcMain.on('addBookmark', (event, meta) => {
         let bookmarks = readBookmarksFile();
@@ -78,7 +64,6 @@ if (ipcMain) {
             writeBookmarksFile(bookmarks);
         }
     });
-    info('Defined (on) addBookmark');
 
     ipcMain.on('changeUrl', (event, to) => {
         flexBrowserInstances
@@ -86,7 +71,6 @@ if (ipcMain) {
             .getBrowserView()
             .webContents.loadURL(to);
     });
-    info('Binded URL Bar onchange listener');
 
     ipcMain.on('pref', (event, preference, value) => {
         const rc = readRC();
@@ -100,12 +84,10 @@ if (ipcMain) {
             event.returnValue = undefined;
         }
     });
-    info('Defined (on) pref');
 
     ipcMain.on('getAllPreferences', event => {
         event.returnValue = readRC();
     });
-    info('Defined (on) getAllPreferences');
 
     ipcMain.on('brandRegistry', (event, rule, branding) => {
         const registry = readBrandingRegistry();
@@ -183,11 +165,6 @@ if (ipcMain) {
  *
  */
 function createWindow() {
-    info(
-        'Creating new browser instance with options: ' +
-            JSON.stringify(browserWindowOptions, null, 4),
-    );
-
     // @ts-ignore
     const win = new BrowserWindow(browserWindowOptions);
 
@@ -199,10 +176,8 @@ function createWindow() {
     flexBrowserInstances.push(win);
 
     win.loadFile('app/loaders/index.html');
-    info('Loaded app/loaders/index.html to browser instance');
 
     win.setBrowserView(new BrowserView());
-    info('Loaded Electron BrowserView');
 
     win.getBrowserView().setBounds({
         x: 0,
@@ -210,10 +185,8 @@ function createWindow() {
         width: win.getSize()[0],
         height: win.getSize()[1] - 70,
     });
-    info('Redefined dimensions for Electron BrowserView');
 
     win.getBrowserView().webContents.loadURL('https://google.com');
-    info('Loaded Google as default homepage');
 
     win.addListener('resize', () => {
         win.getBrowserView().setBounds({
@@ -223,7 +196,6 @@ function createWindow() {
             height: win.getSize()[1] - 70,
         });
     });
-    info('Binded Listener for resizing browser window');
 
     win.getBrowserView().webContents.addListener('did-navigate-in-page', () => {
         win.webContents.executeJavaScript('signal("browser-navigated")');
@@ -262,7 +234,6 @@ function createHubWindow() {
         vibrancy: 'light',
     });
 
-    info('Hub Window Created.');
     win.loadFile('app/loaders/hub.html').then(() =>
         info('Hub Window source loaded.'),
     );
@@ -275,7 +246,6 @@ function createHubWindow() {
 }
 
 function firstStartWindow() {
-    info('Loaded ');
     const win = new BrowserWindow({
         width: 800,
         height: 500,
@@ -289,21 +259,13 @@ function firstStartWindow() {
         vibrancy: 'light',
     });
 
-    info('First Start Window Created.');
     win.loadFile('app/loaders/first-start.html').then(() =>
         info('First Start Window source loaded.'),
     );
 }
 
 function startup() {
-    info('Entering startup');
-
     let browserPrefs = readRC();
-    info(
-        'Loaded flexrc: ' + browserPrefs
-            ? JSON.stringify(browserPrefs, null, 4)
-            : 'null',
-    );
 
     if (browserPrefs == null) {
         writeRC({
@@ -331,20 +293,15 @@ function startup() {
             ],
             defaultSearchEngine: 'google',
         });
-        info('Since no flexrc file was found in ~/.flexrc, one was created.');
         firstStartWindow();
-        info('Loaded first start page.');
     } else if (
         browserPrefs.lastSession &&
         browserPrefs.lastSession.version != nodeConfig.version
     ) {
         firstStartWindow();
-        info('Running on a new browser version; loaded first start page.');
     } else {
         createHubWindow();
-        info('Loaded Hub Window.');
         createWindow();
-        info('Loaded browser window');
     }
 }
 
