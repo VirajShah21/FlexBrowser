@@ -4,13 +4,39 @@ const fs = require('fs');
 
 const logs = [];
 
-exports.error = msg => logs.push({ m: msg, l: 0 });
+/**
+ * Dedents a string, allowing for the use of es6 formatted strings while
+ * preserving **intended** identation. This will take the first line
+ * with non-space text and detects the indentation from only that line.
+ * Then the rest of the string will be unshifted that amount.
+ *
+ * @param {any} str The string to dedent.
+ * @returns The unindented string.
+ */
+function dedent(str) {
+    const lines = str.split('\n');
+    let indent = 0;
+    for (const line of lines) {
+        if (line.trim().length > 0) {
+            for (let i = 0; i < line.length; i++) {
+                if (line[i] === ' ') {
+                    indent++;
+                } else {
+                    return indent;
+                }
+            }
+        }
+    }
+    return indent;
+}
 
-exports.warn = msg => logs.push({ m: msg, l: 1 });
+exports.error = msg => logs.push({ m: dedent(msg), l: 0 });
 
-exports.info = msg => logs.push({ m: msg, l: 2 });
+exports.warn = msg => logs.push({ m: dedent(msg), l: 1 });
 
-exports.debug = msg => logs.push({ m: msg, l: 3 });
+exports.info = msg => logs.push({ m: dedent(msg), l: 2 });
+
+exports.debug = msg => logs.push({ m: dedent(msg), l: 3 });
 
 exports.initializeLogger = () => {
     setInterval(() => {
