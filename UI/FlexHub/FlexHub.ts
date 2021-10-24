@@ -131,7 +131,8 @@ export default class FlexHub extends HIFullScreenView {
             )
                 .stretch()
                 .background(HColor('background').alpha(0.75))
-                .foreground(HColor('foreground')),
+                .foreground(HColor('foreground'))
+                .padding({ top: HubTitlebar.HEIGHT }),
         );
 
         this.body.style.setProperty('-webkit-app-region', 'drag');
