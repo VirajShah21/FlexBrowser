@@ -38,4 +38,8 @@ export default class FlexArch {
             url: '',
         };
     }
+
+    static showTaskbar(): void {}
+
+    static hideTaskbar(): void {}
 }
