@@ -1,3 +1,4 @@
+const { info } = require('console');
 const {
     app,
     BrowserWindow,
@@ -7,6 +8,7 @@ const {
 } = require('electron');
 const path = require('path');
 const nodeConfig = require('../package.json');
+const { initializeLogger } = require('./apis/ArchLogger');
 const {
     readRC,
     writeRC,
@@ -17,6 +19,17 @@ const {
     readBrandingRegistry,
     writeBrandingRegistry,
 } = require('./apis/CoreAccess.js');
+
+initializeLogger();
+info('Initialized logger.');
+
+info(
+    `Initialized new process with initial configuration:\n${JSON.stringify(
+        readRC(),
+        null,
+        4,
+    )}`,
+);
 
 const flexBrowserInstances = [];
 let hubWindow = undefined;
