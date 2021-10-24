@@ -40,5 +40,5 @@ exports.initializeLogger = () => {
             path.join(path.join(os.homedir(), '.flex.logs')),
             out,
         );
-    }, 1000);
+    }, 3000);
 };
