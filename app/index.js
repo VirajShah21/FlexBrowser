@@ -18,8 +18,6 @@ const {
     writeBrandingRegistry,
 } = require('./apis/CoreAccess.js');
 
-initializeLogger();
-
 const flexBrowserInstances = [];
 let hubWindow = undefined;
 
@@ -234,9 +232,7 @@ function createHubWindow() {
         vibrancy: 'light',
     });
 
-    win.loadFile('app/loaders/hub.html').then(() =>
-        info('Hub Window source loaded.'),
-    );
+    win.loadFile('app/loaders/hub.html');
 
     win.addListener('close', () => {
         hubWindow = null;
@@ -259,9 +255,7 @@ function firstStartWindow() {
         vibrancy: 'light',
     });
 
-    win.loadFile('app/loaders/first-start.html').then(() =>
-        info('First Start Window source loaded.'),
-    );
+    win.loadFile('app/loaders/first-start.html');
 }
 
 function startup() {
