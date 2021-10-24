@@ -8,8 +8,8 @@
         "types": [
             "node",
             "mocha",
-            "../app/index",
-            "../app/ArchLogger",
+            "../app/apis/CoreAccess",
+            "../app/apis/ArchLogger",
             "../UI/preload"
         ],
         "paths": {

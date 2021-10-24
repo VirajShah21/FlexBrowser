@@ -19,7 +19,7 @@ const browserWindowOptions = {
  * Creates a new instance of a web browser window.
  *
  */
-exports.createWindow = function createWindow() {
+function createWindow() {
     // @ts-ignore
     const win = new BrowserWindow(browserWindowOptions);
 
@@ -63,4 +63,6 @@ exports.createWindow = function createWindow() {
 
         writeHistoryFile(history);
     });
-};
+}
+
+exports.createWindow = createWindow;
