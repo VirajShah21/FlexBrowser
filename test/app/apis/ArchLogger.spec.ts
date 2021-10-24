@@ -16,9 +16,8 @@ describe('ArchLogger: Dedenting', () => {
         expect(
             dedent(`
                 Hello World
-                    This should be indented
-            `),
-        ).to.equal('Hello World\n    This should be indented');
+                    This should be indented 4 spaces`),
+        ).to.equal('Hello World\n    This should be indented 4 spaces');
     });
 
     // it('Should')
