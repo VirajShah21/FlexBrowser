@@ -2,6 +2,8 @@ const path = require('path');
 const os = require('os');
 const fs = require('fs');
 
+const isInitialized = false;
+
 const logs = [];
 
 /**
@@ -73,3 +75,5 @@ exports.initializeLogger = () => {
         );
     }, 3000);
 };
+
+if (!isInitialized) exports.initializeLogger();
