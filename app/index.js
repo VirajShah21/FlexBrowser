@@ -47,12 +47,30 @@ const browserWindowOptions = {
     vibrancy: readRC().theme || 'dark',
 };
 
+function findBrowserWindow(event) {
+    return BrowserWindow.getAllWindows().find(
+        window => window.webContents == event.sender,
+    );
+}
+
+function logIpcMainEventInvoked(event, ...args) {
+    info(`Invoked architecture function:
+    INVOCATION      ${event.type}(${args.map(arg => `"${arg}"`).join(' ')})
+    EVENT TYPE      ${event.type}
+    WINDOW ID       ${findBrowserWindow(event)}`);
+}
+
 // During testing, ipcMain is undefined.
 // This guard should not be removed.
 if (ipcMain) {
-    ipcMain.on('newWindow', createWindow);
+    ipcMain.on('newWindow', event => {
+        logIpcMainEventInvoked(event);
+        createWindow();
+    });
 
     ipcMain.on('getWindowList', event => {
+        logIpcMainEventInvoked(event);
+
         let obj = flexBrowserInstances.map(instance => {
             return {
                 title: instance.getBrowserView().webContents.getTitle(),
@@ -62,38 +80,60 @@ if (ipcMain) {
         });
 
         event.returnValue = obj;
+
+        info(
+            `Returned the following list of open browser windows:${JSON.stringify(
+                obj,
+                null,
+                4,
+            )}`,
+        );
     });
 
     ipcMain.on('getBookmarks', event => {
+        logIpcMainEventInvoked();
+
         event.returnValue = readBookmarksFile();
+
+        info(
+            `Return the following list of bookmarked pages:\n${JSON.stringify(
+                event.returnValue,
+                null,
+                4,
+            )}`,
+        );
     });
 
     ipcMain.on('addBookmark', (event, meta) => {
+        logIpcMainEventInvoked(event, meta);
+
         let bookmarks = readBookmarksFile();
         if (!bookmarks.filter(curr => curr.url == meta.url)) {
             bookmarks.push(meta);
             writeBookmarksFile(bookmarks);
+            info(`Successfully added bookmark for: ${meta.url}`);
+        } else {
+            info(`Bookmark already exists: ${meta.url}`);
         }
     });
 
     ipcMain.on('changeUrl', (event, to) => {
-        flexBrowserInstances
-            .find(i => i.webContents == event.sender)
-            .getBrowserView()
-            .webContents.loadURL(to);
+        logIpcMainEventInvoked(event, to);
+        const browserWindow = findBrowserWindow(event);
+        browserWindow.getBrowserView().webContents.loadURL(to);
+        info(`Changed URL for window with ID: ${browserWindow.id}`);
     });
 
     ipcMain.on('pref', (event, preference, value) => {
+        logIpcMainEventInvoked(event, preference, value);
         const rc = readRC();
         if (value) {
             rc[preference] = value;
             writeRC(rc);
         }
-        if (Object.prototype.hasOwnProperty.call(rc, preference)) {
+        if (Object.prototype.hasOwnProperty.call(rc, preference))
             event.returnValue = rc[preference];
-        } else {
-            event.returnValue = undefined;
-        }
+        else event.returnValue = undefined;
     });
 
     ipcMain.on('getAllPreferences', event => {
