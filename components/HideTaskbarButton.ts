@@ -1,4 +1,5 @@
 import IonIcon from '@Hi/Components/IonIcon';
+import TextView from '@Hi/Components/TextView';
 import TaskbarButton from './TaskbarButton';
 
 export default class HideTaskbarButton extends TaskbarButton {
@@ -12,11 +13,20 @@ export default class HideTaskbarButton extends TaskbarButton {
             .whenClicked(ev => {
                 const view = ev.view as HideTaskbarButton;
                 view.isShown = !view.isShown;
-                (view.body as HTMLInputElement).name = view.isShown
-                    ? 'chevron-down'
-                    : 'chevron-up';
-                if (view.isShown) flexarch.showTaskbar();
-                else flexarch.hideTaskbar();
+
+                if (view.isShown) {
+                    flexarch.showTaskbar();
+                    (view.body as HTMLInputElement).name = 'chevron-down';
+                    (
+                        view.root().findViewById('titlebar-title') as TextView
+                    ).text = 'Flex Browser';
+                } else {
+                    flexarch.hideTaskbar();
+                    (view.body as HTMLInputElement).name = 'chevron-up';
+                    (
+                        view.root().findViewById('titlebar-title') as TextView
+                    ).text = flexarch.urlInfo().title;
+                }
             });
     }
 }

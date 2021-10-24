@@ -68,7 +68,8 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                     new Spacer(),
                     new TextView('Flex Browser')
                         .font('sm')
-                        .foreground(HColor('gray')),
+                        .foreground(HColor('gray'))
+                        .id('titlebar-title'),
                     new Spacer(),
                     new HStack(
                         new Spacer(),
