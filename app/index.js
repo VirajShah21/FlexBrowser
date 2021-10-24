@@ -82,7 +82,7 @@ if (ipcMain) {
         event.returnValue = obj;
 
         info(
-            `Returned the following list of open browser windows:${JSON.stringify(
+            `Returned the following list of open browser windows:\n${JSON.stringify(
                 obj,
                 null,
                 4,
@@ -130,17 +130,28 @@ if (ipcMain) {
         if (value) {
             rc[preference] = value;
             writeRC(rc);
-        }
-        if (Object.prototype.hasOwnProperty.call(rc, preference))
+            info(
+                `Changed the value of preference \"${preference}\" to ${JSON.stringify(
+                    value,
+                    null,
+                    4,
+                )}`,
+            );
+            return value;
+        } else if (Object.prototype.hasOwnProperty.call(rc, preference)) {
             event.returnValue = rc[preference];
-        else event.returnValue = undefined;
+        } else {
+            event.returnValue = undefined;
+        }
     });
 
     ipcMain.on('getAllPreferences', event => {
+        logIpcMainEventInvoked(event);
         event.returnValue = readRC();
     });
 
     ipcMain.on('brandRegistry', (event, rule, branding) => {
+        logIpcMainEventInvoked(event, rule, branding);
         const registry = readBrandingRegistry();
         if (rule && branding) {
             registry[rule] = branding;
@@ -154,25 +165,25 @@ if (ipcMain) {
     });
 
     ipcMain.on('focusWindow', (event, id) => {
+        logIpcMainEventInvoked(event, id);
         const instance = flexBrowserInstances.find(
             instance => instance.id == id,
         );
 
         instance.focus();
-        instance.flashFrame(true);
-        setTimeout(() => instance.flashFrame(false), 1000);
+
+        info(`Focused on window with id: ${id}`);
     });
 
-    ipcMain.on('focusHub', () => {
-        if (hubWindow === null || hubWindow === undefined) {
-            createHubWindow();
-        }
+    ipcMain.on('focusHub', event => {
+        logIpcMainEventInvoked(event);
+        if (hubWindow === null || hubWindow === undefined) createHubWindow();
+
         hubWindow.focus();
-        hubWindow.flashFrame(true);
-        setTimeout(() => hubWindow.flashFrame(false), 1000);
     });
 
     ipcMain.on('urlInfo', event => {
+        logIpcMainEventInvoked(event);
         const instance = flexBrowserInstances.find(
             i => i.webContents == event.sender,
         );
@@ -185,6 +196,7 @@ if (ipcMain) {
     });
 
     ipcMain.on('hideTaskbar', event => {
+        logIpcMainEventInvoked(event);
         const instance = flexBrowserInstances.find(
             i => i.webContents == event.sender,
         );
@@ -198,6 +210,7 @@ if (ipcMain) {
     });
 
     ipcMain.on('showTaskbar', event => {
+        logIpcMainEventInvoked(event);
         const instance = flexBrowserInstances.find(
             i => i.webContents == event.sender,
         );
