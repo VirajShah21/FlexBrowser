@@ -16,6 +16,7 @@ const logs = [];
  * @returns {string} The unindented string.
  */
 function dedent(str) {
+    if (!str.includes('\n')) return str.trim();
     const lines = str.split('\n');
     let indent = 0;
     let fline = 0; // first line of text
