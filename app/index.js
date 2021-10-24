@@ -24,7 +24,7 @@ function firstStartWindow() {
         width: 800,
         height: 500,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, 'apis/preload.js'),
             nodeIntegration: false,
             contextIsolation: true,
         },
