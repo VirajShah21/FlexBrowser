@@ -10,24 +10,29 @@ const logs = [];
  * with non-space text and detects the indentation from only that line.
  * Then the rest of the string will be unshifted that amount.
  *
- * @param {any} str The string to dedent.
- * @returns The unindented string.
+ * @param {string} str The string to dedent.
+ * @returns {string} The unindented string.
  */
 function dedent(str) {
     const lines = str.split('\n');
     let indent = 0;
-    for (const line of lines) {
-        if (line.trim().length > 0) {
+    let fline = 0; // first line of text
+    for (const lnum of lines) {
+        const line = lines[lnum];
+        if (lines[lnum].trim().length > 0) {
+            fline = lines.indexOf(line);
             for (let i = 0; i < line.length; i++) {
                 if (line[i] === ' ') {
                     indent++;
                 } else {
-                    return indent;
+                    break;
                 }
             }
+            break;
         }
     }
-    return indent;
+    lines.splice(0, fline);
+    return lines.map(line => line.substring(indent)).join('\n');
 }
 
 exports.error = msg => logs.push({ m: dedent(msg), l: 0 });
