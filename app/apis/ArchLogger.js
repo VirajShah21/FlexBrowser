@@ -2,8 +2,6 @@ const path = require('path');
 const os = require('os');
 const fs = require('fs');
 
-const isInitialized = false;
-
 const logs = [];
 
 /**
@@ -20,7 +18,7 @@ function dedent(str) {
     const lines = str.split('\n');
     let indent = 0;
     let fline = 0; // first line of text
-    for (const lnum of lines) {
+    for (const lnum in lines) {
         const line = lines[lnum];
         if (lines[lnum].trim().length > 0) {
             fline = lines.indexOf(line);
@@ -38,6 +36,8 @@ function dedent(str) {
     return lines.map(line => line.substring(indent)).join('\n');
 }
 
+exports.dedent = dedent;
+
 exports.error = msg => logs.push({ m: dedent(msg), l: 0 });
 
 exports.warn = msg => logs.push({ m: dedent(msg), l: 1 });
@@ -46,7 +46,7 @@ exports.info = msg => logs.push({ m: dedent(msg), l: 2 });
 
 exports.debug = msg => logs.push({ m: dedent(msg), l: 3 });
 
-exports.initializeLogger = () => {
+function initializeLogger() {
     setInterval(() => {
         const length = logs.length;
         const toWrite = logs.splice(0, length);
@@ -75,6 +75,6 @@ exports.initializeLogger = () => {
             out,
         );
     }, 3000);
-};
+}
 
-if (!isInitialized) exports.initializeLogger();
+initializeLogger();
