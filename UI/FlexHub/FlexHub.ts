@@ -89,18 +89,19 @@ export default class FlexHub extends HIFullScreenView {
                 new HStack(
                     new Spacer(),
 
-                    HubButton(new IonIcon('albums'), 'Windows').whenClicked(
-                        () => {
-                            ViewController.getController(
-                                'AppController',
-                            )!.navigateTo(new FlexWindowsViewer(), 1000);
-                        },
-                    ),
+                    HubButton(
+                        new IonIcon('albums-outline'),
+                        'Windows',
+                    ).whenClicked(() => {
+                        ViewController.getController(
+                            'AppController',
+                        )!.navigateTo(new FlexWindowsViewer(), 1000);
+                    }),
 
                     new Spacer(),
 
                     HubButton(
-                        new IonIcon('bookmarks'),
+                        new IonIcon('bookmarks-outline'),
                         'Bookmarks',
                     ).whenClicked(() => {
                         ViewController.getController(
@@ -110,7 +111,7 @@ export default class FlexHub extends HIFullScreenView {
 
                     new Spacer(),
 
-                    HubButton(new IonIcon('time'), 'History'),
+                    HubButton(new IonIcon('time-outline'), 'History'),
 
                     new Spacer(),
 
