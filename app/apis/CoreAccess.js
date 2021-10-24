@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const HOMEDIR = require('os').homedir();
-const { info, warn } = require('./ArchLogger.js');
+const { info, warn, error } = require('./ArchLogger.js');
 
 /**
  * @returns The flex runcome file in JSON format
@@ -12,10 +12,9 @@ exports.readRC = () => {
             path.join(HOMEDIR, '.flexrc.json'),
             'utf-8',
         );
-        info('Read RC File.');
         return JSON.parse(text);
     } catch (e) {
-        info('Error reading/parsing RC File.');
+        error('Error reading/parsing RC File.');
         return null;
     }
 };
@@ -25,7 +24,6 @@ exports.writeRC = data => {
         path.join(HOMEDIR, '.flexrc.json'),
         JSON.stringify(data, null, 4),
     );
-    info('Finished writing RC File');
 };
 
 /**
@@ -36,7 +34,6 @@ exports.writeRC = data => {
  */
 exports.readBookmarksFile = () => {
     try {
-        info('Reading bookmarks File.');
         return JSON.parse(
             fs.readFileSync(
                 path.join(HOMEDIR, '.flex-bookmarks.json'),
@@ -60,17 +57,15 @@ exports.writeBookmarksFile = bookmarks => {
         path.join(HOMEDIR, '.flex-bookmarks.json'),
         JSON.stringify(bookmarks, null, 4),
     );
-    info('Finished writing bookmarks file.');
 };
 
 exports.readBrandingRegistry = () => {
     try {
-        info('Reading branding registry.');
         return JSON.parse(
             fs.readFileSync(path.join(HOMEDIR, '.flex-branding.json'), 'utf-8'),
         );
     } catch (e) {
-        warn('Error reading/parsing branding registry.');
+        error('Error reading/parsing branding registry.');
         return {};
     }
 };
@@ -80,17 +75,15 @@ exports.writeBrandingRegistry = registry => {
         path.join(HOMEDIR, '.flex-branding.json'),
         JSON.stringify(registry, null, 4),
     );
-    info('Finished writing branding registry');
 };
 
 exports.readHistoryFile = () => {
     try {
-        info('Reading history file');
         return JSON.parse(
             fs.readFileSync(path.join(HOMEDIR, '.flex-history.json'), 'utf-8'),
         );
     } catch (e) {
-        warn('Error reading/parsing history file.');
+        error('Error reading/parsing history file.');
         return [];
     }
 };
@@ -100,5 +93,4 @@ exports.writeHistoryFile = history => {
         path.join(HOMEDIR, '.flex-history.json'),
         JSON.stringify(history, null, 4),
     );
-    info('Finished writing history file.');
 };
