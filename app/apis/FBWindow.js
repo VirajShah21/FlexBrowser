@@ -1,6 +1,7 @@
 const { readRC, readHistoryFile, writeHistoryFile } = require('./CoreAccess');
-const { nativeTheme, BrowserView } = require('electron');
+const { nativeTheme, BrowserView, BrowserWindow } = require('electron');
 const path = require('path');
+const { debug } = require('./ArchLogger');
 
 const browserWindowOptions = {
     width: 800,
@@ -20,15 +21,18 @@ const browserWindowOptions = {
  *
  */
 function createWindow() {
+    debug('Launching window');
     // @ts-ignore
     const win = new BrowserWindow(browserWindowOptions);
-
+    debug('Reading configuration');
     const config = readRC();
+    debug('Read configuration');
 
     if ((config.theme || 'dark') === 'dark') nativeTheme.themeSource = 'dark';
     else nativeTheme.themeSource = 'light';
 
     win.loadFile('app/loaders/index.html');
+    debug('Loaded file');
 
     win.setBrowserView(new BrowserView());
 

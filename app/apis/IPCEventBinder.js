@@ -1,6 +1,6 @@
 // During testing, ipcMain is undefined.
 
-const { info } = require('console');
+const { info } = require('./ArchLogger');
 const { ipcMain, BrowserWindow } = require('electron');
 const {
     readBookmarksFile,
@@ -23,7 +23,7 @@ function logIpcMainEventInvoked(event, ...args) {
     info(`Invoked architecture function:
     INVOCATION      ${event.type}(${args.map(arg => `"${arg}"`).join(' ')})
     EVENT TYPE      ${event.type}
-    WINDOW ID       ${findBrowserWindow(event)}`);
+    WINDOW ID       ${findBrowserWindow(event).id}`);
 }
 
 // This guard should not be removed.

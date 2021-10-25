@@ -38,13 +38,13 @@ function dedent(str) {
 
 exports.dedent = dedent;
 
-exports.error = msg => logs.push({ m: dedent(msg), l: 0 });
+exports.error = msg => logs.push({ m: dedent(msg), l: 0, t: new Date() });
 
-exports.warn = msg => logs.push({ m: dedent(msg), l: 1 });
+exports.warn = msg => logs.push({ m: dedent(msg), l: 1, t: new Date() });
 
-exports.info = msg => logs.push({ m: dedent(msg), l: 2 });
+exports.info = msg => logs.push({ m: dedent(msg), l: 2, t: new Date() });
 
-exports.debug = msg => logs.push({ m: dedent(msg), l: 3 });
+exports.debug = msg => logs.push({ m: dedent(msg), l: 3, t: new Date() });
 
 function initializeLogger() {
     setInterval(() => {
@@ -68,7 +68,7 @@ function initializeLogger() {
                 default:
                     out += '[LOG]   ';
             }
-            out += `${new Date()}: ${toWrite[i].m}\n`;
+            out += `${toWrite[i].t}: ${toWrite[i].m}\n`;
         }
         fs.appendFileSync(
             path.join(path.join(os.homedir(), '.flex.logs')),

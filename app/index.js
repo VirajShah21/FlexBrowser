@@ -1,10 +1,10 @@
 require('./apis/ArchLogger');
 require('./apis/IPCEventBinder');
 
-const { info } = require('console');
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const nodeConfig = require('../package.json');
+const { info, debug } = require('./apis/ArchLogger');
 const { readRC, writeRC } = require('./apis/CoreAccess.js');
 const { createHubWindow } = require('./apis/FBHub');
 const { createWindow } = require('./apis/FBWindow');
@@ -72,8 +72,11 @@ function startup() {
     ) {
         firstStartWindow();
     } else {
+        debug('Loading hub window');
         createHubWindow();
+        debug('Finished loading hub window. Loading browser window now');
         createWindow();
+        debug('Finished loading hub window');
     }
 }
 
