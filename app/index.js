@@ -17,8 +17,6 @@ info(
     )}`,
 );
 
-let hubWindow = undefined;
-
 function firstStartWindow() {
     const win = new BrowserWindow({
         width: 800,

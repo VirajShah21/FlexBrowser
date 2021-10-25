@@ -1,13 +1,14 @@
 const { BrowserWindow } = require('electron');
 const path = require('path');
 
-exports.hubWindow = null;
+let hubWindow = null;
+exports.hubWindow = hubWindow;
 
 /**
  * Creates an instance of a hub window.
  *
  */
-exports.createHubWindow = function createHubWindow() {
+function createHubWindow() {
     const win = new BrowserWindow({
         width: 500,
         height: 500,
@@ -24,8 +25,10 @@ exports.createHubWindow = function createHubWindow() {
     win.loadFile('app/loaders/hub.html');
 
     win.addListener('close', () => {
-        exports.hubWindow = null;
+        hubWindow = null;
     });
 
-    exports.hubWindow = win;
-};
+    hubWindow = win;
+}
+
+exports.createHubWindow = createHubWindow;
