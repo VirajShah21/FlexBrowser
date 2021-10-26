@@ -10,7 +10,7 @@ const {
     readBrandingRegistry,
     writeBrandingRegistry,
 } = require('./CoreAccess');
-const { createHubWindow, hubWindow, focusHubWindow } = require('./FBHub');
+const { createHubWindow, focusHubWindow } = require('./FBHub');
 const { createWindow } = require('./FBWindow');
 const { electron } = require('webpack');
 
