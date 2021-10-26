@@ -1,6 +1,6 @@
 // During testing, ipcMain is undefined.
 
-const { info } = require('./ArchLogger');
+const { info, error } = require('./ArchLogger');
 const { ipcMain, BrowserWindow } = require('electron');
 const {
     readBookmarksFile,
@@ -12,6 +12,7 @@ const {
 } = require('./CoreAccess');
 const { createHubWindow, hubWindow } = require('./FBHub');
 const { createWindow } = require('./FBWindow');
+const { electron } = require('webpack');
 
 function findBrowserWindow(event) {
     return BrowserWindow.getAllWindows().find(
@@ -19,11 +20,26 @@ function findBrowserWindow(event) {
     );
 }
 
-function logIpcMainEventInvoked(event, ...args) {
-    info(`Invoked architecture function:
-    INVOCATION      ${event.type}(${args.map(arg => `"${arg}"`).join(' ')})
-    EVENT TYPE      ${event.type}
-    WINDOW ID       ${findBrowserWindow(event).id}`);
+function logIpcMainEventInvoked(event, name, ...args) {
+    const browserWindow = findBrowserWindow(event);
+
+    if (browserWindow) {
+        info(`
+        Invoked architecture function:
+            INVOCATION      ${name}(${args
+            .map(arg => JSON.stringify(arg, null, 4))
+            .join(' ')})
+            EVENT TYPE      ${name}
+            WINDOW ID       ${findBrowserWindow(event).id}`);
+    } else {
+        error(`
+        Invoked architecture function:
+            INVOCATION      ${name}(${args.map(arg =>
+            JSON.stringify(arg, null, 4),
+        )})
+            EVENT TYPE      ${name}
+            WINDOW ID       [ERROR] WINDOW DOES NOT EXIST`);
+    }
 }
 
 // This guard should not be removed.
