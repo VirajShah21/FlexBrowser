@@ -10,7 +10,7 @@ const {
     readBrandingRegistry,
     writeBrandingRegistry,
 } = require('./CoreAccess');
-const { createHubWindow, hubWindow } = require('./FBHub');
+const { createHubWindow, hubWindow, focusHubWindow } = require('./FBHub');
 const { createWindow } = require('./FBWindow');
 const { electron } = require('webpack');
 
@@ -160,11 +160,7 @@ if (ipcMain) {
 
     ipcMain.on('focusHub', event => {
         logIpcMainEventInvoked(event);
-
-        if (hubWindow === null) createHubWindow();
-
-        // @ts-ignore
-        hubWindow.focus();
+        focusHubWindow();
     });
 
     ipcMain.on('urlInfo', event => {
