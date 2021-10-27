@@ -13,7 +13,7 @@ const browserWindowOptions = {
     },
     titleBarStyle: 'customButtonsOnHover',
     transparent: true,
-    vibrancy: readRC().theme || 'dark',
+    vibrancy: (readRC() ?? {}).theme ?? 'dark',
 };
 
 /**
