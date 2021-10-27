@@ -2,8 +2,8 @@ name: CI
 on:
     push:
         branches: [main, dev, quality]
-    pull_request:
-        branches: [main, dev, quality]
+    # pull_request:
+    #     branches: [main, dev, quality]
 
 jobs:
     verify_files:
