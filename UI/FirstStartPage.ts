@@ -116,6 +116,6 @@ export default class FirstStartPage extends HIFullScreenView {
      */
     public next(): void {
         this.pageNumber += 1;
-        this.controller.navigateTo(this.pages[this.pageNumber]!);
+        this.controller.navigateTo(this.pages[this.pageNumber]!());
     }
 }
