@@ -5,7 +5,7 @@ import ImageView from '@Hi/Components/ImageView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import Resources from 'Client/Resources';
+import Resources from '@Hi/Resources';
 
 /**
  * Allows the user to select either a dark theme or light theme. This will

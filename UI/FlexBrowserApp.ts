@@ -1,6 +1,6 @@
 import TextView from '@Hi/Components/TextView';
 import { ViewController } from '@Hi/ViewController';
-import Resources from 'Client/Resources';
+import Resources from '@Hi/Resources';
 import FirstStartPage from './FirstStartPage';
 import FlexBrowserWindow from './FlexBrowserWindow';
 import FlexHub from './FlexHub/FlexHub';
