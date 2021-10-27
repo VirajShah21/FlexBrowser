@@ -17,9 +17,6 @@ One day I installed Microsoft Edge. That's the same thing as Chrome, but with a 
     -   [Building](#building)
     -   [Testing](#testing)
     -   [Documentation / Lint Report Generation](#documentation--lint-report-generation)
--   [Dev Tasks](#dev-tasks)
-    -   [Improvements](#improvements)
-    -   [New Features](#new-features)
 
 ## User Features
 
@@ -152,11 +149,3 @@ Documentation and lint report generation is done using the same script.
 ```bash
 source docs.sh
 ```
-
-## Dev Tasks
-
-### Improvements
-
--   Fix `FontWeight` not working on `TextView` (Branch: `himvc`). DONE
--   Add build-in and build-out animations to everything. DONE
-    -   Add animation preferences in hub DONE
