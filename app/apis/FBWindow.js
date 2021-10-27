@@ -54,7 +54,7 @@ function createWindow() {
         });
     });
 
-    win.getBrowserView().webContents.addListener('did-navigate-in-page', () => {
+    win.getBrowserView().webContents.addListener('page-title-updated', () => {
         win.webContents.executeJavaScript('signal("browser-navigated")');
 
         const history = readHistoryFile();
