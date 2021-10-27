@@ -17,7 +17,7 @@ export default class SearchEngineListHead extends HStack {
         );
 
         this.width('100%')
-            .background(HColor('gray'))
+            .background(HColor('gray3'))
             .foreground(rgb(0, 0, 0))
             .rounded({ top: { left: 5, right: 5 } })
             .padding(5)
