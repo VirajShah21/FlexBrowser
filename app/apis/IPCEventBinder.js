@@ -119,7 +119,7 @@ if (ipcMain) {
                     4,
                 )}`,
             );
-            return value;
+            event.returnValue = value;
         } else if (Object.prototype.hasOwnProperty.call(rc, preference)) {
             event.returnValue = rc[preference];
         } else {
