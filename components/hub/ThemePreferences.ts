@@ -1,10 +1,10 @@
 import { HColor, changeTheme } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
-import ImageView from '@Hi/Components/ImageView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import Resources from '@Hi/Resources';
 
 /**
  * Allows the user to select either a dark theme or light theme. This will
@@ -25,7 +25,7 @@ export default class ThemePreferences extends VStack {
             new HStack(
                 new VStack(
                     new ClickButton(
-                        new ImageView('assets/LightThemeThumb.png').rounded(),
+                        Resources.getImageView('LightThemeThumb.png').rounded(),
                     )
                         .padding(0)
                         .border({
@@ -45,7 +45,7 @@ export default class ThemePreferences extends VStack {
 
                 new VStack(
                     new ClickButton(
-                        new ImageView('assets/DarkThemeThumb.png').rounded(),
+                        Resources.getImageView('DarkThemeThumb.png').rounded(),
                     )
                         .padding(0)
                         .border({

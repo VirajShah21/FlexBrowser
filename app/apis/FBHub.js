@@ -2,7 +2,6 @@ const { BrowserWindow } = require('electron');
 const path = require('path');
 
 let hubWindow = null;
-exports.hubWindow = hubWindow;
 
 /**
  * Creates an instance of a hub window.
@@ -31,4 +30,17 @@ function createHubWindow() {
     hubWindow = win;
 }
 
+/**
+ * Focuses on the main hub window. If it does not exist, it will be created.
+ *
+ */
+function focusHubWindow() {
+    if (hubWindow) hubWindow.focus();
+    else {
+        createHubWindow();
+        hubWindow.focus();
+    }
+}
+
 exports.createHubWindow = createHubWindow;
+exports.focusHubWindow = focusHubWindow;
