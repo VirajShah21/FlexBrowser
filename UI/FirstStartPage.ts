@@ -59,7 +59,7 @@ export default class FirstStartPage extends HIFullScreenView {
 
     private pageNumber: number;
 
-    private pages: View[] = [MainIntro(), Theming()];
+    private pages: (() => View)[] = [MainIntro, Theming];
 
     /**
      * Creates an instance of FirstStartPage.
@@ -93,7 +93,7 @@ export default class FirstStartPage extends HIFullScreenView {
 
         this.controller = new ViewController('FSCarousel')
             .bind(this.findViewById('viewer')!.body)
-            .navigateTo(this.pages[0]!);
+            .navigateTo(this.pages[0]!());
         this.pageNumber = 0;
     }
 
@@ -105,7 +105,7 @@ export default class FirstStartPage extends HIFullScreenView {
      */
     public previous(): void {
         if (this.pageNumber > 0) this.pageNumber -= 1;
-        this.controller.navigateTo(this.pages[this.pageNumber]!);
+        this.controller.navigateTo(this.pages[this.pageNumber]!());
     }
 
     /**
@@ -116,6 +116,6 @@ export default class FirstStartPage extends HIFullScreenView {
      */
     public next(): void {
         this.pageNumber += 1;
-        this.controller.navigateTo(this.pages[this.pageNumber]!);
+        this.controller.navigateTo(this.pages[this.pageNumber]!());
     }
 }
