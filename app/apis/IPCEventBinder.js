@@ -12,7 +12,6 @@ const {
 } = require('./CoreAccess');
 const { createHubWindow, focusHubWindow } = require('./FBHub');
 const { createWindow } = require('./FBWindow');
-const { electron } = require('webpack');
 
 function findBrowserWindow(event) {
     return BrowserWindow.getAllWindows().find(
