@@ -25,10 +25,10 @@ export default class Resources {
         const d =
             directory[directory.length - 1] === '/'
                 ? directory
-                : directory + '/';
+                : `${directory}/`;
         Resources.baseDirectories.resources = d;
-        Resources.baseDirectories.images = d + 'images/';
-        Resources.baseDirectories.strings = d + 'strings/';
+        Resources.baseDirectories.images = `${d}images/`;
+        Resources.baseDirectories.strings = `${d}strings/`;
         Resources.isInitialized = true;
     }
 
@@ -37,7 +37,7 @@ export default class Resources {
             Resources.isInitialized = true;
             Resources.baseDirectories[subdir] =
                 Resources.baseDirectories.resources! +
-                (subdir[subdir.length - 1] === '/' ? subdir : subdir + '/');
+                (subdir[subdir.length - 1] === '/' ? subdir : `${subdir}/`);
         }
         throw new Error(
             'Resources.dir must be set prior to calling Resources.addResourcePath',
