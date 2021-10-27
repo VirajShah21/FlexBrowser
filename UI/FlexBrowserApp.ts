@@ -1,14 +1,13 @@
 import TextView from '@Hi/Components/TextView';
 import { ViewController } from '@Hi/ViewController';
 import Resources from 'Client/Resources';
-import path from 'path';
 import FirstStartPage from './FirstStartPage';
 import FlexBrowserWindow from './FlexBrowserWindow';
 import FlexHub from './FlexHub/FlexHub';
 
 let AppController: ViewController;
 
-Resources.dir = path.join(__dirname, '../resources');
+Resources.dir = '../../resources';
 
 export function reloadAppController(flexWindow: string): void {
     AppController = new ViewController('AppController').bind();

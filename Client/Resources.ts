@@ -1,5 +1,4 @@
 import ImageView from '@Hi/Components/ImageView';
-import path from 'path';
 
 export default class Resources {
     private static baseDirectories: Record<string, string> = {};
@@ -15,10 +14,7 @@ export default class Resources {
         resourceName: string,
     ): string {
         if (this.isInitialized) {
-            return path.join(
-                Resources.baseDirectories[resourceType]!,
-                resourceName,
-            );
+            return Resources.baseDirectories[resourceType]! + resourceName;
         }
         throw new Error(
             'Resources.dir must be set prior to calling Resources.getResourcePath',
@@ -26,17 +22,22 @@ export default class Resources {
     }
 
     public static set dir(directory: string) {
-        Resources.baseDirectories.resources = directory;
-        Resources.baseDirectories.images = path.join(directory, 'images');
-        Resources.baseDirectories.strings = path.join(directory, 'strings');
+        const d =
+            directory[directory.length - 1] === '/'
+                ? directory
+                : directory + '/';
+        Resources.baseDirectories.resources = d;
+        Resources.baseDirectories.images = d + 'images/';
+        Resources.baseDirectories.strings = d + 'strings/';
+        Resources.isInitialized = true;
     }
 
     public static addResourcePath(subdir: string): void {
         if (this.isInitialized) {
-            Resources.baseDirectories[subdir] = path.join(
-                Resources.baseDirectories.resources!,
-                subdir,
-            );
+            Resources.isInitialized = true;
+            Resources.baseDirectories[subdir] =
+                Resources.baseDirectories.resources! +
+                (subdir[subdir.length - 1] === '/' ? subdir : subdir + '/');
         }
         throw new Error(
             'Resources.dir must be set prior to calling Resources.addResourcePath',
