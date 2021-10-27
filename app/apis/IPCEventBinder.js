@@ -10,7 +10,7 @@ const {
     readBrandingRegistry,
     writeBrandingRegistry,
 } = require('./CoreAccess');
-const { createHubWindow, focusHubWindow } = require('./FBHub');
+const { focusHubWindow } = require('./FBHub');
 const { createWindow } = require('./FBWindow');
 
 function findBrowserWindow(event) {
