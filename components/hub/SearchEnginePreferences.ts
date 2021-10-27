@@ -29,12 +29,12 @@ export default class SearchEnginePreference extends VStack {
 
             new HStack(
                 new ClickButton(new TextView('-').weight(FontWeight.Bold))
-                    .background(HColor('gray'))
+                    .background(HColor('gray3'))
                     .foreground(HColor('foreground'))
                     .borderRight({
                         size: 1,
                         style: 'solid',
-                        color: HColor('gray3'),
+                        color: HColor('gray4'),
                     })
                     .rounded(0)
                     .rounded({
@@ -42,7 +42,7 @@ export default class SearchEnginePreference extends VStack {
                         bottom: { left: 5 },
                     }),
                 new ClickButton(new TextView('+').weight(FontWeight.Bold))
-                    .background(HColor('gray'))
+                    .background(HColor('gray3'))
                     .foreground(HColor('foreground'))
                     .rounded(0)
                     .rounded({
