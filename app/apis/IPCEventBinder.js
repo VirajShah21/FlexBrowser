@@ -44,12 +44,12 @@ function logIpcMainEventInvoked(event, name, ...args) {
 // This guard should not be removed.
 if (ipcMain) {
     ipcMain.on('newWindow', event => {
-        logIpcMainEventInvoked(event);
+        logIpcMainEventInvoked(event, 'newWindow');
         createWindow();
     });
 
     ipcMain.on('getWindowList', event => {
-        logIpcMainEventInvoked(event);
+        logIpcMainEventInvoked(event, 'getWindowList');
 
         let obj = BrowserWindow.getAllWindows()
             .filter(win => win.getBrowserView() !== null)
@@ -73,7 +73,7 @@ if (ipcMain) {
     });
 
     ipcMain.on('getBookmarks', event => {
-        logIpcMainEventInvoked();
+        logIpcMainEventInvoked(event, 'getBookmarks');
 
         event.returnValue = readBookmarksFile();
 
@@ -87,7 +87,7 @@ if (ipcMain) {
     });
 
     ipcMain.on('addBookmark', (event, meta) => {
-        logIpcMainEventInvoked(event, meta);
+        logIpcMainEventInvoked(event, 'addBookmark', meta);
 
         let bookmarks = readBookmarksFile();
         if (!bookmarks.filter(curr => curr.url == meta.url)) {
@@ -100,14 +100,14 @@ if (ipcMain) {
     });
 
     ipcMain.on('changeUrl', (event, to) => {
-        logIpcMainEventInvoked(event, to);
+        logIpcMainEventInvoked(event, 'changeUrl', to);
         const browserWindow = findBrowserWindow(event);
         browserWindow.getBrowserView().webContents.loadURL(to);
         info(`Changed URL for window with ID: ${browserWindow.id}`);
     });
 
     ipcMain.on('pref', (event, preference, value) => {
-        logIpcMainEventInvoked(event, preference, value);
+        logIpcMainEventInvoked(event, 'pref', preference, value);
         const rc = readRC();
         if (value) {
             rc[preference] = value;
@@ -128,12 +128,12 @@ if (ipcMain) {
     });
 
     ipcMain.on('getAllPreferences', event => {
-        logIpcMainEventInvoked(event);
+        logIpcMainEventInvoked(event, 'getAllPreferences');
         event.returnValue = readRC();
     });
 
     ipcMain.on('brandRegistry', (event, rule, branding) => {
-        logIpcMainEventInvoked(event, rule, branding);
+        logIpcMainEventInvoked(event, 'brandRegistry', rule, branding);
         const registry = readBrandingRegistry();
         if (rule && branding) {
             registry[rule] = branding;
@@ -147,7 +147,7 @@ if (ipcMain) {
     });
 
     ipcMain.on('focusWindow', (event, id) => {
-        logIpcMainEventInvoked(event, id);
+        logIpcMainEventInvoked(event, 'focusWindow', id);
         const instance = BrowserWindow.getAllWindows().find(
             instance => instance.id == id,
         );
@@ -158,12 +158,12 @@ if (ipcMain) {
     });
 
     ipcMain.on('focusHub', event => {
-        logIpcMainEventInvoked(event);
+        logIpcMainEventInvoked(event, 'focusHub');
         focusHubWindow();
     });
 
     ipcMain.on('urlInfo', event => {
-        logIpcMainEventInvoked(event);
+        logIpcMainEventInvoked(event, 'urlInfo');
         const instance = findBrowserWindow(event);
         const browserView = instance.getBrowserView();
         event.returnValue = {
@@ -174,7 +174,7 @@ if (ipcMain) {
     });
 
     ipcMain.on('hideTaskbar', event => {
-        logIpcMainEventInvoked(event);
+        logIpcMainEventInvoked(event, 'hideTaskbar');
         const instance = findBrowserWindow(event);
         const browserView = instance.getBrowserView();
         browserView.setBounds({
@@ -186,7 +186,7 @@ if (ipcMain) {
     });
 
     ipcMain.on('showTaskbar', event => {
-        logIpcMainEventInvoked(event);
+        logIpcMainEventInvoked(event, 'showTaskbar');
         const instance = findBrowserWindow(event);
         const browserView = instance.getBrowserView();
         browserView.setBounds({
