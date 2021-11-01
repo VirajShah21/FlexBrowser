@@ -75,6 +75,23 @@ const menuTemplate = [
         ],
     },
 
+    // ! Disable for production
+    // * Enable for devtools
+    // {
+    //     label: 'View',
+    //     submenu: [
+    //         { role: 'reload' },
+    //         { role: 'forceReload' },
+    //         { role: 'toggleDevTools' },
+    //         { type: 'separator' },
+    //         { role: 'resetZoom' },
+    //         { role: 'zoomIn' },
+    //         { role: 'zoomOut' },
+    //         { type: 'separator' },
+    //         { role: 'togglefullscreen' },
+    //     ],
+    // },
+
     {
         label: 'Window',
         submenu: [
