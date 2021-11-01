@@ -1,11 +1,14 @@
 import { HighlightColorPreferences } from '@Components/hub/ColorPreferences';
-import { HColor } from '@Hi/Colors';
+import { HColor, rgb } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
+import ImageView from '@Hi/Components/ImageView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import Resources from '@Hi/Resources';
+import RGBAModel from '@Hi/RGBAModel';
 import View from '@Hi/View';
 import { ViewController } from '@Hi/ViewController';
 import ThemePreferences from '../components/hub/ThemePreferences';
@@ -47,6 +50,64 @@ function Theming() {
     ).stretch();
 }
 
+function SearchEngineButton(imageSource: string, label: string) {
+    return new ClickButton(
+        new VStack(
+            new Spacer(),
+            Resources.getImageView(imageSource).height(50).width(50),
+            new Spacer(),
+            new TextView(label),
+            new Spacer(),
+        ).stretch(),
+    )
+        .width(150)
+        .height(150)
+        .foreground(RGBAModel.WHITE)
+        .rounded();
+}
+
+function DefaultSearchEngine() {
+    return new VStack(
+        new Spacer(),
+        new TextView('Select a Search Engine')
+            .font('xxl')
+            .weight(FontWeight.UltraLight)
+            .margin({ bottom: 25 }),
+        new Spacer(),
+        new HStack(
+            new Spacer(),
+
+            SearchEngineButton(
+                'SearchEngines/google.png',
+                'Google Search',
+            ).background(HColor('blue')),
+
+            new Spacer(),
+
+            SearchEngineButton('SearchEngines/bing.png', 'Bing')
+                .background(RGBAModel.WHITE)
+                .foreground(HColor('blue')),
+
+            new Spacer(),
+
+            SearchEngineButton(
+                'SearchEngines/duckduckgo.png',
+                'DuckDuckGo',
+            ).background(rgb(230, 50, 20)),
+
+            new Spacer(),
+
+            SearchEngineButton(
+                'SearchEngines/yahoo.png',
+                'Yahoo Search',
+            ).background(rgb(112, 0, 217)),
+
+            new Spacer(),
+        ).width('100%'),
+        new Spacer(),
+    ).stretch();
+}
+
 /**
  * The window to appear only upon first start
  *
@@ -59,7 +120,7 @@ export default class FirstStartPage extends HIFullScreenView {
 
     private pageNumber: number;
 
-    private pages: (() => View)[] = [MainIntro, Theming];
+    private pages: (() => View)[] = [MainIntro, Theming, DefaultSearchEngine];
 
     /**
      * Creates an instance of FirstStartPage.
@@ -69,7 +130,7 @@ export default class FirstStartPage extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new VStack().id('viewer').grow(),
+                new VStack().id('viewer').stretch(),
 
                 new HStack(
                     new ClickButton(new TextView('Back')).whenClicked(() =>
