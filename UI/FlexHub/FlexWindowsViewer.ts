@@ -35,6 +35,7 @@ class FlexWindowsViewerItem extends ClickButton {
                     ).whenClicked(ev => {
                         ev.browserEvent.stopPropagation();
                         const icon = ev.view as IonIcon;
+
                         if (
                             BookmarksManager.isBookmarked(
                                 new ValidURL(meta.url),
@@ -45,6 +46,8 @@ class FlexWindowsViewerItem extends ClickButton {
                             );
                             icon.name = 'bookmark-outline';
                         } else {
+                            const validMeta = { ...meta };
+                            validMeta.url = new ValidURL(meta.url).toString();
                             BookmarksManager.addBookmark(meta);
                             icon.name = 'bookmark';
                         }

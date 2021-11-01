@@ -13,6 +13,7 @@ const {
 const { focusHubWindow } = require('./FBHub');
 const { createWindow } = require('./FBWindow');
 const { TOP_FRAME_HEIGHT } = require('./constants');
+const { warn } = require('console');
 
 function findBrowserWindow(event) {
     return BrowserWindow.getAllWindows().find(
@@ -91,7 +92,7 @@ if (ipcMain) {
         logIpcMainEventInvoked(event, 'addBookmark', meta);
 
         let bookmarks = readBookmarksFile();
-        if (!bookmarks.filter(curr => curr.url == meta.url)) {
+        if (!bookmarks.find(curr => curr.url == meta.url)) {
             bookmarks.push(meta);
             writeBookmarksFile(bookmarks);
             info(`Successfully added bookmark for: ${meta.url}`);
