@@ -4,6 +4,10 @@
     "version": "0.0.1",
     "description": "A beautiful cross platform web browser.",
     "main": "app/index.js",
+    "build": {
+        "appId": "org.virajshah.flex",
+        "compression": "maxiumum"
+    },
     "scripts": {
         "coverage": "nyc --reporter=lcov --reporter=text-lcov mocha --timeout 10000 -r ts-node-test-register -r tsconfig-paths/register --file test/mocks/Browser.mock.ts \"test/**/*.spec.ts\" --exit",
         "test": "mocha --reporter spec -r ts-node-test-register -r tsconfig-paths/register --file test/mocks/Browser.mock.ts \"test/**/*.spec.ts\" --exit",
