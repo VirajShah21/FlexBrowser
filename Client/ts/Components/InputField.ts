@@ -75,6 +75,16 @@ export default class InputField extends View {
         return this;
     }
 
+    public select(): this {
+        this.body.select();
+        return this;
+    }
+
+    public selectWhenFocused(): this {
+        this.body.addEventListener('focusin', () => this.body.select());
+        return this;
+    }
+
     public get value(): string {
         return this.body.value;
     }
