@@ -19,7 +19,7 @@ export default class HideTaskbarButton extends TaskbarButton {
                     (view.body as HTMLInputElement).name = 'chevron-down';
                     (
                         view.root().findViewById('titlebar-title') as TextView
-                    ).text = 'Flex Browser';
+                    ).text = '';
                 } else {
                     flexarch.hideTaskbar();
                     (view.body as HTMLInputElement).name = 'chevron-up';

@@ -41,6 +41,7 @@ export default class URLBar extends HStack {
                 .whenFocused(urlbarFocusedState)
                 .whenUnfocused(urlbarUnfocusedState)
                 .whenKeyPressed(urlbarKeyPressed)
+                .selectWhenFocused()
                 .id('url'),
             new RefreshTaskbarButton(),
         );

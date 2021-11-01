@@ -66,7 +66,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                 new HStack(
                     new HStack().width(100),
                     new Spacer(),
-                    new TextView('Flex Browser')
+                    new TextView('')
                         .font('sm')
                         .foreground(HColor('gray'))
                         .id('titlebar-title'),
@@ -127,7 +127,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                 new Spacer(), // Pushes navbar to top and makes space for Electron.BrowserView
             )
                 .stretch()
-                .background(HColor('background').alpha(0.25)),
+                .background(HColor('background').alpha(0.5)),
         );
 
         const titlebar = this.findViewById('titlebar') as View;
