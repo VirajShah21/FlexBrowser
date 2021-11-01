@@ -22,7 +22,7 @@ export class FlexPreferenceMenuButton extends ClickButton {
             ),
         );
 
-        this.width(100).height(100);
+        this.width(100).height('100%');
     }
 }
 
@@ -54,32 +54,14 @@ export default class FlexPreferences extends HIFullScreenView {
                     // new SearchEnginePreferences(),
 
                     new VStack(
-                        new TextView('Styles')
-                            .font('md')
-                            .bold()
-                            .margin({ bottom: 10 })
-                            .width('100%')
-                            .textStart()
-                            .foreground(HColor('gray')),
                         new HStack(
                             new FlexPreferenceMenuButton('Colors'),
+                            new FlexPreferenceMenuButton('Search Engines'),
                             new FlexPreferenceMenuButton('Browser Frame'),
                         )
                             .alignStart()
                             .width('100%'),
-                        new TextView('Search & Navigation')
-                            .font('md')
-                            .bold()
-                            .margin({ bottom: 10 })
-                            .width('100%')
-                            .textStart()
-                            .foreground(HColor('gray')),
-                        new HStack(
-                            new FlexPreferenceMenuButton('Search Engines'),
-                        )
-                            .alignStart()
-                            .width('100%'),
-                    ),
+                    ).padding(),
                 )
                     .height('100%')
                     .width('100%')
