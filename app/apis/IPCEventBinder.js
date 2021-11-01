@@ -100,6 +100,15 @@ if (ipcMain) {
         }
     });
 
+    ipcMain.on('removeBookmark', (event, url) => {
+        logIpcMainEventInvoked(event, 'removeBookmark', url);
+
+        let bookmarks = readBookmarksFile();
+        let filtered = bookmarks.filter(curr => curr.url !== url);
+        writeBookmarksFile(filtered);
+        info(`Successfully removed bookmark for: ${url}`);
+    });
+
     ipcMain.on('changeUrl', (event, to) => {
         logIpcMainEventInvoked(event, 'changeUrl', to);
         const browserWindow = findBrowserWindow(event);

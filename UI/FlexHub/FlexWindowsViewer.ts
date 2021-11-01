@@ -10,6 +10,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
 import VStack from '@Hi/Components/VStack';
 import RGBAModel from '@Hi/RGBAModel';
+import BookmarksManager from '@Models/BookmarksManager';
 import BrowserPreferences from '@Models/BrowserPreferences';
 import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
@@ -24,11 +25,29 @@ class FlexWindowsViewerItem extends ClickButton {
             new VStack(
                 new HStack(
                     new ClickButton(
-                        new IonIcon('bookmark-outline').foreground(
-                            RGBAModel.WHITE.alpha(0.5),
-                        ),
+                        new IonIcon(
+                            BookmarksManager.isBookmarked(
+                                new ValidURL(meta.url),
+                            )
+                                ? 'bookmark'
+                                : 'bookmark-outline',
+                        ).foreground(RGBAModel.WHITE.alpha(0.5)),
                     ).whenClicked(ev => {
                         ev.browserEvent.stopPropagation();
+                        const icon = ev.view as IonIcon;
+                        if (
+                            BookmarksManager.isBookmarked(
+                                new ValidURL(meta.url),
+                            )
+                        ) {
+                            BookmarksManager.removeBookmark(
+                                new ValidURL(meta.url),
+                            );
+                            icon.name = 'bookmark-outline';
+                        } else {
+                            BookmarksManager.addBookmark(meta);
+                            icon.name = 'bookmark';
+                        }
                     }),
                 )
                     .position('absolute')

@@ -20,6 +20,10 @@ function addBookmark(meta) {
     ipcRenderer.send('addBookmark', meta);
 }
 
+function removeBookmark(url) {
+    ipcRenderer.send('removeBookmark', url);
+}
+
 function pref(property, value) {
     return ipcRenderer.sendSync('pref', property, value);
 }
@@ -67,4 +71,5 @@ contextBridge.exposeInMainWorld('flexarch', {
     urlInfo,
     hideTaskbar,
     showTaskbar,
+    removeBookmark,
 });
