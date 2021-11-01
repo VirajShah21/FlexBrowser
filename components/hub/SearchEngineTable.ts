@@ -12,7 +12,7 @@ import BrowserPreferences from '@Models/BrowserPreferences';
 import SearchEngineListBody from './SearchEngineListBody';
 import SearchEngineListHead from './SearchEngineListHead';
 
-export default class SearchEnginePreference extends VStack {
+export default class SearchEngineTable extends VStack {
     constructor() {
         super(
             new HStack(
@@ -64,6 +64,6 @@ export default class SearchEnginePreference extends VStack {
                 .width('100%')
                 .margin({ top: 10 }),
         );
-        this.padding();
+        this.padding().width('100%');
     }
 }
