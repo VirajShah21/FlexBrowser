@@ -17,10 +17,30 @@ info(
     )}`,
 );
 
+const isMac = process.platform === 'darwin';
+
 function defineAppMenu() {
     let result = Menu.setApplicationMenu(
+        // @ts-ignore
         Menu.buildFromTemplate([
-            /* This is where the template should go */
+            ...(isMac
+                ? [
+                      {
+                          label: app.name,
+                          submenu: [
+                              { role: 'about' },
+                              { type: 'separator' },
+                              { role: 'services' },
+                              { type: 'separator' },
+                              { role: 'hide' },
+                              { role: 'hideOthers' },
+                              { role: 'unhide' },
+                              { type: 'separator' },
+                              { role: 'quit' },
+                          ],
+                      },
+                  ]
+                : []),
         ]),
     );
 }
