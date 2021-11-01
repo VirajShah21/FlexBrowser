@@ -9,6 +9,7 @@ import {
     urlbarKeyPressed,
     urlbarUnfocusedState,
 } from '@Triggers/urlbar-triggers';
+import Favicon from './Favicon';
 import RefreshTaskbarButton from './RefreshTaskbarButton';
 
 export default class URLBar extends HStack {
@@ -67,21 +68,19 @@ export default class URLBar extends HStack {
 
     public updateFavicon(): void {
         const favicon = this.findViewById('favicon') as ImageView;
-        favicon.source = URLBar.getFaviconURL(this.urlInfo, 'ico');
+        favicon.source = Favicon.getFaviconURL(
+            new ValidURL(this.urlInfo.url),
+            'ico',
+        );
         const untriedExtensions = ['png', 'svg', 'jpg'];
         favicon.whenError(() => {
             if (untriedExtensions.length > 0) {
-                favicon.source = URLBar.getFaviconURL(
-                    this.urlInfo,
+                favicon.source = Favicon.getFaviconURL(
+                    new ValidURL(this.urlInfo.url),
                     untriedExtensions.splice(0, 1)[0],
                 );
             }
         });
-    }
-
-    public static getFaviconURL(meta: URLMeta, extension = 'ico'): string {
-        const url = new ValidURL(meta.url);
-        return `${url.protocol}://${url.domain}/favicon.${extension}`;
     }
 
     public override handle(data: string): void {
