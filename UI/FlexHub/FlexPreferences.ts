@@ -1,14 +1,10 @@
-import HubTitlebar from '@Components/hub/HubTitlebar';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
-import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
-import ScrollView from '@Hi/Components/ScrollView';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import Resources from '@Hi/Resources';
 import { ViewController } from '@Hi/ViewController';
-import HubTitles from '@Resources/strings/HubTitles.json';
 import BaseHubWindow from './BaseHubWindow';
 import BrowserFramePreferences from './BrowserFramePreferences';
 import ColorPreferences from './ColorPreferences';
