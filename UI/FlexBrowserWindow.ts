@@ -105,7 +105,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                     .blur()
                     .width('100%')
                     .padding()
-                    .padding({ top: 20, bottom: 20 })
+                    .padding(10)
                     .whenMouseOver(ev => {
                         ev.view
                             .getViewsByClass('titlebar-transition')

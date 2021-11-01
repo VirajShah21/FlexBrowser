@@ -3,9 +3,13 @@ const { nativeTheme, BrowserView, BrowserWindow } = require('electron');
 const path = require('path');
 const { debug } = require('./ArchLogger');
 
+const DEFAULT_WINDOW_WIDTH = 800;
+const DEFAULT_WINDOW_HEIGHT = 600;
+const TOP_FRAME_HEIGHT = 58;
+
 const browserWindowOptions = {
-    width: 800,
-    height: 600,
+    width: DEFAULT_WINDOW_WIDTH,
+    height: DEFAULT_WINDOW_HEIGHT,
     webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         nodeIntegration: false, // is default value after Electron v5
@@ -38,9 +42,9 @@ function createWindow() {
 
     win.getBrowserView().setBounds({
         x: 0,
-        y: 70,
+        y: TOP_FRAME_HEIGHT,
         width: win.getSize()[0],
-        height: win.getSize()[1] - 70,
+        height: win.getSize()[1] - TOP_FRAME_HEIGHT,
     });
 
     win.getBrowserView().webContents.loadURL('https://google.com');
@@ -48,9 +52,9 @@ function createWindow() {
     win.addListener('resize', () => {
         win.getBrowserView().setBounds({
             x: 0,
-            y: 70,
+            y: TOP_FRAME_HEIGHT,
             width: win.getSize()[0],
-            height: win.getSize()[1] - 70,
+            height: win.getSize()[1] - TOP_FRAME_HEIGHT,
         });
     });
 
