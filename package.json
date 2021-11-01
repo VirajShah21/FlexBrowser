@@ -1,5 +1,6 @@
 {
     "name": "flex-browser",
+    "productName": "Flex Browser",
     "version": "0.0.1",
     "description": "A beautiful cross platform web browser.",
     "main": "app/index.js",
