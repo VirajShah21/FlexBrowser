@@ -7,6 +7,8 @@ import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import BookmarksManager from '@Models/BookmarksManager';
+import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
 
 export default class FlexBookmarksViewer extends HIFullScreenView {
@@ -25,15 +27,22 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                             new TextView(bookmark.title),
                             new Spacer(),
 
-                            new IonIcon('bookmark')
-                                .whenMouseOver(ev => {
-                                    // eslint-disable-next-line no-param-reassign
-                                    (ev.view as IonIcon).name = 'trash-outline';
-                                })
-                                .whenMouseOut(ev => {
-                                    // eslint-disable-next-line no-param-reassign
-                                    (ev.view as IonIcon).name = 'bookmark';
-                                }),
+                            new ClickButton(
+                                new IonIcon('bookmark')
+                                    .whenMouseOver(ev => {
+                                        // eslint-disable-next-line no-param-reassign
+                                        (ev.view as IonIcon).name =
+                                            'trash-outline';
+                                    })
+                                    .whenMouseOut(ev => {
+                                        // eslint-disable-next-line no-param-reassign
+                                        (ev.view as IonIcon).name = 'bookmark';
+                                    }),
+                            ).whenClicked(() => {
+                                BookmarksManager.removeBookmark(
+                                    new ValidURL(bookmark.url),
+                                );
+                            }),
                         ).stretch(),
                     )
                         .width('calc(100% - 20px)')
