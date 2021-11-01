@@ -31,10 +31,14 @@ class FlexWindowsViewerItem extends ClickButton {
                             )
                                 ? 'bookmark'
                                 : 'bookmark-outline',
-                        ).foreground(RGBAModel.WHITE.alpha(0.5)),
+                        )
+                            .foreground(RGBAModel.WHITE.alpha(0.5))
+                            .id('bookmark-icon'),
                     ).whenClicked(ev => {
                         ev.browserEvent.stopPropagation();
-                        const icon = ev.view as IonIcon;
+                        const icon = ev.view.findViewById(
+                            'bookmark-icon',
+                        ) as IonIcon;
 
                         if (
                             BookmarksManager.isBookmarked(
