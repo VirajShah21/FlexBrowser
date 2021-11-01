@@ -121,13 +121,29 @@ function CollapseFrame() {
 function WindowsViewerDemo() {
     return new VStack(
         new Spacer(),
-        new TextView('Windows Viewer').font('xl').weight(FontWeight.UltraLight),
+        new TextView('Windows Viewer').font('xl').weight(FontWeight.Light),
         new Spacer(),
         new HStack(
             new Spacer(),
             Resources.getImageView('fsp/WindowsViewer.png').width('75%'),
         ).width('100%'),
     ).stretch();
+}
+
+function FinishedPage() {
+    flexarch.newWindow();
+    flexarch.focusHub();
+
+    return new VStack(
+        new TextView('You can close this window now')
+            .weight(FontWeight.UltraLight)
+            .position('fixed')
+            .setTop(25)
+            .setLeft(10),
+        new Spacer(),
+        new TextView('All Set Up!').font('xxl').weight(FontWeight.UltraLight),
+        new Spacer(),
+    );
 }
 
 /**
@@ -148,6 +164,7 @@ export default class FirstStartPage extends HIFullScreenView {
         DefaultSearchEngine,
         CollapseFrame,
         WindowsViewerDemo,
+        FinishedPage,
     ];
 
     /**
