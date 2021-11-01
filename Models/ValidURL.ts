@@ -11,7 +11,10 @@ export default class ValidURL {
 
     private isURL(): boolean {
         if (this.value.includes(' ')) return false;
-        return true;
+        return (
+            this.value.includes('.') &&
+            this.value.indexOf('.') < this.value.length - 1
+        );
     }
 
     public get protocol(): ValidURLProtocol {
