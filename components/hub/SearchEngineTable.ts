@@ -64,6 +64,6 @@ export default class SearchEngineTable extends VStack {
                 .width('100%')
                 .margin({ top: 10 }),
         );
-        this.padding();
+        this.padding().width('100%');
     }
 }
