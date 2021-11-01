@@ -12,6 +12,7 @@ const {
 } = require('./CoreAccess');
 const { focusHubWindow } = require('./FBHub');
 const { createWindow } = require('./FBWindow');
+const { TOP_FRAME_HEIGHT } = require('./constants');
 
 function findBrowserWindow(event) {
     return BrowserWindow.getAllWindows().find(
@@ -179,9 +180,9 @@ if (ipcMain) {
         const browserView = instance.getBrowserView();
         browserView.setBounds({
             x: 0,
-            y: 22,
+            y: 20,
             width: instance.getSize()[0],
-            height: instance.getSize()[1] - 22,
+            height: instance.getSize()[1] - 20,
         });
     });
 
@@ -191,9 +192,9 @@ if (ipcMain) {
         const browserView = instance.getBrowserView();
         browserView.setBounds({
             x: 0,
-            y: 70,
+            y: TOP_FRAME_HEIGHT,
             width: instance.getSize()[0],
-            height: instance.getSize()[1] - 70,
+            height: instance.getSize()[1] - TOP_FRAME_HEIGHT,
         });
     });
 }
