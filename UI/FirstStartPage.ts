@@ -3,7 +3,6 @@ import { HColor, rgb } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
-import ImageView from '@Hi/Components/ImageView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
@@ -108,6 +107,29 @@ function DefaultSearchEngine() {
     ).stretch();
 }
 
+function CollapseFrame() {
+    return new VStack(
+        new Spacer(),
+        new TextView('Collapse the Frame')
+            .font('xxl')
+            .weight(FontWeight.UltraLight),
+        new Spacer(),
+        Resources.getImageView('fsp/CollapseTaskbar.png').width('75%'),
+    ).stretch();
+}
+
+function WindowsViewerDemo() {
+    return new VStack(
+        new Spacer(),
+        new TextView('Windows Viewer').font('xl').weight(FontWeight.UltraLight),
+        new Spacer(),
+        new HStack(
+            new Spacer(),
+            Resources.getImageView('fsp/WindowsViewer.png').width('75%'),
+        ).width('100%'),
+    ).stretch();
+}
+
 /**
  * The window to appear only upon first start
  *
@@ -120,7 +142,13 @@ export default class FirstStartPage extends HIFullScreenView {
 
     private pageNumber: number;
 
-    private pages: (() => View)[] = [MainIntro, Theming, DefaultSearchEngine];
+    private pages: (() => View)[] = [
+        MainIntro,
+        Theming,
+        DefaultSearchEngine,
+        CollapseFrame,
+        WindowsViewerDemo,
+    ];
 
     /**
      * Creates an instance of FirstStartPage.
