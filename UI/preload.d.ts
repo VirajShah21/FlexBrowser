@@ -34,6 +34,7 @@ declare namespace flexarch {
     function getWindowList(): URLMeta[];
     function getBookmarks(): URLMeta[];
     function addBookmark(bookmark: URLMeta): void;
+    function removeBookmark(url: string): void;
     function pref(property: string, value?: unknown): unknown;
     function getAllPreferences(): {
         colorTheme?: string;

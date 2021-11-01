@@ -15,6 +15,8 @@ export default class FlexArch {
 
     static addBookmark(): void {}
 
+    static removeBookmark(): void {}
+
     static pref(property: string, value?: unknown): unknown {
         if (value) this.mockFlexRcFile[property] = value;
         return this.mockFlexRcFile[property];

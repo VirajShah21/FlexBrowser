@@ -1,14 +1,16 @@
+import Favicon from '@Components/Favicon';
 import HubTitlebar from '@Components/hub/HubTitlebar';
 import { getAverageRGB, HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
-import ImageView from '@Hi/Components/ImageView';
+import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
 import VStack from '@Hi/Components/VStack';
 import RGBAModel from '@Hi/RGBAModel';
+import BookmarksManager from '@Models/BookmarksManager';
 import BrowserPreferences from '@Models/BrowserPreferences';
 import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
@@ -17,14 +19,49 @@ class FlexWindowsViewerItem extends ClickButton {
     private static readonly MAXLEN = 20;
 
     constructor(meta: URLMeta, windowId: number) {
-        const image = new ImageView(FlexWindowsViewerItem.getFaviconURL(meta))
-            .rounded('100%')
-            .width(36)
-            .height(36)
-            .padding(5);
+        const image = new Favicon(new ValidURL(meta.url));
 
         super(
             new VStack(
+                new HStack(
+                    new ClickButton(
+                        new IonIcon(
+                            BookmarksManager.isBookmarked(
+                                new ValidURL(meta.url),
+                            )
+                                ? 'bookmark'
+                                : 'bookmark-outline',
+                        )
+                            .foreground(RGBAModel.WHITE.alpha(0.5))
+                            .id('bookmark-icon'),
+                    ).whenClicked(ev => {
+                        ev.browserEvent.stopPropagation();
+                        const icon = ev.view.findViewById(
+                            'bookmark-icon',
+                        ) as IonIcon;
+
+                        if (
+                            BookmarksManager.isBookmarked(
+                                new ValidURL(meta.url),
+                            )
+                        ) {
+                            BookmarksManager.removeBookmark(
+                                new ValidURL(meta.url),
+                            );
+                            icon.name = 'bookmark-outline';
+                        } else {
+                            const validMeta = { ...meta };
+                            validMeta.url = new ValidURL(meta.url).toString();
+                            BookmarksManager.addBookmark(meta);
+                            icon.name = 'bookmark';
+                        }
+                    }),
+                )
+                    .position('absolute')
+                    .setTop(5)
+                    .setLeft(0)
+                    .alignEnd()
+                    .width('100%'),
                 new Spacer(),
                 image,
                 new Spacer(),
@@ -48,7 +85,8 @@ class FlexWindowsViewerItem extends ClickButton {
             .height(150)
             .whenClicked(() => {
                 flexarch.focusWindow(windowId);
-            });
+            })
+            .position('relative');
 
         image.whenLoaded(() => {
             const avg = getAverageRGB(image.body, 1, [RGBAModel.WHITE]);
@@ -71,21 +109,6 @@ class FlexWindowsViewerItem extends ClickButton {
                     .border({ color: RGBAModel.WHITE });
             }
         });
-
-        const untriedExtensions = ['png', 'svg', 'jpg'];
-        image.whenError(() => {
-            if (untriedExtensions.length > 0) {
-                image.source = FlexWindowsViewerItem.getFaviconURL(
-                    meta,
-                    untriedExtensions.splice(0, 1)[0],
-                );
-            }
-        });
-    }
-
-    public static getFaviconURL(meta: URLMeta, extension = 'ico'): string {
-        const url = new ValidURL(meta.url);
-        return `${url.protocol}://${url.domain}/favicon.${extension}`;
     }
 }
 

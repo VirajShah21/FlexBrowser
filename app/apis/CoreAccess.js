@@ -41,7 +41,10 @@ exports.readBookmarksFile = () => {
             ),
         );
     } catch (e) {
-        warn('Error reading/parsing bookmarks file.');
+        warn('Error reading/parsing bookmarks file. Creating new one.');
+        fs.writeFile(path.join(HOMEDIR, '.flex-bookmarks.json'), '[]', () => {
+            /* do nothing */
+        });
         return [];
     }
 };
