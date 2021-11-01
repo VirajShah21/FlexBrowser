@@ -1,3 +1,4 @@
+import { HighlightColorPreferences } from '@Components/hub/ColorPreferences';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
@@ -7,7 +8,6 @@ import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
 import { ViewController } from '@Hi/ViewController';
-import HighlightColorPreferences from '../components/hub/HighlightColorPreferences';
 import ThemePreferences from '../components/hub/ThemePreferences';
 
 /**
