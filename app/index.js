@@ -19,29 +19,96 @@ info(
 
 const isMac = process.platform === 'darwin';
 
-function defineAppMenu() {
-    let result = Menu.setApplicationMenu(
-        // @ts-ignore
-        Menu.buildFromTemplate([
+const menuTemplate = [
+    ...(isMac
+        ? [
+              {
+                  label: app.name,
+                  submenu: [
+                      { role: 'about' },
+                      { type: 'separator' },
+                      { role: 'services' },
+                      { type: 'separator' },
+                      { role: 'hide' },
+                      { role: 'hideOthers' },
+                      { role: 'unhide' },
+                      { type: 'separator' },
+                      { role: 'quit' },
+                  ],
+              },
+          ]
+        : []),
+
+    {
+        label: 'File',
+        submenu: [isMac ? { role: 'close' } : { role: 'quit' }],
+    },
+
+    {
+        label: 'Edit',
+        submenu: [
+            { role: 'undo' },
+            { role: 'redo' },
+            { type: 'separator' },
+            { role: 'cut' },
+            { role: 'copy' },
+            { role: 'paste' },
             ...(isMac
                 ? [
+                      { role: 'pasteAndMatchStyle' },
+                      { role: 'delete' },
+                      { role: 'selectAll' },
+                      { type: 'separator' },
                       {
-                          label: app.name,
+                          label: 'Speech',
                           submenu: [
-                              { role: 'about' },
-                              { type: 'separator' },
-                              { role: 'services' },
-                              { type: 'separator' },
-                              { role: 'hide' },
-                              { role: 'hideOthers' },
-                              { role: 'unhide' },
-                              { type: 'separator' },
-                              { role: 'quit' },
+                              { role: 'startSpeaking' },
+                              { role: 'stopSpeaking' },
                           ],
                       },
                   ]
-                : []),
-        ]),
+                : [
+                      { role: 'delete' },
+                      { type: 'separator' },
+                      { role: 'selectAll' },
+                  ]),
+        ],
+    },
+
+    {
+        label: 'Window',
+        submenu: [
+            { role: 'minimize' },
+            { role: 'zoom' },
+            ...(isMac
+                ? [
+                      { type: 'separator' },
+                      { role: 'front' },
+                      { type: 'separator' },
+                      { role: 'window' },
+                  ]
+                : [{ role: 'close' }]),
+        ],
+    },
+
+    {
+        role: 'help',
+        submenu: [
+            {
+                label: 'Learn More',
+                click: async () => {
+                    const { shell } = require('electron');
+                    await shell.openExternal('https://electronjs.org');
+                },
+            },
+        ],
+    },
+];
+
+function defineAppMenu() {
+    let result = Menu.setApplicationMenu(
+        // @ts-ignore
+        Menu.buildFromTemplate(menuTemplate),
     );
 }
 
