@@ -1,9 +1,11 @@
 import HubTitlebar from '@Components/hub/HubTitlebar';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
+import DetailsView, { DetailsSummaryView } from '@Hi/Components/DetailsView';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
+import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
@@ -19,41 +21,80 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                     true,
                 ),
 
-                new Spacer(),
+                new ScrollView(
+                    new VStack(
+                        new DetailsView(
+                            new DetailsSummaryView(
+                                new HStack(
+                                    new TextView('Open Windows'),
+                                    new Spacer(),
+                                ).stretch(),
+                            ),
+                            ...flexarch.getWindowList().map(
+                                meta =>
+                                    new ClickButton(
+                                        new HStack(
+                                            new TextView(meta.title),
+                                            new Spacer(),
 
-                ...flexarch.getBookmarks().map(bookmark =>
-                    new ClickButton(
-                        new HStack(
-                            new TextView(bookmark.title),
-                            new Spacer(),
+                                            // new ClickButton(
+                                            //     new IonIcon('bookmark')
+                                            //         .whenMouseOver(ev => {
+                                            //             // eslint-disable-next-line no-param-reassign
+                                            //             (ev.view as IonIcon).name =
+                                            //                 'trash-outline';
+                                            //         })
+                                            //         .whenMouseOut(ev => {
+                                            //             // eslint-disable-next-line no-param-reassign
+                                            //             (ev.view as IonIcon).name =
+                                            //                 'bookmark';
+                                            //         }),
+                                            // ).whenClicked(() => {
+                                            //     BookmarksManager.removeBookmark(
+                                            //         new ValidURL(meta.url),
+                                            //     );
+                                            // }),
+                                        ).stretch(),
+                                    ),
+                            ),
+                        ).width('100%'),
 
+                        ...flexarch.getBookmarks().map(bookmark =>
                             new ClickButton(
-                                new IonIcon('bookmark')
-                                    .whenMouseOver(ev => {
-                                        // eslint-disable-next-line no-param-reassign
-                                        (ev.view as IonIcon).name =
-                                            'trash-outline';
-                                    })
-                                    .whenMouseOut(ev => {
-                                        // eslint-disable-next-line no-param-reassign
-                                        (ev.view as IonIcon).name = 'bookmark';
-                                    }),
-                            ).whenClicked(() => {
-                                BookmarksManager.removeBookmark(
-                                    new ValidURL(bookmark.url),
-                                );
-                            }),
-                        ).stretch(),
-                    )
-                        .width('calc(100% - 20px)')
-                        .padding()
-                        .rounded()
-                        .background(HColor('background').alpha(0.1))
-                        .margin({ bottom: 10 }),
-                ),
+                                new HStack(
+                                    new TextView(bookmark.title),
+                                    new Spacer(),
 
-                new Spacer(),
-            ).stretch(),
+                                    new ClickButton(
+                                        new IonIcon('bookmark')
+                                            .whenMouseOver(ev => {
+                                                // eslint-disable-next-line no-param-reassign
+                                                (ev.view as IonIcon).name =
+                                                    'trash-outline';
+                                            })
+                                            .whenMouseOut(ev => {
+                                                // eslint-disable-next-line no-param-reassign
+                                                (ev.view as IonIcon).name =
+                                                    'bookmark';
+                                            }),
+                                    ).whenClicked(() => {
+                                        BookmarksManager.removeBookmark(
+                                            new ValidURL(bookmark.url),
+                                        );
+                                    }),
+                                ).stretch(),
+                            )
+                                .width('calc(100% - 20px)')
+                                .padding()
+                                .rounded()
+                                .background(HColor('background').alpha(0.1))
+                                .margin({ bottom: 10 }),
+                        ),
+                    ).stretch(),
+                ).stretch(),
+            )
+                .stretch()
+                .padding({ top: HubTitlebar.HEIGHT }),
         );
 
         this.background(HColor('background').alpha(0.75)).foreground(
