@@ -24,6 +24,7 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'app/js'),
     },
-    mode: 'development', // set to development when debugging
+    // set to 'production' when building for production
+    mode: 'production', // set to development when debugging
     devtool: 'source-map',
 };
