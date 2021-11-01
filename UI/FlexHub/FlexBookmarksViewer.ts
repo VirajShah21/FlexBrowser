@@ -1,3 +1,4 @@
+import Favicon from '@Components/Favicon';
 import HubTitlebar from '@Components/hub/HubTitlebar';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
@@ -24,17 +25,19 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                 new ScrollView(
                     new VStack(
                         new DetailsView(
-                            new DetailsSummaryView(
-                                new HStack(
-                                    new TextView('Open Windows'),
-                                    new Spacer(),
-                                ).stretch(),
-                            ),
+                            new DetailsSummaryView(new TextView('Open Windows'))
+                                .textStart()
+                                .foreground(HColor('gray')),
                             ...flexarch.getWindowList().map(
                                 meta =>
                                     new ClickButton(
                                         new HStack(
-                                            new TextView(meta.title),
+                                            new Favicon(new ValidURL(meta.url))
+                                                .width(24)
+                                                .height(24),
+                                            new TextView(meta.title).margin({
+                                                left: 25,
+                                            }),
                                             new Spacer(),
 
                                             // new ClickButton(
@@ -90,7 +93,9 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                                 .background(HColor('background').alpha(0.1))
                                 .margin({ bottom: 10 }),
                         ),
-                    ).stretch(),
+                    )
+                        .stretch()
+                        .padding(),
                 ).stretch(),
             )
                 .stretch()
