@@ -1,7 +1,7 @@
 require('./apis/ArchLogger');
 require('./apis/IPCEventBinder');
 
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
 const nodeConfig = require('../package.json');
 const { info, debug } = require('./apis/ArchLogger');
@@ -16,6 +16,14 @@ info(
         4,
     )}`,
 );
+
+function defineAppMenu() {
+    let result = Menu.setApplicationMenu(
+        Menu.buildFromTemplate([
+            /* This is where the template should go */
+        ]),
+    );
+}
 
 function firstStartWindow() {
     const win = new BrowserWindow({
@@ -78,4 +86,8 @@ function startup() {
     }
 }
 
-if (app) app.whenReady().then(() => startup());
+if (app)
+    app.whenReady().then(() => {
+        startup();
+        defineAppMenu();
+    });
