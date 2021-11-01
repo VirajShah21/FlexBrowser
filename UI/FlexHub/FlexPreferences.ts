@@ -9,7 +9,9 @@ import VStack from '@Hi/Components/VStack';
 import Resources from '@Hi/Resources';
 import { ViewController } from '@Hi/ViewController';
 import HubTitles from '@Resources/strings/HubTitles.json';
+import BrowserFramePreferences from './BrowserFramePreferences';
 import ColorPreferences from './ColorPreferences';
+import SearchEnginePreferences from './SearchEnginePreferences';
 
 export class FlexPreferenceMenuButton extends ClickButton {
     public constructor(public readonly name: string) {
@@ -69,7 +71,7 @@ export default class FlexPreferences extends HIFullScreenView {
                             ).whenClicked(() =>
                                 ViewController.getController(
                                     'AppController',
-                                )?.navigateTo(new ColorPreferences()),
+                                )?.navigateTo(new SearchEnginePreferences()),
                             ),
 
                             new FlexPreferenceMenuButton(
@@ -77,7 +79,7 @@ export default class FlexPreferences extends HIFullScreenView {
                             ).whenClicked(() =>
                                 ViewController.getController(
                                     'AppController',
-                                )?.navigateTo(new ColorPreferences()),
+                                )?.navigateTo(new BrowserFramePreferences()),
                             ),
                         )
                             .alignStart()

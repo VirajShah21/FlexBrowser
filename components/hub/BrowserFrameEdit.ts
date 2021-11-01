@@ -61,7 +61,7 @@ function BrowserFramePreview(): VStack {
  * @class BrowserFramePreferences
  * @extends {VStack}
  */
-export default class BrowserFramePreferences extends VStack {
+export default class BrowserFrameEdit extends VStack {
     /**
      * Creates an instance of BrowserFramePreferences.
      *
