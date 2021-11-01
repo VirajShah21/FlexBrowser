@@ -7,7 +7,9 @@ import ScrollView from '@Hi/Components/ScrollView';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import Resources from '@Hi/Resources';
+import { ViewController } from '@Hi/ViewController';
 import HubTitles from '@Resources/strings/HubTitles.json';
+import ColorPreferences from './ColorPreferences';
 
 export class FlexPreferenceMenuButton extends ClickButton {
     public constructor(public readonly name: string) {
@@ -55,9 +57,28 @@ export default class FlexPreferences extends HIFullScreenView {
 
                     new VStack(
                         new HStack(
-                            new FlexPreferenceMenuButton('Colors'),
-                            new FlexPreferenceMenuButton('Search Engines'),
-                            new FlexPreferenceMenuButton('Browser Frame'),
+                            new FlexPreferenceMenuButton('Colors').whenClicked(
+                                () =>
+                                    ViewController.getController(
+                                        'AppController',
+                                    )?.navigateTo(new ColorPreferences()),
+                            ),
+
+                            new FlexPreferenceMenuButton(
+                                'Search Engines',
+                            ).whenClicked(() =>
+                                ViewController.getController(
+                                    'AppController',
+                                )?.navigateTo(new ColorPreferences()),
+                            ),
+
+                            new FlexPreferenceMenuButton(
+                                'Browser Frame',
+                            ).whenClicked(() =>
+                                ViewController.getController(
+                                    'AppController',
+                                )?.navigateTo(new ColorPreferences()),
+                            ),
                         )
                             .alignStart()
                             .width('100%'),
