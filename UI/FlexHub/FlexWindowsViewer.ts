@@ -4,8 +4,10 @@ import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
 import ImageView from '@Hi/Components/ImageView';
+import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
+import TextView from '@Hi/Components/TextView';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
 import VStack from '@Hi/Components/VStack';
 import RGBAModel from '@Hi/RGBAModel';
@@ -25,6 +27,20 @@ class FlexWindowsViewerItem extends ClickButton {
 
         super(
             new VStack(
+                new HStack(
+                    new ClickButton(
+                        new IonIcon('bookmark-outline').foreground(
+                            RGBAModel.WHITE.alpha(0.5),
+                        ),
+                    ).whenClicked(ev => {
+                        ev.browserEvent.stopPropagation();
+                    }),
+                )
+                    .position('absolute')
+                    .setTop(5)
+                    .setLeft(0)
+                    .alignEnd()
+                    .width('100%'),
                 new Spacer(),
                 image,
                 new Spacer(),
@@ -48,7 +64,8 @@ class FlexWindowsViewerItem extends ClickButton {
             .height(150)
             .whenClicked(() => {
                 flexarch.focusWindow(windowId);
-            });
+            })
+            .position('relative');
 
         image.whenLoaded(() => {
             const avg = getAverageRGB(image.body, 1, [RGBAModel.WHITE]);
