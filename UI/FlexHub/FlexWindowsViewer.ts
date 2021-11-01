@@ -14,23 +14,18 @@ import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
 
 class FlexWindowsViewerItem extends ClickButton {
-    private static readonly MAXLEN = 15;
+    private static readonly MAXLEN = 20;
 
     constructor(meta: URLMeta, windowId: number) {
         const image = new ImageView(FlexWindowsViewerItem.getFaviconURL(meta))
             .rounded('100%')
-            .border({
-                size: 2,
-                style: 'solid',
-                color: HColor(BrowserPreferences.colorTheme),
-            })
             .width(36)
             .height(36)
-            .margin({ bottom: 10 });
+            .padding(5);
 
         super(
             new VStack(
-                // new IonIcon('compass').font('xxl').padding(),
+                new Spacer(),
                 image,
                 new Spacer(),
                 new TruncatedTextView(meta.title, FlexWindowsViewerItem.MAXLEN),
@@ -40,14 +35,15 @@ class FlexWindowsViewerItem extends ClickButton {
                 )
                     .id('window-title')
                     .foreground(HColor('background').alpha(0.5)),
-            ),
+                new Spacer(),
+            ).stretch(),
         );
 
         this.rounded()
             .background(HColor(BrowserPreferences.colorTheme))
             .foreground(HColor('background'))
             .padding()
-            .margin({ bottom: 25, right: 25 })
+            .margin(12)
             .width(150)
             .height(150)
             .whenClicked(() => {
