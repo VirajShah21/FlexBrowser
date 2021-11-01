@@ -9,7 +9,6 @@ export default class HideTaskbarButton extends TaskbarButton {
         super(new IonIcon('chevron-down'));
         this.padding(0)
             .font('sm')
-            .whenClicked(flexarch.hideTaskbar)
             .whenClicked(ev => {
                 const view = ev.view as HideTaskbarButton;
                 view.isShown = !view.isShown;

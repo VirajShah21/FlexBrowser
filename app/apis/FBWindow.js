@@ -2,10 +2,11 @@ const { readRC, readHistoryFile, writeHistoryFile } = require('./CoreAccess');
 const { nativeTheme, BrowserView, BrowserWindow } = require('electron');
 const path = require('path');
 const { debug } = require('./ArchLogger');
-
-const DEFAULT_WINDOW_WIDTH = 800;
-const DEFAULT_WINDOW_HEIGHT = 600;
-const TOP_FRAME_HEIGHT = 58;
+const {
+    TOP_FRAME_HEIGHT,
+    DEFAULT_WINDOW_WIDTH,
+    DEFAULT_WINDOW_HEIGHT,
+} = require('./constants');
 
 const browserWindowOptions = {
     width: DEFAULT_WINDOW_WIDTH,
