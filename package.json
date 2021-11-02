@@ -91,7 +91,7 @@
             "packagerConfig": {
                 "icon": "icon",
                 "ignore": [
-                    "^/Client",
+                    "^/Client/ts",
                     "^/components",
                     "^/Models",
                     "^/Coverage",
