@@ -89,7 +89,33 @@
     "config": {
         "forge": {
             "packagerConfig": {
-                "icon": "icon"
+                "icon": "icon",
+                "ignore": [
+                    "^/Client",
+                    "^/components",
+                    "^/Models",
+                    "^/Coverage",
+                    "^/.github",
+                    "^/.nyc_output",
+                    "^/.vscode",
+                    "^/components",
+                    "^/coverage",
+                    "^/Models",
+                    "^/README",
+                    "^/test",
+                    "^/triggers",
+                    "^/UI",
+                    "^/node_modules",
+                    "^/.eslintrc.js",
+                    "^/.gitignore",
+                    "^/.prettierrc",
+                    "^/docs.sh",
+                    "^/icons.icns",
+                    "^/icon.png",
+                    "^/LICENSE",
+                    "^/tsconfig.json",
+                    "^/webpack.config.js"
+                ]
             },
             "makers": [
                 {
