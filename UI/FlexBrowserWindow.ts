@@ -9,8 +9,9 @@ import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
-import TextView from '@Hi/Components/TextView';
+import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import Resources from '@Hi/Resources';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import View from '@Hi/View';
 import ValidURL from '@Models/ValidURL';
@@ -124,7 +125,13 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                     })
                     .id('titlebar'),
 
-                new Spacer(), // Pushes navbar to top and makes space for Electron.BrowserView
+                new VStack()
+                    .id('error')
+                    .height('100%')
+                    .width('100%')
+                    .backgroundImage(
+                        Resources.getResourcePath('images', 'backdrop.png'),
+                    ),
             )
                 .stretch()
                 .background(HColor('background').alpha(0.5)),
@@ -195,5 +202,30 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         ) {
             this.goTo(this.history[this.historyPointer] || 'flex://error');
         } else this.historyPointer -= 1;
+    }
+
+    public override handle(data: string, ...args: unknown[]): void {
+        if (data === 'page-load-err') {
+            this.findViewById('error')!.opacity(1);
+            this.findViewById('error')!
+                .removeAllChildren()
+                .addChildren(
+                    new TextView(`Error: ${args[0]}`)
+                        .weight(FontWeight.UltraHeavy)
+                        .font('xxl')
+                        .margin({ bottom: 25 }),
+                    new TextView(
+                        `An error occured when navigating to ${args[1]} – ${args[0]}`,
+                    )
+                        .background(HColor('background').alpha(0.9))
+                        .foreground(HColor('foreground'))
+                        .font('lg')
+                        .weight(FontWeight.Light)
+                        .padding(20)
+                        .rounded(),
+                );
+        } else if (data === 'page-load-good') {
+            this.findViewById('error')!.opacity(0);
+        }
     }
 }
