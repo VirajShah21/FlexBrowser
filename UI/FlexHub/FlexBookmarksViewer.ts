@@ -1,5 +1,6 @@
 import Favicon from '@Components/Favicon';
 import HubTitlebar from '@Components/hub/HubTitlebar';
+import ThemedButton from '@Components/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import DetailsView, { DetailsSummaryView } from '@Hi/Components/DetailsView';
@@ -34,7 +35,7 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                                 .foreground(HColor('gray')),
                             ...flexarch.getWindowList().map(
                                 meta =>
-                                    new ClickButton(
+                                    new ThemedButton(
                                         new HStack(
                                             new Favicon(new ValidURL(meta.url))
                                                 .width(24)
@@ -56,7 +57,7 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                             .foreground(HColor('gray')),
 
                         ...flexarch.getBookmarks().map(bookmark =>
-                            new ClickButton(
+                            new ThemedButton(
                                 new HStack(
                                     new TextView(bookmark.title),
                                     new Spacer(),
