@@ -127,10 +127,11 @@ export default class FlexBrowserWindow extends HIFullScreenView {
 
                 new VStack()
                     .id('error')
+                    .height('100%')
+                    .width('100%')
                     .backgroundImage(
-                        Resources.getImageView('backdrop.png').source,
-                    )
-                    .height('100%'),
+                        Resources.getResourcePath('images', 'backdrop.png'),
+                    ),
             )
                 .stretch()
                 .background(HColor('background').alpha(0.5)),
