@@ -1,7 +1,7 @@
 // During testing, ipcMain is undefined.
 
 const { info, error } = require('./ArchLogger');
-const { ipcMain, BrowserWindow } = require('electron');
+const { ipcMain, BrowserWindow, BrowserView } = require('electron');
 const {
     readBookmarksFile,
     writeBookmarksFile,
@@ -12,8 +12,13 @@ const {
 } = require('./CoreAccess');
 const { focusHubWindow } = require('./FBHub');
 const { createWindow } = require('./FBWindow');
-const { TOP_FRAME_HEIGHT } = require('./constants');
+const {
+    TOP_FRAME_HEIGHT,
+    DEFAULT_WINDOW_WIDTH,
+    DEFAULT_WINDOW_HEIGHT,
+} = require('./constants');
 const { warn } = require('console');
+const path = require('path');
 
 function findBrowserWindow(event) {
     return BrowserWindow.getAllWindows().find(
@@ -113,7 +118,27 @@ if (ipcMain) {
     ipcMain.on('changeUrl', (event, to) => {
         logIpcMainEventInvoked(event, 'changeUrl', to);
         const browserWindow = findBrowserWindow(event);
-        browserWindow.getBrowserView().webContents.loadURL(to);
+        let browserView = browserWindow.getBrowserView();
+
+        if (!browserView) {
+            browserWindow.setBrowserView(new BrowserView());
+            browserView = browserWindow.getBrowserView();
+            browserView.setBounds({
+                x: 0,
+                y: TOP_FRAME_HEIGHT,
+                width: browserWindow.getSize()[0],
+                height: browserWindow.getSize()[1] - TOP_FRAME_HEIGHT,
+            });
+        }
+
+        const browserViewContents = browserView.webContents;
+
+        browserViewContents.loadURL(to).catch(err => {
+            browserWindow.removeBrowserView(browserView);
+            browserWindow.webContents.executeJavaScript(
+                `signal('page-load-err', '${err.code}', '${err.url}')`,
+            );
+        });
         info(`Changed URL for window with ID: ${browserWindow.id}`);
     });
 
