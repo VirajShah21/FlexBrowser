@@ -43,9 +43,20 @@ const hubButtonBuildOut = defineTransition({
  * @param {string} title The button's label.
  * @returns {ClickButton} The resultant hub button.
  */
-function HubButton(icon: IonIcon, title: string): ClickButton {
+function HubButton(icon: string, title: string): ClickButton {
     const btn = new ClickButton(
-        new VStack(icon.font(50), new Spacer(), new TextView(title))
+        new VStack(
+            new IonIcon(`${icon}-outline`)
+                .font(50)
+                .whenMouseOver(ev => {
+                    (ev.view as IonIcon).name = icon;
+                })
+                .whenMouseOut(ev => {
+                    (ev.view as IonIcon).name = `${icon}-outline`;
+                }),
+            new Spacer(),
+            new TextView(title),
+        )
             .stretch()
             .alignMiddle(),
     )
@@ -89,10 +100,7 @@ export default class FlexHub extends HIFullScreenView {
                 new HStack(
                     new Spacer(),
 
-                    HubButton(
-                        new IonIcon('albums-outline'),
-                        'Windows',
-                    ).whenClicked(() => {
+                    HubButton('albums', 'Windows').whenClicked(() => {
                         ViewController.getController(
                             'AppController',
                         )!.navigateTo(new FlexWindowsViewer(), 1000);
@@ -100,10 +108,7 @@ export default class FlexHub extends HIFullScreenView {
 
                     new Spacer(),
 
-                    HubButton(
-                        new IonIcon('bookmarks-outline'),
-                        'Bookmarks',
-                    ).whenClicked(() => {
+                    HubButton('bookmarks', 'Bookmarks').whenClicked(() => {
                         ViewController.getController(
                             'AppController',
                         )!.navigateTo(new FlexBookmarksViewer(), 1000);
@@ -111,14 +116,11 @@ export default class FlexHub extends HIFullScreenView {
 
                     new Spacer(),
 
-                    HubButton(new IonIcon('time-outline'), 'History'),
+                    HubButton('time', 'History'),
 
                     new Spacer(),
 
-                    HubButton(
-                        new IonIcon('cog-outline'),
-                        'Preferences',
-                    ).whenClicked(() =>
+                    HubButton('cog', 'Preferences').whenClicked(() =>
                         ViewController.getController(
                             'AppController',
                         )!.navigateTo(new FlexPreferences(), 1000),
