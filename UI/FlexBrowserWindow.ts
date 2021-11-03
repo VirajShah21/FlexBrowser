@@ -9,7 +9,7 @@ import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
-import TextView from '@Hi/Components/TextView';
+import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import Resources from '@Hi/Resources';
 import { defineTransition } from '@Hi/Transitions/Transition';
@@ -210,10 +210,19 @@ export default class FlexBrowserWindow extends HIFullScreenView {
             this.findViewById('error')!
                 .removeAllChildren()
                 .addChildren(
-                    new TextView(`Error: ${args[0]}`),
+                    new TextView(`Error: ${args[0]}`)
+                        .weight(FontWeight.UltraHeavy)
+                        .font('xxl')
+                        .margin({ bottom: 25 }),
                     new TextView(
                         `An error occured when navigating to ${args[1]} – ${args[0]}`,
-                    ),
+                    )
+                        .background(HColor('background').alpha(0.9))
+                        .foreground(HColor('foreground'))
+                        .font('lg')
+                        .weight(FontWeight.Light)
+                        .padding(20)
+                        .rounded(),
                 );
         } else if (data === 'page-load-good') {
             this.findViewById('error')!.opacity(0);
