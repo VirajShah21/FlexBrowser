@@ -51,7 +51,7 @@ function createWindow() {
     win.getBrowserView().webContents.loadURL('https://google.com');
 
     win.addListener('resize', () => {
-        win.getBrowserView().setBounds({
+        win.getBrowserView()?.setBounds({
             x: 0,
             y: TOP_FRAME_HEIGHT,
             width: win.getSize()[0],
