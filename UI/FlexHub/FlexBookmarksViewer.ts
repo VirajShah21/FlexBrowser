@@ -1,20 +1,17 @@
 import Favicon from '@Components/Favicon';
 import HubTitlebar from '@Components/hub/HubTitlebar';
 import ThemedButton from '@Components/ThemedButton';
-import { getAverageRGB, HColor } from '@Hi/Colors';
-import ClickButton from '@Hi/Components/ClickButton';
+import { HColor } from '@Hi/Colors';
 import DetailsView, { DetailsSummaryView } from '@Hi/Components/DetailsView';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
-import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import RGBAModel from '@Hi/RGBAModel';
-import BookmarksManager from '@Models/BookmarksManager';
 import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
+import FlexBookmarkItem from './FlexBookmarkItem';
 
 export default class FlexBookmarksViewer extends HIFullScreenView {
     constructor() {
@@ -34,6 +31,7 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                             )
                                 .textStart()
                                 .foreground(HColor('gray')),
+
                             ...flexarch.getWindowList().map(
                                 meta =>
                                     new ThemedButton(
@@ -57,62 +55,9 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                             .textStart()
                             .foreground(HColor('gray')),
 
-                        ...flexarch.getBookmarks().map(bookmark =>
-                            new ThemedButton(
-                                new HStack(
-                                    new Favicon(new ValidURL(bookmark.url))
-                                        .width(24)
-                                        .height(24)
-                                        .whenLoaded(ev => {
-                                            const thisFavicon =
-                                                ev.view as Favicon;
-                                            const avgRGB = getAverageRGB(
-                                                thisFavicon.body,
-                                            );
-
-                                            thisFavicon
-                                                .root(view =>
-                                                    view
-                                                        .getClassList()
-                                                        .includes(
-                                                            'bookmark-item',
-                                                        ),
-                                                )
-                                                .background(avgRGB)
-                                                .border({
-                                                    size: 1,
-                                                    style: 'solid',
-                                                    color: avgRGB,
-                                                });
-                                        }),
-                                    new TextView(bookmark.title),
-                                    new Spacer(),
-
-                                    new ClickButton(
-                                        new IonIcon('bookmark')
-                                            .whenMouseOver(ev => {
-                                                // eslint-disable-next-line no-param-reassign
-                                                (ev.view as IonIcon).name =
-                                                    'trash-outline';
-                                            })
-                                            .whenMouseOut(ev => {
-                                                // eslint-disable-next-line no-param-reassign
-                                                (ev.view as IonIcon).name =
-                                                    'bookmark';
-                                            }),
-                                    ).whenClicked(() => {
-                                        BookmarksManager.removeBookmark(
-                                            new ValidURL(bookmark.url),
-                                        );
-                                    }),
-                                ).stretch(),
-                            )
-                                .width('calc(100% - 20px)')
-                                .padding()
-                                .rounded()
-                                .margin({ bottom: 10 })
-                                .addClass('bookmark-item'),
-                        ),
+                        ...flexarch
+                            .getBookmarks()
+                            .map(bookmark => new FlexBookmarkItem(bookmark)),
                     )
                         .stretch()
                         .padding()
