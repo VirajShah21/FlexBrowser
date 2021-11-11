@@ -1,4 +1,4 @@
-import { HighlightColorPreferences } from '@Components/hub/ColorPreferences';
+import { HighlightColorPreferences } from '@Components/hub/HighlightColorPreferences';
 import ThemePreferences from '@Components/hub/ThemePreferences';
 import BaseHubWindow from './BaseHubWindow';
 
