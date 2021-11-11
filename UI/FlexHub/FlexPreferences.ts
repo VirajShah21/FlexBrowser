@@ -7,7 +7,7 @@ import Resources from '@Hi/Resources';
 import { ViewController } from '@Hi/ViewController';
 import BaseHubWindow from './BaseHubWindow';
 import BrowserFramePreferences from './BrowserFramePreferences';
-import ColorPreferences from './ColorPreferences';
+import ColorPreferences from '../../components/hub/ColorPreferences';
 import SearchEnginePreferences from './SearchEnginePreferences';
 
 export class FlexPreferenceMenuButton extends ClickButton {
