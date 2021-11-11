@@ -11,7 +11,7 @@ import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
-import FlexBookmarkItem from './FlexBookmarkItem';
+import FlexBookmarkItem from '@Components/hub/FlexBookmarkItem';
 
 export default class FlexBookmarksViewer extends HIFullScreenView {
     constructor() {
