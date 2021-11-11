@@ -1,7 +1,7 @@
 import Favicon from '@Components/Favicon';
 import HubTitlebar from '@Components/hub/HubTitlebar';
 import ThemedButton from '@Components/ThemedButton';
-import { HColor } from '@Hi/Colors';
+import { getAverageRGB, HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import DetailsView, { DetailsSummaryView } from '@Hi/Components/DetailsView';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
@@ -11,6 +11,7 @@ import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import RGBAModel from '@Hi/RGBAModel';
 import BookmarksManager from '@Models/BookmarksManager';
 import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
@@ -59,6 +60,31 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                         ...flexarch.getBookmarks().map(bookmark =>
                             new ThemedButton(
                                 new HStack(
+                                    new Favicon(new ValidURL(bookmark.url))
+                                        .width(24)
+                                        .height(24)
+                                        .whenLoaded(ev => {
+                                            const thisFavicon =
+                                                ev.view as Favicon;
+                                            const avgRGB = getAverageRGB(
+                                                thisFavicon.body,
+                                            );
+
+                                            thisFavicon
+                                                .root(view =>
+                                                    view
+                                                        .getClassList()
+                                                        .includes(
+                                                            'bookmark-item',
+                                                        ),
+                                                )
+                                                .background(avgRGB)
+                                                .border({
+                                                    size: 1,
+                                                    style: 'solid',
+                                                    color: avgRGB,
+                                                });
+                                        }),
                                     new TextView(bookmark.title),
                                     new Spacer(),
 
@@ -84,8 +110,8 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                                 .width('calc(100% - 20px)')
                                 .padding()
                                 .rounded()
-                                .background(HColor('background').alpha(0.1))
-                                .margin({ bottom: 10 }),
+                                .margin({ bottom: 10 })
+                                .addClass('bookmark-item'),
                         ),
                     )
                         .stretch()
