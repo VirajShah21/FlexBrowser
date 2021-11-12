@@ -44,4 +44,14 @@ export default class FlexArch {
     static showTaskbar(): void {}
 
     static hideTaskbar(): void {}
+
+    static setPassword(account: string, password: string): void {}
+
+    static getPassword(account: string): string {
+        return '';
+    }
+
+    static getAccounts(): string[] {
+        return [];
+    }
 }
