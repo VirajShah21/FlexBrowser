@@ -19,6 +19,7 @@ const {
 } = require('./constants');
 const { warn } = require('console');
 const path = require('path');
+const keytar = require('keytar');
 
 function findBrowserWindow(event) {
     return BrowserWindow.getAllWindows().find(
@@ -231,5 +232,20 @@ if (ipcMain) {
             width: instance.getSize()[0],
             height: instance.getSize()[1] - TOP_FRAME_HEIGHT,
         });
+    });
+
+    ipcMain.on('setPassword', (event, account, password) => {
+        logIpcMainEventInvoked(event, 'savePassword', account, password);
+        keytar.setPassword('Flex Browser', account, password);
+    });
+
+    ipcMain.on('getPassword', (event, account) => {
+        logIpcMainEventInvoked(event, 'getPassword', account);
+        event.returnValue = keytar.getPassword('Flex Browser', account);
+    });
+
+    ipcMain.on('getAccounts', event => {
+        logIpcMainEventInvoked(event, 'getAccounts');
+        event.returnValue = keytar.findCredentials('Flex Browser');
     });
 }
