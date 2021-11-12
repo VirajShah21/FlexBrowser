@@ -14,6 +14,7 @@ import BrowserPreferences from '../../Models/BrowserPreferences';
 import FlexBookmarksViewer from './FlexBookmarksViewer';
 import FlexPreferences from './FlexPreferences';
 import FlexWindowsViewer from './FlexWindowsViewer';
+import PasswordManager from './PasswordManager';
 
 const hubButtonBuildIn = defineTransition({
     from: {
@@ -97,44 +98,67 @@ export default class FlexHub extends HIFullScreenView {
 
                 new Spacer(),
 
+                new VStack(
+                    new Spacer(),
+
+                    new HStack(
+                        new Spacer(),
+
+                        HubButton('albums', 'Windows').whenClicked(() => {
+                            ViewController.getController(
+                                'AppController',
+                            )!.navigateTo(new FlexWindowsViewer(), 1000);
+                        }),
+
+                        new Spacer(),
+
+                        HubButton('bookmarks', 'Bookmarks').whenClicked(() => {
+                            ViewController.getController(
+                                'AppController',
+                            )!.navigateTo(new FlexBookmarksViewer(), 1000);
+                        }),
+
+                        new Spacer(),
+
+                        HubButton('time', 'History'),
+
+                        new Spacer(),
+
+                        HubButton('cog', 'Preferences').whenClicked(() =>
+                            ViewController.getController(
+                                'AppController',
+                            )!.navigateTo(new FlexPreferences(), 1000),
+                        ),
+
+                        new Spacer(),
+                    ).width('100%'),
+
+                    new Spacer(),
+                )
+                    .width('100%')
+                    .foreground(HColor('foreground')),
+
+                new Spacer(),
+
                 new HStack(
                     new Spacer(),
 
-                    HubButton('albums', 'Windows').whenClicked(() => {
+                    HubButton('lock-closed', 'Passwords').whenClicked(() =>
                         ViewController.getController(
                             'AppController',
-                        )!.navigateTo(new FlexWindowsViewer(), 1000);
-                    }),
-
-                    new Spacer(),
-
-                    HubButton('bookmarks', 'Bookmarks').whenClicked(() => {
-                        ViewController.getController(
-                            'AppController',
-                        )!.navigateTo(new FlexBookmarksViewer(), 1000);
-                    }),
-
-                    new Spacer(),
-
-                    HubButton('time', 'History'),
-
-                    new Spacer(),
-
-                    HubButton('cog', 'Preferences').whenClicked(() =>
-                        ViewController.getController(
-                            'AppController',
-                        )!.navigateTo(new FlexPreferences(), 1000),
+                        )!.navigateTo(new PasswordManager(), 1000),
                     ),
 
                     new Spacer(),
-                ).width('100%'),
+                )
+                    .width('100%')
+                    .foreground(HColor('foreground')),
 
                 new Spacer(),
             )
                 .stretch()
-                .background(HColor('background').alpha(0.75))
-                .foreground(HColor('foreground'))
-                .padding({ top: HubTitlebar.HEIGHT }),
+                .padding({ top: HubTitlebar.HEIGHT })
+                .background(HColor('background').alpha(0.5)),
         );
 
         this.body.style.setProperty('-webkit-app-region', 'drag');
