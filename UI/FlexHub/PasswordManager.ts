@@ -2,6 +2,7 @@ import ThemedButton from '@Components/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
+import InputField from '@Hi/Components/InputField';
 import Overlay from '@Hi/Components/Overlay';
 import PasswordField from '@Hi/Components/PasswordField';
 import ScrollView from '@Hi/Components/ScrollView';
@@ -33,7 +34,9 @@ export default class PasswordManager extends BaseHubWindow {
                                         new Spacer(),
                                         new TextField(
                                             'google.com (example@gmail.com)',
-                                        ).width('65%'),
+                                        )
+                                            .width('65%')
+                                            .id('keychain-account'),
                                     )
                                         .width('100%')
                                         .margin({ bottom: 50 }),
@@ -43,12 +46,29 @@ export default class PasswordManager extends BaseHubWindow {
                                             FontWeight.Bold,
                                         ),
                                         new Spacer(),
-                                        new PasswordField().width('65%'),
+                                        new PasswordField()
+                                            .width('65%')
+                                            .id('keychain-password'),
                                     )
                                         .width('100%')
                                         .margin({ bottom: 50 }),
 
-                                    new ThemedButton(new TextView('Add')),
+                                    new ThemedButton(
+                                        new TextView('Add'),
+                                    ).whenClicked(() => {
+                                        const root = this.root();
+                                        const account = (
+                                            root.findViewById(
+                                                'keychain-account',
+                                            ) as InputField
+                                        ).value;
+                                        const password = (
+                                            root.findViewById(
+                                                'keychain-password',
+                                            ) as InputField
+                                        ).value;
+                                        flexarch.setPassword(account, password);
+                                    }),
 
                                     new Spacer(),
                                 )
