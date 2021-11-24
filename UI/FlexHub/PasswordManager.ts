@@ -11,6 +11,7 @@ import TextField from '@Hi/Components/TextField';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import BrowserPreferences from '@Models/BrowserPreferences';
+import { addPassword } from '@Triggers/PasswordManagerTriggers';
 import BaseHubWindow from './BaseHubWindow';
 
 export default class PasswordManager extends BaseHubWindow {
@@ -23,64 +24,39 @@ export default class PasswordManager extends BaseHubWindow {
                     new ClickButton(new TextView('+').weight(FontWeight.Bold))
                         .background(HColor(BrowserPreferences.colorTheme))
                         .foreground(HColor('background'))
-                        .whenClicked(() => {
-                            const overlay = new Overlay(
-                                new VStack(
-                                    new Spacer(),
-                                    new HStack(
-                                        new TextView('Account').weight(
-                                            FontWeight.Bold,
-                                        ),
-                                        new Spacer(),
-                                        new TextField(
-                                            'google.com (example@gmail.com)',
-                                        )
-                                            .width('65%')
-                                            .id('keychain-account'),
-                                    )
-                                        .width('100%')
-                                        .margin({ bottom: 50 }),
-
-                                    new HStack(
-                                        new TextView('Password').weight(
-                                            FontWeight.Bold,
-                                        ),
-                                        new Spacer(),
-                                        new PasswordField()
-                                            .width('65%')
-                                            .id('keychain-password'),
-                                    )
-                                        .width('100%')
-                                        .margin({ bottom: 50 }),
-
-                                    new ThemedButton(
-                                        new TextView('Add'),
-                                    ).whenClicked(() => {
-                                        const root = this.root();
-                                        const account = (
-                                            root.findViewById(
-                                                'keychain-account',
-                                            ) as InputField
-                                        ).value;
-                                        const password = (
-                                            root.findViewById(
-                                                'keychain-password',
-                                            ) as InputField
-                                        ).value;
-                                        flexarch.setPassword(account, password);
-                                    }),
-
-                                    new Spacer(),
-                                )
-                                    .id('add-account-menu')
-                                    .stretch()
-                                    .padding(),
-                            );
-                        }),
+                        .whenClicked(addPassword),
                 ).width('100%'),
 
                 new ScrollView(new VStack().id('passwords-list')).stretch(),
             ).stretch(),
         );
+
+        // this.fillPasswordList();
+    }
+
+    public static get accounts(): string[] {
+        return flexarch.getAccounts();
+    }
+
+    public static get keychain(): { account: string; password: string }[] {
+        const { accounts } = PasswordManager;
+        return accounts.map(account => ({
+            account,
+            password: flexarch.getPassword(account),
+        }));
+    }
+
+    public fillPasswordList(): void {
+        this.findViewById('passwords-list')!
+            .removeAllChildren()
+            .addChildren(
+                ...PasswordManager.keychain.map(
+                    keychainObject =>
+                        new HStack(
+                            new TextView(keychainObject.account),
+                            new TextView(keychainObject.password),
+                        ),
+                ),
+            );
     }
 }
