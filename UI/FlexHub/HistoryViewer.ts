@@ -36,7 +36,7 @@ export default class HistoryViewer extends BaseHubWindow {
         super('History');
     }
 
-    private static parseHistoryRecord(record: string): HistoryRecord {
+    public static parseHistoryRecord(record: string): HistoryRecord {
         const split = record.split(' ');
         const day = split[0] as DayOfWeek;
         const month = split[1] as Month;
