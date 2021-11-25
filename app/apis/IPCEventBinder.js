@@ -9,6 +9,7 @@ const {
     writeRC,
     readBrandingRegistry,
     writeBrandingRegistry,
+    readHistoryFile,
 } = require('./CoreAccess');
 const { focusHubWindow } = require('./FBHub');
 const { createWindow } = require('./FBWindow');
@@ -254,5 +255,10 @@ if (ipcMain) {
         const instance = findBrowserWindow(event);
         const browserView = instance.getBrowserView();
         browserView.webContents.reload();
+    });
+
+    ipcMain.handle('getHistory', event => {
+        logIpcMainEventInvoked(event, 'getHistory');
+        return readHistoryFile();
     });
 }

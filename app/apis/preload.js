@@ -72,6 +72,10 @@ function reloadBrowserView() {
     ipcRenderer.invoke('reloadBrowserView');
 }
 
+function getHistory() {
+    return ipcRenderer.invoke('getHistory');
+}
+
 contextBridge.exposeInMainWorld('flexarch', {
     changeUrl,
     newWindow,
@@ -92,4 +96,5 @@ contextBridge.exposeInMainWorld('flexarch', {
     getPassword,
     getAccounts,
     reloadBrowserView,
+    getHistory,
 });
