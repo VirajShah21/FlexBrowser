@@ -1,4 +1,7 @@
+import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
+import ScrollView from '@Hi/Components/ScrollView';
+import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import BaseHubWindow from './BaseHubWindow';
@@ -39,15 +42,21 @@ export default class HistoryViewer extends BaseHubWindow {
         super(
             'History',
 
-            new VStack().id('history-container'),
+            new ScrollView(
+                new VStack().id('history-container').stretch(),
+            ).stretch(),
         );
 
         HistoryViewer.getHistory().then(records => {
             this.findViewById('history-container')
                 ?.removeAllChildren()
                 .addChildren(
-                    ...records.map(
-                        record => new HStack(new TextView(record.title)),
+                    ...records.map(record =>
+                        new HStack(new TextView(record.title), new Spacer())
+                            .width('100%')
+                            .rounded()
+                            .background(HColor('background'))
+                            .padding(),
                     ),
                 );
         });
