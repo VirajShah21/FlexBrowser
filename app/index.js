@@ -165,12 +165,12 @@ function startup() {
                 {
                     id: 'duck-duck-go',
                     name: 'Duck Duck Go',
-                    urlPrefix: 'https://duckduckgo.com/q=',
+                    urlPrefix: 'https://duckduckgo.com/?q=',
                 },
                 {
                     id: 'bing',
                     name: 'Bing',
-                    urlPrefix: 'https://duckduckgo.com/q=',
+                    urlPrefix: 'https://www.bing.com/search?q=',
                 },
             ],
             defaultSearchEngine: 'google',
