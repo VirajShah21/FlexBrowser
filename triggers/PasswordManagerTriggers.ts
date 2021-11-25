@@ -1,4 +1,5 @@
 import ThemedButton from '@Components/ThemedButton';
+import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import InputField from '@Hi/Components/InputField';
 import Overlay from '@Hi/Components/Overlay';
@@ -7,9 +8,8 @@ import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import HumanEvent from '@Hi/Types/HumanEvent';
 
-export function addPassword(ev: HumanEvent): void {
+export default function addPassword(): void {
     const overlay = new Overlay(
         new VStack(
             new Spacer(),
@@ -48,5 +48,5 @@ export function addPassword(ev: HumanEvent): void {
             .id('add-account-menu')
             .stretch()
             .padding(),
-    );
+    ).background(HColor('background'));
 }

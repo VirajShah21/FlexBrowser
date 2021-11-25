@@ -6,7 +6,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import BrowserPreferences from '@Models/BrowserPreferences';
-import { addPassword } from '@Triggers/PasswordManagerTriggers';
+import addPassword from '@Triggers/PasswordManagerTriggers';
 import BaseHubWindow from './BaseHubWindow';
 
 export default class PasswordManager extends BaseHubWindow {
@@ -20,7 +20,9 @@ export default class PasswordManager extends BaseHubWindow {
                         .background(HColor(BrowserPreferences.colorTheme))
                         .foreground(HColor('background'))
                         .whenClicked(addPassword),
-                ).width('100%'),
+                )
+                    .width('100%')
+                    .margin({ bottom: 10 }),
 
                 new ScrollView(new VStack().id('passwords-list')).stretch(),
             ).stretch(),
@@ -40,13 +42,18 @@ export default class PasswordManager extends BaseHubWindow {
             this.findViewById('passwords-list')!
                 .removeAllChildren()
                 .addChildren(
-                    ...accounts.map(
-                        account =>
-                            new HStack(
-                                new TextView(account.account).weight(
-                                    FontWeight.Bold,
-                                ),
+                    ...accounts.map(account =>
+                        new HStack(
+                            new TextView(account.account).weight(
+                                FontWeight.Medium,
                             ),
+                            new Spacer(),
+                        )
+                            .width('100%')
+                            .background(HColor('background'))
+                            .padding(5)
+                            .margin({ bottom: 5 })
+                            .rounded(5),
                     ),
                 );
         });
