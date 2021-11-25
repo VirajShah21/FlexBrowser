@@ -56,4 +56,8 @@ export default class FlexArch {
     }
 
     static reloadBrowserView(): void {}
+
+    static getHistory(): string {
+        return '';
+    }
 }

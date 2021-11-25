@@ -7,6 +7,7 @@ const {
     DEFAULT_WINDOW_WIDTH,
     DEFAULT_WINDOW_HEIGHT,
 } = require('./constants');
+const { addToHistory } = require('./CoreAccess');
 
 const browserWindowOptions = {
     width: DEFAULT_WINDOW_WIDTH,
@@ -61,16 +62,8 @@ function createWindow() {
 
     win.getBrowserView().webContents.addListener('page-title-updated', () => {
         win.webContents.executeJavaScript('signal("browser-navigated")');
-
-        const history = readHistoryFile();
         const { webContents } = win.getBrowserView();
-
-        history.push({
-            url: webContents.getURL(),
-            title: webContents.getTitle(),
-        });
-
-        writeHistoryFile(history);
+        addToHistory(webContents.getURL(), webContents.getTitle());
     });
 }
 

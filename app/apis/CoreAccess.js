@@ -82,18 +82,21 @@ exports.writeBrandingRegistry = registry => {
 
 exports.readHistoryFile = () => {
     try {
-        return JSON.parse(
-            fs.readFileSync(path.join(HOMEDIR, '.flex-history.json'), 'utf-8'),
-        );
+        return fs.readFileSync(path.join(HOMEDIR, '.flex-history'), 'utf-8');
     } catch (e) {
-        error('Error reading/parsing history file.');
-        return [];
+        fs.writeFileSync(path.join(HOMEDIR, '.flex-history'), '');
+        return '';
     }
 };
 
 exports.writeHistoryFile = history => {
-    fs.writeFileSync(
-        path.join(HOMEDIR, '.flex-history.json'),
-        JSON.stringify(history, null, 4),
-    );
+    fs.writeFileSync(path.join(HOMEDIR, '.flex-history'), history);
+};
+
+exports.addToHistory = (url, title) => {
+    const data = exports.readHistoryFile();
+    const dt = new Date();
+    const prepend = `${dt.toDateString()} ${dt.toTimeString()} ${url} ${title}`;
+    const toWrite = `${prepend}\n${data}`;
+    exports.writeHistoryFile(toWrite);
 };
