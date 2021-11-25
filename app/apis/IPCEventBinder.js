@@ -248,4 +248,11 @@ if (ipcMain) {
         logIpcMainEventInvoked(event, 'getAccounts');
         return await keytar.findCredentials('Flex Browser');
     });
+
+    ipcMain.handle('reloadBrowserView', event => {
+        logIpcMainEventInvoked(event, 'reloadBrowserView');
+        const instance = findBrowserWindow(event);
+        const browserView = instance.getBrowserView();
+        browserView.webContents.reload();
+    });
 }

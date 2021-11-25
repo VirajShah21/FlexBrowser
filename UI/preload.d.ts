@@ -49,4 +49,5 @@ declare namespace flexarch {
     function setPassword(account: string, password: string): void;
     function getPassword(account: string): Promise<string>;
     function getAccounts(): Promise<{ account: string; password: string }[]>;
+    function reloadBrowserView(): void;
 }

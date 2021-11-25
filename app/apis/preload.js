@@ -68,6 +68,10 @@ function getAccounts() {
     return ipcRenderer.invoke('getAccounts');
 }
 
+function reloadBrowserView() {
+    ipcRenderer.invoke('reloadBrowserView');
+}
+
 contextBridge.exposeInMainWorld('flexarch', {
     changeUrl,
     newWindow,
@@ -87,4 +91,5 @@ contextBridge.exposeInMainWorld('flexarch', {
     setPassword,
     getPassword,
     getAccounts,
+    reloadBrowserView,
 });

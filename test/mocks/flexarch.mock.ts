@@ -54,4 +54,6 @@ export default class FlexArch {
     static getAccounts(): Promise<{ account: string; password: string }[]> {
         return new Promise(resolve => resolve([]));
     }
+
+    static reloadBrowserView(): void {}
 }
