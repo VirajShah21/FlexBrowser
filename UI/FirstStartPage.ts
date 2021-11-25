@@ -1,4 +1,4 @@
-import { HighlightColorPreferences } from '@Components/hub/ColorPreferences';
+import { HighlightColorPreferences } from '@Components/hub/HighlightColorPreferences';
 import { HColor, rgb } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';

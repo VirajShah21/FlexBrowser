@@ -4,7 +4,7 @@ import ValidURL from '@Models/ValidURL';
 export default class Favicon extends ImageView {
     constructor(url: ValidURL) {
         super(Favicon.getFaviconURL(url));
-        this.rounded('100%').width(36).height(36).padding(5);
+        this.rounded('100%').width(36).height(36);
 
         const untriedExtensions = ['png', 'svg', 'jpg'];
         this.whenError(() => {

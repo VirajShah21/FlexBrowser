@@ -56,6 +56,18 @@ function showTaskbar() {
     ipcRenderer.send('showTaskbar');
 }
 
+function setPassword(account, password) {
+    ipcRenderer.invoke('setPassword', account, password);
+}
+
+function getPassword(account) {
+    return ipcRenderer.invoke('getPassword', account);
+}
+
+function getAccounts() {
+    return ipcRenderer.invoke('getAccounts');
+}
+
 contextBridge.exposeInMainWorld('flexarch', {
     changeUrl,
     newWindow,
@@ -72,4 +84,7 @@ contextBridge.exposeInMainWorld('flexarch', {
     hideTaskbar,
     showTaskbar,
     removeBookmark,
+    setPassword,
+    getPassword,
+    getAccounts,
 });

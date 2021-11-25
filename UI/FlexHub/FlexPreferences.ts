@@ -6,8 +6,7 @@ import VStack from '@Hi/Components/VStack';
 import Resources from '@Hi/Resources';
 import { ViewController } from '@Hi/ViewController';
 import BaseHubWindow from './BaseHubWindow';
-import BrowserFramePreferences from './BrowserFramePreferences';
-import ColorPreferences from './ColorPreferences';
+import ColorPreferences from '../../components/hub/ColorPreferences';
 import SearchEnginePreferences from './SearchEnginePreferences';
 
 export class FlexPreferenceMenuButton extends ClickButton {
@@ -57,11 +56,14 @@ export default class FlexPreferences extends BaseHubWindow {
                     ),
                 ),
 
-                new FlexPreferenceMenuButton('Browser Frame').whenClicked(() =>
-                    ViewController.getController('AppController')?.navigateTo(
-                        new BrowserFramePreferences(),
-                    ),
-                ),
+                // ! Removed before release 0.2.0-alpha
+                // * This should navigate to a taskbar icon editor
+                // * (in the future)
+                // new FlexPreferenceMenuButton('Browser Frame').whenClicked(() =>
+                //     ViewController.getController('AppController')?.navigateTo(
+                //         new BrowserFramePreferences(),
+                //     ),
+                // ),
             )
                 .alignStart()
                 .width('100%'),

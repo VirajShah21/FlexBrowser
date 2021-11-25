@@ -44,4 +44,14 @@ export default class FlexArch {
     static showTaskbar(): void {}
 
     static hideTaskbar(): void {}
+
+    static setPassword(account: string, password: string): void {}
+
+    static getPassword(account: string): Promise<string> {
+        return new Promise(resolve => resolve(''));
+    }
+
+    static getAccounts(): Promise<{ account: string; password: string }[]> {
+        return new Promise(resolve => resolve([]));
+    }
 }

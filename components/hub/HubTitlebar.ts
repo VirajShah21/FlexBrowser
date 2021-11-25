@@ -81,6 +81,7 @@ export default class HubTitlebar extends VStack {
         const container = this.findViewById('titlebar-menu');
         container?.addChildren(
             new ThemedButton(new TextView('Back'))
+                .padding(0)
                 .whenClicked(navigateBack)
                 .id('back-btn'),
         );
