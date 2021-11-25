@@ -1,13 +1,8 @@
-import ThemedButton from '@Components/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
-import InputField from '@Hi/Components/InputField';
-import Overlay from '@Hi/Components/Overlay';
-import PasswordField from '@Hi/Components/PasswordField';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
-import TextField from '@Hi/Components/TextField';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import BrowserPreferences from '@Models/BrowserPreferences';
@@ -31,32 +26,29 @@ export default class PasswordManager extends BaseHubWindow {
             ).stretch(),
         );
 
-        // this.fillPasswordList();
+        this.fillPasswordList();
     }
 
-    public static get accounts(): string[] {
+    public static async getAccounts(): Promise<
+        { account: string; password: string }[]
+    > {
         return flexarch.getAccounts();
     }
 
-    public static get keychain(): { account: string; password: string }[] {
-        const { accounts } = PasswordManager;
-        return accounts.map(account => ({
-            account,
-            password: flexarch.getPassword(account),
-        }));
-    }
-
     public fillPasswordList(): void {
-        this.findViewById('passwords-list')!
-            .removeAllChildren()
-            .addChildren(
-                ...PasswordManager.keychain.map(
-                    keychainObject =>
-                        new HStack(
-                            new TextView(keychainObject.account),
-                            new TextView(keychainObject.password),
-                        ),
-                ),
-            );
+        PasswordManager.getAccounts().then(accounts => {
+            this.findViewById('passwords-list')!
+                .removeAllChildren()
+                .addChildren(
+                    ...accounts.map(
+                        account =>
+                            new HStack(
+                                new TextView(account.account).weight(
+                                    FontWeight.Bold,
+                                ),
+                            ),
+                    ),
+                );
+        });
     }
 }

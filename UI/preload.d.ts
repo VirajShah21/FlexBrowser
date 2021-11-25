@@ -48,5 +48,5 @@ declare namespace flexarch {
     function showTaskbar(): void;
     function setPassword(account: string, password: string): void;
     function getPassword(account: string): string;
-    function getAccounts(): string[];
+    function getAccounts(): Promise<{ account: string; password: string }[]>;
 }
