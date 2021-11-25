@@ -47,11 +47,11 @@ export default class FlexArch {
 
     static setPassword(account: string, password: string): void {}
 
-    static getPassword(account: string): string {
-        return '';
+    static getPassword(account: string): Promise<string> {
+        return new Promise(resolve => resolve(''));
     }
 
-    static getAccounts(): string[] {
-        return [];
+    static getAccounts(): Promise<{ account: string; password: string }[]> {
+        return new Promise(resolve => resolve([]));
     }
 }
