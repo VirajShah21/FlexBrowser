@@ -1,9 +1,14 @@
+import Favicon from '@Components/Favicon';
+import ThemedButton from '@Components/ThemedButton';
 import { HColor } from '@Hi/Colors';
+import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
+import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import ValidURL from '@Models/ValidURL';
 import BaseHubWindow from './BaseHubWindow';
 
 type DayOfWeek = 'Sun' | 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat';
@@ -37,6 +42,23 @@ interface HistoryRecord {
     title: string;
 }
 
+class HistoryViewerItem extends ThemedButton {
+    constructor(record: HistoryRecord) {
+        super(
+            new HStack(
+                new Favicon(new ValidURL(record.url)),
+                new TextView(record.title).margin({ left: 10 }),
+                new Spacer(),
+                new ClickButton(
+                    new IonIcon('close-circle').font('lg'),
+                ).foreground(HColor('gray4')),
+            ).stretch(),
+        );
+
+        this.width('100%');
+    }
+}
+
 export default class HistoryViewer extends BaseHubWindow {
     constructor() {
         super(
@@ -51,13 +73,7 @@ export default class HistoryViewer extends BaseHubWindow {
             this.findViewById('history-container')
                 ?.removeAllChildren()
                 .addChildren(
-                    ...records.map(record =>
-                        new HStack(new TextView(record.title), new Spacer())
-                            .width('100%')
-                            .rounded()
-                            .background(HColor('background'))
-                            .padding(),
-                    ),
+                    ...records.map(record => new HistoryViewerItem(record)),
                 );
         });
     }
