@@ -14,6 +14,7 @@ import BrowserPreferences from '../../Models/BrowserPreferences';
 import FlexBookmarksViewer from './FlexBookmarksViewer';
 import FlexPreferences from './FlexPreferences';
 import FlexWindowsViewer from './FlexWindowsViewer';
+import HistoryViewer from './HistoryViewer';
 import PasswordManager from './PasswordManager';
 
 const hubButtonBuildIn = defineTransition({
@@ -120,7 +121,11 @@ export default class FlexHub extends HIFullScreenView {
 
                         new Spacer(),
 
-                        HubButton('time', 'History'),
+                        HubButton('time', 'History').whenClicked(() =>
+                            ViewController.getController(
+                                'AppController',
+                            )!.navigateTo(new HistoryViewer(), 1000),
+                        ),
 
                         new Spacer(),
 

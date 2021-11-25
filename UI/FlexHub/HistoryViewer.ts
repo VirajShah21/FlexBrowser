@@ -1,3 +1,6 @@
+import HStack from '@Hi/Components/HStack';
+import TextView from '@Hi/Components/TextView';
+import VStack from '@Hi/Components/VStack';
 import BaseHubWindow from './BaseHubWindow';
 
 type DayOfWeek = 'Sun' | 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat';
@@ -33,7 +36,29 @@ interface HistoryRecord {
 
 export default class HistoryViewer extends BaseHubWindow {
     constructor() {
-        super('History');
+        super(
+            'History',
+
+            new VStack().id('history-container'),
+        );
+
+        HistoryViewer.getHistory().then(records => {
+            this.findViewById('history-container')
+                ?.removeAllChildren()
+                .addChildren(
+                    ...records.map(
+                        record => new HStack(new TextView(record.title)),
+                    ),
+                );
+        });
+    }
+
+    public static async getHistory(): Promise<HistoryRecord[]> {
+        const records = await flexarch.getHistory();
+
+        return records
+            .split('\n')
+            .map(record => HistoryViewer.parseHistoryRecord(record));
     }
 
     public static parseHistoryRecord(record: string): HistoryRecord {
