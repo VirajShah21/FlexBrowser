@@ -55,7 +55,7 @@ export default class FlexBookmarkItem extends ThemedButton {
         this.width('100%')
             .padding(5)
             .rounded()
-            .margin({ bottom: 10 })
+            .margin({ top: 10 })
             .addClass('bookmark-item');
     }
 }
