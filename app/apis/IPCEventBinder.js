@@ -234,18 +234,18 @@ if (ipcMain) {
         });
     });
 
-    ipcMain.on('setPassword', (event, account, password) => {
+    ipcMain.handle('setPassword', async (event, account, password) => {
         logIpcMainEventInvoked(event, 'savePassword', account, password);
         keytar.setPassword('Flex Browser', account, password);
     });
 
-    ipcMain.on('getPassword', (event, account) => {
+    ipcMain.handle('getPassword', async (event, account) => {
         logIpcMainEventInvoked(event, 'getPassword', account);
-        event.returnValue = keytar.getPassword('Flex Browser', account);
+        return await keytar.getPassword('Flex Browser', account);
     });
 
-    ipcMain.on('getAccounts', event => {
+    ipcMain.handle('getAccounts', async event => {
         logIpcMainEventInvoked(event, 'getAccounts');
-        event.returnValue = keytar.findCredentials('Flex Browser');
+        return await keytar.findCredentials('Flex Browser');
     });
 }

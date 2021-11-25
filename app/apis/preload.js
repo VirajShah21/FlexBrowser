@@ -57,15 +57,15 @@ function showTaskbar() {
 }
 
 function setPassword(account, password) {
-    ipcRenderer.send('setPassword', account, password);
+    ipcRenderer.invoke('setPassword', account, password);
 }
 
 function getPassword(account) {
-    return ipcRenderer.sendSync('getPassword', account);
+    return ipcRenderer.invoke('getPassword', account);
 }
 
 function getAccounts() {
-    return ipcRenderer.sendSync('getPasswordList');
+    return ipcRenderer.invoke('getAccounts');
 }
 
 contextBridge.exposeInMainWorld('flexarch', {
