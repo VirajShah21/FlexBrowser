@@ -1,17 +1,12 @@
-import Favicon from '@Components/Favicon';
+import FlexBookmarkItem from '@Components/hub/FlexBookmarkItem';
 import HubTitlebar from '@Components/hub/HubTitlebar';
-import ThemedButton from '@Components/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import DetailsView, { DetailsSummaryView } from '@Hi/Components/DetailsView';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
-import HStack from '@Hi/Components/HStack';
 import ScrollView from '@Hi/Components/ScrollView';
-import Spacer from '@Hi/Components/Spacer';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
-import FlexBookmarkItem from '@Components/hub/FlexBookmarkItem';
 
 export default class FlexBookmarksViewer extends HIFullScreenView {
     constructor() {
@@ -32,20 +27,9 @@ export default class FlexBookmarksViewer extends HIFullScreenView {
                                 .textStart()
                                 .foreground(HColor('gray')),
 
-                            ...flexarch.getWindowList().map(
-                                meta =>
-                                    new ThemedButton(
-                                        new HStack(
-                                            new Favicon(new ValidURL(meta.url))
-                                                .width(24)
-                                                .height(24),
-                                            new TextView(meta.title).margin({
-                                                left: 25,
-                                            }),
-                                            new Spacer(),
-                                        ).stretch(),
-                                    ),
-                            ),
+                            ...flexarch
+                                .getWindowList()
+                                .map(meta => new FlexBookmarkItem(meta)),
                         ).width('100%'),
 
                         new TextView('Bookmarks')
