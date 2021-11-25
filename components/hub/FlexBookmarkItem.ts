@@ -1,6 +1,6 @@
 import Favicon from '@Components/Favicon';
 import ThemedButton from '@Components/ThemedButton';
-import { getAverageRGB } from '@Hi/Colors';
+import { getAverageRGB, HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
@@ -26,11 +26,12 @@ export default class FlexBookmarkItem extends ThemedButton {
                                 view.getClassList().includes('bookmark-item'),
                             )
                             .border({
-                                size: 2,
+                                size: 1,
                                 style: 'solid',
                                 color: avgRGB,
                             })
-                            .foreground(avgRGB);
+                            .foreground(avgRGB)
+                            .background(HColor('background'));
                     }),
                 new TextView(bookmark.title),
                 new Spacer(),
