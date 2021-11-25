@@ -58,7 +58,11 @@ export default class HistoryViewer extends BaseHubWindow {
 
         return records
             .split('\n')
-            .map(record => HistoryViewer.parseHistoryRecord(record));
+            .filter(record => record.trim().length > 0)
+            .map(record => {
+                console.log('Record:', record);
+                return HistoryViewer.parseHistoryRecord(record);
+            });
     }
 
     public static parseHistoryRecord(record: string): HistoryRecord {
