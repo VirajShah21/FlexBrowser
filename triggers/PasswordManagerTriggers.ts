@@ -1,5 +1,6 @@
 import ThemedButton from '@Components/ThemedButton';
 import { HColor } from '@Hi/Colors';
+import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
 import InputField from '@Hi/Components/InputField';
 import Overlay from '@Hi/Components/Overlay';
@@ -13,35 +14,44 @@ export default function addPassword(): void {
     const overlay = new Overlay(
         new VStack(
             new Spacer(),
-            new HStack(
-                new TextView('Account').weight(FontWeight.Bold),
-                new Spacer(),
+            new VStack(
+                new HStack(
+                    new TextView('Account').weight(FontWeight.Bold),
+                    new Spacer(),
+                ).width('100%'),
                 new TextField('google.com (example@gmail.com)')
-                    .width('65%')
+                    .width('100%')
                     .id('keychain-account'),
             )
                 .width('100%')
                 .margin({ bottom: 50 }),
 
-            new HStack(
-                new TextView('Password').weight(FontWeight.Bold),
-                new Spacer(),
-                new PasswordField().width('65%').id('keychain-password'),
+            new VStack(
+                new HStack(
+                    new TextView('Password').weight(FontWeight.Bold),
+                    new Spacer(),
+                ).width('100%'),
+                new PasswordField().width('100%').id('keychain-password'),
             )
                 .width('100%')
                 .margin({ bottom: 50 }),
 
-            new ThemedButton(new TextView('Add')).whenClicked(ev => {
-                const root = ev.view.root();
-                const account = (
-                    root.findViewById('keychain-account') as InputField
-                ).value;
-                const password = (
-                    root.findViewById('keychain-password') as InputField
-                ).value;
-                flexarch.setPassword(account, password);
-                overlay.destroy();
-            }),
+            new HStack(
+                new ThemedButton(new TextView('Cancel'))
+                    .foreground(HColor('red'))
+                    .whenClicked(ev => ev.view.root().destroy()),
+                new ThemedButton(new TextView('Add')).whenClicked(ev => {
+                    const root = ev.view.root();
+                    const account = (
+                        root.findViewById('keychain-account') as InputField
+                    ).value;
+                    const password = (
+                        root.findViewById('keychain-password') as InputField
+                    ).value;
+                    flexarch.setPassword(account, password);
+                    overlay.destroy();
+                }),
+            ),
 
             new Spacer(),
         )
