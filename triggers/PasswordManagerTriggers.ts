@@ -3,6 +3,7 @@ import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
 import InputField from '@Hi/Components/InputField';
+import IonIcon from '@Hi/Components/IonIcon';
 import Overlay from '@Hi/Components/Overlay';
 import PasswordField from '@Hi/Components/PasswordField';
 import Spacer from '@Hi/Components/Spacer';
@@ -31,7 +32,37 @@ export default function addPassword(): void {
                     new TextView('Password').weight(FontWeight.Bold),
                     new Spacer(),
                 ).width('100%'),
-                new PasswordField().width('100%').id('keychain-password'),
+                new HStack(
+                    new PasswordField().width('100%').id('keychain-password'),
+                    new ClickButton(
+                        new IonIcon('eye-off-outline').id('show-password-icon'),
+                    )
+                        .font('lg')
+                        .id('show-password-btn')
+                        .whenClicked(ev => {
+                            const root = ev.view.root();
+                            const passwordField = root.findViewById(
+                                'keychain-password',
+                            ) as PasswordField;
+                            const eyeIcon = root.findViewById(
+                                'show-password-icon',
+                            ) as IonIcon;
+
+                            if (
+                                passwordField.body.getAttribute('type') ===
+                                'password'
+                            ) {
+                                passwordField.body.setAttribute('type', 'text');
+                                eyeIcon.name = 'eye-outline';
+                            } else {
+                                passwordField.body.setAttribute(
+                                    'type',
+                                    'password',
+                                );
+                                eyeIcon.name = 'eye-off-outline';
+                            }
+                        }),
+                ).width('100%'),
             )
                 .width('100%')
                 .margin({ bottom: 50 }),
