@@ -55,15 +55,24 @@ export default class IconChangerPreferences extends BaseHubWindow {
                     new SectionTitle('Hub Icon'),
 
                     new HStack(
-                        new IonIcon('home-outline'),
-                        new IonIcon('apps-outline'),
-                        new IonIcon('grid-outline'),
-                        new IonIcon('rocket-outline'),
-                        new IonIcon('home'),
-                        new IonIcon('apps'),
-                        new IonIcon('grid'),
-                        new IonIcon('rocket'),
-                    ),
+                        new IconButton(new IonIcon('home-outline')),
+                        new IconButton(new IonIcon('apps-outline')),
+                        new IconButton(new IonIcon('grid-outline')),
+                        new IconButton(new IonIcon('rocket-outline')),
+                    )
+                        .width('100%')
+                        .alignStart(),
+
+                    new HStack(
+                        new IconButton(new IonIcon('home')),
+                        new IconButton(new IonIcon('apps')),
+                        new IconButton(new IonIcon('grid')),
+                        new IconButton(new IonIcon('rocket')),
+                    )
+                        .width('100%')
+                        .alignStart(),
+
+                    new SectionTitle(''),
                 ).stretch(),
             ).stretch(),
         );
