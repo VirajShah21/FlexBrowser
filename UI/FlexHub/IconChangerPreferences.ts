@@ -40,7 +40,7 @@ export default class IconChangerPreferences extends BaseHubWindow {
                         new IconButton(
                             new IonIcon('chevron-back'),
                             new IonIcon('chevron-forward'),
-                        ),
+                        ).activate(),
 
                         new IconButton(
                             new IonIcon('chevron-back-circle-outline'),
@@ -97,7 +97,7 @@ export default class IconChangerPreferences extends BaseHubWindow {
                     new SectionTitle('Reload Style'),
 
                     new HStack(
-                        new IconButton(new IonIcon('refresh')),
+                        new IconButton(new IonIcon('refresh')).activate(),
                         new IconButton(new IonIcon('refresh-circle-outline')),
                         new IconButton(new IonIcon('reload-outline')),
                         new IconButton(new IonIcon('reload-circle-outline')),
@@ -108,7 +108,7 @@ export default class IconChangerPreferences extends BaseHubWindow {
                     new SectionTitle('Hub Icon'),
 
                     new HStack(
-                        new IconButton(new IonIcon('home-outline')),
+                        new IconButton(new IonIcon('home-outline')).activate(),
                         new IconButton(new IonIcon('apps-outline')),
                         new IconButton(new IonIcon('grid-outline')),
                         new IconButton(new IonIcon('rocket-outline')),
@@ -125,7 +125,7 @@ export default class IconChangerPreferences extends BaseHubWindow {
                         .width('100%')
                         .alignStart(),
 
-                    new SectionTitle(''),
+                    // new SectionTitle(''),
                 ).stretch(),
             ).stretch(),
         );
