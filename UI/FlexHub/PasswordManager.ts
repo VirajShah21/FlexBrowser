@@ -1,11 +1,11 @@
+import ThemedButton from '@Components/ThemedButton';
 import { HColor } from '@Hi/Colors';
-import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
+import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import BrowserPreferences from '@Models/BrowserPreferences';
 import addPassword from '@Triggers/PasswordManagerTriggers';
 import BaseHubWindow from './BaseHubWindow';
 
@@ -15,11 +15,11 @@ export default class PasswordManager extends BaseHubWindow {
             'Password Manager',
             new VStack(
                 new HStack(
+                    new ThemedButton(new IonIcon('add-circle'))
+                        .font('xxl')
+                        .whenClicked(addPassword)
+                        .padding(0),
                     new Spacer(),
-                    new ClickButton(new TextView('+').weight(FontWeight.Bold))
-                        .background(HColor(BrowserPreferences.colorTheme))
-                        .foreground(HColor('background'))
-                        .whenClicked(addPassword),
                 )
                     .width('100%')
                     .margin({ bottom: 10 }),
