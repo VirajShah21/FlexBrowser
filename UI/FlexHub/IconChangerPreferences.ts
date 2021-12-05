@@ -68,7 +68,7 @@ export default class IconChangerPreferences extends BaseHubWindow {
                     new HStack(
                         new IconButton(
                             new IonIcon('return-down-back'),
-                            new IonIcon('return-up-back'),
+                            new IonIcon('return-up-forward'),
                         ),
 
                         new IconButton(
@@ -97,10 +97,19 @@ export default class IconChangerPreferences extends BaseHubWindow {
                     new SectionTitle('Reload Style'),
 
                     new HStack(
-                        new IconButton(new IonIcon('refresh')).activate(),
-                        new IconButton(new IonIcon('refresh-circle-outline')),
-                        new IconButton(new IonIcon('reload-outline')),
+                        new IconButton(
+                            new IonIcon('reload-outline'),
+                        ).activate(),
                         new IconButton(new IonIcon('reload-circle-outline')),
+                        new IconButton(new IonIcon('reload-circle')),
+                    )
+                        .width('100%')
+                        .alignStart(),
+
+                    new HStack(
+                        new IconButton(new IonIcon('refresh')),
+                        new IconButton(new IonIcon('refresh-circle-outline')),
+                        new IconButton(new IonIcon('refresh-circle')),
                     )
                         .width('100%')
                         .alignStart(),
