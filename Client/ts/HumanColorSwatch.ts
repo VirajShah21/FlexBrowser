@@ -1,7 +1,31 @@
+import { HumanColorName } from './Colors';
 import RGBAModel from './RGBAModel';
 
-const HumanColorSwatch: Record<string, Record<string, RGBAModel>> = {
-    light: {
+export interface ThemeColorSwatch extends Record<HumanColorName, RGBAModel> {
+    blue: RGBAModel;
+    brown: RGBAModel;
+    cyan: RGBAModel;
+    green: RGBAModel;
+    indigo: RGBAModel;
+    mint: RGBAModel;
+    orange: RGBAModel;
+    pink: RGBAModel;
+    purple: RGBAModel;
+    red: RGBAModel;
+    teal: RGBAModel;
+    yellow: RGBAModel;
+    gray: RGBAModel;
+    gray2: RGBAModel;
+    gray3: RGBAModel;
+    gray4: RGBAModel;
+    gray5: RGBAModel;
+    gray6: RGBAModel;
+    foreground: RGBAModel;
+    background: RGBAModel;
+}
+
+export default class HumanColorSwatch {
+    public static light: ThemeColorSwatch = {
         blue: new RGBAModel(0, 122, 255),
         brown: new RGBAModel(162, 132, 94),
         cyan: new RGBAModel(50, 173, 230),
@@ -22,8 +46,9 @@ const HumanColorSwatch: Record<string, Record<string, RGBAModel>> = {
         gray6: new RGBAModel(242, 242, 247),
         foreground: new RGBAModel(0, 0, 0),
         background: new RGBAModel(255, 255, 255),
-    },
-    dark: {
+    };
+
+    public static dark: ThemeColorSwatch = {
         blue: new RGBAModel(10, 132, 255),
         brown: new RGBAModel(172, 142, 104),
         cyan: new RGBAModel(100, 210, 255),
@@ -44,7 +69,5 @@ const HumanColorSwatch: Record<string, Record<string, RGBAModel>> = {
         gray6: new RGBAModel(28, 28, 30),
         foreground: new RGBAModel(255, 255, 255),
         background: new RGBAModel(0, 0, 0),
-    },
-};
-
-export default HumanColorSwatch;
+    };
+}

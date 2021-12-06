@@ -134,7 +134,12 @@ export default class RGBAModel {
      * @memberOf RGBAModel
      */
     static copy(rgba: RGBAModel): RGBAModel {
-        return new RGBAModel(rgba.r, rgba.g, rgba.b, rgba.a);
+        return new RGBAModel(
+            rgba.r ?? 0,
+            rgba.g ?? 0,
+            rgba.b ?? 0,
+            rgba.a ?? 0,
+        );
     }
 
     public static get BLACK(): RGBAModel {
