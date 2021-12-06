@@ -46,8 +46,10 @@ class HistoryViewerItem extends ThemedButton {
     constructor(record: HistoryRecord) {
         super(
             new HStack(
-                new Favicon(new ValidURL(record.url)),
-                new TextView(record.title).margin({ left: 10 }),
+                new Favicon(new ValidURL(record.url)).width(16).height(16),
+                new TextView(record.title)
+                    .foreground(HColor('gray'))
+                    .margin({ left: 10 }),
                 new Spacer(),
                 new ClickButton(
                     new IonIcon('close-circle').font('lg'),
@@ -55,7 +57,17 @@ class HistoryViewerItem extends ThemedButton {
             ).stretch(),
         );
 
-        this.width('100%');
+        this.width('100%')
+            .background(HColor('background').alpha(0.5))
+            .border({ size: 1, style: 'solid', color: HColor('gray5') })
+            .margin({ top: 5 })
+            .rounded(50)
+            .whenMouseOver(ev =>
+                ev.view.background(HColor('background').alpha(0.9)),
+            )
+            .whenMouseOut(ev =>
+                ev.view.background(HColor('background').alpha(0.5)),
+            );
     }
 }
 
