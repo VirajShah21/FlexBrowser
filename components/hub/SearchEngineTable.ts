@@ -1,17 +1,17 @@
 import { HColor, rgb } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
+import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
-import TextView, { FontWeight } from '@Hi/Components/TextView';
+import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import BrowserPreferences from '@Models/BrowserPreferences';
 import {
     addBlankCustomSearchEngine,
     setDefaultSearchEngine,
 } from '@Triggers/custom-search-triggers';
-import BrowserPreferences from '@Models/BrowserPreferences';
 import SearchEngineListBody from './SearchEngineListBody';
 import SearchEngineListHead from './SearchEngineListHead';
-import IonIcon from '@Hi/Components/IonIcon';
 
 export default class SearchEngineTable extends VStack {
     constructor() {
