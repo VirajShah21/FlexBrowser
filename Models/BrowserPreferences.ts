@@ -1,6 +1,4 @@
 import { HumanColorName } from '@Hi/Colors';
-import HumanColorSwatch from '@Hi/HumanColorSwatch';
-import hasOwnProperty from '@Hi/Types/helpers';
 
 export interface IconTheme {
     backForward?:
@@ -43,6 +41,12 @@ export default class BrowserPreferences {
 
     private static readonly DEFAULT_SEARCH_ENGINE = 'google';
 
+    private static readonly DEFAULT_CUSTOM_SEARCH_ENGINE: CustomSearchEngine = {
+        id: 'google',
+        name: 'Google Search',
+        urlPrefix: 'https://www.google.com/search?q=',
+    };
+
     private static data: FlexRC = {};
 
     public static initialize(): void {
@@ -54,12 +58,23 @@ export default class BrowserPreferences {
         const defaultSearchEngine: string =
             (flexarch.pref('defaultSearchEngine') as string) ??
             BrowserPreferences.DEFAULT_SEARCH_ENGINE;
+        const theme: 'light' | 'dark' = 'light';
 
         BrowserPreferences.data = {
+            theme,
             colorTheme,
             searchEngines,
             defaultSearchEngine,
         };
+    }
+
+    public static get theme(): 'light' | 'dark' {
+        return BrowserPreferences.data.theme as 'light' | 'dark';
+    }
+
+    public static set theme(value: 'light' | 'dark') {
+        BrowserPreferences.data.theme = value;
+        flexarch.pref('theme', value);
     }
 
     public static get ColorTheme(): HumanColorName {
@@ -87,5 +102,13 @@ export default class BrowserPreferences {
     public static set DefaultSearchEngine(value: string) {
         BrowserPreferences.data.defaultSearchEngine = value;
         flexarch.pref('defaultSearchEngine', value);
+    }
+
+    public static getDefaultCustomerSearchEngine(): CustomSearchEngine {
+        return (
+            BrowserPreferences.SearchEngines.find(
+                engine => engine.id === BrowserPreferences.DefaultSearchEngine,
+            ) ?? BrowserPreferences.DEFAULT_CUSTOM_SEARCH_ENGINE
+        );
     }
 }
