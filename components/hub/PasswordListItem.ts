@@ -76,6 +76,8 @@ export default class PasswordListItem extends HStack {
     }
 
     public static showPassword(ev: HumanEvent): void {
-        (ev.view as IonIcon).name = 'checkmark-circle';
+        (ev.view as ThemedButton)
+            .removeAllChildren()
+            .addChildren(new IonIcon('checkmark-circle'));
     }
 }
