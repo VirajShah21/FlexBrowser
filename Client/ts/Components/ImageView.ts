@@ -26,7 +26,7 @@ export default class ImageView extends View {
         this.body.alt = val;
     }
 
-    public whenLoaded(callback: (ev: HumanEvent) => void): this {
+    public whenLoaded(callback: (ev: HumanEvent<this>) => void): this {
         this.body.addEventListener('load', browserEvent => {
             callback({
                 type: 'Load',
@@ -37,7 +37,7 @@ export default class ImageView extends View {
         return this;
     }
 
-    public whenError(callback: (ev: HumanEvent) => void): this {
+    public whenError(callback: (ev: HumanEvent<this>) => void): this {
         this.body.addEventListener('error', browserEvent => {
             callback({ type: 'Error', view: this, browserEvent });
         });

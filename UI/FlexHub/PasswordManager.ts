@@ -1,11 +1,13 @@
+import PasswordListItem from '@Components/hub/PasswordListItem';
 import ThemedButton from '@Components/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
-import Spacer from '@Hi/Components/Spacer';
-import TextView, { FontWeight } from '@Hi/Components/TextView';
+import TextField from '@Hi/Components/TextField';
+import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import HumanEvent from '@Hi/Types/HumanEvent';
 import addPassword from '@Triggers/PasswordManagerTriggers';
 import BaseHubWindow from './BaseHubWindow';
 
@@ -19,7 +21,20 @@ export default class PasswordManager extends BaseHubWindow {
                         .font('xxl')
                         .whenClicked(addPassword)
                         .padding(0),
-                    new Spacer(),
+                    new TextField('Search')
+                        .width('100%')
+                        .rounded(50)
+                        .background(HColor('background').alpha(0.5))
+                        .whenFocused(ev =>
+                            ev.view.background(HColor('background')),
+                        )
+                        .whenUnfocused(ev =>
+                            ev.view.background(HColor('background').alpha(0.5)),
+                        )
+                        .padding({ left: 10, right: 10 }),
+                    new ThemedButton(new TextView('Edit'))
+                        .whenClicked(PasswordManager.enableEditMode)
+                        .id('edit-mode-button'),
                 )
                     .width('100%')
                     .margin({ bottom: 10 }),
@@ -42,20 +57,34 @@ export default class PasswordManager extends BaseHubWindow {
             this.findViewById('passwords-list')!
                 .removeAllChildren()
                 .addChildren(
-                    ...accounts.map(account =>
-                        new HStack(
-                            new TextView(account.account).weight(
-                                FontWeight.Medium,
-                            ),
-                            new Spacer(),
-                        )
-                            .width('100%')
-                            .background(HColor('background'))
-                            .padding(5)
-                            .margin({ bottom: 5 })
-                            .rounded(5),
-                    ),
+                    ...accounts.map(account => new PasswordListItem(account)),
                 );
         });
+    }
+
+    public static enableEditMode(ev: HumanEvent<ThemedButton>): void {
+        const button = ev.view;
+
+        // If we are already in edit mode
+        if (button.identifier === 'exit-edit-mode-button') {
+            button
+                .removeAllChildren()
+                .addChildren(new TextView('Edit'))
+                .id('edit-mode-button');
+            ev.view
+                .root()
+                .getViewsByClass('PasswordListItem')
+                .forEach(item => (item as PasswordListItem).disableEditMode());
+        } else {
+            // If we are not in edit mode
+            button
+                .removeAllChildren()
+                .addChildren(new TextView('Done').foreground(HColor('red')))
+                .id('exit-edit-mode-button');
+            ev.view
+                .root()
+                .getViewsByClass('PasswordListItem')
+                .forEach(item => (item as PasswordListItem).enableEditMode());
+        }
     }
 }

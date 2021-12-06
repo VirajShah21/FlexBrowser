@@ -6,8 +6,8 @@ import View from '@Hi/View';
  * @export
  * @interface HumanEvent
  */
-export default interface HumanEvent {
-    view: View;
+export default interface HumanEvent<T extends View> {
+    view: T;
     type: string;
     browserEvent: Event;
 }

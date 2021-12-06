@@ -1,3 +1,4 @@
+import ClickButton from '@Hi/Components/ClickButton';
 import IonIcon from '@Hi/Components/IonIcon';
 import HumanEvent from '@Hi/Types/HumanEvent';
 import { ViewController } from '@Hi/ViewController';
@@ -7,7 +8,7 @@ export function navigateBack(): void {
 }
 
 export function toggleBookmarkButtonClicked(
-    ev: HumanEvent,
+    ev: HumanEvent<ClickButton>,
     urlMeta: URLMeta,
 ): void {
     const bookmarkIcon = (ev.view.children[0] as IonIcon)

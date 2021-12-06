@@ -2,9 +2,10 @@ import SearchEngineListBody from '@Components/hub/SearchEngineListBody';
 import Checkbox from '@Hi/Components/Checkbox';
 import InputField from '@Hi/Components/InputField';
 import HumanEvent from '@Hi/Types/HumanEvent';
+import View from '@Hi/View';
 import BrowserPreferences from '@Models/BrowserPreferences';
 
-export function addBlankCustomSearchEngine(ev: HumanEvent): void {
+export function addBlankCustomSearchEngine(ev: HumanEvent<View>): void {
     (
         ev.view
             .root()
@@ -14,7 +15,7 @@ export function addBlankCustomSearchEngine(ev: HumanEvent): void {
 
 export function removeSelectedSearchEngines(): void {}
 
-export function setDefaultSearchEngine(ev: HumanEvent): void {
+export function setDefaultSearchEngine(ev: HumanEvent<View>): void {
     const items = ev.view
         .root()
         .findViewById('search-engine-list-body')!

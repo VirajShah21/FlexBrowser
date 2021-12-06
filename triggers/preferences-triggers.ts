@@ -1,9 +1,10 @@
 import { HColor, HumanColorName } from '@Hi/Colors';
+import ClickButton from '@Hi/Components/ClickButton';
 import HumanEvent from '@Hi/Types/HumanEvent';
 import BrowserPreferences from '@Models/BrowserPreferences';
 
 export default function highlightColorSelected(
-    ev: HumanEvent,
+    ev: HumanEvent<ClickButton>,
     color: HumanColorName,
 ): void {
     BrowserPreferences.ColorTheme = color;
