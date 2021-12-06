@@ -12,6 +12,16 @@ import {
 import Favicon from './Favicon';
 import RefreshTaskbarButton from './RefreshTaskbarButton';
 
+/**
+ * The component for the URL entry bar.
+ * This includes the favicon, the URL, and a reload button. Additionally, it
+ * doubles as a title bar by displaying the title of the current page when the
+ * bar is unfocused. When the URLBar refocuses, it will display the URL.
+ *
+ * @export
+ * @class URLBar
+ * @extends {HStack}
+ */
 export default class URLBar extends HStack {
     public readonly buildin = defineTransition({
         from: { opacity: 0 },
@@ -27,6 +37,11 @@ export default class URLBar extends HStack {
         title: 'Flex Homepage',
     };
 
+    /**
+     * Creates an instance of URLBar.
+     *
+     * @memberOf URLBar
+     */
     constructor() {
         super(
             new ImageView('../assets/icon.png')
@@ -60,12 +75,25 @@ export default class URLBar extends HStack {
             .padding({ left: 5, right: 5 });
     }
 
+    /**
+     * Updates the information of the URLBar.
+     *
+     *
+     * @memberOf URLBar
+     */
     public updateURLInfo(): void {
         this.urlInfo = flexarch.urlInfo();
         (this.findViewById('url') as TextField).placeholder =
             this.urlInfo.title;
     }
 
+    /**
+     * Retrieves the favicon for the current webpage.
+     * This is displayed to  the left of the URL.
+     *
+     *
+     * @memberOf URLBar
+     */
     public updateFavicon(): void {
         const favicon = this.findViewById('favicon') as ImageView;
         favicon.source = Favicon.getFaviconURL(
@@ -83,6 +111,12 @@ export default class URLBar extends HStack {
         });
     }
 
+    /**
+     * Handles the buildin and buildout.
+     *
+     *
+     * @memberOf URLBar
+     */
     public override handle(data: string): void {
         if (data === 'hi:buildin') {
             this.transition(this.buildin).then(() => {

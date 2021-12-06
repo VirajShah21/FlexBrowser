@@ -3,7 +3,19 @@ import BrowserPreferences from '@Models/BrowserPreferences';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
 import TaskbarButton from './TaskbarButton';
 
+/**
+ * Page forward taskbar button.
+ *
+ * @export
+ * @class PageForwardTaskbarButton
+ * @extends {TaskbarButton}
+ */
 export default class PageForwardTaskbarButton extends TaskbarButton {
+    /**
+     * Creates an instance of PageForwardTaskbarButton.
+     *
+     * @memberOf PageForwardTaskbarButton
+     */
     constructor() {
         super();
         this.whenClicked(ev =>

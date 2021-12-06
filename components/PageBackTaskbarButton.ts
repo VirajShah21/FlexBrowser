@@ -3,7 +3,19 @@ import BrowserPreferences from '@Models/BrowserPreferences';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
 import TaskbarButton from './TaskbarButton';
 
+/**
+ * The back button on the taskbar.
+ *
+ * @export
+ * @class PageBackTaskbarButton
+ * @extends {TaskbarButton}
+ */
 export default class PageBackTaskbarButton extends TaskbarButton {
+    /**
+     * Creates an instance of PageBackTaskbarButton.
+     *
+     * @memberOf PageBackTaskbarButton
+     */
     constructor() {
         super();
         this.whenClicked(ev =>
