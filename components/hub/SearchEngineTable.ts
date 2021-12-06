@@ -11,6 +11,7 @@ import {
 import BrowserPreferences from '@Models/BrowserPreferences';
 import SearchEngineListBody from './SearchEngineListBody';
 import SearchEngineListHead from './SearchEngineListHead';
+import IonIcon from '@Hi/Components/IonIcon';
 
 export default class SearchEngineTable extends VStack {
     constructor() {
@@ -28,35 +29,26 @@ export default class SearchEngineTable extends VStack {
             new SearchEngineListBody(),
 
             new HStack(
-                new ClickButton(new TextView('-').weight(FontWeight.Bold))
-                    .background(HColor('gray3'))
-                    .foreground(HColor('foreground'))
-                    .borderRight({
-                        size: 1,
-                        style: 'solid',
-                        color: HColor('gray4'),
-                    })
-                    .rounded(0)
-                    .rounded({
-                        top: { left: 5 },
-                        bottom: { left: 5 },
-                    }),
-                new ClickButton(new TextView('+').weight(FontWeight.Bold))
-                    .background(HColor('gray3'))
-                    .foreground(HColor('foreground'))
-                    .rounded(0)
-                    .rounded({
-                        top: { right: 5 },
-                        bottom: { right: 5 },
-                    })
-                    .whenClicked(addBlankCustomSearchEngine),
+                new ClickButton(new IonIcon('remove-circle'))
+                    .foreground(HColor(BrowserPreferences.ColorTheme))
+                    .font('xl')
+                    .padding(0),
+                new ClickButton(new IonIcon('add-circle'))
+                    .foreground(HColor(BrowserPreferences.ColorTheme))
+                    .whenClicked(addBlankCustomSearchEngine)
+                    .margin({ left: 10 })
+                    .font('xl')
+                    .padding(0),
+
                 new ClickButton(new TextView('Make Default'))
                     .background(HColor('blue'))
                     .foreground(rgb(255, 255, 255))
                     .rounded(5)
                     .margin({ left: 10 })
                     .whenClicked(setDefaultSearchEngine),
+
                 new Spacer(),
+
                 new TextView(
                     `Default Search Engine: ${
                         BrowserPreferences.getDefaultCustomerSearchEngine().name
