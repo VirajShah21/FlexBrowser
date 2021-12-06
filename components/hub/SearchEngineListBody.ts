@@ -20,7 +20,7 @@ export default class SearchEngineListBody extends ScrollView {
             .border({
                 size: 1,
                 style: 'solid',
-                color: HColor('gray3'),
+                color: HColor(BrowserPreferences.ColorTheme).alpha(0.75),
             })
             .borderTop({ size: 0 })
             .rounded({
@@ -50,7 +50,11 @@ export default class SearchEngineListBody extends ScrollView {
                 ),
             );
         this.findViewById('search-engine-list')!.forChild((child, index) => {
-            child.background(index % 2 ? HColor('gray3') : 'none');
+            child.background(
+                index % 2
+                    ? HColor(BrowserPreferences.ColorTheme).alpha(0.25)
+                    : 'none',
+            );
         });
     }
 

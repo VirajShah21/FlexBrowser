@@ -4,10 +4,10 @@ import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
-import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import BrowserPreferences from '@Models/BrowserPreferences';
 import ValidURL from '@Models/ValidURL';
 import BaseHubWindow from './BaseHubWindow';
 
@@ -46,8 +46,10 @@ class HistoryViewerItem extends ThemedButton {
     constructor(record: HistoryRecord) {
         super(
             new HStack(
-                new Favicon(new ValidURL(record.url)),
-                new TextView(record.title).margin({ left: 10 }),
+                new Favicon(new ValidURL(record.url)).width(16).height(16),
+                new TextView(record.title)
+                    .foreground(HColor('gray'))
+                    .margin({ left: 10 }),
                 new Spacer(),
                 new ClickButton(
                     new IonIcon('close-circle').font('lg'),
@@ -55,7 +57,17 @@ class HistoryViewerItem extends ThemedButton {
             ).stretch(),
         );
 
-        this.width('100%');
+        this.width('100%')
+            .background(HColor('background').alpha(0.5))
+            .border({ size: 1, style: 'solid', color: HColor('gray5') })
+            .margin({ top: 5 })
+            .rounded(50)
+            .whenMouseOver(ev =>
+                ev.view.background(HColor('background').alpha(0.9)),
+            )
+            .whenMouseOut(ev =>
+                ev.view.background(HColor('background').alpha(0.5)),
+            );
     }
 }
 
@@ -64,15 +76,32 @@ export default class HistoryViewer extends BaseHubWindow {
         super(
             'History',
 
-            new ScrollView(
-                new VStack().id('history-container').stretch(),
-            ).stretch(),
+            new VStack().id('history-container').width('100%'),
         );
 
         HistoryViewer.getHistory().then(records => {
             this.findViewById('history-container')
                 ?.removeAllChildren()
                 .addChildren(
+                    new HStack(
+                        new Spacer(),
+                        new ClickButton(
+                            new HStack(
+                                new IonIcon('shield-checkmark')
+                                    .margin({
+                                        right: 5,
+                                    })
+                                    .font('lg'),
+                                new TextView('Manage')
+                                    .margin({ left: 5 })
+                                    .font('md'),
+                            ),
+                        )
+                            .background(HColor(BrowserPreferences.ColorTheme))
+                            .foreground(HColor('background'))
+                            .rounded(50)
+                            .padding(),
+                    ).stretch(),
                     ...records.map(record => new HistoryViewerItem(record)),
                 );
         });
@@ -84,10 +113,7 @@ export default class HistoryViewer extends BaseHubWindow {
         return records
             .split('\n')
             .filter(record => record.trim().length > 0)
-            .map(record => {
-                console.log('Record:', record);
-                return HistoryViewer.parseHistoryRecord(record);
-            });
+            .map(record => HistoryViewer.parseHistoryRecord(record));
     }
 
     public static parseHistoryRecord(record: string): HistoryRecord {

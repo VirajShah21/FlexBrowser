@@ -1,6 +1,7 @@
 import { HColor, rgb } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
+import BrowserPreferences from '@Models/BrowserPreferences';
 
 export default class SearchEngineListHead extends HStack {
     constructor() {
@@ -17,7 +18,7 @@ export default class SearchEngineListHead extends HStack {
         );
 
         this.width('100%')
-            .background(HColor('gray3'))
+            .background(HColor(BrowserPreferences.ColorTheme).alpha(0.5))
             .foreground(rgb(0, 0, 0))
             .rounded({ top: { left: 5, right: 5 } })
             .padding(5)

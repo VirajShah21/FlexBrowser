@@ -21,14 +21,15 @@ export default class BrowserPreferences {
 
     public static initialize(): void {
         const colorTheme: string =
-            (flexarch.pref('colorTheme') as string) ??
+            (flexarch.pref('colorTheme') as HumanColorName) ??
             BrowserPreferences.DEFAULT_COLOR_THEME;
         const searchEngines: CustomSearchEngine[] =
             (flexarch.pref('searchEngines') as CustomSearchEngine[]) ?? [];
         const defaultSearchEngine: string =
             (flexarch.pref('defaultSearchEngine') as string) ??
             BrowserPreferences.DEFAULT_SEARCH_ENGINE;
-        const theme: 'light' | 'dark' = 'light';
+        const theme: 'light' | 'dark' =
+            (flexarch.pref('theme') as 'light' | 'dark') ?? 'light';
 
         BrowserPreferences.data = {
             theme,
@@ -105,3 +106,5 @@ export default class BrowserPreferences {
         );
     }
 }
+
+BrowserPreferences.initialize();
