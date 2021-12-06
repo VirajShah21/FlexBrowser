@@ -17,7 +17,7 @@ export default class BaseHubWindow extends HIFullScreenView {
                     .padding({ top: HubTitlebar.HEIGHT }),
             )
                 .stretch()
-                .background(HColor('background').alpha(0.75))
+                .background(HColor('background').alpha(0.5))
                 .foreground(HColor('foreground')),
         );
     }
