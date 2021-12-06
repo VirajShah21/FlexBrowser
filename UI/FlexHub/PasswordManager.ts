@@ -4,7 +4,7 @@ import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
-import Spacer from '@Hi/Components/Spacer';
+import TextField from '@Hi/Components/TextField';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import HumanEvent from '@Hi/Types/HumanEvent';
@@ -21,7 +21,17 @@ export default class PasswordManager extends BaseHubWindow {
                         .font('xxl')
                         .whenClicked(addPassword)
                         .padding(0),
-                    new Spacer(),
+                    new TextField('Search')
+                        .width('100%')
+                        .rounded(50)
+                        .background(HColor('background').alpha(0.5))
+                        .whenFocused(ev =>
+                            ev.view.background(HColor('background')),
+                        )
+                        .whenUnfocused(ev =>
+                            ev.view.background(HColor('background').alpha(0.5)),
+                        )
+                        .padding({ left: 10, right: 10 }),
                     new ThemedButton(new TextView('Edit'))
                         .whenClicked(PasswordManager.enableEditMode)
                         .id('edit-mode-button'),
