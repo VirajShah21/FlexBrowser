@@ -26,6 +26,13 @@ export class IconButton extends ThemedButton {
             .background(RGBAModel.WHITE)
             .margin(10)
             .whenClicked(IconButton.setIconTheme);
+        if (
+            (BrowserPreferences.IconTheme as Record<string, string>)[
+                iconType
+            ] === themeName
+        ) {
+            this.activate();
+        }
         this.themeName = themeName;
         this.iconType = iconType;
         IconButton.instances.push(this);
@@ -48,10 +55,8 @@ export class IconButton extends ThemedButton {
     public static setIconTheme(ev: HumanEvent): void {
         const instance = ev.view as IconButton;
         const iconThemes = BrowserPreferences.IconTheme;
-        Object.defineProperty(iconThemes, instance.iconType, {
-            value: instance.themeName,
-            writable: true,
-        });
+        (iconThemes as Record<string, string>)[instance.iconType] =
+            instance.themeName;
         BrowserPreferences.IconTheme = iconThemes;
         instance.activate();
     }
@@ -71,7 +76,7 @@ export default class IconChangerPreferences extends BaseHubWindow {
                             'chevron',
                             new IonIcon('chevron-back'),
                             new IonIcon('chevron-forward'),
-                        ).activate(),
+                        ),
 
                         new IconButton(
                             'backForward',
@@ -150,7 +155,7 @@ export default class IconChangerPreferences extends BaseHubWindow {
                             'reload',
                             'default',
                             new IonIcon('reload-outline'),
-                        ).activate(),
+                        ),
                         new IconButton(
                             'reload',
                             'default-circle-outline',
@@ -192,7 +197,7 @@ export default class IconChangerPreferences extends BaseHubWindow {
                             'hub',
                             'home-outline',
                             new IonIcon('home-outline'),
-                        ).activate(),
+                        ),
                         new IconButton(
                             'hub',
                             'apps-outline',
