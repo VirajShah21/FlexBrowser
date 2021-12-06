@@ -3,7 +3,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/d3aa9ab6f4e2428994c506a1ce4ecf1e)](https://www.codacy.com/gh/VirajShah21/FlexBrowser/dashboard?utm_source=github.com&utm_medium=referral&utm_content=VirajShah21/FlexBrowser&utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/d3aa9ab6f4e2428994c506a1ce4ecf1e)](https://www.codacy.com/gh/VirajShah21/FlexBrowser/dashboard?utm_source=github.com&utm_medium=referral&utm_content=VirajShah21/FlexBrowser&utm_campaign=Badge_Coverage)
 
-![](README/AvailableForMac.png)
+[![](README/AvailableForMac.png)](https://github.com/VirajShah21/FlexBrowser/releases/download/v0.3.0-alpha.4/Flex.Browser.app.zip)
 
 ![Browser Thumbnail](README/BrowserThumb.png)
 
