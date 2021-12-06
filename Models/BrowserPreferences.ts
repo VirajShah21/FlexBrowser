@@ -1,4 +1,4 @@
-import { HumanColorName } from '@Hi/Colors';
+import { changeTheme, HumanColorName } from '@Hi/Colors';
 
 export interface IconTheme {
     backForward?:
@@ -74,11 +74,15 @@ export default class BrowserPreferences {
 
     public static set theme(value: 'light' | 'dark') {
         BrowserPreferences.data.theme = value;
+        changeTheme(value);
         flexarch.pref('theme', value);
     }
 
     public static get ColorTheme(): HumanColorName {
-        return BrowserPreferences.data.colorTheme as HumanColorName;
+        return (
+            (BrowserPreferences.data.colorTheme as HumanColorName) ??
+            BrowserPreferences.DEFAULT_COLOR_THEME
+        );
     }
 
     public static set ColorTheme(value: HumanColorName) {
@@ -87,7 +91,15 @@ export default class BrowserPreferences {
     }
 
     public static get SearchEngines(): CustomSearchEngine[] {
-        return BrowserPreferences.data.searchEngines as CustomSearchEngine[];
+        return (
+            (BrowserPreferences.data.searchEngines as CustomSearchEngine[]) ?? [
+                {
+                    id: 'google',
+                    name: 'Google Search',
+                    urlPrefix: 'https://www.google.com/search?q=',
+                },
+            ]
+        );
     }
 
     public static set SearchEngines(value: CustomSearchEngine[]) {
@@ -96,7 +108,9 @@ export default class BrowserPreferences {
     }
 
     public static get DefaultSearchEngine(): string {
-        return BrowserPreferences.data.defaultSearchEngine as string;
+        return (
+            (BrowserPreferences.data.defaultSearchEngine as string) ?? 'google'
+        );
     }
 
     public static set DefaultSearchEngine(value: string) {
