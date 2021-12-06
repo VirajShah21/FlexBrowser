@@ -74,8 +74,8 @@ export default class ValidURL {
             return `${this.protocol}://${this.domain}${this.path}`;
         }
 
-        return `${BrowserPreferences.defaultSearchEngine.urlPrefix}${this.value
-            .split(' ')
-            .join('+')}`;
+        return `${
+            BrowserPreferences.getDefaultCustomerSearchEngine().urlPrefix
+        }${this.value.split(' ').join('+')}`;
     }
 }

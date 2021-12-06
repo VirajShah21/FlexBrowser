@@ -26,7 +26,7 @@ export default abstract class TaskbarButton extends ClickButton {
             .font('lg')
             .padding()
             .whenMouseOver(ev =>
-                ev.view.foreground(HColor(BrowserPreferences.colorTheme)),
+                ev.view.foreground(HColor(BrowserPreferences.ColorTheme)),
             )
             .whenMouseOut(ev => ev.view.foreground(HColor('gray')))
             .opacity(0);

@@ -77,7 +77,7 @@ class FlexWindowsViewerItem extends ClickButton {
         );
 
         this.rounded()
-            .background(HColor(BrowserPreferences.colorTheme))
+            .background(HColor(BrowserPreferences.ColorTheme))
             .foreground(HColor('background'))
             .padding()
             .margin(12)

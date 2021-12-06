@@ -21,7 +21,7 @@ export class IconButton extends ThemedButton {
     }
 
     public activate(): this {
-        this.background(HColor(BrowserPreferences.colorTheme)).foreground(
+        this.background(HColor(BrowserPreferences.ColorTheme)).foreground(
             HColor('background'),
         );
         return this;
