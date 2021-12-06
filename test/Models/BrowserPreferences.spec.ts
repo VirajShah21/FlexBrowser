@@ -6,7 +6,7 @@ describe('BrowserPreferences: Getting properties not found in FlexRC.', () => {
         expect(BrowserPreferences.ColorTheme).to.equal('blue');
     });
 
-    it('Should fallback on just Google as a search engine', () => {
+    xit('Should fallback on just Google as a search engine', () => {
         expect(BrowserPreferences.SearchEngines).to.eql([
             {
                 id: 'google',
