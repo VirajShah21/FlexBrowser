@@ -28,7 +28,7 @@ export default class Checkbox extends View {
         return this.checked;
     }
 
-    whenClicked(callback: (ev: HumanEvent) => void): this {
+    whenClicked(callback: (ev: HumanEvent<this>) => void): this {
         this.body.addEventListener('click', (browserEvent: Event) => {
             callback({
                 type: 'Click',

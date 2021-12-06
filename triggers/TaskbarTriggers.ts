@@ -4,8 +4,10 @@ import TextView from '@Hi/Components/TextView';
 import HumanEvent from '@Hi/Types/HumanEvent';
 import { ViewController } from '@Hi/ViewController';
 
-export default function toggleTaskbarVisibility(ev: HumanEvent): void {
-    const view = ev.view as HideTaskbarButton;
+export default function toggleTaskbarVisibility(
+    ev: HumanEvent<HideTaskbarButton>,
+): void {
+    const { view } = ev;
     view.isShown = !view.isShown;
 
     if (view.isShown) {

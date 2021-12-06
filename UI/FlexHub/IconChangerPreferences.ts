@@ -52,7 +52,7 @@ export class IconButton extends ThemedButton {
         return this;
     }
 
-    public static setIconTheme(ev: HumanEvent): void {
+    public static setIconTheme(ev: HumanEvent<IconButton>): void {
         const instance = ev.view as IconButton;
         const iconThemes = BrowserPreferences.IconTheme;
         (iconThemes as Record<string, string>)[instance.iconType] =

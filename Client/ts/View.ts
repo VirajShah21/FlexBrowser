@@ -321,7 +321,7 @@ export default abstract class View extends BaseBodyStyler {
      *
      * @memberOf View
      */
-    whenMouseOver(callback: (ev: HumanEvent) => void): this {
+    whenMouseOver(callback: (ev: HumanEvent<this>) => void): this {
         this.body.addEventListener('mouseover', browserEvent =>
             callback({
                 view: this,
@@ -342,7 +342,7 @@ export default abstract class View extends BaseBodyStyler {
      *
      * @memberOf View
      */
-    whenMouseOut(callback: (ev: HumanEvent) => void): this {
+    whenMouseOut(callback: (ev: HumanEvent<this>) => void): this {
         this.body.addEventListener('mouseout', browserEvent =>
             callback({
                 view: this,

@@ -75,8 +75,8 @@ export default class PasswordListItem extends HStack {
         removeButton.transition(PasswordListItem.editModeDisabledTransition);
     }
 
-    public static showPassword(ev: HumanEvent): void {
-        (ev.view as ThemedButton)
+    public static showPassword(ev: HumanEvent<ThemedButton>): void {
+        ev.view
             .removeAllChildren()
             .addChildren(new IonIcon('checkmark-circle'));
     }

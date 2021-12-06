@@ -86,7 +86,7 @@ export class ViewController {
      *
      * @memberOf ViewController
      */
-    whenResized(handler: (ev: HumanEvent) => void): this {
+    whenResized(handler: (ev: HumanEvent<View>) => void): this {
         window.addEventListener('resize', ev =>
             handler({
                 type: 'Resize',

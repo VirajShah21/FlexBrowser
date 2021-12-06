@@ -5,6 +5,7 @@ import IonIcon from '@Hi/Components/IonIcon';
 import TextField from '@Hi/Components/TextField';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import HumanEvent, { HumanKeyPressEvent } from '@Hi/Types/HumanEvent';
+import View from '@Hi/View';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
 
 const whenFocusedTransition = defineTransition({
@@ -41,7 +42,7 @@ const whenUnfocusedTransition = defineTransition({
     after: 'forwards',
 });
 
-export function changeReloadButtonToGoButton(ev: HumanEvent): void {
+export function changeReloadButtonToGoButton(ev: HumanEvent<View>): void {
     const browserWindow = ev.view.root(
         view => (view as FlexBrowserWindow).isBrowserWindow,
     ) as FlexBrowserWindow;
@@ -50,8 +51,8 @@ export function changeReloadButtonToGoButton(ev: HumanEvent): void {
     (icon.body as HTMLInputElement).name = 'arrow-forward-outline'; // ! Workaround to use .name
 }
 
-export function urlbarFocusedState(ev: HumanEvent): void {
-    const urlField = ev.view as TextField;
+export function urlbarFocusedState(ev: HumanEvent<TextField>): void {
+    const urlField = ev.view;
     const urlBar = urlField.parent as URLBar;
     const reloadBtn = urlBar.findViewById('url-refresh-button') as IonIcon;
     const titlebarTransitionViews = ev.view
@@ -68,8 +69,8 @@ export function urlbarFocusedState(ev: HumanEvent): void {
     (reloadBtn.body as HTMLInputElement).name = 'arrow-forward-outline';
 }
 
-export function urlbarUnfocusedState(ev: HumanEvent): void {
-    const urlField = ev.view as TextField;
+export function urlbarUnfocusedState(ev: HumanEvent<TextField>): void {
+    const urlField = ev.view;
     const urlBar = urlField.parent as URLBar;
     const reloadBtn = urlBar.findViewById('url-refresh-button') as IonIcon;
 

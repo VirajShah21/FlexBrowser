@@ -62,8 +62,8 @@ export default class PasswordManager extends BaseHubWindow {
         });
     }
 
-    public static enableEditMode(ev: HumanEvent): void {
-        const button = ev.view as ThemedButton;
+    public static enableEditMode(ev: HumanEvent<ThemedButton>): void {
+        const button = ev.view;
 
         // If we are already in edit mode
         if (button.identifier === 'exit-edit-mode-button') {

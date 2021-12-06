@@ -23,7 +23,7 @@ export default class InputField extends View {
             .noOutline();
     }
 
-    whenFocused(callback: (event: HumanEvent) => void): this {
+    whenFocused(callback: (event: HumanEvent<this>) => void): this {
         this.body.addEventListener('focusin', browserEvent => {
             callback({
                 view: this,
@@ -34,7 +34,7 @@ export default class InputField extends View {
         return this;
     }
 
-    whenUnfocused(callback: (event: HumanEvent) => void): this {
+    whenUnfocused(callback: (event: HumanEvent<this>) => void): this {
         this.body.addEventListener('focusout', browserEvent => {
             callback({
                 view: this,
@@ -45,7 +45,7 @@ export default class InputField extends View {
         return this;
     }
 
-    whenChanged(callback: (event: HumanEvent) => void): this {
+    whenChanged(callback: (event: HumanEvent<this>) => void): this {
         const listener = (browserEvent: Event) => {
             callback({
                 view: this,
