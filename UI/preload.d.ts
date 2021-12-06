@@ -12,11 +12,42 @@ declare interface CustomSearchEngine extends Record<string, string> {
     urlPrefix: string;
 }
 
+declare interface IconTheme {
+    backForward?:
+        | 'chevron'
+        | 'chevron-circle-outline'
+        | 'chevron-circle-filled'
+        | 'arrow'
+        | 'arrow-circle-outline'
+        | 'arrow-circle-filled'
+        | 'caret'
+        | 'caret-circle-outline'
+        | 'caret-circle-filled'
+        | 'return';
+    reload?:
+        | 'default'
+        | 'default-circle'
+        | 'default-circle-filled'
+        | 'alternative'
+        | 'alternative-circle'
+        | 'alternative-circle-filled';
+    hub?:
+        | 'home'
+        | 'home-filled'
+        | 'dots'
+        | 'dots-filled'
+        | 'grid'
+        | 'grid-filled'
+        | 'rocket'
+        | 'rocket-filled';
+}
+
 declare interface FlexRC {
     colorTheme?: string;
     theme?: string;
     searchEngines?: CustomSearchEngine[];
     defaultSearchEngine?: string;
+    iconTheme?: IconTheme;
 }
 
 declare interface Branding {

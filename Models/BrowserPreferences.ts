@@ -1,35 +1,5 @@
 import { changeTheme, HumanColorName } from '@Hi/Colors';
 
-export interface IconTheme {
-    backForward?:
-        | 'chevron'
-        | 'chevron-circle-outline'
-        | 'chevron-circle-filled'
-        | 'arrow'
-        | 'arrow-circle-outline'
-        | 'arrow-circle-filled'
-        | 'caret'
-        | 'caret-circle-outline'
-        | 'caret-circle-filled'
-        | 'return';
-    reload?:
-        | 'default'
-        | 'default-circle'
-        | 'default-circle-filled'
-        | 'alternative'
-        | 'alternative-circle'
-        | 'alternative-circle-filled';
-    hub?:
-        | 'home'
-        | 'home-filled'
-        | 'dots'
-        | 'dots-filled'
-        | 'grid'
-        | 'grid-filled'
-        | 'rocket'
-        | 'rocket-filled';
-}
-
 /**
  * The preferences manager for Flex Browser.
  *
@@ -116,6 +86,15 @@ export default class BrowserPreferences {
     public static set DefaultSearchEngine(value: string) {
         BrowserPreferences.data.defaultSearchEngine = value;
         flexarch.pref('defaultSearchEngine', value);
+    }
+
+    public static get IconTheme(): IconTheme {
+        return (flexarch.pref('iconTheme') as IconTheme) ?? {};
+    }
+
+    public static set IconTheme(value: IconTheme) {
+        BrowserPreferences.data.iconTheme = value;
+        flexarch.pref('iconTheme', value);
     }
 
     public static getDefaultCustomerSearchEngine(): CustomSearchEngine {
