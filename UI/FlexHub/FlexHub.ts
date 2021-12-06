@@ -128,14 +128,6 @@ export default class FlexHub extends HIFullScreenView {
                         ),
 
                         new Spacer(),
-
-                        HubButton('cog', 'Preferences').whenClicked(() =>
-                            ViewController.getController(
-                                'AppController',
-                            )!.navigateTo(new FlexPreferences(), 1000),
-                        ),
-
-                        new Spacer(),
                     ).width('100%'),
 
                     new Spacer(),
@@ -152,6 +144,14 @@ export default class FlexHub extends HIFullScreenView {
                         ViewController.getController(
                             'AppController',
                         )!.navigateTo(new PasswordManager(), 1000),
+                    ),
+
+                    new Spacer(),
+
+                    HubButton('cog', 'Preferences').whenClicked(() =>
+                        ViewController.getController(
+                            'AppController',
+                        )!.navigateTo(new FlexPreferences(), 1000),
                     ),
 
                     new Spacer(),
