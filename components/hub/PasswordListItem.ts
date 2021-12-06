@@ -3,8 +3,9 @@ import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
-import TextView, { FontWeight } from '@Hi/Components/TextView';
+import TextView from '@Hi/Components/TextView';
 import { defineTransition } from '@Hi/Transitions/Transition';
+import HumanEvent from '@Hi/Types/HumanEvent';
 
 export default class PasswordListItem extends HStack {
     private static editModeEnabledTransition = defineTransition({
@@ -33,21 +34,28 @@ export default class PasswordListItem extends HStack {
 
     public constructor(account: { account: string; password: string }) {
         super(
-            new TextView(account.account).weight(FontWeight.Medium),
+            new ThemedButton(new IonIcon('ellipse-outline'))
+                .font('lg')
+                .whenClicked(PasswordListItem.showPassword),
+            new TextView(account.account).font('md'),
             new Spacer(),
             new ThemedButton(new IonIcon('create-outline'))
                 .id('password-edit-button')
-                .opacity(0),
+                .opacity(0)
+                .font('lg'),
             new ThemedButton(new IonIcon('remove-circle-outline'))
                 .foreground(HColor('red'))
                 .id('remove-password-button')
-                .opacity(0),
+                .opacity(0)
+                .font('lg'),
         );
+
         this.width('100%')
             .background(HColor('background'))
-            .padding(5)
+            .border({ size: 1, style: 'solid', color: HColor('gray5') })
+            .padding({ top: 5, bottom: 5 })
             .margin({ bottom: 5 })
-            .rounded(5)
+            .rounded(50)
             .addClass('PasswordListItem');
     }
 
@@ -65,5 +73,9 @@ export default class PasswordListItem extends HStack {
 
         editButton.transition(PasswordListItem.editModeDisabledTransition);
         removeButton.transition(PasswordListItem.editModeDisabledTransition);
+    }
+
+    public static showPassword(ev: HumanEvent): void {
+        (ev.view as IonIcon).name = 'checkmark-circle';
     }
 }
