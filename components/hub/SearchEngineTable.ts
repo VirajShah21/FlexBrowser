@@ -58,7 +58,9 @@ export default class SearchEngineTable extends VStack {
                     .whenClicked(setDefaultSearchEngine),
                 new Spacer(),
                 new TextView(
-                    `Default Search Engine: ${BrowserPreferences.defaultSearchEngine.name}`,
+                    `Default Search Engine: ${
+                        BrowserPreferences.getDefaultCustomerSearchEngine().name
+                    }`,
                 ).font('sm'),
             )
                 .width('100%')

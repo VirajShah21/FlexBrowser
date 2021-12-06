@@ -10,7 +10,7 @@ export default class SearchEngineListBody extends ScrollView {
     public readonly isSearchEngineListBody = true;
 
     private searchEngineList: CustomSearchEngine[] =
-        BrowserPreferences.searchEngines;
+        BrowserPreferences.SearchEngines;
 
     constructor() {
         super(new VStack().id('search-engine-list').stretch().alignStart());

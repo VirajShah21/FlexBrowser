@@ -11,7 +11,7 @@ export default class RefreshURLButton extends ClickButton {
             .foreground(HColor('gray'))
             .whenClicked(() => flexarch.reloadBrowserView())
             .whenMouseOver(ev =>
-                ev.view.foreground(HColor(BrowserPreferences.colorTheme)),
+                ev.view.foreground(HColor(BrowserPreferences.ColorTheme)),
             )
             .whenMouseOut(ev => ev.view.foreground(HColor('gray')));
     }

@@ -63,7 +63,7 @@ function HubButton(icon: string, title: string): ClickButton {
             .alignMiddle(),
     )
         .padding()
-        .foreground(HColor(BrowserPreferences.colorTheme))
+        .foreground(HColor(BrowserPreferences.ColorTheme))
         .width(100)
         .height(100)
         .addClass('hub-menu-button');

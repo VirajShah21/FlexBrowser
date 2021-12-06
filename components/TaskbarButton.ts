@@ -18,15 +18,15 @@ export default abstract class TaskbarButton extends ClickButton {
         after: 'forwards',
     });
 
-    constructor(icon: IonIcon) {
-        super(icon);
-
-        this.rounded()
+    constructor() {
+        super();
+        this.addChildren(this.resolveIcon())
+            .rounded()
             .foreground(HColor('gray'))
             .font('lg')
             .padding()
             .whenMouseOver(ev =>
-                ev.view.foreground(HColor(BrowserPreferences.colorTheme)),
+                ev.view.foreground(HColor(BrowserPreferences.ColorTheme)),
             )
             .whenMouseOut(ev => ev.view.foreground(HColor('gray')))
             .opacity(0);
@@ -39,4 +39,10 @@ export default abstract class TaskbarButton extends ClickButton {
         //     this.transition(this.buildout);
         // }
     }
+
+    /**
+     * Should return the correct icon based on the icon theme and
+     * `TaskbarButton` type.
+     */
+    public abstract resolveIcon(): IonIcon;
 }

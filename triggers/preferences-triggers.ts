@@ -6,7 +6,7 @@ export default function highlightColorSelected(
     ev: HumanEvent,
     color: HumanColorName,
 ): void {
-    BrowserPreferences.colorTheme = color;
+    BrowserPreferences.ColorTheme = color;
     ev.view
         .root()
         .getViewsByClass('highlight-radio')

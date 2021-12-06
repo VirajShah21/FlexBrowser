@@ -6,6 +6,6 @@ import BrowserPreferences from '@Models/BrowserPreferences';
 export default class ThemedButton extends ClickButton {
     constructor(...children: View[]) {
         super(...children);
-        this.foreground(HColor(BrowserPreferences.colorTheme));
+        this.foreground(HColor(BrowserPreferences.ColorTheme));
     }
 }

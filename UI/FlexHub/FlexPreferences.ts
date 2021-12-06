@@ -8,6 +8,7 @@ import { ViewController } from '@Hi/ViewController';
 import BaseHubWindow from './BaseHubWindow';
 import ColorPreferences from '../../components/hub/ColorPreferences';
 import SearchEnginePreferences from './SearchEnginePreferences';
+import IconChangerPreferences from './IconChangerPreferences';
 
 export class FlexPreferenceMenuButton extends ClickButton {
     public constructor(public readonly name: string) {
@@ -56,14 +57,11 @@ export default class FlexPreferences extends BaseHubWindow {
                     ),
                 ),
 
-                // ! Removed before release 0.2.0-alpha
-                // * This should navigate to a taskbar icon editor
-                // * (in the future)
-                // new FlexPreferenceMenuButton('Browser Frame').whenClicked(() =>
-                //     ViewController.getController('AppController')?.navigateTo(
-                //         new BrowserFramePreferences(),
-                //     ),
-                // ),
+                new FlexPreferenceMenuButton('Icon Changer').whenClicked(() =>
+                    ViewController.getController('AppController')?.navigateTo(
+                        new IconChangerPreferences(),
+                    ),
+                ),
             )
                 .alignStart()
                 .width('100%'),

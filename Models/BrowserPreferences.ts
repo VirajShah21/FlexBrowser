@@ -1,6 +1,4 @@
-import { HumanColorName } from '@Hi/Colors';
-import HumanColorSwatch from '@Hi/HumanColorSwatch';
-import hasOwnProperty from '@Hi/Types/helpers';
+import { changeTheme, HumanColorName } from '@Hi/Colors';
 
 /**
  * The preferences manager for Flex Browser.
@@ -9,230 +7,101 @@ import hasOwnProperty from '@Hi/Types/helpers';
  * @class BrowserPreferences
  */
 export default class BrowserPreferences {
-    private static cache: FlexRC = {};
+    private static readonly DEFAULT_COLOR_THEME = 'blue';
 
-    /**
-     * Uncaches a property from `BrowserPreferences.cache` after 60 seconds.
-     *
-     * @param prop The property to uncache
-     */
-    public static uncache(prop: string): void {
-        window.setTimeout(() => {
-            Object.defineProperty(BrowserPreferences.cache, prop, {
-                value: undefined,
-                writable: true,
-            });
-        }, 60000); // Uncache every 60 seconds
+    private static readonly DEFAULT_SEARCH_ENGINE = 'google';
+
+    private static readonly DEFAULT_CUSTOM_SEARCH_ENGINE: CustomSearchEngine = {
+        id: 'google',
+        name: 'Google Search',
+        urlPrefix: 'https://www.google.com/search?q=',
+    };
+
+    private static data: FlexRC = {};
+
+    public static initialize(): void {
+        const colorTheme: string =
+            (flexarch.pref('colorTheme') as string) ??
+            BrowserPreferences.DEFAULT_COLOR_THEME;
+        const searchEngines: CustomSearchEngine[] =
+            (flexarch.pref('searchEngines') as CustomSearchEngine[]) ?? [];
+        const defaultSearchEngine: string =
+            (flexarch.pref('defaultSearchEngine') as string) ??
+            BrowserPreferences.DEFAULT_SEARCH_ENGINE;
+        const theme: 'light' | 'dark' = 'light';
+
+        BrowserPreferences.data = {
+            theme,
+            colorTheme,
+            searchEngines,
+            defaultSearchEngine,
+        };
     }
 
-    /**
-     * Fetches the name of the color theme.
-     *
-     * Order of access:
-     *
-     * 1. Cache (cleared every 60 seconds)
-     * 2. ~/.flexrc
-     * 3. 'blue'
-     *
-     * @static
-     * @type {HumanColorName}
-     * @memberOf BrowserPreferences
-     */
-    public static get colorTheme(): HumanColorName {
-        let ret = BrowserPreferences.cache.colorTheme;
-
-        try {
-            BrowserPreferences.assertIsHumanColorName(ret);
-        } catch (e) {
-            ret = (flexarch.pref('colorTheme') as string | undefined) || 'blue';
-
-            try {
-                BrowserPreferences.assertIsHumanColorName(ret);
-            } catch (err) {
-                ret = 'blue';
-            }
-
-            BrowserPreferences.cache.colorTheme = ret;
-            BrowserPreferences.uncache('colorTheme');
-        }
-        return ret as HumanColorName;
+    public static get theme(): 'light' | 'dark' {
+        return BrowserPreferences.data.theme as 'light' | 'dark';
     }
 
-    /**
-     * Sets the name of the color theme. This updates the cache and
-     * `~/.flexrc`.
-     *
-     * @static
-     *
-     * @memberOf BrowserPreferences
-     */
-    public static set colorTheme(name: HumanColorName) {
-        BrowserPreferences.cache.colorTheme = name;
-        flexarch.pref('colorTheme', name);
-        BrowserPreferences.uncache('colorTheme');
+    public static set theme(value: 'light' | 'dark') {
+        BrowserPreferences.data.theme = value;
+        changeTheme(value);
+        flexarch.pref('theme', value);
     }
 
-    public static get searchEngines(): CustomSearchEngine[] {
-        let ret = BrowserPreferences.cache.searchEngines;
-
-        try {
-            BrowserPreferences.assertIsArrayOfCustomSearchEngine(ret);
-        } catch (e) {
-            try {
-                ret =
-                    (flexarch.pref('searchEngines') as CustomSearchEngine[]) ||
-                    [];
-                BrowserPreferences.assertIsArrayOfCustomSearchEngine(ret);
-            } catch (err) {
-                ret = [];
-            }
-            BrowserPreferences.cache.searchEngines = ret;
-            BrowserPreferences.uncache('searchEngines');
-        }
-
-        return ret;
+    public static get ColorTheme(): HumanColorName {
+        return (
+            (BrowserPreferences.data.colorTheme as HumanColorName) ??
+            BrowserPreferences.DEFAULT_COLOR_THEME
+        );
     }
 
-    public static set searchEngines(list: CustomSearchEngine[]) {
-        BrowserPreferences.cache.searchEngines = list;
-        flexarch.pref('searchEngines', list);
-        BrowserPreferences.uncache('searchEngines');
+    public static set ColorTheme(value: HumanColorName) {
+        BrowserPreferences.data.colorTheme = value;
+        flexarch.pref('colorTheme', value);
     }
 
-    public static get defaultSearchEngine(): CustomSearchEngine {
-        let id = BrowserPreferences.cache.defaultSearchEngine;
-
-        try {
-            BrowserPreferences.assertIsCustomSearchEngineObject(
-                BrowserPreferences.searchEngines.find(
-                    engine => engine.id === id,
-                ),
-            );
-        } catch (e) {
-            id = flexarch.pref('defaultSearchEngine') as string;
-            try {
-                BrowserPreferences.assertIsCustomSearchEngineObject(
-                    BrowserPreferences.searchEngines.find(
-                        engine => engine.id === id,
-                    ),
-                );
-            } catch (e2) {
-                return {
+    public static get SearchEngines(): CustomSearchEngine[] {
+        return (
+            (BrowserPreferences.data.searchEngines as CustomSearchEngine[]) ?? [
+                {
                     id: 'google',
-                    name: 'Google',
-                    urlPrefix: 'https://google.com/search?q=',
-                };
-            }
-
-            BrowserPreferences.cache.defaultSearchEngine = id;
-            BrowserPreferences.uncache('defaultSearchEngine');
-        }
-        return BrowserPreferences.searchEngines.find(
-            engine => engine.id === id,
-        )!;
+                    name: 'Google Search',
+                    urlPrefix: 'https://www.google.com/search?q=',
+                },
+            ]
+        );
     }
 
-    public static set defaultSearchEngine(id: string | CustomSearchEngine) {
-        if (typeof id === 'string') {
-            BrowserPreferences.cache.defaultSearchEngine = id;
-            flexarch.pref('defaultSearchEngine', id);
-            BrowserPreferences.uncache('defaultSearchEngine');
-        } else {
-            BrowserPreferences.cache.defaultSearchEngine = id.id;
-            flexarch.pref('defaultSearchEngine', id.id);
-            BrowserPreferences.uncache('defaultSearchEngine');
-        }
+    public static set SearchEngines(value: CustomSearchEngine[]) {
+        BrowserPreferences.data.searchEngines = value;
+        flexarch.pref('searchEngines', value);
     }
 
-    public static assertIsHumanColorName(
-        s?: string,
-    ): asserts s is HumanColorName {
-        if (!Object.prototype.hasOwnProperty.call(HumanColorSwatch.dark, s)) {
-            throw new Error(`${s} is not a HumanColorName.`);
-        }
+    public static get DefaultSearchEngine(): string {
+        return (
+            (BrowserPreferences.data.defaultSearchEngine as string) ?? 'google'
+        );
     }
 
-    public static assertIsTheme(
-        name?: string,
-    ): asserts name is 'light' | 'dark' {
-        if (name && name !== 'light' && name !== 'dark') {
-            throw new Error(`${name} is not either "light" or "dark"`);
-        }
+    public static set DefaultSearchEngine(value: string) {
+        BrowserPreferences.data.defaultSearchEngine = value;
+        flexarch.pref('defaultSearchEngine', value);
     }
 
-    public static assertIsCustomSearchEngineObject(
-        obj?: Record<string, unknown>,
-    ): asserts obj is CustomSearchEngine & Record<string, unknown> {
-        if (obj === undefined) throw new Error('Object is undefined');
-
-        if (!hasOwnProperty(obj, 'id')) {
-            throw new Error(
-                `Object is not CustomSearchEngine object. Missing 'id' field: ${JSON.stringify(
-                    obj,
-                    null,
-                    4,
-                )}.`,
-            );
-        }
-
-        if (!Object.prototype.hasOwnProperty.call(obj, 'name')) {
-            throw new Error(
-                `Object is not CustomSearchEngine object. Missing 'name' field: ${JSON.stringify(
-                    obj,
-                    null,
-                    4,
-                )}.`,
-            );
-        }
-
-        if (!Object.prototype.hasOwnProperty.call(obj, 'urlPrefix')) {
-            throw new Error(
-                `Object is not CustomSearchEngine object. Missing 'urlPrefix' field: ${JSON.stringify(
-                    obj,
-                    null,
-                    4,
-                )}.`,
-            );
-        }
-
-        if (typeof obj.id !== 'string') {
-            throw new Error(
-                `Object is not CustomSearchEngine object. The property "id" (${
-                    obj.id
-                }) is of type <${typeof obj.id}> and should be <string>.`,
-            );
-        }
-
-        if (typeof obj.name !== 'string') {
-            throw new Error(
-                `Object is not CustomSearchEngine object. The property "name" (${
-                    obj.name
-                }) is of type <${typeof obj.name}> and should be <string>.`,
-            );
-        }
-
-        if (typeof obj.urlPrefix !== 'string') {
-            throw new Error(
-                `Object is not CustomSearchEngine object. The property "urlPrefix" (${
-                    obj.urlPrefix
-                }) is of type <${typeof obj.urlPrefix}> and should be <string>.`,
-            );
-        }
-
-        if (obj.id.includes(' ')) {
-            throw new Error(
-                `Object is not CustomSearchEgnine object. The property "id" contains spaces ("${obj.id}").`,
-            );
-        }
+    public static get IconTheme(): IconTheme {
+        return (flexarch.pref('iconTheme') as IconTheme) ?? {};
     }
 
-    public static assertIsArrayOfCustomSearchEngine(
-        arr?: Record<string, unknown>[],
-    ): asserts arr is CustomSearchEngine[] & Record<string, unknown>[] {
-        if (arr === undefined) throw new Error('Object is undefined');
+    public static set IconTheme(value: IconTheme) {
+        BrowserPreferences.data.iconTheme = value;
+        flexarch.pref('iconTheme', value);
+    }
 
-        (arr as Record<string, string>[]).forEach(item =>
-            BrowserPreferences.assertIsCustomSearchEngineObject(item),
+    public static getDefaultCustomerSearchEngine(): CustomSearchEngine {
+        return (
+            BrowserPreferences.SearchEngines.find(
+                engine => engine.id === BrowserPreferences.DefaultSearchEngine,
+            ) ?? BrowserPreferences.DEFAULT_CUSTOM_SEARCH_ENGINE
         );
     }
 }

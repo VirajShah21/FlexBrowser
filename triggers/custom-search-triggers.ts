@@ -21,7 +21,7 @@ export function setDefaultSearchEngine(ev: HumanEvent): void {
         .getViewsByClass('search-engine-item');
     items.forEach(item => {
         if ((item.findViewById('engine-checkbox') as Checkbox).checked) {
-            BrowserPreferences.defaultSearchEngine =
+            BrowserPreferences.DefaultSearchEngine =
                 SearchEngineListBody.getEngineId(
                     (item.findViewById('engine-name') as InputField).value,
                 );

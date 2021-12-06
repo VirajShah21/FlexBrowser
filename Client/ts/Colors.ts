@@ -38,9 +38,9 @@ let colorTheme: 'light' | 'dark' = (() => {
  */
 export function HColor(color: HumanColorName): RGBAModel {
     if (colorTheme === 'light') {
-        return RGBAModel.copy(HumanColorSwatch.light![color]!);
+        return RGBAModel.copy(HumanColorSwatch.light[color]);
     }
-    return RGBAModel.copy(HumanColorSwatch.dark![color]!);
+    return RGBAModel.copy(HumanColorSwatch.dark[color]);
 }
 
 /**
