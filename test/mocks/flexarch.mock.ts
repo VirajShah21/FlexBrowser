@@ -57,7 +57,7 @@ export default class FlexArch {
 
     static reloadBrowserView(): void {}
 
-    static getHistory(): string {
+    static async getHistory(): Promise<string> {
         return '';
     }
 }
