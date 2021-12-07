@@ -51,10 +51,12 @@ function HubButton(icon: string, title: string): ClickButton {
             new IonIcon(`${icon}-outline`)
                 .font(50)
                 .whenMouseOver(ev => {
-                    (ev.view as IonIcon).name = icon;
+                    const { view } = ev;
+                    view.name = icon;
                 })
                 .whenMouseOut(ev => {
-                    (ev.view as IonIcon).name = `${icon}-outline`;
+                    const { view } = ev;
+                    view.name = `${icon}-outline`;
                 }),
             new Spacer(),
             new TextView(title),
@@ -163,7 +165,7 @@ export default class FlexHub extends HIFullScreenView {
             )
                 .stretch()
                 .padding({ top: HubTitlebar.HEIGHT })
-                .background(HColor('background').alpha(0.5)),
+                .background(HColor('background').alpha(0.75)),
         );
 
         this.body.style.setProperty('-webkit-app-region', 'drag');

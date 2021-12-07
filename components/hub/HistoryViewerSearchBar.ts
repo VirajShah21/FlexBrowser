@@ -4,7 +4,6 @@ import IonIcon from '@Hi/Components/IonIcon';
 import TextField from '@Hi/Components/TextField';
 import HumanEvent from '@Hi/Types/HumanEvent';
 import HistoryViewer from '@UI/FlexHub/HistoryViewer';
-import HubTitlebar from './HubTitlebar';
 
 export default class HistoryViewerSearchBar extends HStack {
     public constructor() {

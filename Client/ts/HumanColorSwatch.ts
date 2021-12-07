@@ -1,5 +1,5 @@
-import { HumanColorName } from './Colors';
 import RGBAModel from './RGBAModel';
+import { HumanColorName } from './Types/colors';
 
 export interface ThemeColorSwatch extends Record<HumanColorName, RGBAModel> {
     blue: RGBAModel;
