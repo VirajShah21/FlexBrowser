@@ -50,14 +50,15 @@ function HubButton(icon: string, title: string): ClickButton {
         new VStack(
             new IonIcon(`${icon}-outline`)
                 .font(50)
-                .whenMouseOver(ev => {
+                .whenMouseOver(async ev => {
                     const { view } = ev;
                     view.name = icon;
                 })
-                .whenMouseOut(ev => {
+                .whenMouseOut(async ev => {
                     const { view } = ev;
                     view.name = `${icon}-outline`;
-                }),
+                })
+                .addClass('HubButton-icon'),
             new Spacer(),
             new TextView(title),
         )
@@ -76,6 +77,9 @@ function HubButton(icon: string, title: string): ClickButton {
         } else if (data === 'hi:buildout') {
             btn.transition(hubButtonBuildOut);
         }
+        (
+            btn.getViewsByClass('HubButton-icon')[0] as IonIcon
+        ).name = `${icon}-outline`;
     };
 
     return btn;
