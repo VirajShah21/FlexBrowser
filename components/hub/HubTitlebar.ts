@@ -1,4 +1,4 @@
-import ThemedButton from '@Components/ThemedButton';
+import ThemedButton from '@Components/TaskbarButtons/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import Spacer from '@Hi/Components/Spacer';

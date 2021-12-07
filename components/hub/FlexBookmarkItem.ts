@@ -1,5 +1,5 @@
 import Favicon from '@Components/Favicon';
-import ThemedButton from '@Components/ThemedButton';
+import ThemedButton from '@Components/TaskbarButtons/ThemedButton';
 import { getAverageRGB, HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';

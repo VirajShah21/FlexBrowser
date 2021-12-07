@@ -9,7 +9,7 @@ import HumanEvent, { HumanKeyPressEvent } from '@Hi/Types/HumanEvent';
 import ValidURL from '@Models/ValidURL';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
 import Favicon from './Favicon';
-import RefreshTaskbarButton from './RefreshTaskbarButton';
+import RefreshTaskbarButton from './TaskbarButtons/RefreshTaskbarButton';
 
 const whenFocusedTransition = defineTransition({
     from: {
