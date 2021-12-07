@@ -1,7 +1,7 @@
-import HideTaskbarButton from '@Components/HideTaskbarButton';
-import LaunchHubTaskbarButton from '@Components/LaunchHubTaskbarButton';
-import NewWindowTaskbarButton from '@Components/NewWindowTaskbarButton';
-import PageNavigationTaskbarButtons from '@Components/PageNavigationTaskbarButtons';
+import HideTaskbarButton from '@Components/TaskbarButtons/HideTaskbarButton';
+import LaunchHubTaskbarButton from '@Components/TaskbarButtons/LaunchHubTaskbarButton';
+import NewWindowTaskbarButton from '@Components/TaskbarButtons/NewWindowTaskbarButton';
+import PageNavigationTaskbarButtons from '@Components/TaskbarButtons/PageNavigationTaskbarButtons';
 import URLBar from '@Components/URLBar';
 import { HColor } from '@Hi/Colors';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';

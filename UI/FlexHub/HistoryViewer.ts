@@ -1,7 +1,7 @@
 import Favicon from '@Components/Favicon';
 import HistoryViewerSearchBar from '@Components/hub/HistoryViewerSearchBar';
 import HubTitlebar from '@Components/hub/HubTitlebar';
-import ThemedButton from '@Components/ThemedButton';
+import ThemedButton from '@Components/TaskbarButtons/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
