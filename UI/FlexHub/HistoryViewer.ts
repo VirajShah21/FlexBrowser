@@ -1,4 +1,5 @@
 import Favicon from '@Components/Favicon';
+import HistoryViewerSearchBar from '@Components/hub/HistoryViewerSearchBar';
 import ThemedButton from '@Components/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
@@ -75,36 +76,13 @@ export default class HistoryViewer extends BaseHubWindow {
     constructor() {
         super(
             'History',
-
+            new HistoryViewerSearchBar(),
             new VStack().id('history-container').width('100%'),
         );
 
-        HistoryViewer.getHistory().then(records => {
-            this.findViewById('history-container')
-                ?.removeAllChildren()
-                .addChildren(
-                    new HStack(
-                        new Spacer(),
-                        new ClickButton(
-                            new HStack(
-                                new IonIcon('shield-checkmark')
-                                    .margin({
-                                        right: 5,
-                                    })
-                                    .font('lg'),
-                                new TextView('Manage')
-                                    .margin({ left: 5 })
-                                    .font('md'),
-                            ),
-                        )
-                            .background(HColor(BrowserPreferences.ColorTheme))
-                            .foreground(HColor('background'))
-                            .rounded(50)
-                            .padding(),
-                    ).stretch(),
-                    ...records.map(record => new HistoryViewerItem(record)),
-                );
-        });
+        this.id('history-viewer');
+
+        this.loadHistory();
     }
 
     public static async getHistory(): Promise<HistoryRecord[]> {
@@ -114,6 +92,43 @@ export default class HistoryViewer extends BaseHubWindow {
             .split('\n')
             .filter(record => record.trim().length > 0)
             .map(record => HistoryViewer.parseHistoryRecord(record));
+    }
+
+    public async loadHistory(query?: string): Promise<void> {
+        let records = await HistoryViewer.getHistory();
+
+        if (query) {
+            records = records.filter(
+                record =>
+                    record.title.toLowerCase().includes(query.toLowerCase()) ||
+                    record.url.toLowerCase().includes(query.toLowerCase()),
+            );
+        }
+
+        this.findViewById('history-container')
+            ?.removeAllChildren()
+            .addChildren(
+                new HStack(
+                    new Spacer(),
+                    new ClickButton(
+                        new HStack(
+                            new IonIcon('shield-checkmark')
+                                .margin({
+                                    right: 5,
+                                })
+                                .font('lg'),
+                            new TextView('Manage')
+                                .margin({ left: 5 })
+                                .font('md'),
+                        ),
+                    )
+                        .background(HColor(BrowserPreferences.ColorTheme))
+                        .foreground(HColor('background'))
+                        .rounded(50)
+                        .padding(),
+                ).stretch(),
+                ...records.map(record => new HistoryViewerItem(record)),
+            );
     }
 
     public static parseHistoryRecord(record: string): HistoryRecord {
