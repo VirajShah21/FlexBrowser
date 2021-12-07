@@ -103,7 +103,6 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                         .padding({ left: 10, right: 10 })
                         .addClass('titlebar-transition'),
                 )
-                    .blur()
                     .width('100%')
                     .padding()
                     .padding(10)
@@ -157,18 +156,20 @@ export default class FlexBrowserWindow extends HIFullScreenView {
         const urlfield = this.findViewById('url') as TextField;
         const urlbar = this.findViewById('url-bar') as URLBar;
 
+        const { history } = this;
+
         flexarch.changeUrl(newUrl);
-        (icon.body as HTMLInputElement).name = 'reload'; // ! Workaround to use .name
+        icon.name = 'reload';
 
         if (addToHistory) {
-            this.history.push(newUrl);
+            history.push(newUrl);
             this.historyPointer = this.history.length - 1;
         }
 
         urlfield.value = newUrl;
         urlbar.updateURLInfo();
 
-        return this.history.map(e => e);
+        return history.map(e => e);
     }
 
     /**
@@ -177,16 +178,16 @@ export default class FlexBrowserWindow extends HIFullScreenView {
      * @memberOf FlexBrowserWindow
      */
     public previousPage(): void {
-        this.historyPointer -= 1;
-        if (
-            this.historyPointer >= 0 &&
-            this.historyPointer < this.history.length
-        ) {
-            this.goTo(
-                this.history[this.historyPointer] || 'flex://error',
-                false,
-            );
-        } else this.historyPointer += 1;
+        let hp = this.historyPointer;
+        const { history } = this;
+
+        hp -= 1;
+
+        if (hp >= 0 && hp < history.length) {
+            this.goTo(history[hp] || 'flex://error', false);
+        } else hp += 1;
+
+        this.historyPointer = hp;
     }
 
     /**
@@ -195,19 +196,23 @@ export default class FlexBrowserWindow extends HIFullScreenView {
      * @memberOf FlexBrowserWindow
      */
     public nextPage(): void {
-        this.historyPointer += 1;
-        if (
-            this.historyPointer >= 0 &&
-            this.historyPointer < this.history.length
-        ) {
-            this.goTo(this.history[this.historyPointer] || 'flex://error');
-        } else this.historyPointer -= 1;
+        let hp = this.historyPointer;
+        const { history } = this;
+
+        hp += 1;
+        if (hp >= 0 && hp < history.length) {
+            this.goTo(history[hp] || 'flex://error');
+        } else hp -= 1;
+
+        this.historyPointer = hp;
     }
 
     public override handle(data: string, ...args: unknown[]): void {
+        const errorView = this.findViewById('error')!;
+
         if (data === 'page-load-err') {
-            this.findViewById('error')!.opacity(1);
-            this.findViewById('error')!
+            errorView
+                .opacity(1)
                 .removeAllChildren()
                 .addChildren(
                     new TextView(`Error: ${args[0]}`)
@@ -225,7 +230,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                         .rounded(),
                 );
         } else if (data === 'page-load-good') {
-            this.findViewById('error')!.opacity(0);
+            errorView.opacity(0);
         }
     }
 }
