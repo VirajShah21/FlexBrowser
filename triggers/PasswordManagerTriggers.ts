@@ -22,7 +22,7 @@ export default function addPassword(): void {
             ).width('100%'),
             new TextField('Ex: accounts.google.com')
                 .width('100%')
-                .id('keychain-domain'),
+                .id('keychain-service'),
 
             new HStack(
                 new TextView('Account').weight(FontWeight.Bold),
@@ -75,13 +75,16 @@ export default function addPassword(): void {
                     .whenClicked(ev => ev.view.root().destroy()),
                 new ThemedButton(new TextView('Add')).whenClicked(ev => {
                     const root = ev.view.root();
+                    const service = (
+                        root.findViewById('keychain-service') as InputField
+                    ).value;
                     const account = (
                         root.findViewById('keychain-account') as InputField
                     ).value;
                     const password = (
                         root.findViewById('keychain-password') as InputField
                     ).value;
-                    flexarch.setPassword(account, password);
+                    flexarch.setPassword(`${service} (${account})`, password);
                     overlay.destroy();
                 }),
             ).margin({ top: 10 }),
