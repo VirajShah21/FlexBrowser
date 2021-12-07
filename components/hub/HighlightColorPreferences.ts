@@ -1,10 +1,11 @@
-import { HumanColorName, HColor } from '@Hi/Colors';
+import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import { HumanColorName } from '@Hi/Types/colors';
 import highlightColorSelected from '@Triggers/preferences-triggers';
 
 /**

@@ -1,5 +1,6 @@
-import { HColor, HumanColorName } from '@Hi/Colors';
+import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
+import { HumanColorName } from '@Hi/Types/colors';
 import HumanEvent from '@Hi/Types/HumanEvent';
 import BrowserPreferences from '@Models/BrowserPreferences';
 

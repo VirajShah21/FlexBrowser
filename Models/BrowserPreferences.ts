@@ -1,4 +1,5 @@
-import { changeTheme, HumanColorName } from '@Hi/Colors';
+import { changeTheme } from '@Hi/Colors';
+import { HumanColorName } from '@Hi/Types/colors';
 
 /**
  * The preferences manager for Flex Browser.
