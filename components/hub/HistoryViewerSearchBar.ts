@@ -13,13 +13,10 @@ export default class HistoryViewerSearchBar extends HStack {
             new TextField()
                 .background('none')
                 .border({ size: 0 })
-                .whenChanged(HistoryViewerSearchBar.queryHistory),
+                .whenChanged(HistoryViewerSearchBar.queryHistory)
+                .stretch(),
         );
         this.rounded(50)
-            .fixed()
-            .zIndex(100)
-            .setTop(HubTitlebar.HEIGHT + 10)
-            .setLeft(10)
             .blur()
             .padding({
                 top: 5,

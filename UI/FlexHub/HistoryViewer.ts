@@ -1,5 +1,6 @@
 import Favicon from '@Components/Favicon';
 import HistoryViewerSearchBar from '@Components/hub/HistoryViewerSearchBar';
+import HubTitlebar from '@Components/hub/HubTitlebar';
 import ThemedButton from '@Components/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
@@ -76,8 +77,35 @@ export default class HistoryViewer extends BaseHubWindow {
     constructor() {
         super(
             'History',
-            new HistoryViewerSearchBar(),
-            new VStack().id('history-container').width('100%'),
+            new HStack(
+                new HistoryViewerSearchBar().width('100%'),
+
+                new ClickButton(
+                    new HStack(
+                        new IonIcon('shield-checkmark')
+                            .margin({
+                                right: 5,
+                            })
+                            .font('lg'),
+                        new TextView('Manage').margin({ left: 5 }).font('md'),
+                    ),
+                )
+                    .background(HColor(BrowserPreferences.ColorTheme))
+                    .foreground(HColor('background'))
+                    .rounded(50)
+                    .padding()
+                    .margin({ left: 10 }),
+            )
+                .width('100%')
+                .fixed()
+                .zIndex(100)
+                .setTop(HubTitlebar.HEIGHT)
+                .setLeft(0)
+                .padding(10),
+            new VStack()
+                .id('history-container')
+                .width('100%')
+                .padding({ top: 50 }),
         );
 
         this.id('history-viewer');
@@ -108,25 +136,6 @@ export default class HistoryViewer extends BaseHubWindow {
         this.findViewById('history-container')
             ?.removeAllChildren()
             .addChildren(
-                new HStack(
-                    new Spacer(),
-                    new ClickButton(
-                        new HStack(
-                            new IonIcon('shield-checkmark')
-                                .margin({
-                                    right: 5,
-                                })
-                                .font('lg'),
-                            new TextView('Manage')
-                                .margin({ left: 5 })
-                                .font('md'),
-                        ),
-                    )
-                        .background(HColor(BrowserPreferences.ColorTheme))
-                        .foreground(HColor('background'))
-                        .rounded(50)
-                        .padding(),
-                ).stretch(),
                 ...records.map(record => new HistoryViewerItem(record)),
             );
     }
