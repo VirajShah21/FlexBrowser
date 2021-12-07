@@ -1,16 +1,15 @@
+import BookmarkButton from '@Components/BookmarkButton';
 import Favicon from '@Components/Favicon';
 import HubTitlebar from '@Components/hub/HubTitlebar';
 import { getAverageRGB, HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
-import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
 import VStack from '@Hi/Components/VStack';
 import RGBAModel from '@Hi/RGBAModel';
-import BookmarksManager from '@Models/BookmarksManager';
 import BrowserPreferences from '@Models/BrowserPreferences';
 import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
@@ -24,38 +23,9 @@ class FlexWindowsViewerItem extends ClickButton {
         super(
             new VStack(
                 new HStack(
-                    new ClickButton(
-                        new IonIcon(
-                            BookmarksManager.isBookmarked(
-                                new ValidURL(meta.url),
-                            )
-                                ? 'bookmark'
-                                : 'bookmark-outline',
-                        )
-                            .foreground(RGBAModel.WHITE.alpha(0.5))
-                            .id('bookmark-icon'),
-                    ).whenClicked(ev => {
-                        ev.browserEvent.stopPropagation();
-                        const icon = ev.view.findViewById(
-                            'bookmark-icon',
-                        ) as IonIcon;
-
-                        if (
-                            BookmarksManager.isBookmarked(
-                                new ValidURL(meta.url),
-                            )
-                        ) {
-                            BookmarksManager.removeBookmark(
-                                new ValidURL(meta.url),
-                            );
-                            icon.name = 'bookmark-outline';
-                        } else {
-                            const validMeta = { ...meta };
-                            validMeta.url = new ValidURL(meta.url).toString();
-                            BookmarksManager.addBookmark(meta);
-                            icon.name = 'bookmark';
-                        }
-                    }),
+                    new BookmarkButton(meta)
+                        .font('lg')
+                        .foreground(HColor('background')),
                 )
                     .position('absolute')
                     .setTop(5)
