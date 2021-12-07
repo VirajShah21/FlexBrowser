@@ -1,4 +1,4 @@
-import { HumanColorName } from '@Hi/Colors';
+import { HumanColorName } from '@Hi/Types/colors';
 import { HIEdgeSizingValue, HISizeBounds } from '@Hi/Types/sizing';
 
 /**
