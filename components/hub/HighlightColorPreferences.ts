@@ -6,7 +6,31 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { HumanColorName } from '@Hi/Types/colors';
-import highlightColorSelected from '@Triggers/preferences-triggers';
+import HumanEvent from '@Hi/Types/HumanEvent';
+import BrowserPreferences from '@Models/BrowserPreferences';
+
+function highlightColorSelected(
+    ev: HumanEvent<ClickButton>,
+    color: HumanColorName,
+): void {
+    BrowserPreferences.ColorTheme = color;
+    ev.view
+        .root()
+        .getViewsByClass('highlight-radio')
+        .forEach(view =>
+            view.borderBottom({
+                size: 0,
+            }),
+        );
+    ev.view
+        .root()
+        .findViewById(`highlight-${color}`)
+        ?.borderBottom({
+            size: 3,
+            style: 'solid',
+            color: HColor('foreground'),
+        });
+}
 
 /**
  * Creates a circle icon with a specified color. The button binds to a

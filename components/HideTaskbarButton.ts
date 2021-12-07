@@ -1,5 +1,6 @@
 import IonIcon from '@Hi/Components/IonIcon';
-import toggleTaskbarVisibility from '@Triggers/TaskbarTriggers';
+import TextView from '@Hi/Components/TextView';
+import { ViewController } from '@Hi/ViewController';
 import TaskbarButton from './TaskbarButton';
 
 /**
@@ -19,7 +20,42 @@ export default class HideTaskbarButton extends TaskbarButton {
      */
     constructor() {
         super();
-        this.padding(0).font('sm').whenClicked(toggleTaskbarVisibility);
+        this.padding(0)
+            .font('sm')
+            .whenClicked(ev => {
+                const { view } = ev;
+                view.isShown = !view.isShown;
+
+                if (view.isShown) {
+                    flexarch.showTaskbar();
+                    (view.body as HTMLInputElement).name = 'chevron-down';
+                    (
+                        view.root().findViewById('titlebar-title') as TextView
+                    ).text = '';
+                    ViewController.getController('AppController')
+                        ?.findViewById('url-bar')
+                        ?.opacity(1);
+                    (
+                        ViewController.getController(
+                            'AppController',
+                        )?.findViewById('taskbar-toggle-icon') as IonIcon
+                    ).name = 'chevron-up';
+                } else {
+                    flexarch.hideTaskbar();
+                    (view.body as HTMLInputElement).name = 'chevron-up';
+                    (
+                        view.root().findViewById('titlebar-title') as TextView
+                    ).text = flexarch.urlInfo().title;
+                    ViewController.getController('AppController')
+                        ?.findViewById('url-bar')
+                        ?.opacity(0);
+                    (
+                        ViewController.getController(
+                            'AppController',
+                        )?.findViewById('taskbar-toggle-icon') as IonIcon
+                    ).name = 'chevron-down';
+                }
+            });
     }
 
     /**

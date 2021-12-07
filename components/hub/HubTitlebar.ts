@@ -5,7 +5,7 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import { defineTransition } from '@Hi/Transitions/Transition';
-import { navigateBack } from '@Triggers/hub-triggers';
+import { ViewController } from '@Hi/ViewController';
 
 const hubTitlebarBuildIn = defineTransition({
     from: {
@@ -82,7 +82,11 @@ export default class HubTitlebar extends VStack {
         container?.addChildren(
             new ThemedButton(new TextView('Back'))
                 .padding(0)
-                .whenClicked(navigateBack)
+                .whenClicked(() =>
+                    ViewController.getController(
+                        'AppController',
+                    )!.navigateBack(),
+                )
                 .id('back-btn'),
         );
         if (appendSpacer) this.insertSpacer();

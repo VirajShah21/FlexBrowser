@@ -1,15 +1,15 @@
 import { HColor, rgb } from '@Hi/Colors';
+import Checkbox from '@Hi/Components/Checkbox';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
+import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import HumanEvent from '@Hi/Types/HumanEvent';
+import View from '@Hi/View';
 import BrowserPreferences from '@Models/BrowserPreferences';
-import {
-    addBlankCustomSearchEngine,
-    setDefaultSearchEngine,
-} from '@Triggers/custom-search-triggers';
 import SearchEngineListBody from './SearchEngineListBody';
 import SearchEngineListHead from './SearchEngineListHead';
 
@@ -35,7 +35,7 @@ export default class SearchEngineTable extends VStack {
                     .padding(0),
                 new ClickButton(new IonIcon('add-circle'))
                     .foreground(HColor(BrowserPreferences.ColorTheme))
-                    .whenClicked(addBlankCustomSearchEngine)
+                    .whenClicked(SearchEngineTable.addBlankCustomSearchEngine)
                     .margin({ left: 10 })
                     .font('xl')
                     .padding(0),
@@ -45,7 +45,7 @@ export default class SearchEngineTable extends VStack {
                     .foreground(rgb(255, 255, 255))
                     .rounded(5)
                     .margin({ left: 10 })
-                    .whenClicked(setDefaultSearchEngine),
+                    .whenClicked(SearchEngineTable.setDefaultSearchEngine),
 
                 new Spacer(),
 
@@ -59,5 +59,30 @@ export default class SearchEngineTable extends VStack {
                 .margin({ top: 10 }),
         );
         this.padding().width('100%');
+    }
+
+    private static addBlankCustomSearchEngine(ev: HumanEvent<View>): void {
+        (
+            ev.view
+                .root()
+                .findViewById('search-engine-list-body') as SearchEngineListBody
+        ).push({ id: '', name: '', urlPrefix: '' });
+    }
+
+    private static removeSelectedSearchEngines(): void {}
+
+    private static setDefaultSearchEngine(ev: HumanEvent<View>): void {
+        const items = ev.view
+            .root()
+            .findViewById('search-engine-list-body')!
+            .getViewsByClass('search-engine-item');
+        items.forEach(item => {
+            if ((item.findViewById('engine-checkbox') as Checkbox).checked) {
+                BrowserPreferences.DefaultSearchEngine =
+                    SearchEngineListBody.getEngineId(
+                        (item.findViewById('engine-name') as InputField).value,
+                    );
+            }
+        });
     }
 }
