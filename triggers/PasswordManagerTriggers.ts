@@ -15,57 +15,59 @@ export default function addPassword(): void {
     const overlay = new Overlay(
         new VStack(
             new Spacer(),
-            new VStack(
-                new HStack(
-                    new TextView('Account').weight(FontWeight.Bold),
-                    new Spacer(),
-                ).width('100%'),
-                new TextField('google.com (example@gmail.com)')
-                    .width('100%')
-                    .id('keychain-account'),
+
+            new HStack(
+                new TextView('Domain / Service').weight(FontWeight.Bold),
+                new Spacer(),
+            ).width('100%'),
+            new TextField('Ex: accounts.google.com')
+                .width('100%')
+                .id('keychain-domain'),
+
+            new HStack(
+                new TextView('Account').weight(FontWeight.Bold),
+                new Spacer(),
             )
                 .width('100%')
-                .margin({ bottom: 50 }),
+                .margin({ top: 10 }),
+            new TextField('Ex: example@gmail.com')
+                .width('100%')
+                .id('keychain-account'),
 
-            new VStack(
-                new HStack(
-                    new TextView('Password').weight(FontWeight.Bold),
-                    new Spacer(),
-                ).width('100%'),
-                new HStack(
-                    new PasswordField().width('100%').id('keychain-password'),
-                    new ClickButton(
-                        new IonIcon('eye-off-outline').id('show-password-icon'),
-                    )
-                        .font('lg')
-                        .id('show-password-btn')
-                        .whenClicked(ev => {
-                            const root = ev.view.root();
-                            const passwordField = root.findViewById(
-                                'keychain-password',
-                            ) as PasswordField;
-                            const eyeIcon = root.findViewById(
-                                'show-password-icon',
-                            ) as IonIcon;
-
-                            if (
-                                passwordField.body.getAttribute('type') ===
-                                'password'
-                            ) {
-                                passwordField.body.setAttribute('type', 'text');
-                                eyeIcon.name = 'eye-outline';
-                            } else {
-                                passwordField.body.setAttribute(
-                                    'type',
-                                    'password',
-                                );
-                                eyeIcon.name = 'eye-off-outline';
-                            }
-                        }),
-                ).width('100%'),
+            new HStack(
+                new TextView('Password').weight(FontWeight.Bold),
+                new Spacer(),
             )
                 .width('100%')
-                .margin({ bottom: 50 }),
+                .margin({ top: 10 }),
+            new HStack(
+                new PasswordField().width('100%').id('keychain-password'),
+                new ClickButton(
+                    new IonIcon('eye-off-outline').id('show-password-icon'),
+                )
+                    .font('lg')
+                    .id('show-password-btn')
+                    .whenClicked(ev => {
+                        const root = ev.view.root();
+                        const passwordField = root.findViewById(
+                            'keychain-password',
+                        ) as PasswordField;
+                        const eyeIcon = root.findViewById(
+                            'show-password-icon',
+                        ) as IonIcon;
+
+                        if (
+                            passwordField.body.getAttribute('type') ===
+                            'password'
+                        ) {
+                            passwordField.body.setAttribute('type', 'text');
+                            eyeIcon.name = 'eye-outline';
+                        } else {
+                            passwordField.body.setAttribute('type', 'password');
+                            eyeIcon.name = 'eye-off-outline';
+                        }
+                    }),
+            ).width('100%'),
 
             new HStack(
                 new ThemedButton(new TextView('Cancel'))
@@ -82,7 +84,7 @@ export default function addPassword(): void {
                     flexarch.setPassword(account, password);
                     overlay.destroy();
                 }),
-            ),
+            ).margin({ top: 10 }),
 
             new Spacer(),
         )
