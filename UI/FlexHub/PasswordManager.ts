@@ -1,5 +1,5 @@
 import PasswordListItem from '@Components/hub/PasswordListItem';
-import ThemedButton from '@Components/ThemedButton';
+import ThemedButton from '@Components/TaskbarButtons/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';

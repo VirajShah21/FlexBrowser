@@ -1,4 +1,7 @@
+import { getAverageRGB } from '@Hi/Colors';
 import ImageView from '@Hi/Components/ImageView';
+import RGBAModel from '@Hi/RGBAModel';
+import HumanEvent from '@Hi/Types/HumanEvent';
 import ValidURL from '@Models/ValidURL';
 
 /**
@@ -9,6 +12,12 @@ import ValidURL from '@Models/ValidURL';
  * @extends {ImageView}
  */
 export default class Favicon extends ImageView {
+    public averageColor: RGBAModel;
+
+    public isLight: boolean;
+
+    private whenAnalyzedTriggers: ((ev: HumanEvent<Favicon>) => void)[];
+
     /**
      * Creates an instance of Favicon.
      * @param {ValidURL} url The URL for which to load the favicon.
@@ -27,7 +36,24 @@ export default class Favicon extends ImageView {
                     untriedExtensions.splice(0, 1)[0],
                 );
             }
+        }).whenLoaded(ev => {
+            const avg = getAverageRGB(this.body, 1, [RGBAModel.WHITE]);
+            this.averageColor = avg;
+            this.isLight = avg.isLight();
+            this.whenAnalyzedTriggers.forEach(trigger =>
+                trigger({
+                    view: this,
+                    browserEvent: ev.browserEvent,
+                    type: 'Analyzed',
+                }),
+            );
         });
+        this.whenAnalyzedTriggers = [];
+    }
+
+    public whenAnalyzed(trigger: (ev: HumanEvent<Favicon>) => void): this {
+        this.whenAnalyzedTriggers.push(trigger);
+        return this;
     }
 
     /**

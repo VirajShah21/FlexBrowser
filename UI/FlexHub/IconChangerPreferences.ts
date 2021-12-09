@@ -1,5 +1,5 @@
 import SectionTitle from '@Components/SectionTitle';
-import ThemedButton from '@Components/ThemedButton';
+import ThemedButton from '@Components/TaskbarButtons/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
