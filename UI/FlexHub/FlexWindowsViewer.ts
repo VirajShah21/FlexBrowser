@@ -1,7 +1,7 @@
 import BookmarkButton from '@Components/BookmarkButton';
 import Favicon from '@Components/Favicon';
 import HubTitlebar from '@Components/hub/HubTitlebar';
-import { getAverageRGB, HColor } from '@Hi/Colors';
+import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
@@ -9,8 +9,6 @@ import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
 import VStack from '@Hi/Components/VStack';
-import RGBAModel from '@Hi/RGBAModel';
-import BrowserPreferences from '@Models/BrowserPreferences';
 import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
 
@@ -32,23 +30,27 @@ class FlexWindowsViewerItem extends ClickButton {
                     .setLeft(0)
                     .alignEnd()
                     .width('100%'),
+
                 new Spacer(),
+
                 image,
+
                 new Spacer(),
+
                 new TruncatedTextView(meta.title, FlexWindowsViewerItem.MAXLEN),
                 new TruncatedTextView(
                     new ValidURL(meta.url).shortestRepresentation,
                     FlexWindowsViewerItem.MAXLEN,
                 )
                     .id('window-title')
-                    .foreground(HColor('background').alpha(0.5)),
+                    .foreground(HColor('gray')),
                 new Spacer(),
             ).stretch(),
         );
 
         this.rounded()
-            .background(HColor(BrowserPreferences.ColorTheme))
-            .foreground(HColor('background'))
+            .foreground(HColor('foreground'))
+            .background(HColor('background'))
             .padding()
             .margin(12)
             .width(150)
@@ -56,28 +58,18 @@ class FlexWindowsViewerItem extends ClickButton {
             .whenClicked(() => {
                 flexarch.focusWindow(windowId);
             })
-            .position('relative');
+            .position('relative')
+            .border({
+                size: 1,
+                style: 'solid',
+                color: HColor('gray5'),
+            });
 
-        image.whenLoaded(() => {
-            const avg = getAverageRGB(image.body, 1, [RGBAModel.WHITE]);
-            this.background(avg);
-            if (avg.isLight()) {
-                this.foreground(RGBAModel.BLACK);
-                this.findViewById('window-title')?.foreground(
-                    RGBAModel.BLACK.alpha(0.5),
-                );
-                image
-                    .background(RGBAModel.BLACK)
-                    .border({ color: RGBAModel.BLACK });
-            } else {
-                this.foreground(RGBAModel.WHITE);
-                this.findViewById('window-title')?.foreground(
-                    RGBAModel.WHITE.alpha(0.5),
-                );
-                image
-                    .background(RGBAModel.WHITE)
-                    .border({ color: RGBAModel.WHITE });
-            }
+        image.whenAnalyzed(ev => {
+            this.borderTop({
+                size: 10,
+                color: ev.view.averageColor,
+            });
         });
     }
 }
