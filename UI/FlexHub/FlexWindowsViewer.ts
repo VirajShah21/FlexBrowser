@@ -23,7 +23,7 @@ class FlexWindowsViewerItem extends ClickButton {
                 new HStack(
                     new BookmarkButton(meta)
                         .font('lg')
-                        .foreground(HColor('background')),
+                        .foreground(HColor('foreground')),
                 )
                     .position('absolute')
                     .setTop(5)
