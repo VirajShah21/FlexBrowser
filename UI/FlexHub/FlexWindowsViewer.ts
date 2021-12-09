@@ -32,7 +32,7 @@ class FlexWindowsViewerItem extends ClickButton {
                         .whenMouseOver(ev =>
                             ev.view
                                 .background(HColor('gray6'))
-                                .foreground(RGBAModel.BLACK),
+                                .foreground(HColor('foreground')),
                         )
                         .whenMouseOut(ev =>
                             ev.view
@@ -123,7 +123,7 @@ export default class FlexWindowViewer extends BaseHubWindow {
                 )
                     .rounded(25)
                     .border({
-                        size: 1,
+                        size: 2,
                         style: 'solid',
                         color: HColor('gray5'),
                     })
@@ -137,7 +137,7 @@ export default class FlexWindowViewer extends BaseHubWindow {
                 )
                     .rounded(25)
                     .border({
-                        size: 1,
+                        size: 2,
                         style: 'solid',
                         color: HColor('gray5'),
                     })
