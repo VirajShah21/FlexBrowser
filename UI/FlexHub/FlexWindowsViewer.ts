@@ -1,18 +1,19 @@
 import BookmarkButton from '@Components/BookmarkButton';
 import Favicon from '@Components/Favicon';
-import HubTitlebar from '@Components/hub/HubTitlebar';
+import ThemedButton from '@Components/TaskbarButtons/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
-import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
+import TextView from '@Hi/Components/TextView';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
 import VStack from '@Hi/Components/VStack';
 import RGBAModel from '@Hi/RGBAModel';
 import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
+import BaseHubWindow from './BaseHubWindow';
 
 class FlexWindowsViewerItem extends ClickButton {
     private static readonly MAXLEN = 20;
@@ -100,7 +101,7 @@ class FlexWindowsViewerItem extends ClickButton {
  * @class FlexWindowViewer
  * @extends {HIFullScreenView}
  */
-export default class FlexWindowViewer extends HIFullScreenView {
+export default class FlexWindowViewer extends BaseHubWindow {
     /**
      * Creates an instance of FlexWindowViewer without any windows listed.
      *
@@ -108,30 +109,61 @@ export default class FlexWindowViewer extends HIFullScreenView {
      */
     constructor() {
         super(
-            new VStack(
-                new HubTitlebar(HubTitles.WindowsViewer).insertBackButton(),
-                new ScrollView(
+            HubTitles.WindowsViewer,
+
+            new HStack(
+                new ThemedButton(
                     new HStack(
-                        ...flexarch
-                            .getWindowList()
-                            .map(
-                                meta =>
-                                    new FlexWindowsViewerItem(
-                                        meta,
-                                        meta.windowId ?? 0,
-                                    ),
-                            ),
-                    )
-                        .width('100%')
-                        .padding()
-                        .id('window-buttons-container')
-                        .wrap(),
+                        new IonIcon('add-circle-outline').font('lg'),
+                        new TextView('New Window').margin({
+                            left: 5,
+                            right: 5,
+                        }),
+                    ),
+                )
+                    .rounded(25)
+                    .border({
+                        size: 1,
+                        style: 'solid',
+                        color: HColor('gray5'),
+                    })
+                    .padding(5),
+
+                new ThemedButton(
+                    new HStack(
+                        new IonIcon('close-circle-outline').font('lg'),
+                        new TextView('Close All').margin({ left: 5, right: 5 }),
+                    ),
+                )
+                    .rounded(25)
+                    .border({
+                        size: 1,
+                        style: 'solid',
+                        color: HColor('gray5'),
+                    })
+                    .padding(5)
+                    .margin({ left: 10 }),
+            ),
+
+            new ScrollView(
+                new HStack(
+                    ...flexarch
+                        .getWindowList()
+                        .map(
+                            meta =>
+                                new FlexWindowsViewerItem(
+                                    meta,
+                                    meta.windowId ?? 0,
+                                ),
+                        ),
                 )
                     .width('100%')
-                    .padding()
-                    .padding({ top: HubTitlebar.HEIGHT + 10 }),
-                new Spacer(),
-            ).stretch(),
+                    .id('window-buttons-container')
+                    .wrap(),
+            )
+                .width('100%')
+                .padding(),
+            new Spacer(),
         );
 
         this.background(HColor('background').alpha(0.75)).foreground(
