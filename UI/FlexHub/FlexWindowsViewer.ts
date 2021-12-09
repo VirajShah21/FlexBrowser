@@ -10,6 +10,7 @@ import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
 import VStack from '@Hi/Components/VStack';
+import RGBAModel from '@Hi/RGBAModel';
 import ValidURL from '@Models/ValidURL';
 import HubTitles from '@Resources/strings/HubTitles.json';
 
@@ -22,20 +23,21 @@ class FlexWindowsViewerItem extends ClickButton {
         super(
             new VStack(
                 new HStack(
-                    new ClickButton(new IonIcon('ellipse'))
-                        .foreground(HColor('red'))
+                    new ClickButton(new IonIcon('close'))
+                        .foreground(HColor('gray'))
                         .padding(2)
-                        .font('md'),
-
-                    new ClickButton(new IonIcon('ellipse'))
-                        .foreground(HColor('orange'))
-                        .padding(2)
-                        .font('md'),
-
-                    new ClickButton(new IonIcon('ellipse'))
-                        .foreground(HColor('green'))
-                        .padding(2)
-                        .font('md'),
+                        .margin({ left: 10 })
+                        .font('lg')
+                        .whenMouseOver(ev =>
+                            ev.view
+                                .background(HColor('gray6'))
+                                .foreground(RGBAModel.BLACK),
+                        )
+                        .whenMouseOut(ev =>
+                            ev.view
+                                .background('none')
+                                .foreground(HColor('gray')),
+                        ),
 
                     new Spacer(),
 
