@@ -42,9 +42,12 @@ function Theming() {
         new TextView(
             'Just one way to customize your browsing experience!',
         ).weight(FontWeight.Light),
-        new ThemePreferences(),
         new Spacer(),
-        new HighlightColorPreferences(),
+        new VStack(
+            new ThemePreferences(),
+            new Spacer(),
+            new HighlightColorPreferences(),
+        ).width('50%'),
         new Spacer(),
     ).stretch();
 }
