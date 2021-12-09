@@ -133,7 +133,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                     ),
             )
                 .stretch()
-                .background(HColor('background').alpha(0.5)),
+                .background(HColor('background').alpha(0.75)),
         );
 
         const titlebar = this.findViewById('titlebar') as View;

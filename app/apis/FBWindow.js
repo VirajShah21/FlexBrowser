@@ -33,6 +33,7 @@ function createWindow() {
     debug('Reading configuration');
     const config = readRC();
     debug('Read configuration');
+    let numLoads = 0;
 
     if ((config.theme || 'dark') === 'dark') nativeTheme.themeSource = 'dark';
     else nativeTheme.themeSource = 'light';
@@ -63,7 +64,11 @@ function createWindow() {
     win.getBrowserView().webContents.addListener('page-title-updated', () => {
         win.webContents.executeJavaScript('signal("browser-navigated")');
         const { webContents } = win.getBrowserView();
-        addToHistory(webContents.getURL(), webContents.getTitle());
+
+        if (numLoads > 0) {
+            addToHistory(webContents.getURL(), webContents.getTitle());
+        }
+        numLoads++;
     });
 }
 

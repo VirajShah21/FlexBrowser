@@ -5,6 +5,7 @@ import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
 import HIFullScreenView from '@Hi/Components/HIFullScreenView';
 import HStack from '@Hi/Components/HStack';
+import IonIcon from '@Hi/Components/IonIcon';
 import ScrollView from '@Hi/Components/ScrollView';
 import Spacer from '@Hi/Components/Spacer';
 import TruncatedTextView from '@Hi/Components/TruncatedTextView';
@@ -21,14 +22,30 @@ class FlexWindowsViewerItem extends ClickButton {
         super(
             new VStack(
                 new HStack(
+                    new ClickButton(new IonIcon('ellipse'))
+                        .foreground(HColor('red'))
+                        .padding(2)
+                        .font('md'),
+
+                    new ClickButton(new IonIcon('ellipse'))
+                        .foreground(HColor('orange'))
+                        .padding(2)
+                        .font('md'),
+
+                    new ClickButton(new IonIcon('ellipse'))
+                        .foreground(HColor('green'))
+                        .padding(2)
+                        .font('md'),
+
+                    new Spacer(),
+
                     new BookmarkButton(meta)
                         .font('lg')
-                        .foreground(HColor('background')),
+                        .foreground(HColor('foreground')),
                 )
                     .position('absolute')
                     .setTop(5)
                     .setLeft(0)
-                    .alignEnd()
                     .width('100%'),
 
                 new Spacer(),
