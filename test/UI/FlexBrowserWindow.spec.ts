@@ -2,11 +2,13 @@ import InputField from '@Hi/Components/InputField';
 import IonIcon from '@Hi/Components/IonIcon';
 import { expect } from 'chai';
 import FlexBrowserWindow from '@UI/FlexBrowserWindow';
+import Resources from '@Hi/Resources';
 
 describe('FlexBrowserWindow: URL Bar Navigation', () => {
     let win: FlexBrowserWindow;
 
     beforeEach(() => {
+        Resources.dir = '../../resources';
         win = new FlexBrowserWindow();
     });
 
