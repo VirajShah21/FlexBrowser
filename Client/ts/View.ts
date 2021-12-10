@@ -30,10 +30,12 @@ export enum PStatus {
  * @abstract
  * @class View
  */
-export default abstract class View extends BaseBodyStyler {
-    public override body: HTMLElement;
+export default abstract class View<
+    H extends HTMLElement,
+> extends BaseBodyStyler<H> {
+    public override body: H;
 
-    public parent?: View;
+    public parent?: View<HTMLElement>;
 
     public description?: string;
 
@@ -48,8 +50,8 @@ export default abstract class View extends BaseBodyStyler {
      * @param element The HTML tagname which should be used to generate the View.
      * @param children The initial group of children to add before the View is rendered.
      */
-    constructor(element: string, ...children: View[]) {
-        super(document.createElement(element));
+    constructor(element: string, ...children: View<H>[]) {
+        super(document.createElement(element) as H);
         this.children = [];
         this.addClass('hi-view');
         children.forEach(child => {
@@ -64,8 +66,8 @@ export default abstract class View extends BaseBodyStyler {
      * @param className The classname of all the views to query.
      * @returns An array of Views with a matching classname.
      */
-    getViewsByClass(className: string): View[] {
-        const results: View[] = [];
+    getViewsByClass(className: string): View<HTMLElement>[] {
+        const results: View<HTMLElement>[] = [];
         if (this.children) {
             this.children.forEach(child => {
                 if (child.getClassList().indexOf(className) >= 0) {
@@ -88,13 +90,13 @@ export default abstract class View extends BaseBodyStyler {
      *
      * @memberOf View
      */
-    findViewById(id: string): View | null {
+    findViewById<T extends View<HTMLElement>>(id: string): T | null {
         for (let i = 0; i < this.children.length; i += 1) {
             if (Object.prototype.hasOwnProperty.call(this.children, i)) {
                 const child = this.children[i]!;
-                if (child.identifier === id) return child;
+                if (child.identifier === id) return child as T;
                 const childResult = child.findViewById(id);
-                if (childResult) return childResult;
+                if (childResult) return childResult as T;
             }
         }
         return null;
@@ -158,7 +160,7 @@ export default abstract class View extends BaseBodyStyler {
      *
      * @memberOf View
      */
-    addChildren(...children: View[]): this {
+    addChildren(...children: View<HTMLElement>[]): this {
         children.forEach(child => {
             this.children.push(child);
         });
@@ -203,7 +205,9 @@ export default abstract class View extends BaseBodyStyler {
      *
      * @memberOf View
      */
-    forChild(iteratee: (child: View, index: number) => void): this {
+    forChild(
+        iteratee: (child: View<HTMLElement>, index: number) => void,
+    ): this {
         this.children.forEach((child, i) => iteratee(child, i));
         return this;
     }
@@ -268,17 +272,17 @@ export default abstract class View extends BaseBodyStyler {
      *
      * @memberOf View
      */
-    root(stopAtView?: (view: View) => boolean): View {
-        let root: View = this.parent as View;
+    root<T extends View<HTMLElement>>(stopAtView?: (view: T) => boolean): T {
+        let root: T = this.parent as T;
 
-        if (root === undefined) return this;
+        if (root === undefined) return this as unknown as T;
 
         if (stopAtView) {
             while (root.parent !== undefined) {
                 if (stopAtView(root)) return root;
-                root = root.parent;
+                root = root.parent as T;
             }
-        } else while (root.parent !== undefined) root = root.parent;
+        } else while (root.parent !== undefined) root = root.parent as T;
 
         return root;
     }
@@ -426,8 +430,8 @@ export default abstract class View extends BaseBodyStyler {
     }
 }
 
-export class ViewCollection extends Array<View> {
-    constructor(views: View[]) {
+export class ViewCollection extends Array<View<HTMLElement>> {
+    constructor(views: View<HTMLElement>[]) {
         super();
         views.forEach(view => {
             this.push(view);

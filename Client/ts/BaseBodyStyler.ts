@@ -11,10 +11,10 @@ import {
     SizingValues,
 } from './Types/sizing';
 
-export default abstract class BaseBodyStyler {
-    public body: HTMLElement;
+export default abstract class BaseBodyStyler<H extends HTMLElement> {
+    public body: H;
 
-    protected constructor(body: HTMLElement) {
+    protected constructor(body: H) {
         this.body = body;
     }
 
@@ -694,7 +694,7 @@ export default abstract class BaseBodyStyler {
         return this;
     }
 
-    public get computed(): ComputedStyle<BaseBodyStyler> {
+    public get computed(): ComputedStyle<BaseBodyStyler<H>> {
         const values = window.getComputedStyle(this.body);
         return {
             for: this,
@@ -716,7 +716,7 @@ export default abstract class BaseBodyStyler {
     }
 }
 
-interface ComputedStyle<T extends BaseBodyStyler>
+interface ComputedStyle<T extends BaseBodyStyler<HTMLElement>>
     extends Record<string, unknown> {
     for: T;
     width: HISizingValue;
