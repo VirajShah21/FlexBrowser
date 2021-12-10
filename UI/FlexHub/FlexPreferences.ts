@@ -9,6 +9,7 @@ import BaseHubWindow from './BaseHubWindow';
 import ColorPreferences from '../../components/hub/ColorPreferences';
 import SearchEnginePreferences from './SearchEnginePreferences';
 import IconChangerPreferences from './IconChangerPreferences';
+import FeedbackAssistant from './FeedbackAssistant';
 
 export class FlexPreferenceMenuButton extends ClickButton {
     public constructor(public readonly name: string) {
@@ -60,6 +61,12 @@ export default class FlexPreferences extends BaseHubWindow {
                 new FlexPreferenceMenuButton('Icon Changer').whenClicked(() =>
                     ViewController.getController('AppController')?.navigateTo(
                         new IconChangerPreferences(),
+                    ),
+                ),
+
+                new FlexPreferenceMenuButton('Feedback').whenClicked(() =>
+                    ViewController.getController('AppController')?.navigateTo(
+                        new FeedbackAssistant(),
                     ),
                 ),
             )
