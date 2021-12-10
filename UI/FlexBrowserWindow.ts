@@ -13,7 +13,6 @@ import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import Resources from '@Hi/Resources';
 import { defineTransition } from '@Hi/Transitions/Transition';
-import View from '@Hi/View';
 import ValidURL from '@Models/ValidURL';
 
 /**
@@ -136,7 +135,7 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                 .background(HColor('background').alpha(0.75)),
         );
 
-        const titlebar = this.findViewById('titlebar') as View;
+        const titlebar = this.findViewById<HStack>('titlebar')!;
         titlebar.body.style.setProperty('-webkit-app-region', 'drag');
     }
 
@@ -152,9 +151,9 @@ export default class FlexBrowserWindow extends HIFullScreenView {
     public goTo(url: string, addToHistory = true): string[] {
         const newUrl = new ValidURL(url).toString();
 
-        const icon = this.findViewById('url-refresh-button') as IonIcon;
-        const urlfield = this.findViewById('url') as TextField;
-        const urlbar = this.findViewById('url-bar') as URLBar;
+        const icon = this.findViewById<IonIcon>('url-refresh-button')!;
+        const urlfield = this.findViewById<TextField>('url')!;
+        const urlbar = this.findViewById<URLBar>('url-bar')!;
 
         const { history } = this;
 

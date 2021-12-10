@@ -18,7 +18,11 @@ export class IconButton extends ThemedButton {
 
     private static instances: IconButton[] = [];
 
-    constructor(iconType: string, themeName: string, ...children: View[]) {
+    constructor(
+        iconType: string,
+        themeName: string,
+        ...children: View<HTMLElement>[]
+    ) {
         super(new HStack(...children));
         this.font('xl')
             .padding()

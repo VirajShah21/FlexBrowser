@@ -8,7 +8,6 @@ import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import Resources from '@Hi/Resources';
 import RGBAModel from '@Hi/RGBAModel';
-import View from '@Hi/View';
 import { ViewController } from '@Hi/ViewController';
 import ThemePreferences from '../components/hub/ThemePreferences';
 
@@ -161,7 +160,7 @@ export default class FirstStartPage extends HIFullScreenView {
 
     private pageNumber: number;
 
-    private pages: (() => View)[] = [
+    private pages: (() => VStack)[] = [
         MainIntro,
         Theming,
         DefaultSearchEngine,

@@ -133,7 +133,7 @@ export default class HistoryViewer extends BaseHubWindow {
             );
         }
 
-        this.findViewById('history-container')
+        this.findViewById<VStack>('history-container')
             ?.removeAllChildren()
             .addChildren(
                 ...records.map(record => new HistoryViewerItem(record)),
