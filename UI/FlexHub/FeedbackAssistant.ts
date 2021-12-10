@@ -7,6 +7,12 @@ import BaseHubWindow from './BaseHubWindow';
 import FeedbackTypeSelection from './FeedbackTypeSelection';
 
 export default class FeedbackAssistant extends BaseHubWindow {
+    private currentStep = 0;
+
+    private feedbackType?: string;
+
+    private assistantController: ViewController;
+
     constructor() {
         super(
             'Feedback Assistant',
@@ -16,10 +22,15 @@ export default class FeedbackAssistant extends BaseHubWindow {
             new HStack(
                 new ThemedButton(
                     new IonIcon('caret-back-circle-outline').font('xl'),
-                ),
+                )
+                    .id('feedback-back-button')
+                    .whenClicked(() => this.back()),
+
                 new ThemedButton(
                     new IonIcon('caret-forward-circle-outline').font('xl'),
-                ),
+                )
+                    .id('feedback-back-button')
+                    .whenClicked(() => this.next()),
             ).stretch(),
         );
 
@@ -28,9 +39,29 @@ export default class FeedbackAssistant extends BaseHubWindow {
         )?.body;
 
         if (controllerElement) {
-            new ViewController('FeedbackAssistantController')
+            this.assistantController = new ViewController(
+                'FeedbackAssistantController',
+            )
                 .bind(controllerElement)
                 .navigateTo(new FeedbackTypeSelection());
+        }
+    }
+
+    private back(): void {
+        if (this.assistantController) {
+            this.assistantController.navigateBack();
+        }
+    }
+
+    private next(): void {
+        if (this.assistantController) {
+            switch (this.currentStep) {
+                case 0:
+                    // this.assistantController.navigateTo();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
