@@ -3,7 +3,7 @@ import HumanEvent, { HumanKeyPressEvent } from '@Hi/Types/HumanEvent';
 import { SizingValues } from '@Hi/Types/sizing';
 import View from '@Hi/View';
 
-export default class InputField extends View {
+export default class InputField extends View<HTMLInputElement> {
     private whenChangedListeners: ((ev: Event) => void)[] = [];
 
     public override body: HTMLInputElement;

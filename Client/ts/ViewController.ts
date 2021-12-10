@@ -17,7 +17,7 @@ export class ViewController {
 
     private activeViewIndex = -1;
 
-    private viewHistory: View[] = [];
+    private viewHistory: View<HTMLElement>[] = [];
 
     constructor(name: string) {
         ViewControllerData.controllers.push(this);
@@ -37,7 +37,7 @@ export class ViewController {
      *
      * @memberOf ViewController
      */
-    navigateTo(view: View, delay = 0): this {
+    navigateTo(view: View<HTMLElement>, delay = 0): this {
         const oldView = this.activeView;
         this.viewHistory.push(view);
         this.activeViewIndex = this.viewHistory.length - 1;
@@ -86,7 +86,7 @@ export class ViewController {
      *
      * @memberOf ViewController
      */
-    whenResized(handler: (ev: HumanEvent<View>) => void): this {
+    whenResized(handler: (ev: HumanEvent<View<HTMLElement>>) => void): this {
         window.addEventListener('resize', ev =>
             handler({
                 type: 'Resize',
@@ -97,7 +97,7 @@ export class ViewController {
         return this;
     }
 
-    findViewById(id: string): View | null {
+    findViewById<T extends View<HTMLElement>>(id: string): T | null {
         return this.viewHistory[this.activeViewIndex]!.findViewById(id);
     }
 
@@ -144,7 +144,7 @@ export class ViewController {
             .forEach(view => view.signal(data, ...args));
     }
 
-    public get activeView(): View | null {
+    public get activeView(): View<HTMLElement> | null {
         if (
             this.activeViewIndex >= 0 &&
             this.activeViewIndex < this.viewHistory.length

@@ -1,13 +1,13 @@
 import View from '@Hi/View';
 
-export default class DetailsView extends View {
-    constructor(summary: DetailsSummaryView, ...details: View[]) {
+export default class DetailsView extends View<HTMLDetailsElement> {
+    constructor(summary: DetailsSummaryView, ...details: View<HTMLElement>[]) {
         super('details', summary, ...details);
     }
 }
 
-export class DetailsSummaryView extends View {
-    constructor(...children: View[]) {
+export class DetailsSummaryView extends View<HTMLDivElement> {
+    constructor(...children: View<HTMLElement>[]) {
         super('summary', ...children);
     }
 

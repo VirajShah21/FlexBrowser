@@ -8,7 +8,7 @@ export default class ZStack extends Stack {
      *
      * @memberOf ZStack
      */
-    constructor(...children: View[]) {
+    constructor(...children: View<HTMLElement>[]) {
         super(...children);
         this.body.style.display = 'grid';
         this.body.style.textAlign = 'center';
