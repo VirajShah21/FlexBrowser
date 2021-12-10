@@ -15,7 +15,8 @@
         "package": "electron-forge package",
         "make": "electron-forge make",
         "publish": "electron-forge publish",
-        "quickpack": "webpack; cp -r app/js out/Flex\\ Browser-darwin-x64/Flex\\ Browser.app/Contents/Resources/app/app"
+        "quickpack": "webpack; cp -r app/js out/Flex\\ Browser-darwin-x64/Flex\\ Browser.app/Contents/Resources/app/app",
+        "clean": "rm -r .nyc_output coverage docs out lintreport.html"
     },
     "directories": {
         "test": "test"
