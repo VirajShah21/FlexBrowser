@@ -1,6 +1,8 @@
+import ThemedButton from '@Components/TaskbarButtons/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import ClickButton from '@Hi/Components/ClickButton';
-import ScrollView from '@Hi/Components/ScrollView';
+import HStack from '@Hi/Components/HStack';
+import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
@@ -84,28 +86,35 @@ export default class FeedbackAssistant extends BaseHubWindow {
         super(
             'Feedback Assistant',
 
-            new VStack(
-                new ScrollView(
-                    new FeedbackFormButton(
-                        'Bug Report',
-                        'This will submit a log report, along with any additional information you provide.',
-                    ),
-                    new FeedbackFormButton(
-                        'Feature Request',
-                        'If you have an idea which you believe would make a great addition to Flex Browser, let us know.',
-                    ),
-                    new FeedbackFormButton(
-                        'Comments',
-                        "If you have any comments or suggestions, please inform us. This could be a feature you don't like, or one you enjoy.",
-                    ),
-                    new FeedbackFormButton(
-                        'Help',
-                        'Get assistance with using the browser. Learn a little bit more about Flex Browser, how it works, and more.',
-                    ),
+            new FeedbackFormButton(
+                'Bug Report',
+                'This will submit a log report, along with any additional information you provide.',
+            ),
+            new FeedbackFormButton(
+                'Feature Request',
+                'If you have an idea which you believe would make a great addition to Flex Browser, let us know.',
+            ),
+            new FeedbackFormButton(
+                'Comments',
+                "If you have any comments or suggestions, please inform us. This could be a feature you don't like, or one you enjoy.",
+            ),
+            new FeedbackFormButton(
+                'Help',
+                'Get assistance with using the browser. Learn a little bit more about Flex Browser, how it works, and more.',
+            ),
 
-                    new Spacer(),
-                ).stretch(),
+            new Spacer(),
+
+            new HStack(
+                new ThemedButton(
+                    new IonIcon('caret-back-circle-outline').font('xl'),
+                ),
+                new ThemedButton(
+                    new IonIcon('caret-forward-circle-outline').font('xl'),
+                ),
             ).stretch(),
+
+            new Spacer(),
         );
     }
 }
