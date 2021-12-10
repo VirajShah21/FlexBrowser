@@ -1,6 +1,6 @@
 import View from '@Hi/View';
 
-export default class SelectMenuOption extends View {
+export default class SelectMenuOption extends View<HTMLOptionElement> {
     constructor(label: string, value: string) {
         super('option');
         this.label = label;

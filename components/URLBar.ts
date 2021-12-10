@@ -79,9 +79,9 @@ export function urlbarUnfocusedState(ev: HumanEvent<TextField>): void {
 
 export function urlbarKeyPressed(ev: HumanKeyPressEvent): void {
     if (ev.key === 'Enter') {
-        const browserWindow = ev.view.root(
+        const browserWindow = ev.view.root<FlexBrowserWindow>(
             view => (view as FlexBrowserWindow).isBrowserWindow,
-        ) as FlexBrowserWindow;
+        )!;
         browserWindow.goTo((ev.view as InputField).value);
     }
 }

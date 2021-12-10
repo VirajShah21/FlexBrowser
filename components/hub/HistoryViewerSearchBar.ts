@@ -27,10 +27,8 @@ export default class HistoryViewerSearchBar extends HStack {
     }
 
     private static queryHistory(ev: HumanEvent<TextField>) {
-        (
-            ev.view.root(
-                view => view.identifier === 'history-viewer',
-            ) as HistoryViewer
-        ).loadHistory(ev.view.value);
+        ev.view
+            .root<HistoryViewer>(view => view.identifier === 'history-viewer')
+            .loadHistory(ev.view.value);
     }
 }
