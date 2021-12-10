@@ -23,7 +23,8 @@ export default class HistoryViewerSearchBar extends HStack {
                 left: 10,
                 right: 10,
             })
-            .background(HColor('background').alpha(0.95));
+            .background(HColor('background').alpha(0.95))
+            .border({ size: 1, style: 'solid', color: HColor('gray5') });
     }
 
     private static queryHistory(ev: HumanEvent<TextField>) {
