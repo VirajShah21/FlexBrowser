@@ -1,7 +1,7 @@
 import { HISizingValue, sizing } from '@Hi/Types/sizing';
 import View from '@Hi/View';
 
-export default class TextView extends View {
+export default class TextView extends View<HTMLSpanElement> {
     public override body: HTMLSpanElement;
 
     constructor(text: string) {

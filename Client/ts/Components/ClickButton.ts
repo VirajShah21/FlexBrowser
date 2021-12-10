@@ -4,10 +4,8 @@ import { SizingValues } from '@Hi/Types/sizing';
 import View from '@Hi/View';
 import Group from './Group';
 
-export default class ClickButton extends Group {
-    public override body: HTMLButtonElement;
-
-    constructor(...children: View[]) {
+export default class ClickButton extends Group<HTMLButtonElement> {
+    constructor(...children: View<HTMLElement>[]) {
         super('button', ...children);
         this.body.style.border = 'none';
         this.body.style.color = HColor('blue').toString();

@@ -1,6 +1,6 @@
 import View from '@Hi/View';
 
-export default class Spacer extends View {
+export default class Spacer extends View<HTMLDivElement> {
     constructor() {
         super('div');
         this.body.innerHTML = '&nbsp;';

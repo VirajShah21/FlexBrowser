@@ -31,7 +31,7 @@ export enum PStatus {
  * @class View
  */
 export default abstract class View<
-    H extends HTMLElement,
+    H extends HTMLElement | HTMLElement,
 > extends BaseBodyStyler<H> {
     public override body: H;
 
@@ -50,7 +50,7 @@ export default abstract class View<
      * @param element The HTML tagname which should be used to generate the View.
      * @param children The initial group of children to add before the View is rendered.
      */
-    constructor(element: string, ...children: View<H>[]) {
+    constructor(element: string, ...children: View<HTMLElement>[]) {
         super(document.createElement(element) as H);
         this.children = [];
         this.addClass('hi-view');

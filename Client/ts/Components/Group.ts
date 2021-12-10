@@ -1,7 +1,7 @@
 import View from '@Hi/View';
 
-export default class Group extends View {
-    constructor(element: string, ...children: View[]) {
+export default class Group<T extends HTMLElement> extends View<T> {
+    constructor(element: string, ...children: View<HTMLElement>[]) {
         super(element, ...children);
         this.body.style.alignItems = 'center';
         this.body.style.justifyContent = 'center';

@@ -1,7 +1,7 @@
 import HumanEvent from '@Hi/Types/HumanEvent';
 import View from '@Hi/View';
 
-export default class ImageView extends View {
+export default class ImageView extends View<HTMLImageElement> {
     public override body: HTMLImageElement;
 
     constructor(source: string, altText?: string) {
