@@ -10,10 +10,22 @@ import HumanEvent from '@Hi/Types/HumanEvent';
 import BrowserPreferences from '@Models/BrowserPreferences';
 import BaseHubWindow from './BaseHubWindow';
 
+type FeedbackFormButtonGroupId = string;
 class FeedbackFormButton extends ClickButton {
+    private static readonly instances: Record<
+        FeedbackFormButtonGroupId,
+        FeedbackFormButton[]
+    > = {};
+
     public active = false;
 
-    constructor(title: string, description: string) {
+    private groupId: FeedbackFormButtonGroupId;
+
+    constructor(
+        title: string,
+        description: string,
+        groupId: FeedbackFormButtonGroupId,
+    ) {
         super(
             new VStack(
                 FeedbackFormButton.formButtonTitle(title),
@@ -33,6 +45,18 @@ class FeedbackFormButton extends ClickButton {
             .border({ size: 1, style: 'solid' });
 
         this.defaultStyle();
+        this.groupId = groupId;
+
+        if (
+            Object.prototype.hasOwnProperty.call(
+                FeedbackFormButton.instances,
+                groupId,
+            )
+        ) {
+            FeedbackFormButton.instances[groupId]!.push(this);
+        } else {
+            FeedbackFormButton.instances[groupId] = [this];
+        }
     }
 
     public defaultStyle(): void {
@@ -57,6 +81,13 @@ class FeedbackFormButton extends ClickButton {
 
     static buttonClicked(ev: HumanEvent<FeedbackFormButton>): void {
         const btn = ev.view;
+
+        FeedbackFormButton.instances[btn.groupId]?.forEach(otherButton => {
+            // eslint-disable-next-line no-param-reassign
+            otherButton.active = false;
+            otherButton.defaultStyle();
+        });
+
         btn.active = true;
         btn.defaultStyle();
     }
@@ -68,7 +99,6 @@ class FeedbackFormButton extends ClickButton {
             .font('md')
             .foreground(HColor('foreground'))
             .width('100%')
-
             .margin({ bottom: 5 });
     }
 
@@ -89,18 +119,22 @@ export default class FeedbackAssistant extends BaseHubWindow {
             new FeedbackFormButton(
                 'Bug Report',
                 'This will submit a log report, along with any additional information you provide.',
+                'feedback-type',
             ),
             new FeedbackFormButton(
                 'Feature Request',
                 'If you have an idea which you believe would make a great addition to Flex Browser, let us know.',
+                'feedback-type',
             ),
             new FeedbackFormButton(
                 'Comments',
                 "If you have any comments or suggestions, please inform us. This could be a feature you don't like, or one you enjoy.",
+                'feedback-type',
             ),
             new FeedbackFormButton(
                 'Help',
                 'Get assistance with using the browser. Learn a little bit more about Flex Browser, how it works, and more.',
+                'feedback-type',
             ),
 
             new Spacer(),
