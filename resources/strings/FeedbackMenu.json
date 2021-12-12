@@ -19,5 +19,38 @@
                 "description": "Get assistance with using the browser. Learn a little bit more about Flex Browser, how it works, and more."
             }
         ]
+    },
+    "bugReportFeature": {
+        "id": "bug-report-feature",
+        "items": [
+            {
+                "title": "Browser Taskbar",
+                "description": "The browser taskbar is the main browser page, where you can navigate to different websites. Select this if something on the taskbar is not working."
+            },
+            {
+                "title": "Hub Main Menu",
+                "description": "Select this if the Hub menu is not opening, or you have issues accessing or using the Hub window."
+            },
+            {
+                "title": "Window List",
+                "description": "Select this if there is a problem viewing the Windows List in the Hub window."
+            },
+            {
+                "title": "Bookmarks",
+                "description": "Select this if you are having problems bookmarking a website, issues when accessing the bookmarks list."
+            },
+            {
+                "title": "History",
+                "description": "Select this if the browser is not correctly tracking your history or you are having issues accessing your browser history."
+            },
+            {
+                "title": "Password Manager",
+                "description": "Select this if there is an issue with accessing or changing passwords in the builtin password manager."
+            },
+            {
+                "title": "Preferences",
+                "description": "Select this if there is something wrong with the Preferences views or any of their subviews."
+            }
+        ]
     }
 }
