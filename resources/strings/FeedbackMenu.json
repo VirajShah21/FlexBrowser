@@ -1,0 +1,23 @@
+{
+    "feedbackType": {
+        "id": "feedback-type",
+        "items": [
+            {
+                "title": "Bug Report",
+                "description": "This will submit a log report, along with any additional information you provide."
+            },
+            {
+                "title": "Feature Request",
+                "description": "If you have an idea which you believe would make a great addition to Flex Browser, let us know."
+            },
+            {
+                "title": "Comments",
+                "description": "If you have any comments or suggestions, please inform us. This could be a feature you don't like, or one you enjoy."
+            },
+            {
+                "title": "Help",
+                "description": "Get assistance with using the browser. Learn a little bit more about Flex Browser, how it works, and more."
+            }
+        ]
+    }
+}
