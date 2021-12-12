@@ -51,10 +51,12 @@ export default class FeedbackFormButton extends ClickButton {
     public defaultStyle(): void {
         if (this.active) {
             this.border({
+                size: 3,
                 color: HColor(BrowserPreferences.ColorTheme),
             }).background(HColor('gray4'));
         } else {
             this.border({
+                size: 1,
                 color: HColor('gray5'),
             }).background('none');
         }
@@ -71,13 +73,16 @@ export default class FeedbackFormButton extends ClickButton {
     static buttonClicked(ev: HumanEvent<FeedbackFormButton>): void {
         const btn = ev.view;
 
-        FeedbackFormButton.instances[btn.groupId]?.forEach(otherButton => {
-            // eslint-disable-next-line no-param-reassign
-            otherButton.active = false;
-            otherButton.defaultStyle();
-        });
-
-        btn.active = true;
+        if (!btn.active) {
+            FeedbackFormButton.instances[btn.groupId]?.forEach(otherButton => {
+                // eslint-disable-next-line no-param-reassign
+                otherButton.active = false;
+                otherButton.defaultStyle();
+            });
+            btn.active = true;
+        } else {
+            btn.active = false;
+        }
         btn.defaultStyle();
     }
 
