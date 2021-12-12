@@ -11,7 +11,9 @@ export default class BaseHubWindow extends HIFullScreenView {
             new VStack(
                 new HubTitlebar(title).insertBackButton(true),
 
-                new ScrollView(new VStack(...children).padding().stretch())
+                new ScrollView(
+                    new VStack(...children).padding().stretch().alignStart(),
+                )
                     .stretch()
                     .padding({ top: HubTitlebar.HEIGHT }),
             )
