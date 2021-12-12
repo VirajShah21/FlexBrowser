@@ -1,18 +1,19 @@
+import FeedbackFormButton from '@Components/hub/FeedbackFormButton';
 import ThemedButton from '@Components/TaskbarButtons/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
+import View from '@Hi/View';
 import { ViewController } from '@Hi/ViewController';
 import BaseHubWindow from './BaseHubWindow';
 import BugReportFeatureSelection from './BugReportFeatureSelection';
 import FeedbackTypeSelection from './FeedbackTypeSelection';
+import FeedbackMenu from '@Resources/strings/FeedbackMenu.json';
 
 export default class FeedbackAssistant extends BaseHubWindow {
     private currentStep = 0;
-
-    private feedbackType?: string;
 
     private assistantController: ViewController;
 
@@ -62,25 +63,41 @@ export default class FeedbackAssistant extends BaseHubWindow {
     private next(): void {
         this.currentStep += 1;
         if (this.assistantController) {
+            let destination: View<HTMLDivElement> | TextView;
+
             switch (this.currentStep) {
                 case 0:
-                    this.assistantController.navigateTo(
-                        new FeedbackTypeSelection(),
-                    );
+                    destination = new FeedbackTypeSelection();
                     break;
                 case 1:
-                    this.assistantController.navigateTo(
-                        new BugReportFeatureSelection(),
-                    );
-                    break;
-                default:
-                    this.assistantController.navigateTo(
-                        new TextView('An error occured')
+                    if (FeedbackAssistant.feedbackType === 0) {
+                        destination = new BugReportFeatureSelection();
+                    } else {
+                        destination = new TextView('Error')
                             .foreground(HColor('gray'))
                             .weight(FontWeight.Regular)
-                            .font('lg'),
-                    );
+                            .font('lg')
+                            .padding();
+                    }
+
+                    break;
+                default:
+                    destination = new TextView(
+                        'An error occured. ' + this.currentStep,
+                    )
+                        .foreground(HColor('gray'))
+                        .weight(FontWeight.Regular)
+                        .font('lg')
+                        .padding();
             }
+
+            this.assistantController.navigateTo(destination);
         }
+    }
+
+    public static get feedbackType(): number | undefined {
+        return FeedbackFormButton.getActiveButtonIndex(
+            FeedbackMenu.feedbackType.id,
+        );
     }
 }

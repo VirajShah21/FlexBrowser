@@ -98,4 +98,28 @@ export default class FeedbackFormButton extends ClickButton {
             .foreground(HColor('gray'))
             .width('100%');
     }
+
+    static getActiveButton(
+        groupId: FeedbackFormButtonGroupId,
+    ): FeedbackFormButton | undefined {
+        const buttons = FeedbackFormButton.instances[groupId];
+
+        if (!buttons) {
+            return undefined;
+        }
+
+        return buttons.find(btn => btn.active);
+    }
+
+    static getActiveButtonIndex(
+        groupId: FeedbackFormButtonGroupId,
+    ): number | undefined {
+        const buttons = FeedbackFormButton.instances[groupId];
+
+        if (!buttons) {
+            return undefined;
+        }
+
+        return buttons.findIndex(btn => btn.active);
+    }
 }
