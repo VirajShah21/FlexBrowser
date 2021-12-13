@@ -30,4 +30,14 @@ export default class ClickButton extends Group<HTMLButtonElement> {
         this.body.style.outline = 'none';
         return this;
     }
+
+    disable(): this {
+        this.body.disabled = true;
+        return this;
+    }
+
+    public enable(): this {
+        this.body.disabled = false;
+        return this;
+    }
 }
