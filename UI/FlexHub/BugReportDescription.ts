@@ -17,7 +17,7 @@ export default class BugReportFeatureSelection extends VStack {
                 'Enter any additional details about the bug you encountered',
             )
                 .rounded()
-                .height(300)
+                .height(150)
                 .width('100%')
                 .padding(5)
                 .foreground(HColor('foreground').alpha(0.9))
