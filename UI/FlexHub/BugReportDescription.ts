@@ -1,9 +1,11 @@
+import ThemedButton from '@Components/TaskbarButtons/ThemedButton';
 import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import TextBox from '@Hi/Components/TextBox';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import Resources from '@Hi/Resources';
+import BrowserPreferences from '@Models/BrowserPreferences';
 
 export default class BugReportFeatureSelection extends VStack {
     constructor() {
@@ -58,6 +60,10 @@ export default class BugReportFeatureSelection extends VStack {
                 .margin({ top: 25 })
                 .background(HColor('gray5'))
                 .border({ size: 1, style: 'solid', color: HColor('gray4') }),
+
+            new ThemedButton(new TextView('Submit'))
+                .foreground(HColor('background'))
+                .foreground(HColor(BrowserPreferences.ColorTheme)),
         );
 
         this.stretch();
