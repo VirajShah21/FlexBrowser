@@ -1,6 +1,6 @@
 // During testing, ipcMain is undefined.
 
-const { info, error } = require('./ArchLogger');
+const { info, error, warn, debug } = require('./ArchLogger');
 const { ipcMain, BrowserWindow, BrowserView } = require('electron');
 const {
     readBookmarksFile,
@@ -18,7 +18,6 @@ const {
     DEFAULT_WINDOW_WIDTH,
     DEFAULT_WINDOW_HEIGHT,
 } = require('./constants');
-const { warn } = require('console');
 const path = require('path');
 const keytar = require('keytar');
 
@@ -48,17 +47,30 @@ function logIpcMainEventInvoked(event, name, ...args) {
             EVENT TYPE      ${name}
             WINDOW ID       [ERROR] WINDOW DOES NOT EXIST`);
     }
+    const startTime = Date.now();
+    return {
+        logRuntime: () => {
+            const now = Date.now();
+            info(`
+            Completed architecture function:
+                COMPLETED       ${name}(${args.map(arg =>
+                JSON.stringify(arg, null, 4),
+            )})
+                RUNTIME         ${now - startTime} ms`);
+        },
+    };
 }
 
 // This guard should not be removed.
 if (ipcMain) {
     ipcMain.on('newWindow', event => {
-        logIpcMainEventInvoked(event, 'newWindow');
+        const timer = logIpcMainEventInvoked(event, 'newWindow');
         createWindow();
+        timer.logRuntime();
     });
 
     ipcMain.on('getWindowList', event => {
-        logIpcMainEventInvoked(event, 'getWindowList');
+        const timer = logIpcMainEventInvoked(event, 'getWindowList');
 
         let obj = BrowserWindow.getAllWindows()
             .filter(win => win.getBrowserView() !== null)
@@ -79,10 +91,12 @@ if (ipcMain) {
                 4,
             )}`,
         );
+
+        timer.logRuntime();
     });
 
     ipcMain.on('getBookmarks', event => {
-        logIpcMainEventInvoked(event, 'getBookmarks');
+        const timer = logIpcMainEventInvoked(event, 'getBookmarks');
 
         event.returnValue = readBookmarksFile();
 
@@ -93,10 +107,12 @@ if (ipcMain) {
                 4,
             )}`,
         );
+
+        timer.logRuntime();
     });
 
     ipcMain.on('addBookmark', (event, meta) => {
-        logIpcMainEventInvoked(event, 'addBookmark', meta);
+        const timer = logIpcMainEventInvoked(event, 'addBookmark', meta);
 
         let bookmarks = readBookmarksFile();
         if (!bookmarks.find(curr => curr.url == meta.url)) {
@@ -106,19 +122,25 @@ if (ipcMain) {
         } else {
             info(`Bookmark already exists: ${meta.url}`);
         }
+
+        timer.logRuntime();
     });
 
     ipcMain.on('removeBookmark', (event, url) => {
-        logIpcMainEventInvoked(event, 'removeBookmark', url);
+        const timer = logIpcMainEventInvoked(event, 'removeBookmark', url);
 
         let bookmarks = readBookmarksFile();
         let filtered = bookmarks.filter(curr => curr.url !== url);
+
         writeBookmarksFile(filtered);
         info(`Successfully removed bookmark for: ${url}`);
+
+        timer.logRuntime();
     });
 
     ipcMain.on('changeUrl', (event, to) => {
-        logIpcMainEventInvoked(event, 'changeUrl', to);
+        const timer = logIpcMainEventInvoked(event, 'changeUrl', to);
+
         const browserWindow = findBrowserWindow(event);
         let browserView = browserWindow.getBrowserView();
 
@@ -142,11 +164,14 @@ if (ipcMain) {
             );
         });
         info(`Changed URL for window with ID: ${browserWindow.id}`);
+
+        timer.logRuntime();
     });
 
     ipcMain.on('pref', (event, preference, value) => {
-        logIpcMainEventInvoked(event, 'pref', preference, value);
+        const timer = logIpcMainEventInvoked(event, 'pref', preference, value);
         const rc = readRC();
+
         if (value) {
             rc[preference] = value;
             writeRC(rc);
@@ -163,15 +188,23 @@ if (ipcMain) {
         } else {
             event.returnValue = undefined;
         }
+
+        timer.logRuntime();
     });
 
     ipcMain.on('getAllPreferences', event => {
-        logIpcMainEventInvoked(event, 'getAllPreferences');
+        const timer = logIpcMainEventInvoked(event, 'getAllPreferences');
         event.returnValue = readRC();
+        timer.logRuntime();
     });
 
     ipcMain.on('brandRegistry', (event, rule, branding) => {
-        logIpcMainEventInvoked(event, 'brandRegistry', rule, branding);
+        const timer = logIpcMainEventInvoked(
+            event,
+            'brandRegistry',
+            rule,
+            branding,
+        );
         const registry = readBrandingRegistry();
         if (rule && branding) {
             registry[rule] = branding;
@@ -182,10 +215,11 @@ if (ipcMain) {
         } else {
             throw new Error('IPC: brandRegistry must provide rule parameter');
         }
+        timer.logRuntime();
     });
 
     ipcMain.on('focusWindow', (event, id) => {
-        logIpcMainEventInvoked(event, 'focusWindow', id);
+        const timer = logIpcMainEventInvoked(event, 'focusWindow', id);
         const instance = BrowserWindow.getAllWindows().find(
             instance => instance.id == id,
         );
@@ -193,15 +227,18 @@ if (ipcMain) {
         instance.focus();
 
         info(`Focused on window with id: ${id}`);
+
+        timer.logRuntime();
     });
 
     ipcMain.on('focusHub', event => {
-        logIpcMainEventInvoked(event, 'focusHub');
+        const timer = logIpcMainEventInvoked(event, 'focusHub');
         focusHubWindow();
+        timer.logRuntime();
     });
 
     ipcMain.on('urlInfo', event => {
-        logIpcMainEventInvoked(event, 'urlInfo');
+        const timer = logIpcMainEventInvoked(event, 'urlInfo');
         const instance = findBrowserWindow(event);
         const browserView = instance.getBrowserView();
         event.returnValue = {
@@ -209,10 +246,11 @@ if (ipcMain) {
             title: browserView.webContents.getTitle(),
             windowId: instance.id,
         };
+        timer.logRuntime();
     });
 
     ipcMain.on('hideTaskbar', event => {
-        logIpcMainEventInvoked(event, 'hideTaskbar');
+        const timer = logIpcMainEventInvoked(event, 'hideTaskbar');
         const instance = findBrowserWindow(event);
         const browserView = instance.getBrowserView();
         browserView.setBounds({
@@ -221,10 +259,11 @@ if (ipcMain) {
             width: instance.getSize()[0],
             height: instance.getSize()[1] - 20,
         });
+        timer.logRuntime();
     });
 
     ipcMain.on('showTaskbar', event => {
-        logIpcMainEventInvoked(event, 'showTaskbar');
+        const timer = logIpcMainEventInvoked(event, 'showTaskbar');
         const instance = findBrowserWindow(event);
         const browserView = instance.getBrowserView();
         browserView.setBounds({
@@ -233,32 +272,71 @@ if (ipcMain) {
             width: instance.getSize()[0],
             height: instance.getSize()[1] - TOP_FRAME_HEIGHT,
         });
+        timer.logRuntime();
     });
 
     ipcMain.handle('setPassword', async (event, account, password) => {
-        logIpcMainEventInvoked(event, 'savePassword', account, password);
+        const timer = logIpcMainEventInvoked(
+            event,
+            'savePassword',
+            account,
+            password,
+        );
         keytar.setPassword('Flex Browser', account, password);
+        timer.logRuntime();
     });
 
     ipcMain.handle('getPassword', async (event, account) => {
-        logIpcMainEventInvoked(event, 'getPassword', account);
-        return await keytar.getPassword('Flex Browser', account);
+        return new Promise((resolve, reject) => {
+            const timer = logIpcMainEventInvoked(event, 'getPassword', account);
+            keytar
+                .getPassword('Flex Browser', account)
+                .then(password => {
+                    resolve(password);
+                    timer.logRuntime();
+                })
+                .catch(err => reject(err));
+        });
     });
 
     ipcMain.handle('getAccounts', async event => {
-        logIpcMainEventInvoked(event, 'getAccounts');
-        return await keytar.findCredentials('Flex Browser');
+        return new Promise((resolve, reject) => {
+            const timer = logIpcMainEventInvoked(event, 'getAccounts');
+            keytar.findCredentials('Flex Browser').then(accounts => {
+                resolve(accounts);
+                timer.logRuntime();
+            });
+        });
     });
 
     ipcMain.handle('reloadBrowserView', event => {
-        logIpcMainEventInvoked(event, 'reloadBrowserView');
+        const timer = logIpcMainEventInvoked(event, 'reloadBrowserView');
         const instance = findBrowserWindow(event);
         const browserView = instance.getBrowserView();
         browserView.webContents.reload();
+        timer.logRuntime();
     });
 
     ipcMain.handle('getHistory', event => {
-        logIpcMainEventInvoked(event, 'getHistory');
-        return readHistoryFile();
+        const timer = logIpcMainEventInvoked(event, 'getHistory');
+        const historyFile = readHistoryFile();
+        timer.logRuntime();
+        return historyFile;
+    });
+
+    ipcMain.handle('log', (event, logType, message) => {
+        const timer = logIpcMainEventInvoked(event, 'log', logType, message);
+        if (logType === 0) {
+            info(message);
+        } else if (logType === 1) {
+            warn(message);
+        } else if (logType === 2) {
+            error(message);
+        } else if (logType === 3) {
+            debug(message);
+        } else {
+            info(message);
+        }
+        timer.logRuntime();
     });
 }

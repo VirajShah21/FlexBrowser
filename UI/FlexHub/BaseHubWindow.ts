@@ -6,14 +6,15 @@ import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
 
 export default class BaseHubWindow extends HIFullScreenView {
-    constructor(title: string, ...children: View[]) {
+    constructor(title: string, ...children: View<HTMLElement>[]) {
         super(
             new VStack(
                 new HubTitlebar(title).insertBackButton(true),
 
-                new ScrollView(new VStack(...children).padding())
-                    .height('100%')
-                    .width('100%')
+                new ScrollView(
+                    new VStack(...children).padding().stretch().alignStart(),
+                )
+                    .stretch()
                     .padding({ top: HubTitlebar.HEIGHT }),
             )
                 .stretch()

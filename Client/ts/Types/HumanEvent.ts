@@ -1,3 +1,4 @@
+import InputField from '@Hi/Components/InputField';
 import View from '@Hi/View';
 
 /**
@@ -6,14 +7,14 @@ import View from '@Hi/View';
  * @export
  * @interface HumanEvent
  */
-export default interface HumanEvent<T extends View> {
+export default interface HumanEvent<T extends View<HTMLElement>> {
     view: T;
     type: string;
     browserEvent: Event;
 }
 
 export interface HumanKeyPressEvent {
-    view: View;
+    view: InputField;
     type: 'KeyPress';
     browserEvent: Event;
     key: string;

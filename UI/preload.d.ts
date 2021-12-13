@@ -82,4 +82,5 @@ declare namespace flexarch {
     function getAccounts(): Promise<{ account: string; password: string }[]>;
     function reloadBrowserView(): void;
     function getHistory(): Promise<string>;
+    function log(level: number, message: string): Promise<void>;
 }

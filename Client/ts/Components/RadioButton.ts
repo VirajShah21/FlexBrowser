@@ -1,7 +1,7 @@
 import HumanEvent from '@Hi/Types/HumanEvent';
 import View from '@Hi/View';
 
-export default class RadioButton extends View {
+export default class RadioButton extends View<HTMLUnknownElement> {
     private selectedFlag = false;
 
     constructor() {

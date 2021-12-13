@@ -8,7 +8,6 @@ import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import HumanEvent from '@Hi/Types/HumanEvent';
-import View from '@Hi/View';
 import BrowserPreferences from '@Models/BrowserPreferences';
 import SearchEngineListBody from './SearchEngineListBody';
 import SearchEngineListHead from './SearchEngineListHead';
@@ -61,7 +60,9 @@ export default class SearchEngineTable extends VStack {
         this.padding().width('100%');
     }
 
-    private static addBlankCustomSearchEngine(ev: HumanEvent<View>): void {
+    private static addBlankCustomSearchEngine(
+        ev: HumanEvent<ClickButton>,
+    ): void {
         (
             ev.view
                 .root()
@@ -71,13 +72,13 @@ export default class SearchEngineTable extends VStack {
 
     private static removeSelectedSearchEngines(): void {}
 
-    private static setDefaultSearchEngine(ev: HumanEvent<View>): void {
+    private static setDefaultSearchEngine(ev: HumanEvent<ClickButton>): void {
         const items = ev.view
             .root()
             .findViewById('search-engine-list-body')!
             .getViewsByClass('search-engine-item');
         items.forEach(item => {
-            if ((item.findViewById('engine-checkbox') as Checkbox).checked) {
+            if (item.findViewById<Checkbox>('engine-checkbox')!.checked) {
                 BrowserPreferences.DefaultSearchEngine =
                     SearchEngineListBody.getEngineId(
                         (item.findViewById('engine-name') as InputField).value,

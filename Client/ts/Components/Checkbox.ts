@@ -1,7 +1,7 @@
 import View from '@Hi/View';
 import HumanEvent from '@Hi/Types/HumanEvent';
 
-export default class Checkbox extends View {
+export default class Checkbox extends View<HTMLUnknownElement> {
     private checkedFlag: boolean;
 
     private icons: {

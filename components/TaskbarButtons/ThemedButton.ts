@@ -19,7 +19,7 @@ export default class ThemedButton extends ClickButton {
      *
      * @memberOf ThemedButton
      */
-    constructor(...children: View[]) {
+    constructor(...children: View<HTMLElement>[]) {
         super(...children);
         this.foreground(HColor(BrowserPreferences.ColorTheme));
     }

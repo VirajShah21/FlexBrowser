@@ -1,8 +1,8 @@
 import { HColor } from '@Hi/Colors';
 import View from '@Hi/View';
 
-export default class Overlay extends View {
-    constructor(...children: View[]) {
+export default class Overlay extends View<HTMLDivElement> {
+    constructor(...children: View<HTMLDivElement>[]) {
         super('div', ...children);
         this.background(HColor('background').alpha(0.25))
             .foreground(HColor('foreground'))

@@ -1,8 +1,6 @@
 import View from '@Hi/View';
 
-export default class BlockCode extends View {
-    public override body: HTMLPreElement;
-
+export default class BlockCode extends View<HTMLPreElement> {
     private code: string;
 
     constructor(text: string) {

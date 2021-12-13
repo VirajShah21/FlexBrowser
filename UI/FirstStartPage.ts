@@ -8,7 +8,6 @@ import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import Resources from '@Hi/Resources';
 import RGBAModel from '@Hi/RGBAModel';
-import View from '@Hi/View';
 import { ViewController } from '@Hi/ViewController';
 import ThemePreferences from '../components/hub/ThemePreferences';
 
@@ -42,9 +41,12 @@ function Theming() {
         new TextView(
             'Just one way to customize your browsing experience!',
         ).weight(FontWeight.Light),
-        new ThemePreferences(),
         new Spacer(),
-        new HighlightColorPreferences(),
+        new VStack(
+            new ThemePreferences(),
+            new Spacer(),
+            new HighlightColorPreferences(),
+        ).width('50%'),
         new Spacer(),
     ).stretch();
 }
@@ -158,7 +160,7 @@ export default class FirstStartPage extends HIFullScreenView {
 
     private pageNumber: number;
 
-    private pages: (() => View)[] = [
+    private pages: (() => VStack)[] = [
         MainIntro,
         Theming,
         DefaultSearchEngine,

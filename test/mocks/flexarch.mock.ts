@@ -60,4 +60,6 @@ export default class FlexArch {
     static async getHistory(): Promise<string> {
         return '';
     }
+
+    static async log(): Promise<void> {}
 }

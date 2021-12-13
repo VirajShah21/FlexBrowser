@@ -77,6 +77,7 @@ export default class HistoryViewer extends BaseHubWindow {
     constructor() {
         super(
             'History',
+
             new HStack(
                 new HistoryViewerSearchBar().width('100%'),
 
@@ -102,9 +103,11 @@ export default class HistoryViewer extends BaseHubWindow {
                 .setTop(HubTitlebar.HEIGHT)
                 .setLeft(0)
                 .padding(10),
+
             new VStack()
                 .id('history-container')
-                .width('100%')
+                .stretch()
+                .alignStart()
                 .padding({ top: 50 }),
         );
 
@@ -133,7 +136,7 @@ export default class HistoryViewer extends BaseHubWindow {
             );
         }
 
-        this.findViewById('history-container')
+        this.findViewById<VStack>('history-container')
             ?.removeAllChildren()
             .addChildren(
                 ...records.map(record => new HistoryViewerItem(record)),

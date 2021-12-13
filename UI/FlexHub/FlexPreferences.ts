@@ -9,6 +9,7 @@ import BaseHubWindow from './BaseHubWindow';
 import ColorPreferences from '../../components/hub/ColorPreferences';
 import SearchEnginePreferences from './SearchEnginePreferences';
 import IconChangerPreferences from './IconChangerPreferences';
+import FeedbackAssistant from './FeedbackAssistant';
 
 export class FlexPreferenceMenuButton extends ClickButton {
     public constructor(public readonly name: string) {
@@ -16,14 +17,21 @@ export class FlexPreferenceMenuButton extends ClickButton {
             new VStack(
                 Resources.getImageView(`PreferenceIcons/${name}.png`)
                     .height(64)
-                    .width(64),
+                    .width(64)
+                    .padding(),
                 new TextView(name)
                     .weight(FontWeight.Medium)
                     .foreground(HColor('gray')),
-            ),
+            ).stretch(),
         );
 
-        this.width(100).height('100%');
+        this.rounded()
+            .padding()
+            .width(100)
+            .height('100%')
+            .width('100%')
+            .whenMouseOver(ev => ev.view.background(HColor('gray5')))
+            .whenMouseOut(ev => ev.view.background('none'));
     }
 }
 
@@ -60,6 +68,12 @@ export default class FlexPreferences extends BaseHubWindow {
                 new FlexPreferenceMenuButton('Icon Changer').whenClicked(() =>
                     ViewController.getController('AppController')?.navigateTo(
                         new IconChangerPreferences(),
+                    ),
+                ),
+
+                new FlexPreferenceMenuButton('Feedback').whenClicked(() =>
+                    ViewController.getController('AppController')?.navigateTo(
+                        new FeedbackAssistant(),
                     ),
                 ),
             )

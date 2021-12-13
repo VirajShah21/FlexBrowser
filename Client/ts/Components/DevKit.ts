@@ -31,7 +31,7 @@ export default class Preview extends VStack {
 
     private contrastToggle = false;
 
-    constructor(content: View) {
+    constructor(content: View<HTMLElement>) {
         super(
             new HStack(
                 Preview.OptionButton(
@@ -173,7 +173,7 @@ export default class Preview extends VStack {
         );
     }
 
-    static enableHover(view: View, exampleViewer: Preview): void {
+    static enableHover(view: View<HTMLElement>, exampleViewer: Preview): void {
         const viewer = exampleViewer;
         view.whenMouseOver(ev => {
             const thisComponent = ev.view;

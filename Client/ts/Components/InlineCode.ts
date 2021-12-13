@@ -1,8 +1,6 @@
 import View from '@Hi/View';
 
-export default class InlineCode extends View {
-    public override body: HTMLElement; // ! HTMLCodeElement DOES NOT EXIST !
-
+export default class InlineCode extends View<HTMLPreElement> {
     private code: string;
 
     constructor(text: string) {

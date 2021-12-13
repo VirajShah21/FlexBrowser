@@ -1,6 +1,6 @@
 import View from '@Hi/View';
 
-export default class IonIcon extends View {
+export default class IonIcon extends View<HTMLUnknownElement> {
     constructor(name: string) {
         super('ion-icon');
         this.name = name;

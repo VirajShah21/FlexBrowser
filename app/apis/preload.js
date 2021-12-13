@@ -76,6 +76,10 @@ function getHistory() {
     return ipcRenderer.invoke('getHistory');
 }
 
+function log(level, message) {
+    return ipcRenderer.invoke('log', level, message);
+}
+
 contextBridge.exposeInMainWorld('flexarch', {
     changeUrl,
     newWindow,
@@ -97,4 +101,5 @@ contextBridge.exposeInMainWorld('flexarch', {
     getAccounts,
     reloadBrowserView,
     getHistory,
+    log,
 });
