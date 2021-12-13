@@ -1,6 +1,7 @@
 import FeedbackFormButton from '@Components/hub/FeedbackFormButton';
 import ThemedButton from '@Components/TaskbarButtons/ThemedButton';
 import { HColor } from '@Hi/Colors';
+import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
@@ -34,7 +35,7 @@ export default class FeedbackAssistant extends BaseHubWindow {
                 new ThemedButton(
                     new IonIcon('caret-forward-circle-outline').font('xl'),
                 )
-                    .id('feedback-back-button')
+                    .id('feedback-next-button')
                     .whenClicked(() => this.next()),
             )
                 .stretch()
@@ -52,6 +53,32 @@ export default class FeedbackAssistant extends BaseHubWindow {
                 .bind(controllerElement)
                 .navigateTo(new FeedbackTypeSelection());
         }
+
+        this.hideBackButton();
+    }
+
+    private hideBackButton(): void {
+        this.findViewById<ClickButton>('feedback-back-button')
+            ?.disable()
+            .opacity(0.5);
+    }
+
+    private hideNextButton(): void {
+        this.findViewById<ClickButton>('feedback-next-button')
+            ?.disable()
+            .opacity(0.5);
+    }
+
+    private showBackButton(): void {
+        this.findViewById<ClickButton>('feedback-back-button')
+            ?.enable()
+            .opacity(1);
+    }
+
+    private showNextButton(): void {
+        this.findViewById<ClickButton>('feedback-next-button')
+            ?.enable()
+            .opacity(1);
     }
 
     private back(): void {
@@ -59,6 +86,7 @@ export default class FeedbackAssistant extends BaseHubWindow {
         if (this.assistantController) {
             this.assistantController.navigateBack();
         }
+        this.showNextButton();
     }
 
     private next(): void {
@@ -66,9 +94,12 @@ export default class FeedbackAssistant extends BaseHubWindow {
         if (this.assistantController) {
             let destination: View<HTMLDivElement> | TextView | undefined;
 
+            this.showBackButton();
+
             switch (this.currentStep) {
                 case 0:
                     destination = new FeedbackTypeSelection();
+                    this.hideBackButton();
                     break;
                 case 1:
                     if (FeedbackAssistant.feedbackType === 0) {
@@ -81,6 +112,7 @@ export default class FeedbackAssistant extends BaseHubWindow {
                         FeedbackAssistant.bugReportFeature !== undefined
                     ) {
                         destination = new BugReportDescription();
+                        this.hideNextButton();
                     }
                     break;
                 default:
@@ -89,6 +121,7 @@ export default class FeedbackAssistant extends BaseHubWindow {
                         .weight(FontWeight.Regular)
                         .font('lg')
                         .padding();
+                    this.hideNextButton();
             }
 
             if (!destination) {
@@ -97,6 +130,7 @@ export default class FeedbackAssistant extends BaseHubWindow {
                     .weight(FontWeight.Regular)
                     .font('lg')
                     .padding();
+                this.hideNextButton();
             }
 
             this.assistantController.navigateTo(destination);
