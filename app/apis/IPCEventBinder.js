@@ -47,15 +47,16 @@ function logIpcMainEventInvoked(event, name, ...args) {
             EVENT TYPE      ${name}
             WINDOW ID       [ERROR] WINDOW DOES NOT EXIST`);
     }
+    const startTime = Date.now();
     return {
-        time: Date.now(),
         logRuntime: () => {
             const now = Date.now();
             info(`
-            COMPLETED       ${name}(${args.map(arg =>
+            Completed architecture function:
+                COMPLETED       ${name}(${args.map(arg =>
                 JSON.stringify(arg, null, 4),
             )})
-            RUNTIME         ${now - event.time}ms`);
+                RUNTIME         ${now - startTime} ms`);
         },
     };
 }
