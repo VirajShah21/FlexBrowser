@@ -26,7 +26,7 @@ export class IconButton extends ThemedButton {
         this.font('xl')
             .padding()
             .rounded()
-            .background(RGBAModel.WHITE)
+            .background(HColor('background'))
             .margin(10)
             .whenClicked(IconButton.setIconTheme);
         if (
