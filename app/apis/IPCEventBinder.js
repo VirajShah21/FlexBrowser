@@ -1,6 +1,6 @@
 // During testing, ipcMain is undefined.
 
-const { info, error } = require('./ArchLogger');
+const { info, error, warn, debug } = require('./ArchLogger');
 const { ipcMain, BrowserWindow, BrowserView } = require('electron');
 const {
     readBookmarksFile,
@@ -18,7 +18,6 @@ const {
     DEFAULT_WINDOW_WIDTH,
     DEFAULT_WINDOW_HEIGHT,
 } = require('./constants');
-const { warn } = require('console');
 const path = require('path');
 const keytar = require('keytar');
 
@@ -260,5 +259,20 @@ if (ipcMain) {
     ipcMain.handle('getHistory', event => {
         logIpcMainEventInvoked(event, 'getHistory');
         return readHistoryFile();
+    });
+
+    ipcMain.handle('log', (event, logType, message) => {
+        logIpcMainEventInvoked(event, 'log', logType, message);
+        if (logType === 0) {
+            info(message);
+        } else if (logType === 1) {
+            warn(message);
+        } else if (logType === 2) {
+            error(message);
+        } else if (logType === 3) {
+            debug(message);
+        } else {
+            info(message);
+        }
     });
 }
