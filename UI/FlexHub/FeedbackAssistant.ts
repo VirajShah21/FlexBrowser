@@ -7,10 +7,11 @@ import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import View from '@Hi/View';
 import { ViewController } from '@Hi/ViewController';
+import FeedbackMenu from '@Resources/strings/FeedbackMenu.json';
 import BaseHubWindow from './BaseHubWindow';
+import BugReportDescription from './BugReportDescription';
 import BugReportFeatureSelection from './BugReportFeatureSelection';
 import FeedbackTypeSelection from './FeedbackTypeSelection';
-import FeedbackMenu from '@Resources/strings/FeedbackMenu.json';
 
 export default class FeedbackAssistant extends BaseHubWindow {
     private currentStep = 0;
@@ -63,7 +64,7 @@ export default class FeedbackAssistant extends BaseHubWindow {
     private next(): void {
         this.currentStep += 1;
         if (this.assistantController) {
-            let destination: View<HTMLDivElement> | TextView;
+            let destination: View<HTMLDivElement> | TextView | undefined;
 
             switch (this.currentStep) {
                 case 0:
@@ -72,23 +73,30 @@ export default class FeedbackAssistant extends BaseHubWindow {
                 case 1:
                     if (FeedbackAssistant.feedbackType === 0) {
                         destination = new BugReportFeatureSelection();
-                    } else {
-                        destination = new TextView('Error')
-                            .foreground(HColor('gray'))
-                            .weight(FontWeight.Regular)
-                            .font('lg')
-                            .padding();
                     }
-
+                    break;
+                case 2:
+                    if (
+                        FeedbackAssistant.feedbackType === 0 &&
+                        FeedbackAssistant.bugReportFeature !== undefined
+                    ) {
+                        destination = new BugReportDescription();
+                    }
                     break;
                 default:
-                    destination = new TextView(
-                        'An error occured. ' + this.currentStep,
-                    )
+                    destination = new TextView('An error occured.')
                         .foreground(HColor('gray'))
                         .weight(FontWeight.Regular)
                         .font('lg')
                         .padding();
+            }
+
+            if (!destination) {
+                destination = new TextView('An error occured.')
+                    .foreground(HColor('gray'))
+                    .weight(FontWeight.Regular)
+                    .font('lg')
+                    .padding();
             }
 
             this.assistantController.navigateTo(destination);
@@ -98,6 +106,12 @@ export default class FeedbackAssistant extends BaseHubWindow {
     public static get feedbackType(): number | undefined {
         return FeedbackFormButton.getActiveButtonIndex(
             FeedbackMenu.feedbackType.id,
+        );
+    }
+
+    public static get bugReportFeature(): number | undefined {
+        return FeedbackFormButton.getActiveButtonIndex(
+            FeedbackMenu.bugReportFeature.id,
         );
     }
 }
