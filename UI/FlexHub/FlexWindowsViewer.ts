@@ -142,7 +142,7 @@ export default class FlexWindowViewer extends BaseHubWindow {
                     })
                     .padding(5)
                     .margin({ left: 10 }),
-            ),
+            ).width('100%'),
 
             new ScrollView(
                 new HStack(

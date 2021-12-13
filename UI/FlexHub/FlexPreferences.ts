@@ -17,14 +17,21 @@ export class FlexPreferenceMenuButton extends ClickButton {
             new VStack(
                 Resources.getImageView(`PreferenceIcons/${name}.png`)
                     .height(64)
-                    .width(64),
+                    .width(64)
+                    .padding(),
                 new TextView(name)
                     .weight(FontWeight.Medium)
                     .foreground(HColor('gray')),
-            ),
+            ).stretch(),
         );
 
-        this.width(100).height('100%');
+        this.rounded()
+            .padding()
+            .width(100)
+            .height('100%')
+            .width('100%')
+            .whenMouseOver(ev => ev.view.background(HColor('gray5')))
+            .whenMouseOut(ev => ev.view.background('none'));
     }
 }
 
