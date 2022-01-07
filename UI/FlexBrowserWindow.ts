@@ -1,3 +1,4 @@
+import Sashe from '@Components/Sashe';
 import HideTaskbarButton from '@Components/TaskbarButtons/HideTaskbarButton';
 import LaunchHubTaskbarButton from '@Components/TaskbarButtons/LaunchHubTaskbarButton';
 import NewWindowTaskbarButton from '@Components/TaskbarButtons/NewWindowTaskbarButton';
@@ -123,13 +124,9 @@ export default class FlexBrowserWindow extends HIFullScreenView {
                     })
                     .id('titlebar'),
 
-                new VStack()
-                    .id('error')
-                    .height('100%')
-                    .width('100%')
-                    .backgroundImage(
-                        Resources.getResourcePath('images', 'backdrop.png'),
-                    ),
+                new Spacer(),
+
+                new Sashe().fixed().setBottom(0),
             )
                 .stretch()
                 .background(HColor('background').alpha(0.75)),
