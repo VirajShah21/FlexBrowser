@@ -12,7 +12,6 @@ import Spacer from '@Hi/Components/Spacer';
 import TextField from '@Hi/Components/TextField';
 import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
-import Resources from '@Hi/Resources';
 import { defineTransition } from '@Hi/Transitions/Transition';
 import ValidURL from '@Models/ValidURL';
 
