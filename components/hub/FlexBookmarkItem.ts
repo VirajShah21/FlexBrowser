@@ -1,12 +1,13 @@
 import Favicon from '@Components/Favicon';
 import ThemedButton from '@Components/TaskbarButtons/ThemedButton';
-import { getAverageRGB, HColor } from '@Hi/Colors';
-import ClickButton from '@Hi/Components/ClickButton';
+import { HColor } from '@Hi/Colors';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
+import RGBAModel from '@Hi/RGBAModel';
 import BookmarksManager from '@Models/BookmarksManager';
+import BrowserPreferences from '@Models/BrowserPreferences';
 import ValidURL from '@Models/ValidURL';
 
 export default class FlexBookmarkItem extends ThemedButton {
@@ -23,16 +24,39 @@ export default class FlexBookmarkItem extends ThemedButton {
                         const bookmarkItem = thisFavicon.root(view =>
                             view.getClassList().includes('bookmark-item'),
                         );
+                        const bookmarkButtonIcon =
+                            bookmarkItem.findViewById<IonIcon>(
+                                'bookmark-icon',
+                            )!;
+                        const newColor = RGBAModel.copy(avgRGB);
+
+                        if (
+                            thisFavicon.isLight &&
+                            BrowserPreferences.theme === 'light'
+                        ) {
+                            newColor
+                                .red(avgRGB.r - 100)
+                                .green(avgRGB.g - 100)
+                                .blue(avgRGB.b - 100);
+                        } else if (
+                            !thisFavicon.isLight &&
+                            BrowserPreferences.theme === 'dark'
+                        ) {
+                            newColor
+                                .red(avgRGB.r + 100)
+                                .green(avgRGB.g + 100)
+                                .blue(avgRGB.b + 100);
+                        }
 
                         bookmarkItem
-                            .foreground(avgRGB)
+                            .foreground(newColor)
                             .background(HColor('background'));
 
-                        bookmarkItem
-                            .findViewById('bookmark-icon')
-                            ?.foreground(avgRGB);
+                        bookmarkButtonIcon.foreground(newColor);
                     }),
+
                 new TextView(bookmark.title),
+
                 new Spacer(),
 
                 new ThemedButton(
