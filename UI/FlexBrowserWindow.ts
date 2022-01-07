@@ -1,5 +1,4 @@
 import Sashe from '@Components/Sashe';
-import HideTaskbarButton from '@Components/TaskbarButtons/HideTaskbarButton';
 import LaunchHubTaskbarButton from '@Components/TaskbarButtons/LaunchHubTaskbarButton';
 import NewWindowTaskbarButton from '@Components/TaskbarButtons/NewWindowTaskbarButton';
 import PageNavigationTaskbarButtons from '@Components/TaskbarButtons/PageNavigationTaskbarButtons';
@@ -63,24 +62,6 @@ export default class FlexBrowserWindow extends HIFullScreenView {
     constructor() {
         super(
             new VStack(
-                new HStack(
-                    new HStack().width(100),
-                    new Spacer(),
-                    new TextView('')
-                        .font('sm')
-                        .foreground(HColor('gray'))
-                        .id('titlebar-title'),
-                    new Spacer(),
-                    new HStack(
-                        new Spacer(),
-                        new HideTaskbarButton().padding({ left: 5, right: 5 }),
-                    ).width(100),
-                )
-                    .width('100vw')
-                    .fixed()
-                    .zIndex(100)
-                    .setTop(0)
-                    .padding({ top: 4 }),
                 new HStack(
                     new HStack(new PageNavigationTaskbarButtons(), new Spacer())
                         .width('25%')
