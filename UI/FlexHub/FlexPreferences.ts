@@ -71,11 +71,11 @@ export default class FlexPreferences extends BaseHubWindow {
                     ),
                 ),
 
-                new FlexPreferenceMenuButton('Feedback').whenClicked(() =>
-                    ViewController.getController('AppController')?.navigateTo(
-                        new FeedbackAssistant(),
-                    ),
-                ),
+                // new FlexPreferenceMenuButton('Feedback').whenClicked(() =>
+                //     ViewController.getController('AppController')?.navigateTo(
+                //         new FeedbackAssistant(),
+                //     ),
+                // ),
             )
                 .alignStart()
                 .width('100%'),
