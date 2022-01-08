@@ -3,9 +3,11 @@ import HistoryViewerSearchBar from '@Components/hub/HistoryViewerSearchBar';
 import HubTitlebar from '@Components/hub/HubTitlebar';
 import ThemedButton from '@Components/TaskbarButtons/ThemedButton';
 import { HColor } from '@Hi/Colors';
+import Checkbox from '@Hi/Components/Checkbox';
 import ClickButton from '@Hi/Components/ClickButton';
 import HStack from '@Hi/Components/HStack';
 import IonIcon from '@Hi/Components/IonIcon';
+import Overlay from '@Hi/Components/Overlay';
 import Spacer from '@Hi/Components/Spacer';
 import TextView from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
@@ -95,7 +97,39 @@ export default class HistoryViewer extends BaseHubWindow {
                     .foreground(HColor('background'))
                     .rounded(50)
                     .padding()
-                    .margin({ left: 10 }),
+                    .margin({ left: 10 })
+                    .whenClicked(() => {
+                        const overlay: Overlay = new Overlay(
+                            new VStack(
+                                new HStack(
+                                    new ClickButton(
+                                        new IonIcon('close-circle'),
+                                    ).whenClicked(() => overlay.destroy()),
+                                ).width('100%'),
+
+                                new Spacer(),
+
+                                new HStack(
+                                    new Checkbox().id('should-delete-history'),
+                                    new TextView('Delete All History'),
+                                ),
+
+                                new HStack(
+                                    new Spacer(),
+
+                                    new ClickButton(new TextView('Cancel')),
+
+                                    new Spacer(),
+
+                                    new ClickButton(new TextView('Delete')),
+
+                                    new Spacer(),
+                                ),
+
+                                new Spacer(),
+                            ).stretch(),
+                        );
+                    }),
             )
                 .width('100%')
                 .fixed()
