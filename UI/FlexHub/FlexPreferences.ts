@@ -5,11 +5,10 @@ import TextView, { FontWeight } from '@Hi/Components/TextView';
 import VStack from '@Hi/Components/VStack';
 import Resources from '@Hi/Resources';
 import { ViewController } from '@Hi/ViewController';
-import BaseHubWindow from './BaseHubWindow';
 import ColorPreferences from '../../components/hub/ColorPreferences';
-import SearchEnginePreferences from './SearchEnginePreferences';
+import BaseHubWindow from './BaseHubWindow';
 import IconChangerPreferences from './IconChangerPreferences';
-import FeedbackAssistant from './FeedbackAssistant';
+import SearchEnginePreferences from './SearchEnginePreferences';
 
 export class FlexPreferenceMenuButton extends ClickButton {
     public constructor(public readonly name: string) {
