@@ -101,18 +101,28 @@ export default class HistoryViewer extends BaseHubWindow {
                     .whenClicked(() => {
                         const overlay: Overlay = new Overlay(
                             new VStack(
+                                new Spacer(),
+
                                 new HStack(
                                     new ClickButton(
                                         new IonIcon('close-circle'),
                                     ).whenClicked(() => overlay.destroy()),
-                                ).width('100%'),
+                                )
+                                    .width('100%')
+                                    .font('lg'),
 
                                 new Spacer(),
 
                                 new HStack(
-                                    new Checkbox().id('should-delete-history'),
-                                    new TextView('Delete All History'),
+                                    new Checkbox()
+                                        .id('should-delete-history')
+                                        .font('lg'),
+                                    new TextView('Delete All History').margin({
+                                        left: 25,
+                                    }),
                                 ),
+
+                                new Spacer(),
 
                                 new HStack(
                                     new Spacer(),
